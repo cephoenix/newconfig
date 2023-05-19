@@ -33,7 +33,13 @@ exports = async function(payload){
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
-    throw ("Não encontrou usuário", query)
+    let err = new Error();
+    err.name = 'no_data_provided'
+    err.message = "Não é possível buscar usuário";
+    err.code = 2;
+    err.TypeError = 2;
+    err.e = e
+    throw err;
   }
 
   
@@ -41,6 +47,7 @@ exports = async function(payload){
     try {
       dbResponse = await dbquery.insertOne(parameters);
     } catch(e) {
+    
       throw "Erro: " + e;
     }
 
