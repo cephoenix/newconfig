@@ -29,7 +29,7 @@ exports = async function(payload){
     ]
   }
 
-return {"debug":parameters}
+// return {"debug":parameters}
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
