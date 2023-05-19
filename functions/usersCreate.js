@@ -32,7 +32,7 @@ exports = async function(payload){
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
-    throw ("Não encontrou usuário")
+    throw ("Não encontrou usuário", query)
   }
 
   return {"debug":true}
