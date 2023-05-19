@@ -21,7 +21,7 @@ exports = async function(payload){
     err.TypeError = 2;
     throw err;
   }
-  return {debug3: true}
+
   query = {
     $or: [
       {"login": parameters.login},
