@@ -35,6 +35,7 @@ exports = async function(payload){
     throw ("Não encontrou usuário")
   }
 
+  return {"debug":true}
   if(!dbResponse) {
 
     try {
