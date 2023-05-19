@@ -1,5 +1,5 @@
 exports = async function(payload){
-
+return payload
   let dbResponse;
   let resp = {};
   let query;
