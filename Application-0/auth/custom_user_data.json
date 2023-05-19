@@ -1,0 +1,7 @@
+{
+    "enabled": false,
+    "mongo_service_name": "mongodb-atlas",
+    "database_name": "configRadio",
+    "collection_name": "permissionTest",
+    "user_id_field": "userId"
+}
