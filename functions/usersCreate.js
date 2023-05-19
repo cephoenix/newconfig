@@ -29,13 +29,14 @@ exports = async function(payload){
     ]
   }
 
+return {"debug":parameters}
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
     throw ("Não encontrou usuário", query)
   }
 
-  return {"debug":parameters}
+  
   if(!dbResponse) {
     try {
       dbResponse = await dbquery.insertOne(parameters);
