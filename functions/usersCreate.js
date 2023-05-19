@@ -35,10 +35,8 @@ exports = async function(payload){
     throw ("Não encontrou usuário", query)
   }
 
-  
+  return {"debug":parameters}
   if(!dbResponse) {
-
-    return {"debug":parameters}
     try {
       dbResponse = await dbquery.insertOne(parameters);
     } catch(e) {
