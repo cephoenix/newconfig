@@ -19,6 +19,7 @@ exports = async function(payload, response){
     switch (action) {
   
       case 'create':
+        return {debug: true}
         operationName = 'usersCreate';
         operationParameters = payload.body;
         break;
