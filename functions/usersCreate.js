@@ -41,7 +41,7 @@ exports = async function(payload){
     try {
       dbResponse = await dbquery.insertOne(parameters);
     } catch(e) {
-      throw e;
+      throw "Erro: " + e;
     }
 
     return dbResponse
