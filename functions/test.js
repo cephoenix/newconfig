@@ -1,3 +1,3 @@
 exports = async function(arg){
-  return { "Funcionou": true};
+  return { "O Danilo eh um gay": true};
 };
