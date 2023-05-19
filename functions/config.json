@@ -1,18 +1,14 @@
 [
     {
+        "name": "clientsFindOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
         "name": "doLogin",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94"
-    },
-    {
-        "name": "encryptText",
-        "private": false,
-        "disable_arg_logs": true
-    },
-    {
-        "name": "decryptText",
-        "private": false,
-        "disable_arg_logs": true
     },
     {
         "name": "clientsControl",
@@ -27,7 +23,18 @@
         "disable_arg_logs": true
     },
     {
-        "name": "clientsFindOne",
+        "name": "clientsDeleteOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "encryptText",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsExcludeOne",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -39,31 +46,29 @@
         "disable_arg_logs": true
     },
     {
-        "name": "clientsUpdateOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsExcludeOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsDeleteOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
         "name": "usersControl",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
+        "name": "decryptText",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
         "name": "test",
         "private": false
+    },
+    {
+        "name": "clientsUpdateOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "usersCreate",
+        "private": false,
+        "disable_arg_logs": true
     }
 ]
