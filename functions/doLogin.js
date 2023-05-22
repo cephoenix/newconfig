@@ -5,9 +5,9 @@ exports = async function(payload){
   let message = "MinhaSenha";
   
   let encMessage = await context.functions.execute("encryptText", message);
-  parameters = EJSON.parse(payload.text())
+  // parameters = EJSON.parse(payload.text())
   
-  return {minhasenha: encMessage, password: parameters.password}
+  return {minhasenha: encMessage, password: payload.password}
   // console.log("DEBUG ENC: ", encMessage)
 
   // console.log("DEBUG DEC: ", await context.functions.execute("decryptText", encMessage))
