@@ -6,7 +6,6 @@ exports = async function(data){
   if(data) {
     try {
       parameters = EJSON.parse(data)
-      return {debug: parameters}
     } catch (e) {
       throw (e)
     }
