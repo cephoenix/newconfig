@@ -24,7 +24,7 @@ exports = async function(data){
   // let query = `{login: ${login}}`
   
   let query = {login: login}
-  let users = await context.functions.execute("usersFindMany", EJSON.stringfy(query))
+  let users = await context.functions.execute("usersFindMany", EJSON.stringify(query))
 
   return { users: users };
 }
