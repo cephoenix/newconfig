@@ -6,9 +6,9 @@ exports = async function(payload, response){
   
   let encMessage = await context.functions.execute("encryptText", message);
   
-  console.log("DEBUG ENC: ", encMessage)
+  // console.log("DEBUG ENC: ", encMessage)
   
-  console.log("DEBUG DEC: ", await context.functions.execute("decryptText", encMessage))
+  // console.log("DEBUG DEC: ", await context.functions.execute("decryptText", encMessage))
 
   try {
     login = payload.query.login;
