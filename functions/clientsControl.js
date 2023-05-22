@@ -20,12 +20,12 @@ exports = async function(payload, response){
 
     case 'create':
       operationName = 'clientsCreate';
-      operationParameters = payload.body;
+      operationParameters = payload.body.text();
       break;
 
     case 'findOne':
       operationName = 'clientsFindOne';
-      operationParameters = payload.body;
+      operationParameters = payload.body.text();
       break;
   
     case 'findAll':
@@ -35,22 +35,22 @@ exports = async function(payload, response){
       
     case 'findMany':
       operationName = 'clientsFindMany';
-      operationParameters = payload.body;
+      operationParameters = payload.body.text();
       break;
   
     case 'updateOne':
       operationName = 'clientsUpdateOne';
-      operationParameters = payload.body;
+      operationParameters = payload.body.text();
       break;
 
     case 'excludeOne':
       operationName = 'clientsExcludeOne';
-      operationParameters = payload.body;
+      operationParameters = payload.body.text();
       break;
       
     case 'deleteOne':
       operationName = 'clientsDeleteOne';
-      operationParameters = payload.body;
+      operationParameters = payload.body.text();
       break;
       
     // case 'updateMany':
