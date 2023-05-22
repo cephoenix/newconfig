@@ -3,7 +3,7 @@ exports = async function(data){
   let password;
   let parameters;
 
-  if(payload) {
+  if(data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
