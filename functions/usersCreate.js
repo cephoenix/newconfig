@@ -43,6 +43,8 @@ exports = async function(payload){
 
   if(!dbResponse) {
     try {
+      let password = await context.functions.execute("dectyptText", parameters.password);
+      parameters.password = await context.functions.execute("encryptPassword", password);
       dbResponse = await dbquery.insertOne(parameters);
     } catch(e) {
     
