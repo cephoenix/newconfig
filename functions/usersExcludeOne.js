@@ -5,7 +5,7 @@ exports = async function(payload){
   let resp = {};
   let query;
   let parameters;
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients"); 
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users"); 
   
     if(payload) {
     try {
