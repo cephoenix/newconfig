@@ -13,7 +13,7 @@
     {
         "route": "/doLogin",
         "http_method": "POST",
-        "function_name": "doLogin",
+        "function_name": "loginDoLogin",
         "validation_method": "NO_VALIDATION",
         "respond_result": true,
         "fetch_custom_user_data": false,
