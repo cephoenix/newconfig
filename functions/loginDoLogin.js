@@ -3,13 +3,20 @@ exports = async function(payload){
   let password;
   let parameters;
   
-  try {
-    parameters = EJSON.parse(payload)
-  } catch (e) {
-    throw (e)
+  if(payload) {
+    try {
+      parameters = EJSON.parse(payload.text())
+    } catch (e) {
+      throw (e)
+    }
+  } else {
+    let err = new Error()
+    err.name = 'no_data_provided'
+    err.message = "Não é possível fazer login sem informações"
+    err.code = 2
+    err.TypeError = 2
+    throw err
   }
-  
-  
 
   login = parameters.login;
   password = parameters.password;
