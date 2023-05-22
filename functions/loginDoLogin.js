@@ -22,6 +22,6 @@ exports = async function(data){
   login = parameters.login;
   password = parameters.password;
   users = await context.functions.execute("usersFindMany", EJSON.stringify({login: login}))
-
-  return { users: users };
+  
+  return { length: users.length, size: users.size };
 }
