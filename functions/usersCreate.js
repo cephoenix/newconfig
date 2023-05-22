@@ -28,7 +28,7 @@ exports = async function(payload){
     ]
   }
 
-return {"debug.parameters":parameters, "debug.query": query}
+
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
@@ -41,7 +41,7 @@ return {"debug.parameters":parameters, "debug.query": query}
     throw err;
   }
 
-  
+return {"debug.parameters":parameters, "debug.query": query}  
   if(!dbResponse) {
     try {
       dbResponse = await dbquery.insertOne(parameters);
