@@ -6,6 +6,8 @@ exports = async function(payload, response){
   
   let encMessage = await context.functions.execute("encryptText", message);
   
+  
+  return {minhasenha: "encMessage", password: payload.password}
   // console.log("DEBUG ENC: ", encMessage)
   
   // console.log("DEBUG DEC: ", await context.functions.execute("decryptText", encMessage))
