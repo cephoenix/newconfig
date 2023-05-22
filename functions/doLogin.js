@@ -11,4 +11,4 @@ exports = async function(payload){
   password = parameters.password;
 
   return { login: login, password: await context.functions.execute("decryptText", password)};
-};
+}
