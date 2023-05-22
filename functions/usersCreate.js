@@ -33,7 +33,7 @@ return {"debug.parameters":parameters, "debug.query": query}
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
     let err = new Error();
-    err.name = 'no_data_provided'
+    err.name = 'find_one_error'
     err.message = "Não é possível buscar usuário";
     err.code = 2;
     err.TypeError = 2;
