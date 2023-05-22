@@ -1,8 +1,14 @@
 exports = async function(payload){
   let login;
   let password;
-
-  parameters = EJSON.parse(payload)
+  
+  try {
+    parameters = EJSON.parse(payload)
+  } catch (e) {
+    throw (e)
+  }
+  
+  
 
   login = parameters.login;
   password = parameters.password;
