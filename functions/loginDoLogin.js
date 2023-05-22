@@ -2,7 +2,7 @@ exports = async function(payload){
   let login;
   let password;
 
-  parameters = EJSON.parse(payload.text())
+  parameters = EJSON.parse(payload)
 
   login = parameters.login;
   password = parameters.password;
