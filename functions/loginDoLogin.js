@@ -2,6 +2,7 @@ exports = async function(data){
   let login;
   let password;
   let parameters;
+  let users;
 
   if(data) {
     try {
@@ -20,11 +21,7 @@ exports = async function(data){
 
   login = parameters.login;
   password = parameters.password;
-  // return {debug: parameters}  
-  // let query = `{login: ${login}}`
-  
-  let query = {login: login}
-  let users = await context.functions.execute("usersFindMany", EJSON.stringify(query))
+  users = await context.functions.execute("usersFindMany", EJSON.stringify({login: login}))
 
   return { users: users };
 }
