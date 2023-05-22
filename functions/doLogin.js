@@ -13,8 +13,8 @@ exports = async function(payload){
   // console.log("DEBUG DEC: ", await context.functions.execute("decryptText", encMessage))
 
   try {
-    login = payload.query.login;
-    password = payload.query.password;
+    login = parameters.login;
+    password = parameters.password;
   } catch(err) {
     login = payload.login;
     password = payload.password;
