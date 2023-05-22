@@ -3,16 +3,16 @@
     "database": "configRadio",
     "roles": [
         {
-            "name": "readAll",
+            "name": "readAndWriteAll",
             "apply_when": {},
             "document_filters": {
-                "write": false,
+                "write": true,
                 "read": true
             },
             "read": true,
-            "write": false,
-            "insert": false,
-            "delete": false,
+            "write": true,
+            "insert": true,
+            "delete": true,
             "search": true
         }
     ]
