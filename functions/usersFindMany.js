@@ -13,9 +13,7 @@ exports = async function(data){
   }
 
   try {
-    
     dbResponse = await dbquery.find(parameters)
-    
   } catch (e) {
     throw (e)
   }
