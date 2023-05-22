@@ -23,7 +23,6 @@ exports = async function(data){
   // return {debug: parameters}  
   let query = {login: login}
   let users = await context.functions.execute("usersFindMany", query.text)
-  let retrievedPassword = await context.functions.execute("decryptText", password)
 
-  return { users: users, password: retrievedPassword };
+  return { users: users };
 }
