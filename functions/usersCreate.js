@@ -53,8 +53,8 @@ exports = async function(payload){
     
   } else {
     let err = new Error();
-    err.name = 'client_already_exists'
-    err.message = "Cliente já cadastrado";
+    err.name = 'user_already_exists'
+    err.message = "Usuário já cadastrado";
     err.code = 1;
     err.TypeError = 1;
     throw err;
