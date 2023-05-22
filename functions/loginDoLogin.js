@@ -2,7 +2,7 @@ exports = async function(payload){
   let login;
   let password;
   let parameters;
-  return {debug: payload}
+
   if(payload) {
     try {
       parameters = EJSON.parse(payload.text())
@@ -17,7 +17,7 @@ exports = async function(payload){
     err.TypeError = 2
     throw err
   }
-
+return {debug: payload}
   login = parameters.login;
   password = parameters.password;
   
