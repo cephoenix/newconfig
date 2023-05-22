@@ -18,9 +18,15 @@ exports = async function(data){
   }
 
   dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({login: parameters.login}))
+  
+  //Senha decryptografada enviada pelo frontend
   let rawPassword = await context.functions.execute("decryptText", parameters.password)
+  
+  //Senha encryptada para ser comparada à senha que foi gravada no Banco De Dados
   let encryptedPassword = await context.functions.execute("encryptPassword", rawPassword)
-  return {db: dbResponse.password, param: encryptedPassword, paramDecrypted: rawPassword, debug2: await context.functions.execute("encryptPassword", 'MinhaSenha'), debug3: await context.functions.execute("encryptPassword", rawPassword)}
+  
+  
+  return {rawPassword: rawPassword, dbPassword: dbResponse.password, param: encryptedPassword,  encryptedRaw: await context.functions.execute("encryptPassword", rawPassword)}
   
   if(dbResponse.password == parameters.password) {
     return true;
