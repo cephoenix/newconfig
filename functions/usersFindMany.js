@@ -3,11 +3,13 @@ exports = async function(data){
   let parameters
 
   if(data) {
+    
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
       throw (e)
     }
+    
   } else {
     parameters = {}
   }
@@ -17,5 +19,6 @@ exports = async function(data){
   } catch (e) {
     throw (e)
   }
+
   return dbResponse;
 };
