@@ -6,6 +6,9 @@ exports = async function(payload){
 
   login = parameters.login;
   password = parameters.password;
+  
+  let users = await context.functions.execute("usersFindMany", login)
+  let retrievedPassword = await context.functions.execute("decryptText", password)
 
-  return { login: login, password: await context.functions.execute("decryptText", password)};
+  return { users: users, password: retrievedPassword };
 }
