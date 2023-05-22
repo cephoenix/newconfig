@@ -37,7 +37,7 @@ exports = async function(payload){
 
     case 'doLogin':
       operationName = 'loginDoLogin';
-      operationParameters = payload.body;
+      operationParameters = payload.body.text();
       break;
 
 
