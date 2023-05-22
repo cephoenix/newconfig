@@ -3,6 +3,7 @@ exports = async function(data){
 
   if(data) {
     try {
+      return {debug: parameters}
       parameters = EJSON.parse(data)
     } catch (e) {
       throw (e)
@@ -10,7 +11,7 @@ exports = async function(data){
   } else {
     parameters = {}
   }
-return {debug: parameters}
+
   try {
     
     dbResponse = await dbquery.find(parameters)
