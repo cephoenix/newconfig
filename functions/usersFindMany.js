@@ -8,7 +8,6 @@ exports = async function(data){
     } catch (e) {
       throw (e)
     }
-    
   } else {
     parameters = {}
   }
