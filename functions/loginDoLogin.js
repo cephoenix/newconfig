@@ -17,11 +17,11 @@ exports = async function(payload){
     err.TypeError = 2
     throw err
   }
-return {debug: parameters}
+
   login = parameters.login;
   password = parameters.password;
-  
-  let users = await context.functions.execute("usersFindMany", login)
+  // return {debug: parameters}  
+  let users = await context.functions.execute("usersFindMany", {login: login})
   let retrievedPassword = await context.functions.execute("decryptText", password)
 
   return { users: users, password: retrievedPassword };
