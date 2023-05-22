@@ -1,4 +1,4 @@
-exports = async function(payload){
+exports = async function(data){
 
   let dbResponse;
   let resp = {};
@@ -6,9 +6,9 @@ exports = async function(payload){
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users"); 
   
   
-  if(payload) {
+  if(data) {
     try {
-      parameters = EJSON.parse(payload.text())
+      parameters = EJSON.parse(data)
     } catch (e) {
       throw (e)
     }

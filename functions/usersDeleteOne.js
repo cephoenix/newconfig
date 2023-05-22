@@ -1,4 +1,4 @@
-exports = async function(payload){
+exports = async function(data){
 
 
   let dbResponse;
@@ -9,7 +9,7 @@ exports = async function(payload){
   
     if(payload) {
     try {
-      parameters = EJSON.parse(payload.text())
+      parameters = EJSON.parse(data)
     } catch (e) {
       throw (e)
     }
