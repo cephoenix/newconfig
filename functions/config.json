@@ -54,6 +54,7 @@
     {
         "name": "encryptText",
         "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
