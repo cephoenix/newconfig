@@ -21,8 +21,10 @@ exports = async function(data){
   login = parameters.login;
   password = parameters.password;
   // return {debug: parameters}  
-  let query = `{login: ${login}}`
-  let users = await context.functions.execute("usersFindMany", query)
+  // let query = `{login: ${login}}`
+  
+  let query = {login: login}
+  let users = await context.functions.execute("usersFindMany", EJSON.stringfy(query))
 
   return { users: users };
 }
