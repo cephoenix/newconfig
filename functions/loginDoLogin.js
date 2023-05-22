@@ -1,5 +1,6 @@
 exports = async function(data){
   let parameters;
+  let dbResponse;
 
   if(data) {
     try {
@@ -16,5 +17,13 @@ exports = async function(data){
     throw err
   }
 
-  return await context.functions.execute("usersFindOne", EJSON.stringify({login: login}))
+  dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({login: login}))
+  
+  return {debug: {dbResponse, parameters}}
+  
+  if(dbResponse.password == parameters.password) {
+    return true;
+  }
+  
+  return false;
 }
