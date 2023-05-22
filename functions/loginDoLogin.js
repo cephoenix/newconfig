@@ -1,8 +1,5 @@
 exports = async function(data){
-  let login;
-  let password;
   let parameters;
-  let users;
 
   if(data) {
     try {
@@ -19,9 +16,5 @@ exports = async function(data){
     throw err
   }
 
-  login = parameters.login;
-  password = parameters.password;
-  users = await context.functions.execute("usersFindOne", EJSON.stringify({login: login}))
-  
-  return { users: users, length: users.length, size: users.size };
+  return await context.functions.execute("usersFindOne", EJSON.stringify({login: login}))
 }
