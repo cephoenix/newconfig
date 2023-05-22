@@ -20,7 +20,7 @@ exports = async function(data){
   dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({login: parameters.login}))
   let rawPassword = await context.functions.execute("decryptText", parameters.password)
   let encryptedPassword = await context.functions.execute("encryptPassword", rawPassword)
-  return {db: dbResponse.password, param: encryptedPassword, paramDecrypted: rawPassword, debug2: await context.functions.execute("encryptPassword", 'MinhaSenha')}
+  return {db: dbResponse.password, param: encryptedPassword, paramDecrypted: rawPassword, debug2: await context.functions.execute("encryptPassword", 'MinhaSenha'), debug3: await context.functions.execute("encryptPassword", rawPassword)}
   
   if(dbResponse.password == parameters.password) {
     return true;
