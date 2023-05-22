@@ -10,9 +10,9 @@ exports = async function(data){
   } else {
     parameters = {}
   }
-
+return {debug: parameters}
   try {
-    return {debug: parameters}
+    
     dbResponse = await dbquery.find(parameters)
     
   } catch (e) {
