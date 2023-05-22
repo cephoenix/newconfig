@@ -75,7 +75,6 @@ exports = async function(payload, response){
       let err = new Error();
       
       if(action!=null) {
-        return {'action':action};
         err.name = 'invalid_action_informed'
         err.message = "Invalid action was informed";                
       } else {
