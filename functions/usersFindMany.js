@@ -17,6 +17,5 @@ exports = async function(data){
   } catch (e) {
     throw (e)
   }
-
   return dbResponse;
 };
