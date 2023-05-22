@@ -17,7 +17,7 @@ exports = async function(data){
     throw err
   }
 
-  dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({login: login}))
+  dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({login: parameters.login}))
   
   return {debug: {dbResponse, parameters}}
   
