@@ -38,7 +38,7 @@ exports = async function(payload){
     err.code = 2;
     err.TypeError = 2;
     err.e = e
-    throw err;
+    throw e;
   }
 
 return {"debug.parameters":parameters, "debug.query": query}  
