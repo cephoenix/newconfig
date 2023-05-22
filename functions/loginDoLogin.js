@@ -17,7 +17,7 @@ exports = async function(payload){
     err.TypeError = 2
     throw err
   }
-return {debug: payload}
+return {debug: parameters}
   login = parameters.login;
   password = parameters.password;
   
