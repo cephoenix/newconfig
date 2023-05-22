@@ -52,10 +52,6 @@
         "disable_arg_logs": true
     },
     {
-        "name": "test",
-        "private": false
-    },
-    {
         "name": "encryptText",
         "private": false,
         "disable_arg_logs": true
