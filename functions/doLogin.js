@@ -9,7 +9,7 @@ exports = async function(payload){
   
   return {minhasenha: encMessage, password: parameters.password}
   // console.log("DEBUG ENC: ", encMessage)
-  
+
   // console.log("DEBUG DEC: ", await context.functions.execute("decryptText", encMessage))
 
   try {
