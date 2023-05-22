@@ -1,4 +1,4 @@
-exports = async function(payload, response){
+exports = async function(payload){
   let login;
   let password;
 
