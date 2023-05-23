@@ -22,11 +22,11 @@ exports = async function(data){
 
   // return {debug: await context.functions.execute("encryptPassword", parameters.rawPassword)}
   let hashedPass = await context.functions.execute("encryptPassword", parameters.password)
-  let encryptedPassword = await context.functions.execute("encryptText", parameters.password)
+  let encryptedPassword = await context.functions.execute("encryptText", "mysalt", parameters.password)
 
 
   //Senha decryptografada enviada pelo frontend
-  let rawPassword = await context.functions.execute("decryptText", parameters.password)
+  // let rawPassword = await context.functions.execute("decryptText", "mysalt", parameters.password)
   
   //Senha encryptada para ser comparada à senha que foi gravada no Banco De Dados
   
