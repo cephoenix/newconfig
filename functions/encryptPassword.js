@@ -4,5 +4,5 @@ exports = async function(arg){
     "sha1",
     salt + arg,
   ).toHex().toUpperCase();
-return encryptedPassword
+  return encryptedPassword
 };
