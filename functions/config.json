@@ -13,16 +13,19 @@
     },
     {
         "name": "radiosDeleteOne",
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "private": false,
         "disable_arg_logs": true
     },
     {
         "name": "usersDeleteOne",
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "private": false,
         "disable_arg_logs": true
     },
     {
         "name": "radiosFindOne",
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "private": false,
         "disable_arg_logs": true
     },
@@ -34,11 +37,13 @@
     },
     {
         "name": "radiosFindMany",
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "private": false,
         "disable_arg_logs": true
     },
     {
         "name": "radiosUpdateOne",
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "private": false,
         "disable_arg_logs": true
     },
@@ -81,6 +86,7 @@
     {
         "name": "usersCreate",
         "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
@@ -104,17 +110,20 @@
     {
         "name": "radiosCreate",
         "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
         "name": "radiosExcludeOne",
         "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
         "name": "loginDoLogin",
         "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94"
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
     },
     {
         "name": "usersControl",
@@ -125,12 +134,14 @@
     {
         "name": "radiosControl",
         "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
         "name": "loginControl",
         "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94"
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
     },
     {
         "name": "clientsDeleteOne",
