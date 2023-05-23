@@ -17,7 +17,7 @@
 //     .join("");
 // };
 
-exports = async function(key, text){
+exports = async function (key, text) {
   // text += "WDTA@955C2E606B96D82886"
   // text = Buffer.from(text).toString('base64');
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
@@ -25,11 +25,11 @@ exports = async function(key, text){
   const applySaltToChar = (code) => textToChars(key).reduce((a, b) => a ^ b, code);
 
   var ret = text
-              .split("")
-              .map(textToChars)
-              .map(applySaltToChar)
-              .map(byteHex)
-              .join("")
+    .split("")
+    .map(textToChars)
+    .map(applySaltToChar)
+    .map(byteHex)
+    .join("")
   ret = Buffer.from(ret).toString('base64');
   return ret;
 };

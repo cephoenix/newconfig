@@ -1,12 +1,12 @@
-exports = async function(data){
+exports = async function (data) {
 
   let dbResponse;
   let resp = {};
   let query;
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients"); 
-  
-  
-  if(data) {
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
+
+
+  if (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
@@ -21,7 +21,7 @@ exports = async function(data){
     throw err;
   }
   // query = {"_id": new BSON.ObjectId(parameters._id)}
-  query = {"_id": parameters._id}
+  query = { "_id": parameters._id }
 
   try {
     dbResponse = await dbquery.updateOne(query, parameters, { upsert: false })

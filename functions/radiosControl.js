@@ -1,6 +1,6 @@
-exports = async function(payload, response){
+exports = async function (payload, response) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios"); 
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
   let action;
   let resp = {};
   let debug;
@@ -27,17 +27,17 @@ exports = async function(payload, response){
       operationName = 'radiosFindOne';
       operationParameters = payload.body.text();
       break;
-  
+
     case 'findAll':
       operationName = 'radiosFindMany';
       operationParameters = null;
       break;
-      
+
     case 'findMany':
       operationName = 'radiosFindMany';
       operationParameters = payload.body.text();
       break;
-  
+
     case 'updateOne':
       operationName = 'radiosUpdateOne';
       operationParameters = payload.body.text();
@@ -47,12 +47,12 @@ exports = async function(payload, response){
       operationName = 'radiosExcludeOne';
       operationParameters = payload.body.text();
       break;
-      
+
     case 'deleteOne':
       operationName = 'radiosDeleteOne';
       operationParameters = payload.body.text();
       break;
-      
+
     // case 'updateMany':
     //   // resultado = await dbquery.updateOne(
     //   //   args.filter, 
@@ -61,7 +61,7 @@ exports = async function(payload, response){
     //   //   ]
     //   // );
     //   break;
-  
+
     // case 'excludeMany':
     //   // resultado = await dbquery.updateOne(
     //   //   args.filter, 
@@ -70,27 +70,27 @@ exports = async function(payload, response){
     //   //   ]
     //   // );
     //   break;
-  
+
     default:
       let err = new Error();
-      
-      if(action!=null) {
+
+      if (action != null) {
         err.name = 'invalid_action_informed'
-        err.message = "Invalid action was informed";                
+        err.message = "Invalid action was informed";
       } else {
         err.name = 'no_action_informed'
-        err.message = "No action was informed";        
+        err.message = "No action was informed";
       }
       err.code = 1;
       err.TypeError = 1;
       throw err;
   }
 
-  
+
   try {
-      operationResponse = await context.functions.execute(operationName, operationParameters);
-  } catch (e){
-      throw(e)
+    operationResponse = await context.functions.execute(operationName, operationParameters);
+  } catch (e) {
+    throw (e)
   }
 
   resp.status = 'success';

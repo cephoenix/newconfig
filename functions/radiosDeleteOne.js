@@ -1,13 +1,13 @@
-exports = async function(data){
+exports = async function (data) {
 
 
   let dbResponse;
   let resp = {};
   let query;
   let parameters;
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios"); 
-  
-  if(data) {
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
+
+  if (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
@@ -22,7 +22,7 @@ exports = async function(data){
     throw err;
   }
 
-  query = {"_id": new BSON.ObjectId(parameters._id)}
+  query = { "_id": new BSON.ObjectId(parameters._id) }
   try {
     dbResponse = await dbquery.deleteOne(query)
   } catch (e) {

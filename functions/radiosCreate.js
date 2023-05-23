@@ -1,12 +1,12 @@
-exports = async function(data){
+exports = async function (data) {
 
   let dbResponse;
   let resp = {};
   let query;
   let parameters;
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios"); 
-  
-  if(data) {
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
+
+  if (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
@@ -23,7 +23,7 @@ exports = async function(data){
 
   query = {
     $or: [
-      {"address64Bits": parameters.address64Bits}
+      { "address64Bits": parameters.address64Bits }
     ]
   }
 
@@ -40,15 +40,15 @@ exports = async function(data){
   }
 
 
-  if(!dbResponse) {
+  if (!dbResponse) {
     try {
       dbResponse = await dbquery.insertOne(parameters);
-    } catch(e) {
+    } catch (e) {
       throw "Erro: " + e;
     }
 
     return dbResponse
-    
+
   } else {
     let err = new Error();
     err.name = 'radio_already_exists'

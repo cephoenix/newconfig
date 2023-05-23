@@ -1,12 +1,12 @@
-exports = async function(data){
+exports = async function (data) {
 
   let dbResponse;
   let resp = {};
   let query;
   let parameters;
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users"); 
-  
-  if(data) {
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users");
+
+  if (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
@@ -23,8 +23,8 @@ exports = async function(data){
 
   query = {
     $or: [
-      {"login": parameters.login},
-      {"cpfCnpj": parameters.cpfCnpj}
+      { "login": parameters.login },
+      { "cpfCnpj": parameters.cpfCnpj }
     ]
   }
 
@@ -41,18 +41,18 @@ exports = async function(data){
   }
 
 
-  if(!dbResponse) {
+  if (!dbResponse) {
     try {
       let password = await context.functions.execute("decryptText", parameters.password);
       parameters.password = await context.functions.execute("encryptPassword", password);
       dbResponse = await dbquery.insertOne(parameters);
-    } catch(e) {
-    
+    } catch (e) {
+
       throw "Erro: " + e;
     }
 
     return dbResponse
-    
+
   } else {
     let err = new Error();
     err.name = 'user_already_exists'

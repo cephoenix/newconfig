@@ -1,13 +1,13 @@
-exports = async function(data){
+exports = async function (data) {
 
   let dbResponse;
   let resp = {};
   let query;
   let parameters;
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients"); 
-  return {payload: payload}
-  
-  if(data) {
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
+  return { payload: payload }
+
+  if (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
@@ -24,10 +24,10 @@ exports = async function(data){
 
   query = {
     $or: [
-      {"initials": parameters.initials},
-      {"cpfCnpj": parameters.cpfCnpj},
-      {"networkKey": parameters.networkKey},
-      {"panId": parameters.panId}
+      { "initials": parameters.initials },
+      { "cpfCnpj": parameters.cpfCnpj },
+      { "networkKey": parameters.networkKey },
+      { "panId": parameters.panId }
     ]
   }
 
@@ -37,16 +37,16 @@ exports = async function(data){
     throw (e)
   }
 
-  if(!dbResponse) {
+  if (!dbResponse) {
 
     try {
       dbResponse = await dbquery.insertOne(parameters);
-    } catch(e) {
+    } catch (e) {
       throw e;
     }
 
     return dbResponse
-    
+
   } else {
     let err = new Error();
     err.name = 'client_already_exists'
