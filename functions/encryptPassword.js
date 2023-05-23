@@ -4,7 +4,5 @@ exports = async function(arg){
     "sha1",
     salt + arg,
   ).toHex().toUpperCase();
-  // return crypto.createHash('sha256').update(arg).digest('base64')
-  return encryptedPassword
-
+return encryptedPassword
 };
