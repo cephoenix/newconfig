@@ -1,7 +1,7 @@
 [
     {
         "name": "decryptText",
-        "private": false,
+        "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
@@ -79,7 +79,7 @@
     },
     {
         "name": "encryptPassword",
-        "private": false,
+        "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
@@ -103,7 +103,7 @@
     },
     {
         "name": "encryptText",
-        "private": false,
+        "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
