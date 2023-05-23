@@ -1,5 +1,5 @@
 exports = async function (data) {
-
+return {debug: data}
   let parameters;
   
   if (data.query) {
