@@ -10,10 +10,10 @@
 //   return encryptedText.text();
 // };
 
-exports = async function(salt, encoded){
+exports = async function(key, encoded){
   
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
-  const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+  const applySaltToChar = (code) => textToChars(key).reduce((a, b) => a ^ b, code);
   
   temp = Buffer.from(encoded, 'base64').toString('utf8');
 

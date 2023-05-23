@@ -17,12 +17,12 @@
 //     .join("");
 // };
 
-exports = async function(salt, text){
+exports = async function(key, text){
   // text += "WDTA@955C2E606B96D82886"
   // text = Buffer.from(text).toString('base64');
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
   const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
-  const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+  const applySaltToChar = (code) => textToChars(key).reduce((a, b) => a ^ b, code);
 
   var ret = text
               .split("")
