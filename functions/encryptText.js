@@ -29,5 +29,6 @@ exports = async function(salt, text){
     .map(textToChars)
     .map(applySaltToChar)
     .map(byteHex)
-    .join("");
+    .join("")
+    .toUpperCase();
 };
