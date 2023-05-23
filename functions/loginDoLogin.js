@@ -21,11 +21,10 @@ exports = async function(data){
 
 
   // return {debug: await context.functions.execute("encryptPassword", parameters.rawPassword)}
-  let encPass = await context.functions.execute("encryptText", parameters.rawPassword)
+  let hashedPass = await context.functions.execute("encryptPassword", parameters.rawPassword)
   return {
-    debug: encPass, 
-    rawPassword: parameters.rawPassword,
-    decryptedText: await context.functions.execute("decryptText", parameters.password)
+    debug: hashedPass, 
+    rawPassword: parameters.rawPassword
   }
 
   //Senha decryptografada enviada pelo frontend
