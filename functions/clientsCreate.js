@@ -31,7 +31,7 @@ exports = async function (data) {
   }
 
   try {
-    operationResponse = await context.functions.execute('databaseFindOne', { query: parameters.stringify(), collection: "clients" });
+    operationResponse = await context.functions.execute('databaseFindOne', EJSON.stringify({ query: parameters, collection: "clients" }));
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
     throw (e)
