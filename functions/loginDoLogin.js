@@ -33,7 +33,7 @@ exports = async function(data){
   
   
   return {
-    password: parameters.rawPassword,
+    password: parameters.password,
     hashedPass: hashedPass,
     encryptedPassword: encryptedPassword
   }
