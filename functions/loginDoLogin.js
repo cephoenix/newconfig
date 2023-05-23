@@ -35,8 +35,8 @@ exports = async function(data){
   return {
     password: parameters.password,
     hashedPass: hashedPass,
-    encryptedPassword: encryptedPassword.toHex().toUpperCase(),
-    decryptedPassword: decryptedPassword.toHex().toUpperCase()
+    encryptedPassword: encryptedPassword,
+    decryptedPassword: decryptedPassword
   }
   
   if(dbResponse.password == parameters.password) {
