@@ -25,7 +25,7 @@ exports = async function (payload, response) {
 
     case 'findOne':
       operationName = 'databaseFindOne';
-      operationParameters = { query: payload.body.text(), collection:  collection};
+      operationParameters = { query: payload.body.text(), collection:  "clients"};
       // operationParameters = payload.body.text();
       break;
 
