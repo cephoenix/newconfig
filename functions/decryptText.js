@@ -23,9 +23,9 @@ exports = async function(salt, encoded){
               .join("");
 
 
-  temp = temp.toLowerCase()
+  // temp = temp.toLowerCase()
   
-  temp = Buffer.from(temp, 'base64').toString('utf8');
+  // temp = Buffer.from(temp, 'base64').toString('utf8');
 
   return temp;
 };
