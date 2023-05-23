@@ -31,5 +31,5 @@ exports = async function(salt, text){
               .map(byteHex)
               .join("")
   ret = Buffer.from(ret).toString('base64');
-  return ret.toHex();
+  return ret;
 };
