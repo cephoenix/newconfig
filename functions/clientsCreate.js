@@ -9,15 +9,12 @@ exports = async function (data) {
 
 
   if (data) {
-    
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
-      return {if:data}
       throw (e)
     }
   } else {
-    return {else: data}
     let err = new Error()
     err.name = 'no_data_provided'
     err.message = "Não é possível adicionar um registro em branco"
@@ -36,6 +33,7 @@ exports = async function (data) {
   }
 
   try {
+    return {debug: parameters}
     operationResponse = await context.functions.execute('databaseFindOne', EJSON.stringify({ query: parameters, collection: "clients" }));
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
