@@ -6,15 +6,17 @@ exports = async function (data) {
   let parameters;
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
 
-return data
+
 
   if (data) {
+    return {if:data}
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
       throw (e)
     }
   } else {
+    return {else: data}
     let err = new Error()
     err.name = 'no_data_provided'
     err.message = "Não é possível adicionar um registro em branco"
