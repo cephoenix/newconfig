@@ -9,10 +9,11 @@ exports = async function (data) {
 
 
   if (data) {
-    return {if:data}
+    
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
+      return {if:data}
       throw (e)
     }
   } else {
