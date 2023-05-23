@@ -11,16 +11,23 @@
 // };
 
 exports = async function(salt, encoded){
-  encoded = encoded.toLowerCase()
   
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
   const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
-  return encoded
-    .match(/.{1,2}/g)
-    .map((hex) => parseInt(hex, 16))
-    .map(applySaltToChar)
-    .map((charCode) => String.fromCharCode(charCode))
-    .join("");
+
+  var temp = encoded
+              .match(/.{1,2}/g)
+              .map((hex) => parseInt(hex, 16))
+              .map(applySaltToChar)
+              .map((charCode) => String.fromCharCode(charCode))
+              .join("");
+
+
+  temp = temp.toLowerCase()
+  
+  temp = Buffer.from(temp, 'base64').toString('utf8');
+
+  return temp;
 };
 
 
