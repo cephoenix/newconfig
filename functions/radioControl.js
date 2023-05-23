@@ -1,6 +1,6 @@
 exports = async function(payload, response){
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients"); 
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios"); 
   let action;
   let resp = {};
   let debug;
@@ -19,37 +19,37 @@ exports = async function(payload, response){
   switch (action) {
 
     case 'create':
-      operationName = 'clientsCreate';
+      operationName = 'radiosCreate';
       operationParameters = payload.body.text();
       break;
 
     case 'findOne':
-      operationName = 'clientsFindOne';
+      operationName = 'radiosFindOne';
       operationParameters = payload.body.text();
       break;
   
     case 'findAll':
-      operationName = 'clientsFindMany';
+      operationName = 'radiosFindMany';
       operationParameters = null;
       break;
       
     case 'findMany':
-      operationName = 'clientsFindMany';
+      operationName = 'radiosFindMany';
       operationParameters = payload.body.text();
       break;
   
     case 'updateOne':
-      operationName = 'clientsUpdateOne';
+      operationName = 'radiosUpdateOne';
       operationParameters = payload.body.text();
       break;
 
     case 'excludeOne':
-      operationName = 'clientsExcludeOne';
+      operationName = 'radiosExcludeOne';
       operationParameters = payload.body.text();
       break;
       
     case 'deleteOne':
-      operationName = 'clientsDeleteOne';
+      operationName = 'radiosDeleteOne';
       operationParameters = payload.body.text();
       break;
       
