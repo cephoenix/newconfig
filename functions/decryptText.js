@@ -14,8 +14,10 @@ exports = async function(salt, encoded){
   
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
   const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+  
+  temp = Buffer.from(encoded, 'base64').toString('utf8');
 
-  var temp = encoded
+  var temp = temp
               .match(/.{1,2}/g)
               .map((hex) => parseInt(hex, 16))
               .map(applySaltToChar)
@@ -25,7 +27,7 @@ exports = async function(salt, encoded){
 
   // temp = temp.toLowerCase()
   
-  // temp = Buffer.from(temp, 'base64').toString('utf8');
+  
 
   return temp;
 };
