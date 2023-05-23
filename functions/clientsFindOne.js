@@ -1,4 +1,4 @@
-// exports = async function (data) {
+exports = async function (data) {
 //   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
 
 //   if (data) {
@@ -23,4 +23,10 @@
 //   }
 
 //   return dbResponse;
-// };
+  let err = new Error();
+  err.name = 'function_deleted'
+  err.message = "Essa função não existe mais";
+  err.code = 5;
+  err.TypeError = 1;
+  throw err;
+};
