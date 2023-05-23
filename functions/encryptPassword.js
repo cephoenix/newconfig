@@ -7,7 +7,8 @@ exports = async function(arg){
     "sha1",
     "key",
   ).toHex().toUpperCase();
-  return crypto.createHash('sha256').update(arg).digest('base64')
+  // return crypto.createHash('sha256').update(arg).digest('base64')
+  return encryptedPassword
 
 };
 
