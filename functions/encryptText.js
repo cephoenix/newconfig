@@ -24,10 +24,12 @@ exports = async function(salt, text){
   const byteHex = (n) => ("0" + Number(n).toString(16)).substr(-2);
   const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
 
-  return text
-    .split("")
-    .map(textToChars)
-    .map(applySaltToChar)
-    .map(byteHex)
-    .join("");
+  var ret = text
+              .split("")
+              .map(textToChars)
+              .map(applySaltToChar)
+              .map(byteHex)
+              .join("")
+  ret = Buffer.from(ret).toString('base64');
+  return ret;
 };
