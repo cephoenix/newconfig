@@ -20,7 +20,8 @@ exports = async function(data){
   dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({login: parameters.login}))
 
 
-  return {debug: await context.functions.execute("encryptPassword", parameters.rawPassword)}
+  // return {debug: await context.functions.execute("encryptPassword", parameters.rawPassword)}
+  return {debug: await context.functions.execute("encryptText", parameters.rawPassword)}
   
   //Senha decryptografada enviada pelo frontend
   let rawPassword = await context.functions.execute("decryptText", parameters.password)
