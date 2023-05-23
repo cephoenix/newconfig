@@ -22,7 +22,7 @@ exports = async function(data){
 
   // return {debug: await context.functions.execute("encryptPassword", parameters.rawPassword)}
   
-  let encryptedPassword = await context.functions.execute("encryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.password)
+  // let encryptedPassword = await context.functions.execute("encryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.password)
   let decryptedPassword = await context.functions.execute("decryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.encryptedPassword)
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
   //Senha decryptografada enviada pelo frontend
@@ -35,9 +35,8 @@ exports = async function(data){
   
   if(dbResponse.password == hashedPass) {
     return {
-      password: parameters.password,
       hashedPass: hashedPass,
-      encryptedPassword: encryptedPassword,
+      // encryptedPassword: encryptedPassword,
       decryptedPassword: decryptedPassword,
       dbResponse: dbResponse
     }
