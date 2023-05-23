@@ -35,10 +35,7 @@ exports = async function(data){
   
   if(dbResponse.password == hashedPass) {
     return {
-      hashedPass: hashedPass,
-      // encryptedPassword: encryptedPassword,
-      decryptedPassword: decryptedPassword,
-      dbResponse: dbResponse
+      "sessionId":"A52B7A89FE6A3BA58D8C"
     }
   } 
   
