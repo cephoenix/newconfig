@@ -32,21 +32,19 @@ exports = async function (data) {
   }
 
   try {
+    operationResponse = await context.functions.execute('databaseFindOne', { query: payload.body.text(), collection: "clients" });
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
     throw (e)
   }
 
   if (!dbResponse) {
-
     try {
       dbResponse = await dbquery.insertOne(parameters);
     } catch (e) {
       throw e;
     }
-
     return dbResponse
-
   } else {
     let err = new Error();
     err.name = 'client_already_exists'
