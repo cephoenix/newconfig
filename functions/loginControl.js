@@ -64,7 +64,6 @@ exports = async function (payload) {
     operationResponse = e.message
   }
 
-  resp.success = true;
   resp.data = operationResponse;
   return resp;
 };
