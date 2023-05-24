@@ -18,7 +18,7 @@ exports = async function (data) {
 
   if(dbResponse === null) {
     let err = new Error()
-    err.message = "Usuário inexistente!"
+    err.message = "Senha ou usuário incorretos!"
     throw err
   }
 
@@ -27,7 +27,7 @@ exports = async function (data) {
 
   if (dbResponse.password !== hashedPass) {
     let err = new Error()
-    err.message = "Senha incorreta!"
+    err.message = "Senha ou usuário incorretos!"
     throw err
   }
 
