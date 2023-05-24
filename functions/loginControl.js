@@ -20,11 +20,11 @@ exports = async function (payload) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
   let action;
   let resp = {};
-  let debug;
   let operationName;
   let operationResponse;
   let operationParameters;
-  let body;
+  let success = true;
+
 
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
@@ -64,6 +64,7 @@ exports = async function (payload) {
     operationResponse = e.message
   }
 
+  resp.success = success;
   resp.data = operationResponse;
   return resp;
 };
