@@ -1,6 +1,4 @@
 exports = async function (payload) {
-
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
   let action;
   let resp = {};
   let operationName;

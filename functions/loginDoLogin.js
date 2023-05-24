@@ -15,7 +15,6 @@ exports = async function (data) {
   }
 
   dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
-  // dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({ login: parameters.login }))
 
   if(dbResponse === null) {
     let err = new Error()
@@ -32,5 +31,5 @@ exports = async function (data) {
     throw err
   }
 
-  return { "sessionId": "A52B7A89FE6A3BA58D8C" }
+  return { "sessionId": "A52B7A89FE6A3BA58D8C" }  //@todo implementar mecanismo de sessão
 }
