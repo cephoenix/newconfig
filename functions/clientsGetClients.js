@@ -10,7 +10,6 @@ exports = async function (data) {
 
   if(parameters.sessionId === "A52B7A89FE6A3BA58D8C") {
     try {
-      return {debug: true}
       dbResponse = await dbquery.find({})
       return dbResponse;
     } catch (e) {

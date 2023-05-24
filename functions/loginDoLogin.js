@@ -13,6 +13,7 @@ exports = async function (data) {
     err.message = "Não é possível fazer login sem informações"
     throw err
   }
+  return {debug: true}
 
   dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
 
