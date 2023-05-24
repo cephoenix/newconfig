@@ -16,7 +16,13 @@ exports = async function (data) {
     throw err
   }
 
-  dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
+  try {
+    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
+  } catch (e) {
+    throw e
+  }
+
+  
 
   if(dbResponse === null) {
     let err = new Error()
