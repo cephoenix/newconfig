@@ -6,7 +6,9 @@ exports = async function (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
-      throw (e)
+      let err = new Error()
+      err.message = "Não é possível fazer login. Verifique as credenciais informadas."
+      throw err
     }
   } else {
     let err = new Error()
