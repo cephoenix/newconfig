@@ -21,6 +21,6 @@ exports = async function (data) {
   } catch (e) {
     let err = new Error();
     err.message = "Não é possível buscar " + data.collection;
-    throw e;
+    throw err;
   }
 };
