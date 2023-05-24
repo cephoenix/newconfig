@@ -94,7 +94,7 @@ exports = async function (payload, response) {
     throw (e)
   }
 
-  resp.status = 'success';
+  resp.success = 'true';
   resp.data = operationResponse;
   return resp;
 };

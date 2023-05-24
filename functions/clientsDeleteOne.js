@@ -30,5 +30,4 @@ exports = async function (data) {
   }
 
   return dbResponse
-
 }
