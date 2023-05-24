@@ -1,24 +1,12 @@
 [
     {
-        "name": "clientsFindMany",
-        "private": false,
+        "name": "decryptText",
+        "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "radiosUpdateOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "usersFindMany",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "usersExcludeOne",
+        "name": "usersCreate",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -30,55 +18,18 @@
         "disable_arg_logs": true
     },
     {
-        "name": "loginDoLogin",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "radiosFindMany",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsCreate",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "decryptText",
-        "private": true,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsExcludeOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "usersCreate",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
         "name": "clientsControl",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "usersControl",
+        "name": "databaseFindMany",
         "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "encryptPassword",
+        "name": "encryptText",
         "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -90,37 +41,7 @@
         "disable_arg_logs": true
     },
     {
-        "name": "usersFindOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "radiosExcludeOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsGetClients",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsUpdateOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "radiosDeleteOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "loginControl",
+        "name": "radiosControl",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -132,24 +53,13 @@
         "disable_arg_logs": true
     },
     {
-        "name": "encryptText",
-        "private": true,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsDeleteOne",
+        "name": "usersExcludeOne",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "databaseFindOne",
-        "private": false,
-        "disable_arg_logs": true
-    },
-    {
-        "name": "radiosControl",
+        "name": "loginControl",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -161,14 +71,128 @@
         "disable_arg_logs": true
     },
     {
+        "name": "clientsCreate",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsDeleteOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
         "name": "clientsFindOne",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "databaseFindMany",
+        "name": "radiosUpdateOne",
         "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsGetClients",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "databaseFindOne",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "loginDoLogin",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsUpdateOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "radiosFindMany",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "usersControl",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "usersFindMany",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "encryptPassword",
+        "private": true,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsFindMany",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "usersFindOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsExcludeOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "radiosExcludeOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "radiosDeleteOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "databaseInsertOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "databaseDeleteOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "databaseExcludeOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "databaseUpdateOne",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     }
 ]
