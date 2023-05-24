@@ -32,7 +32,6 @@ exports = async function (data) {
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
-    return { debug: "Erro Query" };
     let err = new Error();
     err.name = 'find_one_error'
     err.message = "Não é possível buscar usuário";
