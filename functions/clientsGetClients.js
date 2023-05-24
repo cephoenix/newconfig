@@ -4,16 +4,15 @@ exports = async function (data) {
   
   
   try {
-
     parameters = EJSON.parse(data)
-    return {debug: parameters}
   } catch (e) {
     let err = new Error()
-    err.message = "Id da sessão de usuário inválido"
+    err.message = "Falha ao buscar o ID da sessão de usuário!"
     throw err
   }
   
   try {
+    return {debug: parameters}
     dbResponse = await dbquery.find(parameters)
   } catch (e) {
     throw (e)
