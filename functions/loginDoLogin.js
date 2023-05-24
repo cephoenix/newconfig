@@ -34,10 +34,7 @@ exports = async function (data) {
   //Senha encryptada para ser comparada à senha que foi gravada no Banco De Dados
 
   if (dbResponse.password == hashedPass) {
-    return {
-      success: true,
-      data: { "sessionId": "A52B7A89FE6A3BA58D8C" }
-    }
+    return { "sessionId": "A52B7A89FE6A3BA58D8C" }
   }
 
   let err = new Error()
