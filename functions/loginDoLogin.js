@@ -25,7 +25,7 @@ exports = async function (data) {
   // let encryptedPassword = await context.functions.execute("encryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.password)
 
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
-  
+
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
 
   // return { senhaComHash: hashedPass, senhaDoBanco: dbResponse.password }
@@ -35,7 +35,8 @@ exports = async function (data) {
 
   if (dbResponse.password == hashedPass) {
     return {
-      "sessionId": "A52B7A89FE6A3BA58D8C"
+      success: true,
+      data: { "sessionId": "A52B7A89FE6A3BA58D8C" }
     }
   }
 
