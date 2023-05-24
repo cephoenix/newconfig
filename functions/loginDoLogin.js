@@ -17,6 +17,7 @@ exports = async function (data) {
   dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({ login: parameters.login }))
 
   if(dbResponse === null) {
+    return {debug: true}
     let err = new Error()
     err.message = "Usuário inexistente!"
     throw err.message
