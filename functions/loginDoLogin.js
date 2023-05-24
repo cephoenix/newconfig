@@ -27,7 +27,6 @@ exports = async function (data) {
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
   //Senha decryptografada enviada pelo frontend
   // let rawPassword = await context.functions.execute("decryptText", "mysalt", parameters.password)
-
   //Senha encryptada para ser comparada à senha que foi gravada no Banco De Dados
 
   if (dbResponse.password == hashedPass) {
