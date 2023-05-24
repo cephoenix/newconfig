@@ -7,10 +7,11 @@ exports = async function (data) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users");
 
   if (data) {
-    return { debug: data };
+    
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
+      return { debug: "erro no parse"};
       throw (e)
     }
   } else {
@@ -30,8 +31,10 @@ exports = async function (data) {
   }
 
   try {
+    return { debug: "gonna query" };
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
+    return { debug: "Erro Query" };
     let err = new Error();
     err.name = 'find_one_error'
     err.message = "Não é possível buscar usuário";
