@@ -11,7 +11,6 @@ exports = async function (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
-      return { debug: "erro no parse"};
       throw (e)
     }
   } else {
@@ -31,7 +30,6 @@ exports = async function (data) {
   }
 
   try {
-    return { debug: "gonna query" };
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
     return { debug: "Erro Query" };
@@ -46,6 +44,7 @@ exports = async function (data) {
 
 
   if (!dbResponse) {
+    return { debug: "Usuário não encontradao... vamos inserir" };
     try {
       let password = await context.functions.execute("decryptText", parameters.password);
       parameters.password = await context.functions.execute("encryptPassword", password);
