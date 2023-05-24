@@ -47,7 +47,6 @@ exports = async function (data) {
     
     try {
       let password = await context.functions.execute("decryptText", parameters.password);
-      return { debug: "Usuário não encontradao... vamos inserir" };
       parameters.password = await context.functions.execute("encryptPassword", password);
       dbResponse = await dbquery.insertOne(parameters);
     } catch (e) {

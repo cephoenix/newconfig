@@ -1,6 +1,6 @@
 // exports = async function(arg){
 
-//   let key = "603082712271C525E087BD999A4E0738";
+  
 //   let encryptedMessage;
 //   if(typeof arg === "string") {
 //       encryptedMessage = BSON.Binary.fromBase64(arg)
@@ -10,10 +10,11 @@
 //   return encryptedText.text();
 // };
 
-exports = async function (key, encoded) {
+exports = async function (encodedPassword) {
+  let key = "603082712271C525E087BD999A4E0738";
   const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
   const applySaltToChar = (code) => textToChars(key).reduce((a, b) => a ^ b, code);
-  temp = Buffer.from(encoded, 'base64').toString('utf8');
+  temp = Buffer.from(encodedPassword, 'base64').toString('utf8');
   var temp = temp
     .match(/.{1,2}/g)
     .map((hex) => parseInt(hex, 16))
