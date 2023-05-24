@@ -33,14 +33,13 @@ exports = async function (data) {
   // let rawPassword = await context.functions.execute("decryptText", "mysalt", parameters.password)
   //Senha encryptada para ser comparada à senha que foi gravada no Banco De Dados
 
+  return {debug: dbResponse}
+
   if (dbResponse.password == hashedPass) {
     return { "sessionId": "A52B7A89FE6A3BA58D8C" }
   }
 
   let err = new Error()
-  err.name = 'invalid_password'
   err.message = "Senha incorreta!"
-  err.code = 2
-  err.TypeError = 2
   throw err.message
 }
