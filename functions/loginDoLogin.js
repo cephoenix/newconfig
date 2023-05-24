@@ -23,9 +23,12 @@ exports = async function (data) {
   // return {debug: await context.functions.execute("encryptPassword", parameters.rawPassword)}
 
   // let encryptedPassword = await context.functions.execute("encryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.password)
-  let decryptedPassword = await context.functions.execute("decryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.encryptedPassword)
-  // return {debug: decryptedPassword}
+
+  let decryptedPassword = await context.functions.execute("decryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
+  return {debug: decryptedPassword}
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
+
+
   //Senha decryptografada enviada pelo frontend
   // let rawPassword = await context.functions.execute("decryptText", "mysalt", parameters.password)
   //Senha encryptada para ser comparada à senha que foi gravada no Banco De Dados
