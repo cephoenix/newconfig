@@ -33,6 +33,12 @@ exports = async function (payload) {
       operationParameters = null;
       break;
 
+    case 'getClients':
+      
+      operationName = 'clientsFindMany';
+      operationParameters = payload.body.text();
+      break;
+
     case 'findMany':
       operationName = 'clientsFindMany';
       operationParameters = payload.body.text();
