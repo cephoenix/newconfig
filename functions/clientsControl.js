@@ -2,12 +2,11 @@ exports = async function (payload, response) {
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
   let action;
-  let resp = {};
-  let debug;
+  var success = true;
   let operationName;
-  let operationResponse;
+  let response;
   let operationParameters;
-  let body;
+  
 
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
@@ -25,7 +24,7 @@ exports = async function (payload, response) {
 
     case 'findOne':
       operationName = 'databaseFindOne';
-      operationParameters = { query: payload.body.text(), collection:  "clients"};
+      operationParameters = { query: payload.body.text(), collection: "clients" };
       // operationParameters = payload.body.text();
       break;
 
@@ -73,28 +72,23 @@ exports = async function (payload, response) {
     //   break;
 
     default:
-      let err = new Error();
-
+      success = false
       if (action != null) {
-        err.name = 'invalid_action_informed'
-        err.message = "Invalid action was informed";
+        response = "Ação inválida!";
       } else {
-        err.name = 'no_action_informed'
-        err.message = "No action was informed";
+        response = "Nenhuma ação informada!";
       }
-      err.code = 1;
-      err.TypeError = 1;
-      throw err;
   }
-
 
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
+    response = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
-    throw (e)
+      success = false
+      response = e.message
   }
 
-  resp.success = 'true';
-  resp.data = operationResponse;
-  return resp;
+  return {
+    success: success,
+    data: response
+  }
 };

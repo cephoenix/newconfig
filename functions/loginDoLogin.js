@@ -37,9 +37,9 @@ exports = async function (data) {
   }
 
   let err = new Error()
-  // err.name = 'invalid_password'
+  err.name = 'invalid_password'
   err.message = "Senha incorreta!"
-  // err.code = 2
-  // err.TypeError = 2
+  err.code = 2
+  err.TypeError = 2
   throw err.message
 }
