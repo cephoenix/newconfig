@@ -21,13 +21,15 @@ exports = async function (data) {
     throw err;
   }
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection);
-
   if (data.parameters === undefined || data.collection === "" || data.collection === null) {
     let err = new Error();
     err.message = "É necessário informar pelo menos um parâmetro de busca para fazer a pesquisa!";
+    err.parameters = parameters
+    err.data = data
     throw err;
   }
+
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection);
 
   try {
     return await dbquery.findOne(parameters)
