@@ -40,20 +40,16 @@ exports = async function (payload) {
       operationParameters = payload.body.text();
       break;
 
-
     default:
-      let err = new Error();
+    if (action != null) {
+      resp.data = "Ação inválida!";
+    } else {
+      resp.data = "Nenhuma ação informada!";
+    }
 
-      if (action != null) {
-        err.name = 'invalid_action_informed'
-        err.message = "Invalid action was informed";
-      } else {
-        err.name = 'no_action_informed'
-        err.message = "No action was informed";
-      }
-      err.code = 1;
-      err.TypeError = 1;
-      throw err;
+    resp.success = false;
+    resp.data = operationResponse;
+    return resp;
   }
 
 
