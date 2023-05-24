@@ -1,6 +1,6 @@
 exports = async function (data) {
   let parameters;
-  return {debug: data}
+  
   if (data.query) {
     try {
       parameters = EJSON.parse(data.query)
