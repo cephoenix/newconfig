@@ -63,7 +63,7 @@ exports = async function (payload) {
     throw (e)
   }
 
-  resp.success = 'true';
+  resp.success = true;
   resp.data = operationResponse;
   return resp;
 };
