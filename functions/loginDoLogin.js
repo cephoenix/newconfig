@@ -25,7 +25,7 @@ exports = async function (data) {
   // let encryptedPassword = await context.functions.execute("encryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.password)
 
   let decryptedPassword = await context.functions.execute("decryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
-  return {debug: JSON.stringify(decryptedPassword)}
+  return {senhaRecebida: parameters.encryptedPassword, senhaDecriptografada: decryptedPassword}
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
 
 
