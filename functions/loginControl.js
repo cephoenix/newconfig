@@ -1,20 +1,3 @@
-// exports = async function(payload){
-//   let login;
-//   let password;
-
-//   let message = "MinhaSenha";
-
-//   let encMessage = await context.functions.execute("encryptText", message);
-//   parameters = EJSON.parse(payload.body.text())
-
-//   login = parameters.login;
-//   password = parameters.password;
-
-//   return { login: login, password: await context.functions.execute("decryptText", password)};
-// }
-
-
-
 exports = async function (payload) {
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
@@ -41,17 +24,16 @@ exports = async function (payload) {
       break;
 
     default:
-    if (action != null) {
-      resp.data = "Ação inválida!";
-    } else {
-      resp.data = "Nenhuma ação informada!";
-    }
+      if (action != null) {
+        resp.data = "Ação inválida!";
+      } else {
+        resp.data = "Nenhuma ação informada!";
+      }
 
-    resp.success = false;
-    resp.data = operationResponse;
-    return resp;
+      resp.success = false;
+      resp.data = operationResponse;
+      return resp;
   }
-
 
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);

@@ -14,7 +14,8 @@ exports = async function (data) {
     throw err
   }
 
-  dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({ login: parameters.login }))
+  dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
+  // dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({ login: parameters.login }))
 
   if(dbResponse === null) {
     let err = new Error()
