@@ -10,10 +10,7 @@ exports = async function (data) {
     }
   } else {
     let err = new Error()
-    err.name = 'no_data_provided'
     err.message = "Não é possível fazer login sem informações"
-    err.code = 2
-    err.TypeError = 2
     throw err
   }
 
