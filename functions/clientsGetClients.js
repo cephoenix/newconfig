@@ -8,8 +8,9 @@ exports = async function (data) {
     parameters = EJSON.parse(data)
     return {debug: parameters}
   } catch (e) {
-    return {debug: e}
-    throw (e)
+    let err = new Error()
+    err.message = "Id da sessão de usuário inválido"
+    throw err
   }
   
   try {
