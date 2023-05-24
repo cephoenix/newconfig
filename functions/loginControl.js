@@ -62,7 +62,7 @@ exports = async function (payload) {
   } catch (e) {
     return { 
       success: false,
-      data: e.message
+      data: e
     }
   }
 
