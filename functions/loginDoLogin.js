@@ -21,7 +21,7 @@ exports = async function (data) {
     err.message = "Senha ou usuário incorretos!"
     throw err
   }
-
+  return {debug2: dbResponse}
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
 
