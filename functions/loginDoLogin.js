@@ -19,27 +19,20 @@ exports = async function (data) {
 
   dbResponse = await context.functions.execute("usersFindOne", EJSON.stringify({ login: parameters.login }))
 
-
-  // return {debug: await context.functions.execute("encryptPassword", parameters.rawPassword)}
-
-  // let encryptedPassword = await context.functions.execute("encryptText", "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS", parameters.password)
-
-  let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
-
-  let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
-
-  // return { senhaComHash: hashedPass, senhaDoBanco: dbResponse.password }
-  //Senha decryptografada enviada pelo frontend
-  // let rawPassword = await context.functions.execute("decryptText", "mysalt", parameters.password)
-  //Senha encryptada para ser comparada à senha que foi gravada no Banco De Dados
-
-  return {debug: dbResponse}
-
-  if (dbResponse.password == hashedPass) {
-    return { "sessionId": "A52B7A89FE6A3BA58D8C" }
+  if(dbResponse === null) {
+    let err = new Error()
+    err.message = "Usuário inexistente!"
+    throw err.message
   }
 
-  let err = new Error()
-  err.message = "Senha incorreta!"
-  throw err.message
+  let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
+  let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
+
+  if (dbResponse.password !== hashedPass) {
+    let err = new Error()
+    err.message = "Senha incorreta!"
+    throw err.message
+  }
+
+  return { "sessionId": "A52B7A89FE6A3BA58D8C" }
 }
