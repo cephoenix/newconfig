@@ -13,16 +13,19 @@ exports = async function (payload) {
     action = payload.action
   }
 
-  return {payload: payload, debug: EJSON.parse(payload.body)} 
-  
-
-  if (typeof payload.body == undefined) {
-    throw "Requisição vazia. Favor informar dados válidos!"
+  try {
+    EJSON.parse(payload.body)
+  } catch (e) {
+    throw "Favor informar dados válidos!"
   }
 
-  if (Object.keys(payload.body).length === 0) {
-    throw "Requisição vazia. Favor informar dados válidos!"
-  }
+  // if (typeof payload.body == undefined) {
+  //   throw "Requisição vazia. Favor informar dados válidos!"
+  // }
+
+  // if (Object.keys(payload.body).length === 0) {
+  //   throw "Requisição vazia. Favor informar dados válidos!"
+  // }
 
   switch (action) {
 
