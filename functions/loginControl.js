@@ -37,7 +37,7 @@ exports = async function (payload) {
     success = false
     operationResponse = e
   }
-  return {debug: true}
+  return {debug: operationResponse}
   resp.success = success
   resp.data = operationResponse
   return resp
