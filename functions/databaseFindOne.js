@@ -19,9 +19,9 @@ exports = async function (data) {
 
   try {
     let ret = await dbquery.findOne(parameters)
+    return ret
     return { debudatabasefindone: {collection: data.collection, parameters: parameters, ret: ret}}
   } catch (e) {
-    return {"pau": true, parameters: parameters, data: data}
     throw "Não é possível buscar " + data.collection;
   }
 };
