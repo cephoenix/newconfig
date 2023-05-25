@@ -16,7 +16,6 @@ exports = async function (payload) {
   
 
   if (typeof payload.body == undefined) {
-    return {debug: {body: payload.body, typeof: typeof payload.body} }
     throw "Requisição vazia. Favor informar dados válidos!"
   }
 
