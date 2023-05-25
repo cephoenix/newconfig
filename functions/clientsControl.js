@@ -7,12 +7,19 @@ exports = async function (payload) {
   let response;
   let operationParameters;
   
-
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
   } catch (err) {
     action = payload.action;
+  }
+
+  try {
+    EJSON.parse(payload.body)
+  } catch (e) {
+    resp.success = false
+    resp.data = "Favor informar dados válidos!"
+    return resp
   }
 
   switch (action) {
@@ -92,8 +99,7 @@ exports = async function (payload) {
       response = e.message
   }
 
-  return {
-    success: success,
-    data: response
-  }
+  resp.success = success
+  resp.data = operationResponse
+  return resp
 };
