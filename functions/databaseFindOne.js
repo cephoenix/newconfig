@@ -17,9 +17,9 @@ exports = async function (data) {
 
   
   if (data.parameters == undefined || data.collection == "" || data.collection == null) {
-    return {debug4: "fuckinbg bug", "1": data.parameters == undefined, "2":data.collection == "", "3":data.collection == null }
     throw "É necessário informar pelo menos um parâmetro de busca para fazer a pesquisa!";
   }
+
   return {debug: {data: data, parameters: parameters} }
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection);
 
