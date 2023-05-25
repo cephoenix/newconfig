@@ -16,7 +16,7 @@ exports = async function (data) {
   }
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
-
+return {parameters: parameters}
   try {
     let ret = await dbquery.findOne(parameters)
     return { debudatabasefindone: {collection: data.collection, parameters: parameters, ret: ret}}
