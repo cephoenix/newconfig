@@ -13,6 +13,11 @@ exports = async function (payload) {
     action = payload.action
   }
 
+  if(payload.body == undefined) {
+    resp.success = false
+    resp.data = "Favor informar dados válidos (body)!"
+    return resp
+  }
   try {
     JSON.parse(payload.body)
   } catch (e) {
