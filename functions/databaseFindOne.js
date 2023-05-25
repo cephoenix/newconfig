@@ -14,11 +14,12 @@ exports = async function (data) {
   if (data.collection === undefined || data.collection === "" || data.collection === null) {
     throw "É necessário informar uma collection para fazer a pesquisa!";
   }
-  return { debudatabasefindone: {collection: data.collection, parameters: parameters}}
+
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
 
   try {
-    return await dbquery.findOne(parameters)
+    let ret = await dbquery.findOne(parameters)
+    return { debudatabasefindone: {collection: data.collection, parameters: parameters, ret: ret}}
   } catch (e) {
     throw "Não é possível buscar " + data.collection;
   }
