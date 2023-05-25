@@ -35,6 +35,7 @@ exports = async function (data) {
     throw e;
   }
 
+  return {debug: dbResponse}
 
   if (!dbResponse) {
     try {
@@ -46,7 +47,7 @@ exports = async function (data) {
     try {
       parameters.password = await context.functions.execute("encryptPassword", password);
     } catch (e) {
-      throw "Erro ao encriptar a senha a ser gravad no Banco de Dados: " + e;
+      throw "Erro ao encriptar a senha a ser gravado no Banco de Dados: " + e;
     }
 
     try {
