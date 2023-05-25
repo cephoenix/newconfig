@@ -14,7 +14,7 @@ exports = async function (data) {
   }
 
   try {
-    operationParameters = JSON.parse(data.text())
+    parameters = JSON.parse(data.text())
   } catch (e) {
     resp.success = false
     resp.data = "Favor informar dados válidos (2)!"
