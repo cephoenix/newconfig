@@ -16,7 +16,7 @@ exports = async function (data) {
   }
 
   
-  if (data.parameters == undefined || data.collection == "" || data.collection == null) {
+  if (data.parameters === undefined || data.collection === "" || data.collection === null) {
     throw "É necessário informar pelo menos um parâmetro de busca para fazer a pesquisa!";
   }
 

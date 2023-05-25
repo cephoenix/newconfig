@@ -19,16 +19,11 @@ exports = async function (data) {
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
-    return {debug2: {"dbresponse": dbResponse, "e: ": e}}
-    // throw "Erro ao buscar usuário!";
+    throw e;
   }
 
-  
-
   if(dbResponse === null) {
-    let err = new Error()
-    err.message = "Senha ou usuário incorretos!"
-    throw err
+    throw "Senha ou usuário incorretos!"
   }
   
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
