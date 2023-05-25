@@ -17,7 +17,7 @@ exports = async function (payload) {
     JSON.parse(payload.body)
   } catch (e) {
     resp.success = false
-    resp.data = "Favor informar dados válidos (body)!"
+    resp.data = "Favor informar dados válidos (body)!" + e
     return resp
   }
 
