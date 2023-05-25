@@ -16,50 +16,40 @@ exports = async function (payload) {
   try {
     EJSON.parse(payload.body)
   } catch (e) {
-    return {
-      success: false,
-      data: "Favor informar dados válidos!"
-    }
+    resp.success = false
+    resp.data = "Favor informar dados válidos!"
+    return resp
   }
 
-    // if (typeof payload.body == undefined) {
-    //   throw "Requisição vazia. Favor informar dados válidos!"
-    // }
+  switch (action) {
+    case 'doLogin':
+      operationName = 'loginDoLogin'
+      if (payload.body === null) {
+        throw "É necessário fornecer informações válidas para autenticação!"
+      }
+      operationParameters = payload.body.text()
+      break;
 
-    // if (Object.keys(payload.body).length === 0) {
-    //   throw "Requisição vazia. Favor informar dados válidos!"
-    // }
+    default:
+      if (action != null) {
+        resp.data = "Ação inválida!"
+      } else {
+        resp.data = "Nenhuma ação informada!"
+      }
 
-    switch (action) {
+      resp.success = false
+      resp.data = operationResponse
+      return resp
+  }
 
-      case 'doLogin':
-        operationName = 'loginDoLogin'
-        if (payload.body === null) {
-          throw "É necessário fornecer informações válidas para autenticação!"
-        }
-        operationParameters = payload.body.text()
-        break;
+  try {
+    operationResponse = await context.functions.execute(operationName, operationParameters);
+  } catch (e) {
+    success = false
+    operationResponse = e
+  }
 
-      default:
-        if (action != null) {
-          resp.data = "Ação inválida!"
-        } else {
-          resp.data = "Nenhuma ação informada!"
-        }
-
-        resp.success = false
-        resp.data = operationResponse
-        return resp
-    }
-
-    try {
-      operationResponse = await context.functions.execute(operationName, operationParameters);
-    } catch (e) {
-      success = false
-      operationResponse = e
-    }
-
-    resp.success = success
-    resp.data = operationResponse
-    return resp
-  };
+  resp.success = success
+  resp.data = operationResponse
+  return resp
+};
