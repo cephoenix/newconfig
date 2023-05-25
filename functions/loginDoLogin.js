@@ -19,7 +19,7 @@ exports = async function (data) {
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
-    return {debug3: "Erro no DB Response"}
+    throw "Erro ao buscar usuário!";
   }
 
   
@@ -34,9 +34,7 @@ exports = async function (data) {
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
 
   if (dbResponse.password !== hashedPass) {
-    let err = new Error()
-    err.message = "Senha ou usuário incorretos!"
-    throw err
+    throw "Senha ou usuário incorretos!"
   }
 
   return { "sessionId": "A52B7A89FE6A3BA58D8C" }  //@todo implementar mecanismo de sessão

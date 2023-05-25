@@ -15,11 +15,11 @@ exports = async function (data) {
     throw "É necessário informar uma collection para fazer a pesquisa!";
   }
 
-  return {debug: {data: data, parameters: parameters} }
+  
   if (data.parameters == undefined || data.collection == "" || data.collection == null) {
     throw "É necessário informar pelo menos um parâmetro de busca para fazer a pesquisa!";
   }
-  
+  return {debug: {data: data, parameters: parameters} }
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection);
 
   try {
