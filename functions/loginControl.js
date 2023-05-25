@@ -30,14 +30,14 @@ exports = async function (payload) {
       resp.data = operationResponse
       return resp
   }
-return {debug: true}
+
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
     success = false
     operationResponse = e
   }
-
+  return {debug: true}
   resp.success = success
   resp.data = operationResponse
   return resp
