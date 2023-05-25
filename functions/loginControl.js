@@ -13,8 +13,8 @@ exports = async function (payload) {
   } catch (err) {
     action = payload.action
   }
-  return {body: payload.body, length: Object.keys(payload.body).length}
-  if(typeof payload.body === undefined || Object.keys(payload.body).length === 0) {
+
+  if (typeof payload.body === undefined || Object.keys(payload.body).length === 0) {
     throw "Requisição vazia. Favor informar dados válidos!"
   }
 
@@ -22,9 +22,7 @@ exports = async function (payload) {
 
     case 'doLogin':
       operationName = 'loginDoLogin'
-      return {payload: payload.body}
-      if(payload.body === null) {
-        
+      if (payload.body === null) {
         throw "É necessário fornecer informações válidas para autenticação!"
       }
       operationParameters = payload.body.text()
