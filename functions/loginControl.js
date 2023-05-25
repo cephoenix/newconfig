@@ -6,7 +6,6 @@ exports = async function (payload) {
   let operationParameters
   let success = true
 
-
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
@@ -18,7 +17,7 @@ exports = async function (payload) {
     throw "Requisição vazia. Favor informar dados válidos!"
   }
 
-  if(Object.keys(payload.body).length === 0) {
+  if (Object.keys(payload.body).length === 0) {
     throw "Requisição vazia. Favor informar dados válidos!"
   }
 
