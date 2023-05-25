@@ -14,8 +14,8 @@ exports = async function (data) {
   if (data.collection === undefined || data.collection === "" || data.collection === null) {
     throw "É necessário informar uma collection para fazer a pesquisa!";
   }
-
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection);
+  return { debudatabasefindone: {collection: data.collection, parameters: parameters}}
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
 
   try {
     return await dbquery.findOne(parameters)
