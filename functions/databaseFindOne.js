@@ -4,7 +4,6 @@ exports = async function (data) {
   if (data.query) {
     try {
       parameters = EJSON.parse(data.query)
-      return {debug: {data: data, parameters: parameters} }
     } catch (e) {
       throw "Não foi possível buscar as informações no Banco de Dados. Favor conferir os critérios de busca!";
     }
@@ -16,10 +15,10 @@ exports = async function (data) {
     throw "É necessário informar uma collection para fazer a pesquisa!";
   }
 
-  if (data.parameters === undefined || data.collection === "" || data.collection === null) {
+  if (data.parameters == undefined || data.collection == "" || data.collection == null) {
     throw "É necessário informar pelo menos um parâmetro de busca para fazer a pesquisa!";
   }
-
+  return {debug: {data: data, parameters: parameters} }
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection);
 
   try {
