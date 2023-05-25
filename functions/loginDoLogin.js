@@ -17,7 +17,7 @@ exports = async function (data) {
   } catch (e) {
     throw e;
   }
-return {deb: dbResponse}
+
   if(dbResponse === null) {
     throw "Senha ou usuário incorretos!"
   }
