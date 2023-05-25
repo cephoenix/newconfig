@@ -14,7 +14,11 @@ exports = async function (payload) {
     action = payload.action
   }
 
-  if (typeof payload.body === undefined || Object.keys(payload.body).length === 0) {
+  if (typeof payload.body === undefined) {
+    throw "Requisição vazia. Favor informar dados válidos!"
+  }
+
+  if(Object.keys(payload.body).length === 0) {
     throw "Requisição vazia. Favor informar dados válidos!"
   }
 
