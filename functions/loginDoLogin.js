@@ -19,7 +19,7 @@ exports = async function (data) {
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
-    throw e
+    return {debug3: "Erro no DB Response"}
   }
 
   
