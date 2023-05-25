@@ -1,13 +1,13 @@
 exports = async function (data) {
 
-  let dbResponse;
-  let resp = {};
-  let query;
-  let parameters;
+  var password;
+  var dbResponse;
+  var resp = {};
+  var query;
+  var parameters;
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users");
 
   if (data) {
-    
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
@@ -15,10 +15,7 @@ exports = async function (data) {
     }
   } else {
     let err = new Error();
-    err.name = 'no_data_provided'
     err.message = "Não é possível adicionar um registro em branco";
-    err.code = 2;
-    err.TypeError = 2;
     throw err;
   }
 
@@ -33,35 +30,34 @@ exports = async function (data) {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
     let err = new Error();
-    err.name = 'find_one_error'
     err.message = "Não é possível buscar usuário";
-    err.code = 2;
-    err.TypeError = 2;
     err.e = e
     throw e;
   }
 
 
   if (!dbResponse) {
-    
     try {
       let password = await context.functions.execute("decryptText", parameters.password);
+    } catch (e) {
+      throw "Erro ao decriptografar a senha enviada pelo frontend: " + e;
+    }
+
+    try {
       parameters.password = await context.functions.execute("encryptPassword", password);
+    } catch (e) {
+      throw "Erro ao encriptar a senha a ser gravad no Banco de Dados: " + e;
+    }
+
+    try {
       dbResponse = await dbquery.insertOne(parameters);
     } catch (e) {
-
-      throw "Erro: " + e;
+      throw "Erro ao inserir registro no Banco de Dados: " + e;
     }
 
     return dbResponse
-
   } else {
-    let err = new Error();
-    err.name = 'user_already_exists'
-    err.message = "Usuário já cadastrado";
-    err.code = 1;
-    err.TypeError = 1;
-    throw err;
+    throw "Usuário já cadastrado";
   }
 
 };
