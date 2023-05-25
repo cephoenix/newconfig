@@ -3,17 +3,17 @@ exports = async function (data) {
   var dbResponse;
 
   if(data == undefined) {
-    throw "É necessário fornecer informações válidas para autenticação!"
+    throw "É necessário fornecer informações válidas para autenticação! (1)"
   }
   
-  if (data === null) {
-    throw "É necessário fornecer informações válidas para autenticação!"
+  if (data == null) {
+    throw "É necessário fornecer informações válidas para autenticação! (2)"
   }
 
   try {
     parameters = JSON.parse(data.text())
   } catch (e) {
-    throw "É necessário fornecer informações válidas para autenticação!"
+    throw "É necessário fornecer informações válidas para autenticação! (3)"
   }
 
   return {debug: data}
