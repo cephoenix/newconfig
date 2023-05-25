@@ -1,9 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-  var resp = {};
 
-  
   if(data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação!"
   }
@@ -18,16 +16,8 @@ exports = async function (data) {
     throw "É necessário fornecer informações válidas para autenticação!"
   }
 
-  // if (data) {
-  //   try {
-  //     parameters = EJSON.parse(data)
-  //   } catch (e) {
-  //     throw "Não é possível fazer login. Verifique as credenciais informadas."
-  //   }
-  // } else {
-  //   throw "Não é possível fazer login sem informações"
-  // }
-  
+  return {debug: data}
+
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
