@@ -15,9 +15,10 @@ exports = async function (data) {
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
+    return {erro: e}
     throw e;
   }
-
+return {dbResponse: dbResponse}
   if(dbResponse === null) {
     throw "Senha ou usuário incorretos!"
   }
