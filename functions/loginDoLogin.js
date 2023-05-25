@@ -16,7 +16,13 @@ exports = async function (data) {
     throw "É necessário fornecer informações válidas para autenticação! (3)"
   }
 
-  return {debug: data.text(), login: parameters.login == null, encpass: parameters.encryptedPassword == undefined}
+  if(parameters.login == null || parameters.encryptedPassword == null) {
+    throw "É necessário fornecer informações válidas para autenticação! (4)"
+  }
+
+  if(parameters.login == undefined || parameters.encryptedPassword == undefined) {
+    throw "É necessário fornecer informações válidas para autenticação! (5)"
+  }
 
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
