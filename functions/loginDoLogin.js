@@ -3,13 +3,13 @@ exports = async function (data) {
   var dbResponse;
   var resp;
 
-  return {debug: data}
+  
   if(data == undefined) {
     resp.success = false
     resp.data = "Favor informar dados válidos!"
     return resp
   }
-
+  return {debug: data}
   if (data === null) {
     throw "É necessário fornecer informações válidas para autenticação!"
   }
