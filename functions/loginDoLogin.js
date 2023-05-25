@@ -2,15 +2,15 @@ exports = async function (data) {
   let parameters;
   let dbResponse;
 
-  if (data) {
-    try {
-      parameters = EJSON.parse(data)
-    } catch (e) {
-      throw "Não é possível fazer login. Verifique as credenciais informadas."
-    }
-  } else {
-    throw "Não é possível fazer login sem informações"
-  }
+  // if (data) {
+  //   try {
+  //     parameters = EJSON.parse(data)
+  //   } catch (e) {
+  //     throw "Não é possível fazer login. Verifique as credenciais informadas."
+  //   }
+  // } else {
+  //   throw "Não é possível fazer login sem informações"
+  // }
 
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
