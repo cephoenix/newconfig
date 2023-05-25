@@ -35,8 +35,6 @@ exports = async function (data) {
     throw e;
   }
 
-  return {debug: dbResponse}
-
   if (!dbResponse) {
     try {
       let password = await context.functions.execute("decryptText", parameters.password);
