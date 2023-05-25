@@ -16,7 +16,7 @@ exports = async function (data) {
     throw "É necessário fornecer informações válidas para autenticação! (3)"
   }
 
-  return {debug: data}
+  return {debug: data.text(), parameters: parameters}
 
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
