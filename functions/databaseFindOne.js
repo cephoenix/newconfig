@@ -1,9 +1,10 @@
 exports = async function (data) {
   var parameters;
-  return {debug: data}
+  
   if (data.query) {
     try {
       parameters = EJSON.parse(data.query)
+      return {debug: {data: data, parameters: parameters} }
     } catch (e) {
       throw "Não foi possível buscar as informações no Banco de Dados. Favor conferir os critérios de busca!";
     }
