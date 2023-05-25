@@ -18,7 +18,7 @@ exports = async function (payload) {
 
     case 'doLogin':
       operationName = 'loginDoLogin'
-      throw {payload: payload.body}
+      return {payload: payload.body}
       if(payload.body === null) {
         
         throw "É necessário fornecer informações válidas para autenticação!"
