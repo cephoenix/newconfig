@@ -15,14 +15,15 @@ exports = async function (payload) {
 
   if(payload.body == undefined) {
     resp.success = false
-    resp.data = "Favor informar dados válidos (body)!"
+    resp.data = "Favor informar dados válidos!"
     return resp
   }
+
   try {
-    JSON.parse(payload.body)
+    JSON.parse(payload.body.text())
   } catch (e) {
     resp.success = false
-    resp.data = {payload: payload, body: payload.body, msg: "Favor informar dados válidos (body)!", e: e, data: payload.body.data}
+    resp.data = {payload: payload, e: e, data: payload.body.data}
     return resp
   }
 
