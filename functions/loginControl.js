@@ -13,27 +13,28 @@ exports = async function (payload) {
     action = payload.action
   }
 
-  if(payload.body == undefined) {
-    resp.success = false
-    resp.data = "Favor informar dados válidos!"
-    return resp
-  }
-
-  try {
-    JSON.parse(payload.body.text())
-  } catch (e) {
-    resp.success = false
-    resp.data = {payload: payload, e: e, data: payload.body.data}
-    return resp
-  }
-
   switch (action) {
     case 'doLogin':
       operationName = 'loginDoLogin'
+
+      if(payload.body == undefined) {
+        resp.success = false
+        resp.data = "Favor informar dados válidos!"
+        return resp
+      }
+
       if (payload.body === null) {
         throw "É necessário fornecer informações válidas para autenticação!"
       }
-      operationParameters = payload.body.text()
+    
+      try {
+        operationParameters = JSON.parse(payload.body.text())
+      } catch (e) {
+        resp.success = false
+        resp.data = "Favor informar dados válidos (2)!"
+        return resp
+      }
+
       break;
 
     default:
