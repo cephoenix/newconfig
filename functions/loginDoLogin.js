@@ -1,6 +1,7 @@
 exports = async function (data) {
-  let parameters;
-  let dbResponse;
+  var parameters;
+  var dbResponse;
+  var resp;
 
 
   if(data == undefined) {
