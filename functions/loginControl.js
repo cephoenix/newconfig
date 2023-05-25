@@ -16,47 +16,50 @@ exports = async function (payload) {
   try {
     EJSON.parse(payload.body)
   } catch (e) {
-    throw "Favor informar dados válidos!"
+    return {
+      success: false,
+      data: "Favor informar dados válidos!"
+    }
   }
 
-  // if (typeof payload.body == undefined) {
-  //   throw "Requisição vazia. Favor informar dados válidos!"
-  // }
+    // if (typeof payload.body == undefined) {
+    //   throw "Requisição vazia. Favor informar dados válidos!"
+    // }
 
-  // if (Object.keys(payload.body).length === 0) {
-  //   throw "Requisição vazia. Favor informar dados válidos!"
-  // }
+    // if (Object.keys(payload.body).length === 0) {
+    //   throw "Requisição vazia. Favor informar dados válidos!"
+    // }
 
-  switch (action) {
+    switch (action) {
 
-    case 'doLogin':
-      operationName = 'loginDoLogin'
-      if (payload.body === null) {
-        throw "É necessário fornecer informações válidas para autenticação!"
-      }
-      operationParameters = payload.body.text()
-      break;
+      case 'doLogin':
+        operationName = 'loginDoLogin'
+        if (payload.body === null) {
+          throw "É necessário fornecer informações válidas para autenticação!"
+        }
+        operationParameters = payload.body.text()
+        break;
 
-    default:
-      if (action != null) {
-        resp.data = "Ação inválida!"
-      } else {
-        resp.data = "Nenhuma ação informada!"
-      }
+      default:
+        if (action != null) {
+          resp.data = "Ação inválida!"
+        } else {
+          resp.data = "Nenhuma ação informada!"
+        }
 
-      resp.success = false
-      resp.data = operationResponse
-      return resp
-  }
+        resp.success = false
+        resp.data = operationResponse
+        return resp
+    }
 
-  try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
-  } catch (e) {
-    success = false
-    operationResponse = e
-  }
+    try {
+      operationResponse = await context.functions.execute(operationName, operationParameters);
+    } catch (e) {
+      success = false
+      operationResponse = e
+    }
 
-  resp.success = success
-  resp.data = operationResponse
-  return resp
-};
+    resp.success = success
+    resp.data = operationResponse
+    return resp
+  };
