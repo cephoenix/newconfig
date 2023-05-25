@@ -27,7 +27,6 @@ exports = async function (payload) {
       }
 
       resp.success = false
-      resp.data = operationResponse
       return resp
   }
 
