@@ -5,9 +5,7 @@ exports = async function (data) {
 
   
   if(data == undefined) {
-    resp.success = false
-    resp.data = "Favor informar dados válidos!"
-    return resp
+    throw "É necessário fornecer informações válidas para autenticação!"
   }
   
   if (data === null) {
@@ -17,9 +15,7 @@ exports = async function (data) {
   try {
     parameters = JSON.parse(data.text())
   } catch (e) {
-    resp.success = false
-    resp.data = "Favor informar dados válidos (2)!"
-    return resp
+    throw "É necessário fornecer informações válidas para autenticação!"
   }
 
   // if (data) {
