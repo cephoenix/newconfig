@@ -19,8 +19,8 @@ exports = async function (data) {
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
-    return {debug2: dbResponse}
-    throw "Erro ao buscar usuário!";
+    return {debug2: {"dbresponse": dbResponse, "e: ": e}
+    // throw "Erro ao buscar usuário!";
   }
 
   
