@@ -3,7 +3,7 @@ exports = async function (data) {
   var dbResponse;
   var resp;
 
-
+  return {debug: true}
   if(data == undefined) {
     resp.success = false
     resp.data = "Favor informar dados válidos!"
@@ -31,7 +31,7 @@ exports = async function (data) {
   // } else {
   //   throw "Não é possível fazer login sem informações"
   // }
-  return {debug: true}
+  
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
