@@ -13,6 +13,10 @@ exports = async function (payload) {
   } catch (err) {
     action = payload.action
   }
+  return {body: payload.body, typeof: typeof payload.body}
+  if(payload.body === Object && Object.keys(payload.body).length === 0) {
+    throw "Requisição vazia. Favor informar dados válidos!"
+  }
 
   switch (action) {
 
