@@ -13,7 +13,7 @@ exports = async function (payload) {
     action = payload.action
   }
 
-  
+  return{ debug: payload.body}
 
   if (typeof payload.body == undefined) {
     throw "Requisição vazia. Favor informar dados válidos!"
