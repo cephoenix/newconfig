@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-  var resp;
+  var resp = {};
 
   
   if(data == undefined) {
@@ -9,7 +9,7 @@ exports = async function (data) {
     resp.data = "Favor informar dados válidos!"
     return resp
   }
-  return {debug: data}
+  
   if (data === null) {
     throw "É necessário fornecer informações válidas para autenticação!"
   }
