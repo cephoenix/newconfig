@@ -2,6 +2,25 @@ exports = async function (data) {
   let parameters;
   let dbResponse;
 
+
+  if(data == undefined) {
+    resp.success = false
+    resp.data = "Favor informar dados válidos!"
+    return resp
+  }
+
+  if (data === null) {
+    throw "É necessário fornecer informações válidas para autenticação!"
+  }
+
+  try {
+    operationParameters = JSON.parse(data.text())
+  } catch (e) {
+    resp.success = false
+    resp.data = "Favor informar dados válidos (2)!"
+    return resp
+  }
+
   // if (data) {
   //   try {
   //     parameters = EJSON.parse(data)
