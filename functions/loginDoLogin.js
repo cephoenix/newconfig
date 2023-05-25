@@ -3,7 +3,7 @@ exports = async function (data) {
   var dbResponse;
   var resp;
 
-  return {debug: true}
+  return {debug: data}
   if(data == undefined) {
     resp.success = false
     resp.data = "Favor informar dados válidos!"
