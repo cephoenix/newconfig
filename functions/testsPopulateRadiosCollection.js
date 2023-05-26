@@ -4,10 +4,10 @@ exports = async function (data) {
   
   parameters = []
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 500; i++) {
     parameters.push({
-      "address64Bit": "00:00:00:00:00:00:00:0" + i,
-      "address16Bits": "00:0" + i,
+      "address64Bit": "000000000000000" + i,
+      "address16Bits": "000" + i,
       "oldDatabaseId": "" + i,
       "name": "DE1_LRDFT000" + i,
       "number": "" + i,
@@ -35,7 +35,7 @@ exports = async function (data) {
   try {
     dbResponse = await context.functions.execute('radiosInsertMany', parameters);
   } catch (e) {
-    throw "Erro ao buscar usuário no Banco de Dados! " + e
+    throw "Erro ao inserir dados no Banco!" + e
   }
 
   return dbResponse
