@@ -41,5 +41,5 @@ exports = async function (data) {
     throw "Senha ou usuário incorretos!"
   }
 
-  return { "sessionId": "A52B7A89FE6A3BA58D8C" }  //@todo implementar mecanismo de sessão
+  return { "sessionId": "A52B7A89FE6A3BA58D8C" , dbResponse: dbResponse}  //@todo implementar mecanismo de sessão
 }
