@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-  return {deubo: data}
+  
   parameters = []
 
   for (let i = 0; i < 1000; i++) {
@@ -31,7 +31,7 @@ exports = async function (data) {
       "clientType": "Desenvolvimento"
     });
   }
-
+  return {deubo: parameters}
   try {
     dbResponse = await context.functions.execute('radiosInsertMany', parameters);
   } catch (e) {
