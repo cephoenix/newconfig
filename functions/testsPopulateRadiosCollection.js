@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-  return {debug: data}
+  return {debug: data, parsed: JSON.parse(data.Data)}
   parameters = []
 
   for (let i = 0; i < 500; i++) {
