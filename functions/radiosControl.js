@@ -73,13 +73,11 @@ exports = async function (payload, response) {
   }
   
   try {
-    return {action: action, operationName: operationName, parameters: operationParameters}
     operationResponse = await context.functions.execute(operationName, operationParameters);
     
   } catch (e) {
     success = false
     operationResponse = e
-    return {deubo: e, action: action, operationName: operationName, parameters: operationParameters, resp: operationResponse}
   }
 
   resp.success = success;
