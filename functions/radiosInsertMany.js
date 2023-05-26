@@ -4,7 +4,10 @@ exports = async function (data) {
   let resp = {};
   let query;
   let parameters;
+
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
+
+return {debug: true}
 
   if (data) {
     try {

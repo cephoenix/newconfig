@@ -1,12 +1,11 @@
 exports = async function (payload, response) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
-  let action;
-  let resp = {};
-  let operationName;
-  let operationResponse;
-  let operationParameters;
-  
+  let action
+  let resp = {}
+  let operationName
+  let operationResponse
+  let operationParameters
+  var success = true
 
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
@@ -21,7 +20,6 @@ exports = async function (payload, response) {
    */
 
   switch (action) {
-
     case 'create':
       operationName = 'radiosCreate';
       operationParameters = payload.body;
@@ -62,47 +60,25 @@ exports = async function (payload, response) {
       operationParameters = payload.body;
       break;
 
-    // case 'updateMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: args.values}
-    //   //   ]
-    //   // );
-    //   break;
-
-    // case 'excludeMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: {status : "removed", DataExclusao : "passa data" , deletedAt: new Date()}}
-    //   //   ]
-    //   // );
-    //   break;
-
     default:
-      let err = new Error();
-
       if (action != null) {
-        err.name = 'invalid_action_informed'
-        err.message = "Invalid action was informed";
+        resp.data = "Ação inválida!"
       } else {
-        err.name = 'no_action_informed'
-        err.message = "No action was informed";
+        resp.data = "Nenhuma ação informada!"
       }
-      err.code = 1;
-      err.TypeError = 1;
-      throw err;
-  }
 
+      resp.success = false
+      return resp
+  }
 
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
-    throw (e)
+    success = false
+    operationResponse = e
   }
 
-  resp.success = 'true';
+  resp.success = success;
   resp.data = operationResponse;
   return resp;
 };

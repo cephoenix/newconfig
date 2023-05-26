@@ -1,6 +1,7 @@
 exports = async function (payload) {
+  
   let action
-  let resp = {}
+  var resp = {}
   let operationName
   let operationResponse
   let operationParameters
@@ -12,6 +13,11 @@ exports = async function (payload) {
   } catch (err) {
     action = payload.action
   }
+
+  /**
+   * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
+   * Verificações específicas são feitas dentro de cada uma das operações
+   */
 
   switch (action) {
     case 'doLogin':
