@@ -16,11 +16,11 @@ exports = async function (data) {
   try {
     parameters = JSON.parse(data.text())
   } catch (e) {
-    throw "É necessário fornecer informações válidas para inserir no Banco de Dados! (3)"
+    throw "É necessário fornecer informações válidas (array) para inserir no Banco de Dados! (3)"
   }
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
-return {params: parameters}
+
   try {
     dbResponse = await dbquery.insertMany(parameters)
   } catch (e) {
