@@ -10,7 +10,6 @@ exports = async function (payload, response) {
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
-    return {debug1: payload.query.action}
   } catch (err) {
     action = payload.action;
     return {debug1: payload.action}
@@ -72,7 +71,7 @@ exports = async function (payload, response) {
       resp.success = false
       return resp
   }
-
+  return {debug: payload.query.action}
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
