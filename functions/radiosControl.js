@@ -58,7 +58,7 @@ exports = async function (payload, response) {
 
     case 'insertMany':
       operationName = 'radiosInsertMany';
-      operationParameters = payload.body;
+      operationParameters = payload.body.test();
       break;
 
     default:
