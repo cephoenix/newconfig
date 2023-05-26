@@ -53,6 +53,11 @@ exports = async function (payload, response) {
       operationParameters = payload.body.text();
       break;
 
+    case 'insertMany':
+      operationName = 'databaseInsertMany ';
+      operationParameters = payload.body.text();
+      break;
+
     // case 'updateMany':
     //   // resultado = await dbquery.updateOne(
     //   //   args.filter, 
