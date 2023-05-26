@@ -31,7 +31,7 @@ exports = async function (data) {
       "clientType": "Desenvolvimento"
     });
   }
-
+return {debug: parameters}
   try {
     dbResponse = await context.functions.execute('radiosInsertMany', parameters);
   } catch (e) {
