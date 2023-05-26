@@ -78,7 +78,7 @@ exports = async function (payload, response) {
   } catch (e) {
     success = false
     operationResponse = e
-    return {deubo: e, action: action, parameters: operationParameters, resp: operationResponse}
+    return {deubo: e, action: action, operationName: operationName, parameters: operationParameters, resp: operationResponse}
   }
 
   resp.success = success;
