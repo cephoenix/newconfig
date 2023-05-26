@@ -4,7 +4,7 @@ exports = async function (data) {
   let resp = {};
   let query;
   let parameters;
-  return {debuga: true}
+  return {debugradiosinsertmany: data}
   if(data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
   }
