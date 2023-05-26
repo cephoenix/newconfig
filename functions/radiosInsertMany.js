@@ -4,7 +4,7 @@ exports = async function (data) {
   let resp = {};
   let query;
   let parameters;
-
+  return {debuga: true}
   if(data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
   }
@@ -21,7 +21,7 @@ exports = async function (data) {
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
 
-return {debuga: true}
+
 
   if (data) {
     try {
