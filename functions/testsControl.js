@@ -20,8 +20,8 @@ exports = async function (payload) {
    */
 
   switch (action) {
-    case 'doLogin':
-      operationName = 'loginDoLogin'
+    case 'populateRadiosCollection':
+      operationName = 'testsPopulateRadiosCollection'
       operationParameters = payload.body
       break;
 
