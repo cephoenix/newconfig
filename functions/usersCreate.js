@@ -37,7 +37,7 @@ exports = async function (data) {
 
   if (!dbResponse) {
     try {
-      let password = await context.functions.execute("decryptText", parameters.password);
+      password = await context.functions.execute("decryptText", parameters.password);
     } catch (e) {
       throw "Erro ao decriptografar a senha enviada pelo frontend: " + e;
     }
