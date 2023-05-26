@@ -3,11 +3,10 @@ exports = async function (payload, response) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
   let action;
   let resp = {};
-  let debug;
   let operationName;
   let operationResponse;
   let operationParameters;
-  let body;
+  
 
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
@@ -16,16 +15,21 @@ exports = async function (payload, response) {
     action = payload.action;
   }
 
+  /**
+   * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
+   * Verificações específicas são feitas dentro de cada uma das operações
+   */
+
   switch (action) {
 
     case 'create':
       operationName = 'radiosCreate';
-      operationParameters = payload.body.text();
+      operationParameters = payload.body;
       break;
 
     case 'findOne':
       operationName = 'radiosFindOne';
-      operationParameters = payload.body.text();
+      operationParameters = payload.body;
       break;
 
     case 'findAll':
@@ -35,27 +39,27 @@ exports = async function (payload, response) {
 
     case 'findMany':
       operationName = 'radiosFindMany';
-      operationParameters = payload.body.text();
+      operationParameters = payload.body;
       break;
 
     case 'updateOne':
       operationName = 'radiosUpdateOne';
-      operationParameters = payload.body.text();
+      operationParameters = payload.body;
       break;
 
     case 'excludeOne':
       operationName = 'radiosExcludeOne';
-      operationParameters = payload.body.text();
+      operationParameters = payload.body;
       break;
 
     case 'deleteOne':
       operationName = 'radiosDeleteOne';
-      operationParameters = payload.body.text();
+      operationParameters = payload.body;
       break;
 
     case 'insertMany':
       operationName = 'radiosInsertMany ';
-      operationParameters = payload.body.text();
+      operationParameters = payload.body;
       break;
 
     // case 'updateMany':
