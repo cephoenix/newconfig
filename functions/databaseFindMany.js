@@ -1,26 +1,25 @@
 exports = async function (data) {
-
-  let parameters;
+  var parameters;
   
   if (data.query) {
     try {
       parameters = EJSON.parse(data.query)
     } catch (e) {
-      throw (e)
+      throw "Não foi possível buscar as informações no Banco de Dados. Favor conferir os critérios de busca!";
     }
   } else {
-    let err = new Error();
-    err.message = "Não é possível buscar por um registro em branco";
-    throw err;
+    throw "É necessário informar os dados corretamente para fazer a pesquisa!";
   }
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection);
+  if (data.collection === undefined || data.collection === "" || data.collection === null) {
+    throw "É necessário informar uma collection para fazer a pesquisa!";
+  }
+
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
 
   try {
     return await dbquery.findMany(parameters)
   } catch (e) {
-    let err = new Error();
-    err.message = "Não é possível buscar " + data.collection;
-    throw err;
+    throw "Não é possível buscar " + data.collection
   }
 };
