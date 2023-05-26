@@ -6,7 +6,7 @@ exports = async function (payload, response) {
   let operationResponse
   let operationParameters
   var success = true
-
+  return {debug: "ASDF"}
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
@@ -70,7 +70,7 @@ exports = async function (payload, response) {
       resp.success = false
       return resp
   }
-return {debug: "ASDF"}
+
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
