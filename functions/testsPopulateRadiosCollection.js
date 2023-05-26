@@ -31,11 +31,11 @@ exports = async function (data) {
       "clientType": "Desenvolvimento"
     });
   }
-return {debug: parameters}
+
   try {
     dbResponse = await context.functions.execute('radiosInsertMany', parameters);
   } catch (e) {
-    throw "Erro ao inserir dados no Banco!" + e
+    throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
   }
 
   return dbResponse
