@@ -6,12 +6,14 @@ exports = async function (payload, response) {
   let operationResponse
   let operationParameters
   var success = true
-  return {debug: "ASDF"}
+  
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
+    return {debug1: payload.query.action}
   } catch (err) {
     action = payload.action;
+    return {debug1: payload.action}
   }
 
   /**
