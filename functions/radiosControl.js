@@ -73,7 +73,7 @@ exports = async function (payload, response) {
   }
   
   try {
-    return {action: action, parameters: operationParameters}
+    return {action: action, operationName: operationName, parameters: operationParameters}
     operationResponse = await context.functions.execute(operationName, operationParameters);
     
   } catch (e) {
