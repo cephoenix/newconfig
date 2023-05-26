@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-  return {debug: data, parsed: data.text()}
+  return {debug: data, parsed: data.text(), tostring: data.toString()}
   parameters = []
 
   for (let i = 0; i < 500; i++) {
