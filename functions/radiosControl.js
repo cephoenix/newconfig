@@ -71,7 +71,7 @@ exports = async function (payload, response) {
       resp.success = false
       return resp
   }
-  return {debug: payload.query.action}
+
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
