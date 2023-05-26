@@ -2,44 +2,41 @@ exports = async function (data) {
   var parameters;
   var dbResponse;
 
-  if(data == undefined) {
-    throw "É necessário fornecer informações válidas para autenticação! (1)"
-  }
-  
-  if (data == null) {
-    throw "É necessário fornecer informações válidas para autenticação! (2)"
+  parameters = []
+
+  for (let i = 0; i < 1000; i++) {
+    parameters.push({
+      "address64Bit": "00:00:00:00:00:00:00:0" + i,
+      "address16Bits": "00:0" + i,
+      "oldDatabaseId": "" + i,
+      "name": "DE1_LRDFT000" + i,
+      "number": "" + i,
+      "firmwareVersion": "18.11.14.01",
+      "hardwareVersion": "23.05.23.01",
+      "profileId": ""+i,
+      "manufacturerId": "1",
+      "group": "LRDFT",
+      "connectionRouterAddress": "00:25:96:FF:FE:12:34:56",
+      "deviceTypeId": "1",
+      "deviceTypeInitials": "LRDFT",
+      "deviceTypeName": "Long Range Smoke Detector",
+      "deviceTypeDescription": "Detector de Fumaça/Termo Long Range 2.0",
+      "deviceClass": "1",
+      "productCode": "1",
+      "status": "unused",
+      "clientOID": "6465411ff2e979495fbf7556",
+      "clientName": "Carlos Emílio",
+      "clientInitials": "CEP",
+      "clientChannel": " 26",
+      "clientType": "Desenvolvimento"
+    });
   }
 
   try {
-    parameters = JSON.parse(data.text())
-  } catch (e) {
-    throw "É necessário fornecer informações válidas para autenticação! (3)"
-  }
-
-  if(parameters.login == null || parameters.encryptedPassword == null) {
-    throw "É necessário fornecer informações válidas para autenticação! (4)"
-  }
-
-  if(parameters.login == undefined || parameters.encryptedPassword == undefined) {
-    throw "É necessário fornecer informações válidas para autenticação! (5)"
-  }
-
-  try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
+    dbResponse = await context.functions.execute('radiosInsertMany', parameters);
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
 
-  if(dbResponse == null) {
-    throw "Senha ou usuário incorretos!"
-  }
-  
-  let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
-  let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
-
-  if (dbResponse.password !== hashedPass) {
-    throw "Senha ou usuário incorretos!"
-  }
-
-  return { "sessionId": "A52B7A89FE6A3BA58D8C" , dbResponse: dbResponse}  //@todo implementar mecanismo de sessão
+  return dbResponse
 }
