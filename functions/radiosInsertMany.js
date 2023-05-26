@@ -2,7 +2,7 @@ exports = async function (data) {
 
   let dbResponse;
   let parameters;
-return {debug3: data}
+
   if(data == undefined) {
     throw "É necessário fornecer informações válidas para inserir no Banco de Dados! (1)"
   }
