@@ -22,7 +22,7 @@ exports = async function (payload) {
   switch (action) {
     case 'populateRadiosCollection':
       operationName = 'testsPopulateRadiosCollection'
-      operationParameters = payload.body.text()
+      operationParameters = null
       break;
 
     default:

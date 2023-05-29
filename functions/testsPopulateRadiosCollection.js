@@ -33,7 +33,7 @@ exports = async function (data) {
   }
 
   try {
-    dbResponse = await context.functions.execute('radiosInsertMany', JSON.stringify(parameters));
+    dbResponse = await context.functions.execute('radiosInsertMany', parameters);
   } catch (e) {
     throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
   }

@@ -12,7 +12,6 @@ exports = async function (payload, response) {
     action = payload.query.action;
   } catch (err) {
     action = payload.action;
-    return {debug1: payload.action}
   }
 
   /**
