@@ -40,10 +40,10 @@ exports = async function (data) {
   if (dbResponse.password !== hashedPass) {
     throw "Senha ou usuário incorretos!"
   }
-return {debug: true, dbResponse: dbResponse, clientsLength: dbResponse.clients.length, firstElement: dbResponse.clients[0]}
+// return {debug: true, dbResponse: dbResponse, clientsLength: dbResponse.clients.length, firstElement: dbResponse.clients[0]}
   for (let i = 0; i < dbResponse.clients.length; i++) {
     // const client = array[i];
-    dbResponse.clients[i].radios = await context.functions.execute("radiosFindMany", {"clientOID":array[i]})
+    dbResponse.radios = await context.functions.execute("radiosFindMany", {"clientOID":array[i]})
   }
 
   return { "sessionId": "A52B7A89FE6A3BA58D8C" , loggedUser: dbResponse}  //@todo implementar mecanismo de sessão
