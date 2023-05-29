@@ -61,7 +61,7 @@ exports = async function (data) {
     //   }
     // }
   ];
-  return {debug: filter}
+
   try {
     dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("users").aggregate(filter);
   } catch (e) {
