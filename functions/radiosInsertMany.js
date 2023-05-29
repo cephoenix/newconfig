@@ -4,7 +4,7 @@ exports = async function (data) {
   let parameters;
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios");
-
+return {debug: parameters}
   try {
     dbResponse = await dbquery.insertMany(parameters, {ordered: false})
   } catch (e) {
