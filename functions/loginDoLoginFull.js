@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-
+return {debug: data}
   if(data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
   }
