@@ -29,14 +29,15 @@ exports = async function (data) {
       '$match': {
         'login': parameters.login
       }
-    }, {
-      '$lookup': {
-        'from': 'radios', 
-        'localField': 'login', 
-        'foreignField': 'clientOID', 
-        'as': 'client_radios'
-      }
-    }, 
+    }
+    // , {
+    //   '$lookup': {
+    //     'from': 'radios', 
+    //     'localField': 'login', 
+    //     'foreignField': 'clientOID', 
+    //     'as': 'client_radios'
+    //   }
+    // }, 
     // {
     //   '$project': {
     //     '_id': 0, 
