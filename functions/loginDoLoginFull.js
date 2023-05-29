@@ -40,7 +40,7 @@ exports = async function (data) {
   if (dbResponse.password !== hashedPass) {
     throw "Senha ou usuário incorretos!"
   }
-
+return {debug: true, dbResponse: dbResponse, clientsLength: dbResponse.clients.length, firstElement: dbResponse.clients[0]}
   for (let i = 0; i < dbResponse.clients.length; i++) {
     // const client = array[i];
     dbResponse.clients[i].radios = await context.functions.execute("radiosFindMany", {"clientOID":array[i]})
