@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-return {debug: data}
+
   if(data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
   }
@@ -22,6 +22,48 @@ return {debug: data}
 
   if(parameters.login == undefined || parameters.encryptedPassword == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (5)"
+  }
+
+  var filter = [
+    {
+      '$match': {
+        'login': parameters.login
+      }
+    }, {
+      '$lookup': {
+        'from': 'radios', 
+        'localField': 'login', 
+        'foreignField': 'clientOID', 
+        'as': 'client_radios'
+      }
+    }, 
+    // {
+    //   '$project': {
+    //     '_id': 0, 
+    //     'client_radios': {
+    //       'id_permissoes': 1
+    //     }
+    //   }
+    // }, 
+    
+    // {
+    //   '$group': {
+    //     '_id': 'lista', 
+    //     'permissoes': {
+    //       '$push': '$lista_permissoes.id_permissoes'
+    //     }
+    //   }
+    // }, {
+    //   '$project': {
+    //     '_id': 0, 
+    //     'permissoes': 1
+    //   }
+    // }
+  ];
+  try {
+    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("users").aggregate(filter);
+  } catch (e) {
+    throw "Deu BO!"
   }
 
   try {
