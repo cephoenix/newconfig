@@ -25,6 +25,11 @@ exports = async function (payload) {
       operationParameters = payload.body
       break;
 
+      case 'doLoginFull':
+        operationName = 'loginDoLoginFull'
+        operationParameters = payload.body
+        break;
+
     default:
       if (action != null) {
         resp.data = "Ação inválida!"
