@@ -8,6 +8,6 @@ exports = async function (data) {
   try {
     dbResponse = await dbquery.insertMany(parameters, {ordered: false})
   } catch (e) {
-    throw "Falha ao inserir dados no Banco de Dados!";
+    throw "Falha ao inserir dados no Banco de Dados!" + e;
   }
 };
