@@ -66,11 +66,11 @@ exports = async function (data) {
     throw "Deu BO!"
   }
 
-  try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
-  } catch (e) {
-    throw "Erro ao buscar usuário no Banco de Dados! " + e
-  }
+  // try {
+  //   dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
+  // } catch (e) {
+  //   throw "Erro ao buscar usuário no Banco de Dados! " + e
+  // }
 
   if(dbResponse == null) {
     throw "Senha ou usuário incorretos!"
