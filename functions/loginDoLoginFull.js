@@ -43,7 +43,7 @@ exports = async function (data) {
 // return {debug: true, dbResponse: dbResponse, clientsLength: dbResponse.clients.length, firstElement: dbResponse.clients[0]}
   for (let i = 0; i < dbResponse.clients.length; i++) {
     // const client = array[i];
-    dbResponse.radios = await context.functions.execute("radiosFindMany", {"clientOID":array[i]})
+    dbResponse.radios = await context.functions.execute("radiosFindMany", {"clientOID":dbResponse.clients[i]})
   }
 
   return { "sessionId": "A52B7A89FE6A3BA58D8C" , loggedUser: dbResponse}  //@todo implementar mecanismo de sessão
