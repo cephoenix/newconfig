@@ -57,8 +57,21 @@ exports = async function (payload, response) {
       break;
 
     case 'insertMany':
+
+      if(payload.body == undefined) {
+        throw "É necessário fornecer informações válidas para inserir no Banco de Dados! (1)"
+      }
+      
+      if (payload.body == null) {
+        throw "É necessário fornecer informações válidas para inserir no Banco de Dados! (2)"
+      }
+
+      try {
+        operationParameters = JSON.parse(payload.body.text())
+      } catch (e) {
+        throw "É necessário fornecer informações válidas (array) para inserir no Banco de Dados! (3)"
+      }
       operationName = 'radiosInsertMany';
-      operationParameters = payload.body.test();
       break;
 
     default:
@@ -74,7 +87,6 @@ exports = async function (payload, response) {
   
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
-    
   } catch (e) {
     success = false
     operationResponse = e
