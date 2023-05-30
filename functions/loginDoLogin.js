@@ -42,7 +42,7 @@ exports = async function (payload) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog")
   
   if (loggedUser.password !== hashedPass) {
-    return {debug: loggedUser}
+    return {debug: loggedUser, decrypted: decryptedPassword, hashed: hashedPass}
     try {
       await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date() })
     } catch (e) {
