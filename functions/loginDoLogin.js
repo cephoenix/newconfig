@@ -25,13 +25,9 @@ exports = async function (payload) {
   if (parameters.login == undefined || parameters.encryptedPassword == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (5)"
   }
-  
+
   try {
-    loggedUser = await context.functions.execute('databaseFindOne',
-      {
-        query: EJSON.stringify({ login: parameters.login }),
-        collection: "users"
-      });
+    loggedUser = await context.services.get("mongodb-atlas").db("configRadio").collection(users).findOne({ login: parameters.login })
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
@@ -42,22 +38,22 @@ exports = async function (payload) {
 
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
-  
+
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog")
 
   if (loggedUser.password !== hashedPass) {
 
     try {
-      await dbquery.insertOne({login : parameters.login, success: false, clientIp: remoteIp, date: new Date()})
+      await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date() })
     } catch (e) {
       throw (e)
     }
 
     throw "Senha ou usuário incorretos!"
   }
-  
+
   try {
-    await dbquery.insertOne({login: parameters.login, success: true, clientIp: remoteIp, date: new Date()})
+    await dbquery.insertOne({ login: parameters.login, success: true, clientIp: remoteIp, date: new Date() })
   } catch (e) {
     throw (e)
   }
