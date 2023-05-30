@@ -4,7 +4,8 @@ exports = async function (payload) {
   let action;
   var success = true;
   let operationName;
-  let response;
+  var operationResponse
+  var resp = {}
   let operationParameters;
   
   try {
@@ -93,10 +94,10 @@ exports = async function (payload) {
   }
 
   try {
-    response = await context.functions.execute(operationName, operationParameters);
+    operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
       success = false
-      response = e.message
+      operationResponse = e.message
   }
 
   resp.success = success

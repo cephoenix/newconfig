@@ -4,7 +4,7 @@ exports = async function (data) {
 
   parameters = []
 
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 1000; i++) {
     parameters.push({
       "address64Bit": "000000000000000" + i,
       "address16Bits": "000" + i,
