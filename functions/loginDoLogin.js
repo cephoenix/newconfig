@@ -58,7 +58,6 @@ exports = async function (payload) {
   }
   
   try {
-    // return {dbResponse: loggedUser, loggedUser: dbResponse.loggedUser}
     await dbquery.insertOne({user: loggedUser._id, sessionId: loggedUser.sessionId, success: true, clientIp: remoteIp, date: new Date()})
   } catch (e) {
     throw (e)
