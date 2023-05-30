@@ -24,55 +24,11 @@ exports = async function (data) {
     throw "É necessário fornecer informações válidas para autenticação! (5)"
   }
 
-  var filter = [
-    {
-      '$match': {
-        'login': parameters.login
-      }
-    }
-    // , {
-    //   '$lookup': {
-    //     'from': 'radios', 
-    //     'localField': 'login', 
-    //     'foreignField': 'clientOID', 
-    //     'as': 'client_radios'
-    //   }
-    // }, 
-    // {
-    //   '$project': {
-    //     '_id': 0, 
-    //     'client_radios': {
-    //       'id_permissoes': 1
-    //     }
-    //   }
-    // }, 
-
-    // {
-    //   '$group': {
-    //     '_id': 'lista', 
-    //     'permissoes': {
-    //       '$push': '$lista_permissoes.id_permissoes'
-    //     }
-    //   }
-    // }, {
-    //   '$project': {
-    //     '_id': 0, 
-    //     'permissoes': 1
-    //   }
-    // }
-  ];
-
   try {
-    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("users").aggregate(filter);
+    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
   } catch (e) {
-    throw "Deu BO!"
+    throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
-
-  // try {
-  //   dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
-  // } catch (e) {
-  //   throw "Erro ao buscar usuário no Banco de Dados! " + e
-  // }
 
   if(dbResponse == null) {
     throw "Senha ou usuário incorretos!"
