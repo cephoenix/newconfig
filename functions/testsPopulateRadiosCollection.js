@@ -6,7 +6,7 @@ exports = async function (data) {
 
   for (let i = 0; i < 1000; i++) {
     parameters.push({
-      "address64Bit": "000000000000000" + i,
+      "address64Bit": "00000000000000" + i,
       "address16Bits": "000" + i,
       "oldDatabaseId": "" + i,
       "name": "DE1_LRDFT000" + i,
