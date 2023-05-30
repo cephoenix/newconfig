@@ -56,6 +56,7 @@ exports = async function (data) {
   }
   
   try {
+    return {dbResponse: dbResponse, loggedUser: dbResponse.loggedUser}
     dbResponse = await dbquery.insertOne({user: dbResponse.loggedUser._id, serrionId: dbResponse.sessionId, success: true, date: new Date()})
   } catch (e) {
     throw (e)
