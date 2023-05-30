@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters
   var options
-  return {deb: data}
+  
   if (data.query) {
     try {
       parameters = EJSON.parse(data.query)

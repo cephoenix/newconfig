@@ -13,7 +13,7 @@ exports = async function (data) {
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
-      "login": "carlosemilio  ",
+      "login": "carlosemilio",
       "password": "YTlhYWFiYWNhZGFlYWZhMA==",
       "email": "carlosemilio@firebee.com.br",
       "fullName": "Carlos Emílio Pereira",
