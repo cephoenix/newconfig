@@ -17,7 +17,7 @@ exports = async function (data) {
     throw "Não é possível adicionar um registro em branco";
   }
 
-  if(!parameters.exibitionName) {
+  if(!parameters.exhibitionName) {
     throw "O campo 'Nome de exibição' é obrigatório ";
   }
 
