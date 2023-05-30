@@ -33,7 +33,7 @@ exports = async function (payload) {
   }
 
   if (loggedUser == null) {
-    throw "Senha ou usuário incorretos! 1"
+    throw "Senha ou usuário incorretos!"
   }
 
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
@@ -48,7 +48,7 @@ exports = async function (payload) {
       throw (e)
     }
 
-    throw "Senha ou usuário incorretos! 2"
+    throw "Senha ou usuário incorretos!"
   }
 
   try {
