@@ -1,6 +1,6 @@
 exports = async function (data) {
-  var parameters;
-  var options;14524910
+  var parameters
+  var options
   
   if (data.query) {
     try {
@@ -12,14 +12,6 @@ exports = async function (data) {
     throw "É necessário informar os dados corretamente para fazer a pesquisa!";
   }
 
-  if (data.options) {
-    try {
-      options = EJSON.parse(data.options)
-    } catch (e) {
-      throw "Não foi possível buscar as informações no Banco de Dados. Favor conferir os critérios de busca!";
-    }
-  }
-
   if (data.collection == undefined || data.collection == "" || data.collection == null) {
     throw "É necessário informar uma collection para fazer a pesquisa!";
   }
@@ -27,7 +19,7 @@ exports = async function (data) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
 
   try {
-    return await dbquery.findOne(parameters, options)
+    return await dbquery.findOne(parameters)
   } catch (e) {
     throw "Não é possível buscar " + data.collection;
   }
