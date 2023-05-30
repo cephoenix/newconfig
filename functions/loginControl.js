@@ -6,7 +6,7 @@ exports = async function (payload, response) {
   let operationResponse
   let operationParameters
   let success = true
-  return {payload: payload, response: response}
+
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
@@ -22,7 +22,7 @@ exports = async function (payload, response) {
   switch (action) {
     case 'doLogin':
       operationName = 'loginDoLogin'
-      operationParameters = payload.body
+      operationParameters = payload
       break;
 
       case 'doLoginFull':
