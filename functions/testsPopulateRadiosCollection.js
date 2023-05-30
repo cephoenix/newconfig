@@ -28,7 +28,8 @@ exports = async function (data) {
       "clientName": "Carlos Emílio",
       "clientInitials": "CEP",
       "clientChannel": " 26",
-      "clientType": "Desenvolvimento"
+      "clientType": "Desenvolvimento",
+      "recordingDate":"2023-05-30T19:57:16.944+00:00"
     });
   }
   //forcing a new deploy
