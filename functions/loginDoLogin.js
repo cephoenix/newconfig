@@ -41,16 +41,17 @@ exports = async function (data) {
 
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
-  return { "sessionId": "A52B7A89FE6A3BA58D8C", dbResponse: dbResponse }
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
+  
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog")
 
   if (dbResponse.password !== hashedPass) {
 
-    // try {
-    //   dbResponse = await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
-    // } catch (e) {
-    //   throw (e)
-    // }
+    try {
+      dbResponse = await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
+      return { "sessionId": "A52B7A89FE6A3BA58D8C", dbResponse: dbResponse }
+    } catch (e) {
+      throw (e)
+    }
 
     throw "Senha ou usuário incorretos!"
   }
