@@ -3,7 +3,7 @@ exports = async function (payload) {
   var loggedUser;
   var data = payload.body
 
-  return { remoteIp: payload.headers['x-forwarded-for']}
+  return { remoteIp: payload.headers['X-Cluster-Client-Ip']}
 
   if (data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
