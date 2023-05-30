@@ -4,7 +4,7 @@ exports = async function (payload) {
   var data = payload.body
 
   var remoteIp = payload.headers
-  return {debug: {body: data, remoteIp: remoteIp}}
+  return { remoteIp: JSON.parse(remoteIp)}
 
   if (data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
