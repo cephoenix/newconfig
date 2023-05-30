@@ -25,6 +25,11 @@ exports = async function (payload) {
       operationParameters = null
       break;
 
+      case 'rebuildDatabase':
+        operationName = 'testsRebuildDatabase'
+        operationParameters = null
+        break;
+
     default:
       if (action != null) {
         resp.data = "Ação inválida!"
