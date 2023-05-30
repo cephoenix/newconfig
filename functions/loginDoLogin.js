@@ -34,7 +34,7 @@ exports = async function (data) {
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
-
+return{omg: dbResponse}
   if (dbResponse == null) {
     throw "Senha ou usuário incorretos!"
   }
