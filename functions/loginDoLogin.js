@@ -3,7 +3,7 @@ exports = async function (payload) {
   var loggedUser;
   var data = payload.body
 
-  var remoteIp = payload.headers.X-Cluster-Client-Ip
+  var remoteIp = payload.headers
   return {debug: {body: data, remoteIp: remoteIp}}
 
   if (data == undefined) {
