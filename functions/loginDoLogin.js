@@ -28,6 +28,7 @@ exports = async function (payload) {
 
   try {
     loggedUser = await context.services.get("mongodb-atlas").db("configRadio").collection("users").findOne({"login":parameters.login})
+    return {debug: loggedUser}
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
