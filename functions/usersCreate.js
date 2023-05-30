@@ -18,7 +18,11 @@ exports = async function (data) {
   }
 
   if(!parameters.exhibitionName) {
-    throw "O campo 'Nome de exibição' é obrigatório ";
+    throw "O campo 'Nome de exibição' é obrigatório!";
+  }
+
+  if(!parameters.permissionLevel) {
+    throw "O campo 'Nível de permissão' é obrigatório!"
   }
 
   query = {
