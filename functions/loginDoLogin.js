@@ -36,7 +36,7 @@ exports = async function (payload) {
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
-  
+  return {debug: loggedUser}
   if (loggedUser == null) {
     throw "Senha ou usuário incorretos!"
   }
