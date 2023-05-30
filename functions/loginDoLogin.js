@@ -46,20 +46,20 @@ exports = async function (data) {
 
   if (dbResponse.password !== hashedPass) {
 
-    try {
-      dbResponse = await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
-    } catch (e) {
-      throw (e)
-    }
+    // try {
+    //   dbResponse = await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
+    // } catch (e) {
+    //   throw (e)
+    // }
 
     throw "Senha ou usuário incorretos!"
   }
   
-  try {
-    dbResponse = await dbquery.insertOne({user: dbResponse.loggedUser._id, serrionId: dbResponse.sessionId, success: true, date: new Date()})
-  } catch (e) {
-    throw (e)
-  }
+  // try {
+  //   dbResponse = await dbquery.insertOne({user: dbResponse.loggedUser._id, serrionId: dbResponse.sessionId, success: true, date: new Date()})
+  // } catch (e) {
+  //   throw (e)
+  // }
 
 
   return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: dbResponse }  //@todo implementar mecanismo de sessão
