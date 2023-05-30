@@ -40,10 +40,10 @@ exports = async function (payload) {
       operationParameters = null;
       break;
 
-    case 'getClients':
-      operationName = 'clientsGetClients';
-      operationParameters = payload.body.text();
-      break;
+    // case 'getClients':
+    //   operationName = 'clientsGetClients';
+    //   operationParameters = payload.body.text();
+    //   break;
 
     case 'findMany':
       operationName = 'clientsFindMany';
