@@ -14,9 +14,11 @@ exports = async function (data) {
       throw (e)
     }
   } else {
-    let err = new Error();
-    err.message = "Não é possível adicionar um registro em branco";
-    throw err;
+    throw "Não é possível adicionar um registro em branco";
+  }
+
+  if(!parameters.exibitionName) {
+    throw "O campo 'Nome de exibição' é obrigatório ";
   }
 
   query = {
@@ -29,10 +31,7 @@ exports = async function (data) {
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
-    let err = new Error();
-    err.message = "Não é possível buscar usuário";
-    err.e = e
-    throw e;
+    throw "Não é possível buscar usuário";
   }
 
   if (!dbResponse) {
