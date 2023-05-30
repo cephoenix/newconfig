@@ -28,29 +28,28 @@ exports = async function (payload) {
 
   try {
     loggedUser = await context.services.get("mongodb-atlas").db("configRadio").collection("users").findOne({"login":parameters.login})
-    return {debug: loggedUser}
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
 
   if (loggedUser == null) {
-    throw "Senha ou usuário incorretos!"
+    throw "Senha ou usuário incorretos! 1"
   }
 
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog")
-
+  
   if (loggedUser.password !== hashedPass) {
-
+    return {debug: loggedUser}
     try {
       await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date() })
     } catch (e) {
       throw (e)
     }
 
-    throw "Senha ou usuário incorretos!"
+    throw "Senha ou usuário incorretos! 2"
   }
 
   try {
