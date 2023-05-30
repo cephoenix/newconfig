@@ -23,7 +23,7 @@ exports = async function (data) {
   if (parameters.login == undefined || parameters.encryptedPassword == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (5)"
   }
-  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: "debug" }
+  
   try {
     dbResponse = await context.functions.execute('databaseFindOne',
       {
@@ -34,7 +34,7 @@ exports = async function (data) {
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
-  
+  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: "debug2" }
   if (dbResponse == null) {
     throw "Senha ou usuário incorretos!"
   }
