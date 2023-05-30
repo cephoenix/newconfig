@@ -57,11 +57,11 @@ exports = async function (data) {
   
   try {
     // return {dbResponse: loggedUser, loggedUser: dbResponse.loggedUser}
-    await dbquery.insertOne({user: loggedUser._id, sessionId: dbResponse.sessionId, success: true, date: new Date()})
+    await dbquery.insertOne({user: loggedUser._id, sessionId: loggedUser.sessionId, success: true, date: new Date()})
   } catch (e) {
     throw (e)
   }
 
 
-  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: dbResponse }  //@todo implementar mecanismo de sessão
+  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: loggedUser }  //@todo implementar mecanismo de sessão
 }
