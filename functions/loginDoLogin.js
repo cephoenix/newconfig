@@ -1,6 +1,6 @@
 exports = async function (data) {
   var parameters;
-  var dbResponse;
+  var loggedUser;
 
   if (data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
@@ -25,7 +25,7 @@ exports = async function (data) {
   }
   
   try {
-    dbResponse = await context.functions.execute('databaseFindOne',
+    loggedUser = await context.functions.execute('databaseFindOne',
       {
         query: EJSON.stringify({ login: parameters.login }),
         options: EJSON.stringify({ projection: { _id: 0, password: 0 } }),
@@ -35,7 +35,7 @@ exports = async function (data) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
   
-  if (dbResponse == null) {
+  if (loggedUser == null) {
     throw "Senha ou usuário incorretos!"
   }
 
@@ -44,10 +44,10 @@ exports = async function (data) {
   
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog")
 
-  if (dbResponse.password !== hashedPass) {
+  if (loggedUser.password !== hashedPass) {
 
     try {
-      dbResponse = await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
+      await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
     } catch (e) {
       throw (e)
     }
@@ -56,8 +56,8 @@ exports = async function (data) {
   }
   
   try {
-    return {dbResponse: dbResponse, loggedUser: dbResponse.loggedUser}
-    dbResponse = await dbquery.insertOne({user: dbResponse.loggedUser._id, serrionId: dbResponse.sessionId, success: true, date: new Date()})
+    // return {dbResponse: loggedUser, loggedUser: dbResponse.loggedUser}
+    await dbquery.insertOne({user: dbResponse.loggedUser._id, serrionId: dbResponse.sessionId, success: true, date: new Date()})
   } catch (e) {
     throw (e)
   }
