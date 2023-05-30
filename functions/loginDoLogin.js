@@ -2,7 +2,7 @@ exports = async function (payload) {
   var parameters;
   var loggedUser;
   var data = payload.body
-  var remoteIp = payload.headers['X-Cluster-Client-Ip']
+  var remoteIp = payload.headers['X-Cluster-Client-Ip'][0]
 
   if (data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
