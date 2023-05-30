@@ -14,7 +14,7 @@ exports = async function (data) {
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
       "login": "carlosemilio",
-      "password": "YTlhYWFiYWNhZGFlYWZhMA==",
+      "password": "EFDA0BD51E79959399756DD0FC4BA89653780EF8",
       "email": "carlosemilio@firebee.com.br",
       "fullName": "Carlos Emílio Pereira",
       "exhibitionName": "Carlão",
@@ -46,7 +46,7 @@ exports = async function (data) {
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
       "login": "jardel0101",
-      "password": "YTlhYWFiYWNhZGFlYWZhMA==",
+      "password": "EFDA0BD51E79959399756DD0FC4BA89653780EF8",
       "email": "jardel@firebee.com.br",
       "fullName": "Jardel Cândido",
       "exhibitionName": "Jardel",
