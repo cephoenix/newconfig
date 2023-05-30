@@ -48,7 +48,6 @@ exports = async function (data) {
 
     try {
       dbResponse = await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
-      return { "sessionId": "A52B7A89FE6A3BA58D8C", dbResponse: dbResponse }
     } catch (e) {
       throw (e)
     }
@@ -56,11 +55,11 @@ exports = async function (data) {
     throw "Senha ou usuário incorretos!"
   }
   
-  // try {
-  //   dbResponse = await dbquery.insertOne({user: dbResponse.loggedUser._id, serrionId: dbResponse.sessionId, success: true, date: new Date()})
-  // } catch (e) {
-  //   throw (e)
-  // }
+  try {
+    dbResponse = await dbquery.insertOne({user: dbResponse.loggedUser._id, serrionId: dbResponse.sessionId, success: true, date: new Date()})
+  } catch (e) {
+    throw (e)
+  }
 
 
   return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: dbResponse }  //@todo implementar mecanismo de sessão
