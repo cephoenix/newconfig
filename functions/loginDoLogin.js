@@ -34,14 +34,14 @@ exports = async function (data) {
   } catch (e) {
     throw "Erro ao buscar usuário no Banco de Dados! " + e
   }
-  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: "debug2" }
+  
   if (dbResponse == null) {
     throw "Senha ou usuário incorretos!"
   }
 
   let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
   let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
-
+  return { "sessionId": "A52B7A89FE6A3BA58D8C", dbResponse: dbResponse }
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
 
   if (dbResponse.password !== hashedPass) {
