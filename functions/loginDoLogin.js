@@ -2,8 +2,7 @@ exports = async function (payload) {
   var parameters;
   var loggedUser;
   var data = payload.body
-
-  return { remoteIp: payload.headers['X-Cluster-Client-Ip']}
+  var remoteIp = payload.headers['X-Cluster-Client-Ip']
 
   if (data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
@@ -50,7 +49,7 @@ exports = async function (payload) {
   if (loggedUser.password !== hashedPass) {
 
     try {
-      await dbquery.insertOne({user: {login : parameters.login}, success: false, date: new Date()})
+      await dbquery.insertOne({user: {login : parameters.login}, success: false, clientIp: remoteIp, date: new Date()})
     } catch (e) {
       throw (e)
     }
@@ -60,7 +59,7 @@ exports = async function (payload) {
   
   try {
     // return {dbResponse: loggedUser, loggedUser: dbResponse.loggedUser}
-    await dbquery.insertOne({user: loggedUser._id, sessionId: loggedUser.sessionId, success: true, date: new Date()})
+    await dbquery.insertOne({user: loggedUser._id, sessionId: loggedUser.sessionId, success: true, clientIp: remoteIp, date: new Date()})
   } catch (e) {
     throw (e)
   }
