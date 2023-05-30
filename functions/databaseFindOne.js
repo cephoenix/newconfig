@@ -27,7 +27,6 @@ exports = async function (data) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
 
   try {
-    return {debug: options}
     return await dbquery.findOne(parameters, options)
   } catch (e) {
     throw "Não é possível buscar " + data.collection;
