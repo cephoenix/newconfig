@@ -40,7 +40,7 @@ exports = async function (payload) {
       resp.success = false
       return resp
   }
-
+return {operationName: operationName, operationParameters: operationParameters}
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
