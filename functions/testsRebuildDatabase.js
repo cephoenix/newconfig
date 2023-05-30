@@ -4,12 +4,12 @@ exports = async function (data) {
 
   parameters = []
   
-  context.services.get("mongodb-atlas").db("configRadio").collection("clients").remove({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("parameters").remove({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("radios").remove({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").remove({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("users").remove({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").remove({})
+  context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
+  context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
+  context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
+  context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
+  context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
+  context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
