@@ -28,7 +28,7 @@ exports = async function (data) {
     dbResponse = await context.functions.execute('databaseFindOne',
       {
         query: EJSON.stringify({ login: parameters.login }),
-        options: EJSON.stringify({ projection: { "_id": 0, "password": 0 } }),
+        options: { projection: { _id: 0, password: 0 } },
         collection: "users"
       });
   } catch (e) {
