@@ -1,7 +1,7 @@
 exports = async function (data) {
   var parameters;
   var dbResponse;
-  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: "debug" }
+
   if (data == undefined) {
     throw "É necessário fornecer informações válidas para autenticação! (1)"
   }
@@ -15,7 +15,7 @@ exports = async function (data) {
   } catch (e) {
     throw "É necessário fornecer informações válidas para autenticação! (3)"
   }
-
+  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: "debug" }
   if (parameters.login == null || parameters.encryptedPassword == null) {
     throw "É necessário fornecer informações válidas para autenticação! (4)"
   }
