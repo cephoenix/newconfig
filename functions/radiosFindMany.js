@@ -13,7 +13,7 @@ exports = async function (data) {
   // }
 
   try {
-    dbResponse = await dbquery.find(data, {_id: 0, name: 1, firmwareVersion: 1, recordingDate: 1})
+    dbResponse = await dbquery.find(data, {_id: 0, name: 1, firmwareVersion: 1, recordingDate: 1, clientChannel: 1})
   } catch (e) {
     throw (e)
   }
