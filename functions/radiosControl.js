@@ -36,19 +36,14 @@ exports = async function (payload, response) {
       break;
 
     case 'findMany':
-
-      if(payload.body == undefined) {
+      if(payload.body == undefined || payload.body == null) {
         throw "É necessário fornecer informações válidas para pesquisar no Banco de Dados! (1)"
       }
       
-      if (payload.body == null) {
-        throw "É necessário fornecer informações válidas para pesquisar no Banco de Dados! (2)"
-      }
-
       try {
         operationParameters = JSON.parse(payload.body.text())
       } catch (e) {
-        throw "É necessário fornecer informações válidas (array) para inserir no Banco de Dados! (3)"
+        throw "É necessário fornecer informações válidas (array) para pesquisar no Banco de Dados! (3)"
       }
 
       operationName = 'radiosFindMany';
