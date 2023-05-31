@@ -13,12 +13,7 @@ exports = async function (data) {
       throw (e)
     }
   } else {
-    let err = new Error();
-    err.name = 'no_data_provided'
-    err.message = "Não é possível adicionar um registro em branco";
-    err.code = 2;
-    err.TypeError = 2;
-    throw err;
+    throw "Não é possível adicionar um registro em branco";
   }
 
   query = {
@@ -30,13 +25,7 @@ exports = async function (data) {
   try {
     dbResponse = await dbquery.findOne(query)
   } catch (e) {
-    let err = new Error();
-    err.name = 'find_one_error'
-    err.message = "Não é possível buscar rádio";
-    err.code = 2;
-    err.TypeError = 2;
-    err.e = e
-    throw e;
+    throw "Não é possível buscar rádio"
   }
 
 
@@ -50,12 +39,7 @@ exports = async function (data) {
     return dbResponse
 
   } else {
-    let err = new Error();
-    err.name = 'radio_already_exists'
-    err.message = "Rádio já cadastrado";
-    err.code = 1;
-    err.TypeError = 1;
-    throw err;
+    throw "Rádio já cadastrado"
   }
 
 };

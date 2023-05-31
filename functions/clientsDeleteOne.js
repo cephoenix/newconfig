@@ -1,8 +1,6 @@
 exports = async function (data) {
 
-
   let dbResponse;
-  let resp = {};
   let query;
   let parameters;
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
@@ -14,12 +12,7 @@ exports = async function (data) {
       throw (e)
     }
   } else {
-    let err = new Error();
-    err.name = 'no_data_provided'
-    err.message = "Não é possível excluir um registro em branco";
-    err.code = 2;
-    err.TypeError = 2;
-    throw err;
+    throw "Não é possível excluir um registro em branco"
   }
 
   query = { "_id": new BSON.ObjectId(parameters._id) }

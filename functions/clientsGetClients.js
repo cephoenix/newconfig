@@ -3,9 +3,7 @@ exports = async function (data) {
   try {
     parameters = EJSON.parse(data)
   } catch (e) {
-    let err = new Error()
-    err.message = "Falha ao buscar o ID da sessão de usuário!"
-    throw err
+    throw "Falha ao buscar o ID da sessão de usuário!"
   }
 
   if(parameters.sessionId === "A52B7A89FE6A3BA58D8C") {
@@ -16,8 +14,7 @@ exports = async function (data) {
       throw (e)
     }
   } else {
-    let err = new Error()
-    err.message = "É necessário realizar login para ter acesso a esse recurso do sistema!"
-    throw err
+
+    throw "É necessário realizar login para ter acesso a esse recurso do sistema!"
   }
 };

@@ -5,7 +5,6 @@ exports = async function (data) {
   let query;
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users");
 
-
   if (data) {
     try {
       parameters = EJSON.parse(data)
@@ -13,12 +12,7 @@ exports = async function (data) {
       throw (e)
     }
   } else {
-    let err = new Error();
-    err.name = 'no_data_provided'
-    err.message = "Não é possível atualizar um registro em branco";
-    err.code = 3;
-    err.TypeError = 3;
-    throw err;
+    throw "Não é possível atualizar um registro em branco";
   }
   // query = {"_id": new BSON.ObjectId(parameters._id)}
   query = { "_id": parameters._id }
@@ -30,5 +24,4 @@ exports = async function (data) {
   }
 
   return dbResponse
-
 };

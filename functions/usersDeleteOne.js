@@ -1,6 +1,5 @@
 exports = async function (data) {
 
-
   let dbResponse;
   let resp = {};
   let query;
@@ -14,12 +13,7 @@ exports = async function (data) {
       throw (e)
     }
   } else {
-    let err = new Error();
-    err.name = 'no_data_provided'
-    err.message = "Não é possível excluir um registro em branco";
-    err.code = 2;
-    err.TypeError = 2;
-    throw err;
+    throw "Não é possível excluir um registro em branco";
   }
 
   query = { "_id": new BSON.ObjectId(parameters._id) }
@@ -30,5 +24,4 @@ exports = async function (data) {
   }
 
   return dbResponse
-
 }

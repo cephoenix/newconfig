@@ -13,9 +13,7 @@ exports = async function (data) {
       throw (e)
     }
   } else {
-    let err = new Error()
-    err.message = "Não é possível adicionar um registro em branco"
-    throw err
+    throw "Não é possível adicionar um registro em branco"
   }
 
   query = {
@@ -41,12 +39,7 @@ exports = async function (data) {
     }
     return dbResponse
   } else {
-    let err = new Error();
-    err.name = 'client_already_exists'
-    err.message = "Cliente já cadastrado";
-    err.code = 1;
-    err.TypeError = 1;
-    throw err;
+    throw "Cliente já cadastrado";
   }
 
 };
