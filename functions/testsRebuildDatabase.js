@@ -99,7 +99,7 @@ exports = async function (data) {
       "clientOID": "6465411ff2e979495fbf7556",
       "clientName": "Carlos Emílio",
       "clientInitials": "CEP",
-      "clientChannel": " 26",
+      "clientChannel": 26,
       "clientType": "Desenvolvimento",
       "recordingDate": new Date()
     });
