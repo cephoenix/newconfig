@@ -155,6 +155,7 @@ exports = async function (data) {
       "exhibitionName": "Jardel",
       "cpfCnpj":"01234567899",
       "zone": "Centro Oeste",
+      "profilePicture":"",
       "permissionLevel": { 
           "level": 0, 
           "description": "Firebee"
@@ -209,6 +210,7 @@ exports = async function (data) {
       "exhibitionName": "Carlão",
       "cpfCnpj":"01412732166  ",
       "zone": "Centro Oeste",
+      "profilePicture":"",
       "permissionLevel": { 
           "level": 0, 
           "description": "Firebee"
