@@ -13,7 +13,10 @@ exports = async function (data) {
   // }
 
   try {
-    dbResponse = await dbquery.find(data, {_id: 0, name: 1, firmwareVersion: 1, recordingDate: 1, clientChannel: 1, recordingDate: {$dateToString: { format: "%H:%M:%S:%L%z", date: "$recordingDate", timezone: "America/Sao_Paulo"}}})
+    dbResponse = await dbquery.find(data, {_id: 0, name: 1, firmwareVersion: 1, recordingDate: 1, clientChannel: 1, date: { $dateToString: {
+      date: "$recordingDate",
+      format: "%H:%M:%S %d/%m/%Y",
+    }}})
   } catch (e) {
     throw (e)
   }
