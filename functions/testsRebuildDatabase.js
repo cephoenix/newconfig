@@ -158,7 +158,7 @@ exports = async function (data) {
       "clientChannel": 26,
       "clientType": "Desenvolvimento",
       "recordingDate": new Date()
-    });
+    })
   }
   //forcing a new deploy
   try {

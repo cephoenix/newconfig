@@ -14,7 +14,7 @@ exports = async function (data) {
 
   try {
     dbResponse = await dbquery.find(data, {
-      _id: 0,
+      _id: 1,
       name: 1,
       firmwareVersion: 1,
       clientChannel: 1,
