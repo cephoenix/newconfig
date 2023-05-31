@@ -144,7 +144,7 @@ exports = async function (data) {
     }]
   )
   
-  return dbResponse
+  return dbResponse[0]
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
