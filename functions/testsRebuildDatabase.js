@@ -18,8 +18,8 @@ exports = async function (data) {
       "initials": "CEP",
       "panId": "9994",
       "extendedPanId": "9994",
-      "linkKey": "",
-      "networkKey": "",
+      "linkKey": "0001",
+      "networkKey": "0001",
       "creationDate": new Date(),
       "channel": 26,
       "deviceSummary": {},
@@ -144,12 +144,6 @@ exports = async function (data) {
     }]
   )
 
-  return {debug: dbResponse}
-  dbResponse.insertedIds.forEach(element => {
-    console.log("Element: ", element)
-    
-  });
-
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
       "login": "jardel0101",
@@ -165,18 +159,39 @@ exports = async function (data) {
       },
       "clients": [
           {
-              "id":"6465411ff2e979495fbf7556", 
-              "name": "Carlos Emílio",
-              "initials":"CEP",
-              "channel":26,
-              "clientType":"Admin"
+            "id":""+dbResponse.insertedIds[0], 
+            "name": "DEV - Carlos Emílio",
+            "initials":"CEP",
+            "channel":26,
+            "clientType":"Admin"
           },
           {
-              "id":"646d34a9dbc71c44a1e003db", 
-              "name": "Carlos Emílio",
-              "initials":"HEP",
-              "channel":26,
-              "clientType":"Admin"
+            "id":""+dbResponse.insertedIds[1], 
+            "name": "DEV - Jardel",
+            "initials":"JJJ",
+            "channel":26,
+            "clientType":"Admin"
+          },
+          {
+            "id":""+dbResponse.insertedIds[2], 
+            "name": "DEV - Robson",
+            "initials":"ROB",
+            "channel":26,
+            "clientType":"Admin"
+          },
+          {
+            "id":""+dbResponse.insertedIds[3], 
+            "name": "ADRIANO - TomCRUIZ",
+            "initials":"0GQ",
+            "channel":26,
+            "clientType":"Admin"
+          },
+          {
+            "id":""+dbResponse.insertedIds[4], 
+            "name": "Desenvolvimento 1",
+            "initials":"DE1",
+            "channel":26,
+            "clientType":"Admin"
           }
       ],
       "permissions": []
@@ -197,20 +212,41 @@ exports = async function (data) {
           "description": "Firebee"
       },
       "clients": [
-          {
-              "id":"6465411ff2e979495fbf7556", 
-              "name": "Carlos Emílio",
-              "initials":"CEP",
-              "channel":26,
-              "clientType":"Admin"
-          },
-          {
-              "id":"646d34a9dbc71c44a1e003db", 
-              "name": "Carlos Emílio",
-              "initials":"HEP",
-              "channel":26,
-              "clientType":"Admin"
-          }
+        {
+          "id":""+dbResponse.insertedIds[0], 
+          "name": "DEV - Carlos Emílio",
+          "initials":"CEP",
+          "channel":26,
+          "clientType":"Admin"
+        },
+        {
+          "id":""+dbResponse.insertedIds[1], 
+          "name": "DEV - Jardel",
+          "initials":"JJJ",
+          "channel":26,
+          "clientType":"Admin"
+        },
+        {
+          "id":""+dbResponse.insertedIds[2], 
+          "name": "DEV - Robson",
+          "initials":"ROB",
+          "channel":26,
+          "clientType":"Admin"
+        },
+        {
+          "id":""+dbResponse.insertedIds[3], 
+          "name": "ADRIANO - TomCRUIZ",
+          "initials":"0GQ",
+          "channel":26,
+          "clientType":"Admin"
+        },
+        {
+          "id":""+dbResponse.insertedIds[4], 
+          "name": "Desenvolvimento 1",
+          "initials":"DE1",
+          "channel":26,
+          "clientType":"Admin"
+        }
       ],
       "permissions": []
     }
