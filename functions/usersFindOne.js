@@ -11,6 +11,7 @@ exports = async function (data) {
     throw "Não é possível pesquisar por um registro em branco";
   }
 
+  return {debug: parameters}
   try {
     dbResponse = await dbquery.findOne(parameters)
   } catch (e) {
