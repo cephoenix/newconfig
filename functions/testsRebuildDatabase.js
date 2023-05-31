@@ -145,7 +145,8 @@ exports = async function (data) {
   )
   
   let a = JSON.stringify(dbResponse)
-  return JSON.parse(a)
+  let b = JSON.parse(a)
+  return b.insertedIds
   
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
