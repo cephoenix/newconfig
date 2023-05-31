@@ -144,9 +144,8 @@ exports = async function (data) {
     }]
   )
   
-  return JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
+  var insertedIds = JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
   
-
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
       "login": "jardel0101",
@@ -162,35 +161,35 @@ exports = async function (data) {
       },
       "clients": [
           {
-            "id":""+dbResponse.insertedIds[0], 
+            "id":""+insertedIds[0], 
             "name": "DEV - Carlos Emílio",
             "initials":"CEP",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+dbResponse.insertedIds[1], 
+            "id":""+insertedIds[1], 
             "name": "DEV - Jardel",
             "initials":"JJJ",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+dbResponse.insertedIds[2], 
+            "id":""+insertedIds[2], 
             "name": "DEV - Robson",
             "initials":"ROB",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+dbResponse.insertedIds[3], 
+            "id":""+insertedIds[3], 
             "name": "ADRIANO - TomCRUIZ",
             "initials":"0GQ",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+dbResponse.insertedIds[4], 
+            "id":""+insertedIds[4], 
             "name": "Desenvolvimento 1",
             "initials":"DE1",
             "channel":26,
