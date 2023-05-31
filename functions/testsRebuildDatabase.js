@@ -144,6 +144,8 @@ exports = async function (data) {
     }]
   )
 
+  return {debug: dbResponse.insertedIds}
+
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
       "login": "jardel0101",
