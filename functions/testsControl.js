@@ -50,5 +50,5 @@ exports = async function (payload) {
 
   resp.success = success
   resp.data = operationResponse
-  return operationResponse
+  return operationResponse.insertedIds
 };
