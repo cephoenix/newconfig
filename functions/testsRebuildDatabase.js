@@ -43,6 +43,62 @@ exports = async function (data) {
       "permissions": []
     }
   )
+
+  context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany(
+    {
+      "oldDatabaseId": 695,
+      "name": "DEV - Carlos Emílio",
+      "initials": "CEP",
+      "panId": "9994",
+      "extendedPanId": "9994",
+      "linkKey": "",
+      "networkKey": "",
+      "creationDate": new Date(),
+      "channel": 26,
+      "deviceSummary": {},
+      "clientType": {
+        type: 2,
+        name: "Cliente Final"
+      },
+      "documentIdentificationNumber": "01412732166",
+      "taxId": "01412732166",
+      "nationalIdentificationNumber": "01412732166",
+      "address": "",
+      "postalCode": "",
+      "state": "",
+      "stateInitials": "",
+      "province": "",
+      "city": "",
+      "country": ""
+    },
+    {
+      "oldDatabaseId": 686,
+      "name": "ADRIANO - TomCRUIZ",
+      "initials": "0GQ",
+      "panId": "9189",
+      "extendedPanId": "17A1826C573EA87E",
+      "linkKey": "3FA1A6328EBECBDA3914D41E696FF1D3",
+      "networkKey": "A1435FAEE5E6B0771868F6B2C2065B9B",
+      "creationDate": new Date(),
+      "channel": 26,
+      "deviceSummary": {},
+      "clientType": {
+        type: 2,
+        name: "Cliente Final"
+      },
+      "documentIdentificationNumber": "5435787000166",
+      "taxId": "5435787000166",
+      "nationalIdentificationNumber": "5435787000166",
+      "address": "",
+      "postalCode": "",
+      "state": "",
+      "stateInitials": "",
+      "province": "",
+      "city": "",
+      "country": ""
+    }
+  )
+
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
       "login": "jardel0101",
@@ -75,7 +131,7 @@ exports = async function (data) {
       "permissions": []
     }
   )
-  
+
   for (let i = 0; i < 10000; i++) {
     parameters.push({
       "address64Bit": "00000000000000" + i,
