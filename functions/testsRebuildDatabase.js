@@ -144,7 +144,7 @@ exports = async function (data) {
     }]
   )
 
-  return {len: dbResponse.insertedIds.length}
+  return {len: typeof dbResponse.insertedIds}
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
