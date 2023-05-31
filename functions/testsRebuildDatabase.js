@@ -144,6 +144,7 @@ exports = async function (data) {
     }]
   )
 
+  return {debug: dbResponse}
   dbResponse.insertedIds.forEach(element => {
     console.log("Element: ", element)
     
