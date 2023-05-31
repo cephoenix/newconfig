@@ -144,9 +144,7 @@ exports = async function (data) {
     }]
   )
   
-  let a = JSON.stringify(dbResponse)
-  let b = JSON.parse(a)
-  return b.insertedIds
+  return JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
   
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
