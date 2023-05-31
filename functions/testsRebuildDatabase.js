@@ -143,8 +143,8 @@ exports = async function (data) {
       "country": ""
     }]
   )
-  let teste = dbResponse.insertedIds
-  return teste
+  
+  return dbResponse
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
