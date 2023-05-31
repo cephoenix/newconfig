@@ -44,7 +44,7 @@ exports = async function (data) {
     }
   )
 
-  context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany(
+  context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
     {
       "oldDatabaseId": 695,
       "name": "DEV - Carlos Emílio",
@@ -96,7 +96,7 @@ exports = async function (data) {
       "province": "",
       "city": "",
       "country": ""
-    }
+    }]
   )
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
