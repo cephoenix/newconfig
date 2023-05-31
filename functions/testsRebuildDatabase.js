@@ -11,7 +11,7 @@ exports = async function (data) {
   context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
 
-  dbResponse = context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
+  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
     {
       "oldDatabaseId": 695,
       "name": "DEV - Carlos Emílio",
