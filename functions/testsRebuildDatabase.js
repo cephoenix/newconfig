@@ -11,40 +11,7 @@ exports = async function (data) {
   context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
 
-  context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
-    {
-      "login": "carlosemilio",
-      "password": "EFDA0BD51E79959399756DD0FC4BA89653780EF8",
-      "email": "carlosemilio@firebee.com.br",
-      "fullName": "Carlos Emílio Pereira",
-      "exhibitionName": "Carlão",
-      "cpfCnpj":"01412732166  ",
-      "zone": "Centro Oeste",
-      "permissionLevel": { 
-          "level": 0, 
-          "description": "Firebee"
-      },
-      "clients": [
-          {
-              "id":"6465411ff2e979495fbf7556", 
-              "name": "Carlos Emílio",
-              "initials":"CEP",
-              "channel":26,
-              "clientType":"Admin"
-          },
-          {
-              "id":"646d34a9dbc71c44a1e003db", 
-              "name": "Carlos Emílio",
-              "initials":"HEP",
-              "channel":26,
-              "clientType":"Admin"
-          }
-      ],
-      "permissions": []
-    }
-  )
-
-  context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
+  dbResponse = context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
     {
       "oldDatabaseId": 695,
       "name": "DEV - Carlos Emílio",
@@ -63,6 +30,58 @@ exports = async function (data) {
       "documentIdentificationNumber": "01412732166",
       "taxId": "01412732166",
       "nationalIdentificationNumber": "01412732166",
+      "address": "",
+      "postalCode": "",
+      "state": "",
+      "stateInitials": "",
+      "province": "",
+      "city": "",
+      "country": ""
+    },
+    {
+      "oldDatabaseId": 696,
+      "name": "DEV - Jardel",
+      "initials": "JJJ",
+      "panId": "9993",
+      "extendedPanId": "9993",
+      "linkKey": "0001",
+      "networkKey": "0001",
+      "creationDate": new Date(),
+      "channel": 26,
+      "deviceSummary": {},
+      "clientType": {
+        type: 2,
+        name: "Cliente Final"
+      },
+      "documentIdentificationNumber": "009993",
+      "taxId": "009993",
+      "nationalIdentificationNumber": "009993",
+      "address": "",
+      "postalCode": "",
+      "state": "",
+      "stateInitials": "",
+      "province": "",
+      "city": "",
+      "country": ""
+    },
+    {
+      "oldDatabaseId": 17,
+      "name": "DEV - Robson",
+      "initials": "ROB",
+      "panId": "9995",
+      "extendedPanId": "9995",
+      "linkKey": "0001",
+      "networkKey": "0001",
+      "creationDate": new Date(),
+      "channel": 26,
+      "deviceSummary": {},
+      "clientType": {
+        type: 2,
+        name: "Cliente Final"
+      },
+      "documentIdentificationNumber": "009995",
+      "taxId": "009995",
+      "nationalIdentificationNumber": "009995",
       "address": "",
       "postalCode": "",
       "state": "",
@@ -96,8 +115,39 @@ exports = async function (data) {
       "province": "",
       "city": "",
       "country": ""
+    },
+    {
+      "oldDatabaseId": 357,
+      "name": "Desenvolvimento 1",
+      "initials": "DE1",
+      "panId": "9085",
+      "extendedPanId": "9085",
+      "linkKey": "0001",
+      "networkKey": "0001",
+      "creationDate": new Date(),
+      "channel": 26,
+      "deviceSummary": {},
+      "clientType": {
+        type: 2,
+        name: "Cliente Final"
+      },
+      "documentIdentificationNumber": "009085",
+      "taxId": "009085",
+      "nationalIdentificationNumber": "009085",
+      "address": "",
+      "postalCode": "",
+      "state": "",
+      "stateInitials": "",
+      "province": "",
+      "city": "",
+      "country": ""
     }]
   )
+
+  dbResponse.insertedIds.forEach(element => {
+    console.log("Element: ", element)
+    
+  });
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
@@ -107,6 +157,39 @@ exports = async function (data) {
       "fullName": "Jardel Cândido",
       "exhibitionName": "Jardel",
       "cpfCnpj":"01234567899",
+      "zone": "Centro Oeste",
+      "permissionLevel": { 
+          "level": 0, 
+          "description": "Firebee"
+      },
+      "clients": [
+          {
+              "id":"6465411ff2e979495fbf7556", 
+              "name": "Carlos Emílio",
+              "initials":"CEP",
+              "channel":26,
+              "clientType":"Admin"
+          },
+          {
+              "id":"646d34a9dbc71c44a1e003db", 
+              "name": "Carlos Emílio",
+              "initials":"HEP",
+              "channel":26,
+              "clientType":"Admin"
+          }
+      ],
+      "permissions": []
+    }
+  )
+
+  context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
+    {
+      "login": "carlosemilio",
+      "password": "EFDA0BD51E79959399756DD0FC4BA89653780EF8",
+      "email": "carlosemilio@firebee.com.br",
+      "fullName": "Carlos Emílio Pereira",
+      "exhibitionName": "Carlão",
+      "cpfCnpj":"01412732166  ",
       "zone": "Centro Oeste",
       "permissionLevel": { 
           "level": 0, 
