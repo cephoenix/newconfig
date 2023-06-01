@@ -73,7 +73,7 @@ exports = async function (payload) {
   
   var deviceTypes = []
 
-  deviceTypes.forEach(element => {
+  response.forEach(element => {
     deviceTypes.push({
       productCode: element.Codigo,
       initials: element.SiglaConfRadio,
