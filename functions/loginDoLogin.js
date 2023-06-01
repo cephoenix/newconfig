@@ -72,6 +72,7 @@ exports = async function (payload) {
   })
   
   var rawData = JSON.parse(response.body.text()).results
+  return {debug: JSON.parse(response.body.text())}
   var deviceTypes = []
 
   rawData.forEach(element => {
