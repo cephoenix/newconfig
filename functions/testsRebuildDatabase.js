@@ -293,19 +293,19 @@ exports = async function (data) {
   /**
    * rebuild deviceTypes collection
    */
-  parameters = [];
+  // parameters = [];
 
-  var response = await context.http.get({
-    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
-    requestHeaders: {
-      "Content-Type": ["application/json"],
-      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
-    },
-    body: {},
-    encodeBodyAsJSON: true
-  })
+  // var response = await context.http.get({
+  //   url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+  //   requestHeaders: {
+  //     "Content-Type": ["application/json"],
+  //     Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+  //   },
+  //   body: {},
+  //   encodeBodyAsJSON: true
+  // })
 
-  var deviceTypes = JSON.parse(response.body.text()).response.results
+  // var deviceTypes = JSON.parse(response.body.text()).response.results
 
   // deviceTypes.forEach(element => {
   //   parameters.push({
@@ -319,5 +319,5 @@ exports = async function (data) {
 
   // await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
 
-  return deviceTypes
+  return dbResponse
 }
