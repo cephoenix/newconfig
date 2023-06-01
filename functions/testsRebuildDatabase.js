@@ -9,6 +9,8 @@ exports = async function (data) {
   context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
   // context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
 
+  var parameters = []
+
   dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
     {
       "oldDatabaseId": 695,
