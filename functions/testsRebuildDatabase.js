@@ -10,17 +10,16 @@ exports = async function (data) {
     await context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
     
   } catch (e) {
-    return {debug: true}
     throw e
   }
 
   
 
-  try {
-    await context.services.get("mongodb-atlas").db("configRadio").collection("asdf").deleteMany({})
-  } catch (e) {
-    return {debug: "AAA"}
-  }
+  // try {
+  //   await context.services.get("mongodb-atlas").db("configRadio").collection("asdf").deleteMany({})
+  // } catch (e) {
+  //   return {debug: "AAA"}
+  // }
 
 
   var parameters = []
@@ -305,45 +304,5 @@ exports = async function (data) {
   } catch (e) {
     throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
   }
-
-  /**
-   * rebuild deviceTypes collection
-   */
-
-  // var response = await context.http.get({
-  //   url: "https://app.firebee.com.br/api/1.1/obj/Products/",
-  //   requestHeaders: {
-  //     "Content-Type": ["application/json"],
-  //     Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
-  //   },
-  //   body: {},
-  //   encodeBodyAsJSON: true
-  // })
-  // var deviceTypes = JSON.parse(response.body.text()).response.results
-
-  // var parameters2 = []
-
-  // deviceTypes.forEach(element => {
-  //   parameters2.push({
-  //     productCode: element.Codigo,
-  //     initials: element.SiglaConfRadio,
-  //     class: element.DeviceClass,
-  //     description: element.Nome
-  //   })
-  // });
-
-  // dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertOne({ aff: true, ffff: true, RIP: true, success: false});
-  
-  try {
-
-    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
-    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("types").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
-
-  } catch (e) {
-    throw e
-  }
-
-
-
   return dbResponse
 }

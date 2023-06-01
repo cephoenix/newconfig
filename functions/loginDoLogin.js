@@ -57,39 +57,64 @@ exports = async function (payload) {
     throw (e)
   }
 
+  /**
+   * get deviceTypes
+   */
+
+  var response = await context.http.get({
+    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+    requestHeaders: {
+      "Content-Type": ["application/json"],
+      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+    },
+    body: {},
+    encodeBodyAsJSON: true
+  })
+  
+  var deviceTypes = []
+
+  deviceTypes.forEach(element => {
+    deviceTypes.push({
+      productCode: element.Codigo,
+      initials: element.SiglaConfRadio,
+      class: element.DeviceClass,
+      description: element.Nome
+    })
+  });
 
   return { 
     "sessionId": "A52B7A89FE6A3BA58D8C", 
     loggedUser: loggedUser , 
-    deviceTypes: [
-      {
-        id: 142,
-        initials: "LRAIR",
-        description: "Acionador Manual IP67 Long Range",
-        deviceClass: 3,
-        productCode: 21241
-      },
-      {
-        id: 141,
-        initials: "LRDFT",
-        description: "Detector de Fumaça/Termo Long Range 2.0",
-        deviceClass: 4,
-        productCode: 21314
-      },
-      {
-        id: 151,
-        initials: "LRRIF",
-        description: "Repetidor com Sirene e Visual 2.0",
-        deviceClass: 5,
-        productCode: 21166
-      },
-      {
-        id: 149,
-        initials: "LRPFH",
-        description: "Coordenador LRPFH",
-        deviceClass: 6,
-        productCode: 21005
-      }
-    ]
+    deviceTypes: deviceTypes
+    // deviceTypes: [
+    //   {
+    //     id: 142,
+    //     initials: "LRAIR",
+    //     description: "Acionador Manual IP67 Long Range",
+    //     deviceClass: 3,
+    //     productCode: 21241
+    //   },
+    //   {
+    //     id: 141,
+    //     initials: "LRDFT",
+    //     description: "Detector de Fumaça/Termo Long Range 2.0",
+    //     deviceClass: 4,
+    //     productCode: 21314
+    //   },
+    //   {
+    //     id: 151,
+    //     initials: "LRRIF",
+    //     description: "Repetidor com Sirene e Visual 2.0",
+    //     deviceClass: 5,
+    //     productCode: 21166
+    //   },
+    //   {
+    //     id: 149,
+    //     initials: "LRPFH",
+    //     description: "Coordenador LRPFH",
+    //     deviceClass: 6,
+    //     productCode: 21005
+    //   }
+    // ]
   }  //@todo implementar mecanismo de sessão
 }
