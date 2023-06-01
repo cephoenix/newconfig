@@ -304,9 +304,10 @@ exports = async function (data) {
     body: {},
     encodeBodyAsJSON: true
   })
+
   var deviceTypes = JSON.parse(response.body.text()).response.results
 
-  array.forEach(element => {
+  deviceTypes.forEach(element => {
     parameters.push({
       productCode: element.Codigo,
       initials: element.SiglaConfRadio,
