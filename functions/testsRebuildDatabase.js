@@ -308,10 +308,10 @@ exports = async function (data) {
   })
   var deviceTypes = JSON.parse(response.body.text()).response.results
 
-  parameters = []
+  parameters2 = []
 
   deviceTypes.forEach(element => {
-    parameters.push({
+    parameters2.push({
       productCode: element.Codigo,
       initials: element.SiglaConfRadio,
       class: element.DeviceClass,
@@ -319,7 +319,7 @@ exports = async function (data) {
     })
   });
 
-  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
+  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters2);
 
   return dbResponse
 }
