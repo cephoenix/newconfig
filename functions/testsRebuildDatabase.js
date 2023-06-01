@@ -1,21 +1,13 @@
 
 exports = async function (data) {
-  const http = context.services.get("myHttp")
 
-  var parameters = [];
-  var dbResponse;
-
-  return http.post({
-    url: "https://www.google.com.br",
+  const response = await context.http.post({
+    url: "https://www.google.com",
     body: { msg: "This is in the body of a POST request!" },
     encodeBodyAsJSON: true
   })
-  .then(response => {
-    // The response body is encoded as raw BSON.Binary. Parse it to JSON.
-    const ejson_body = EJSON.parse(response.body.text());
-    return ejson_body;
-  })
-};
+  // The response body is a BSON.Binary object. Parse it and return.
+  return EJSON.parse(response.body.text());
   
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
