@@ -1,26 +1,6 @@
 
 exports = async function (data) {
 
-  var response = await context.http.get({
-    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
-    requestHeaders: {
-      "Content-Type": ["application/json"],
-      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
-    },
-    body: {},
-    encodeBodyAsJSON: true
-  })
-  // var response = await context.http.get({
-  //   url: "https://www.google.com",
-  //   "requestHeaders": {
-  //     "Content-Type": ["application/json"]
-  //   }
-  // })
-
-  // The response body is a BSON.Binary object. Parse it and return.
-  return JSON.parse(response.body.text()).response.results
-  
-
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
@@ -315,8 +295,27 @@ exports = async function (data) {
    */
   parameters = [];
 
+  var response = await context.http.get({
+    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+    requestHeaders: {
+      "Content-Type": ["application/json"],
+      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+    },
+    body: {},
+    encodeBodyAsJSON: true
+  })
+  var deviceTypes = JSON.parse(response.body.text()).response.results
 
-  context.services.get("mongodb-atlas").db("configRadio").collection("users").insertMany(parameters);
+  array.forEach(element => {
+    parameters.push({
+      productCode: element.Codigo,
+      initials: element.SiglaConfRadio,
+      class: element.deviceClass,
+      description: element.Nome
+    })
+  });
+
+  context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
 
   return dbResponse
 }
