@@ -307,13 +307,14 @@ exports = async function (data) {
   })
   var deviceTypes = JSON.parse(response.body.text()).response.results
 
+  parameters = []
+
   deviceTypes.forEach(element => {
     parameters.push({
-      a: "B"
-      // productCode: element.Codigo,
-      // initials: element.SiglaConfRadio,
-      // class: element.deviceClass,
-      // description: element.Nome
+      productCode: element.Codigo,
+      initials: element.SiglaConfRadio,
+      class: element.deviceClass,
+      description: element.Nome
     })
   });
 
