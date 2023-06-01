@@ -292,7 +292,6 @@ exports = async function (data) {
     throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
   }
 
-
   /**
    * rebuild deviceTypes collection
    */
