@@ -10,7 +10,10 @@ exports = async function (data) {
   //   encodeBodyAsJSON: true
   // })
   var response = await context.http.get({
-    url: "https://www.google.com"
+    url: "https://www.google.com",
+    "requestHeaders": {
+      "Content-Type": ["application/json"]
+    }
   })
 
   // The response body is a BSON.Binary object. Parse it and return.
