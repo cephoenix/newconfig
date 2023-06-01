@@ -16,29 +16,29 @@ exports = async function (data) {
     throw "Não é possível adicionar um registro em branco"
   }
 
-  query = {
-    $or: [
-      { "initials": parameters.initials },
-      { "cpfCnpj": parameters.cpfCnpj },
-      { "networkKey": parameters.networkKey },
-      { "panId": parameters.panId }
-    ]
-  }
+  // query = {
+  //   $or: [
+  //     { "initials": parameters.initials },
+  //     { "cpfCnpj": parameters.cpfCnpj },
+  //     { "networkKey": parameters.networkKey },
+  //     { "panId": parameters.panId }
+  //   ]
+  // }
 
-  try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify(parameters), collection: "clients" });
-  } catch (e) {
-    throw (e)
-  }
+  // try {
+  //   dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify(parameters), collection: "clients" });
+  // } catch (e) {
+  //   throw (e)
+  // }
 
-  if (!dbResponse) {
+  // if (!dbResponse) {
     try {
       dbResponse = await dbquery.insertOne(parameters);
     } catch (e) {
       throw e;
     }
     return dbResponse
-  } else {
-    throw "Cliente já cadastrado"
-  }
+  // } else {
+  //   throw "Cliente já cadastrado"
+  // }
 };
