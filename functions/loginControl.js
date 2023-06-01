@@ -25,10 +25,10 @@ exports = async function (payload, response) {
       operationParameters = payload
       break;
 
-      case 'doLoginFull':
-        operationName = 'loginDoLoginFull'
-        operationParameters = payload.body
-        break;
+    case 'doLoginFull':
+      operationName = 'loginDoLoginFull'
+      operationParameters = payload.body
+      break;
 
     default:
       if (action != null) {

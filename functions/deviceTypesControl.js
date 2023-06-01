@@ -20,15 +20,10 @@ exports = async function (payload, response) {
    */
 
   switch (action) {
-    case 'doLogin':
-      operationName = 'loginDoLogin'
-      operationParameters = payload
+    case 'findAll':
+      operationName = 'databaseFindMany'
+      operationParameters = {collection:"deviceTypes", query: {}}
       break;
-
-      case 'doLoginFull':
-        operationName = 'loginDoLoginFull'
-        operationParameters = payload.body
-        break;
 
     default:
       if (action != null) {
