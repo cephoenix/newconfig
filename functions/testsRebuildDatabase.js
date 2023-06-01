@@ -1,13 +1,18 @@
 
 exports = async function (data) {
 
-  context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
-  // context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
+  try {
+    context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
+    context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
+    context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
+    context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
+    context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
+    context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
+    context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
+  } catch (e) {
+    throw e
+  }
+
 
   var parameters = []
   var dbResponse
@@ -320,9 +325,16 @@ exports = async function (data) {
 
   // dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertOne({ aff: true, ffff: true, RIP: true, success: false});
   
-  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
+  try {
 
-  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
+    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
+    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
+    
+  } catch (e) {
+    throw e
+  }
+
+
 
   return dbResponse
 }
