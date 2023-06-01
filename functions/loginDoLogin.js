@@ -75,7 +75,7 @@ exports = async function (payload) {
   var rawData = JSON.parse(response.body.text()).response.results
 
   rawData.forEach(element => {
-    if(element.nome.toUperCase().includes("LR")) {
+    if(element.Nome.toUperCase().includes("LR")) {
       deviceTypes.push({
         productCode: element.Codigo,
         initials: element.SiglaConfRadio,
