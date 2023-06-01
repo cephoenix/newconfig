@@ -316,7 +316,7 @@ exports = async function (data) {
     })
   });
 
-  context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
+  await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
 
   return dbResponse
 }
