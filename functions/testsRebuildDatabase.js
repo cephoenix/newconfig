@@ -7,7 +7,7 @@ exports = async function (data) {
   context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
-  context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
+  // context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
 
   dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
     {
