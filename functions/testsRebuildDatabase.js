@@ -284,12 +284,19 @@ exports = async function (data) {
       "recordingDate": new Date()
     })
   }
-  //forcing a new deploy
+
   try {
     dbResponse = await context.functions.execute('radiosInsertMany', parameters);
   } catch (e) {
     throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
   }
+
+
+  /**
+   * rebuild deviceTypes collection
+   */
+
+  
 
   return dbResponse
 }

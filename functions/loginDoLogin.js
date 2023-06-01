@@ -63,24 +63,32 @@ exports = async function (payload) {
     loggedUser: loggedUser , 
     deviceTypes: [
       {
-        id: 141,
-        initials: "LRDFT",
-        description: "Detector de Fumaça/Termo Long Range 2.0"
-      },
-      {
         id: 142,
         initials: "LRAIR",
-        description: "Acionador Manual IP67 Long Range"
+        description: "Acionador Manual IP67 Long Range",
+        deviceClass: 3,
+        productCode: 21241
       },
       {
-        id: 149,
-        initials: "LRPFH",
-        description: "Coordenador LRPFH"
+        id: 141,
+        initials: "LRDFT",
+        description: "Detector de Fumaça/Termo Long Range 2.0",
+        deviceClass: 4,
+        productCode: 21314
       },
       {
         id: 151,
         initials: "LRRIF",
-        description: "Repetidor com Sirene e Visual 2.0"
+        description: "Repetidor com Sirene e Visual 2.0",
+        deviceClass: 5,
+        productCode: 21166
+      },
+      {
+        id: 149,
+        initials: "LRPFH",
+        description: "Coordenador LRPFH",
+        deviceClass: 6,
+        productCode: 21005
       }
     ]
   }  //@todo implementar mecanismo de sessão
