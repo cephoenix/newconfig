@@ -1,9 +1,13 @@
+
 exports = async function (data) {
   const axios = require('axios')
+
   var parameters = [];
   var dbResponse;
 
-  // var resp = await axios.post('https://www.google.com') 
+  var resp = await axios.post('https://www.google.com').then((a) => {
+    return a
+  })
   return axios;
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
