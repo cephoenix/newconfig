@@ -1,20 +1,19 @@
 
 exports = async function (data) {
 
-return {debug: true}
-
   try {
-    context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
-    context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
-    context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
-    context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
-    context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
-    context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
-    context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
   } catch (e) {
     throw e
   }
 
+  return {debug: true}
 
   var parameters = []
   var dbResponse
