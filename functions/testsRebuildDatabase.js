@@ -319,7 +319,7 @@ exports = async function (data) {
     })
   });
 
-  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters2);
+  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany([{ aff: true, ffff: true, success: false}]);
 
   return dbResponse
 }
