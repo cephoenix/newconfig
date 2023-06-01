@@ -1,14 +1,5 @@
 
 exports = async function (data) {
-  const axios = require('axios')
-
-  var parameters = [];
-  var dbResponse;
-
-  var resp = await axios.post('https://www.google.com').then((a) => {
-    return a
-  })
-  return resp;
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
@@ -298,13 +289,35 @@ exports = async function (data) {
     throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
   }
 
+
   /**
    * rebuild deviceTypes collection
    */
   parameters = [];
 
+  var response = await context.http.get({
+    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+    requestHeaders: {
+      "Content-Type": ["application/json"],
+      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+    },
+    body: {},
+    encodeBodyAsJSON: true
+  })
 
-  context.services.get("mongodb-atlas").db("configRadio").collection("users").insertMany(parameters);
+  var deviceTypes = JSON.parse(response.body.text()).response.results
 
-  return dbResponse
+  // deviceTypes.forEach(element => {
+  //   parameters.push({
+  //     a: "B"
+  //     // productCode: element.Codigo,
+  //     // initials: element.SiglaConfRadio,
+  //     // class: element.deviceClass,
+  //     // description: element.Nome
+  //   })
+  // });
+
+  // await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
+
+  return deviceTypes
 }
