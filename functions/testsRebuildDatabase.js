@@ -1,15 +1,14 @@
 exports = async function (data) {
-  var parameters;
+  var parameters = [];
   var dbResponse;
 
-  parameters = []
-  
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
+  context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
 
   dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
     {
@@ -261,11 +260,11 @@ exports = async function (data) {
       "address64Bit": `00000000000000${i}`,
       "address16Bits": `000${i}`,
       "oldDatabaseId": "" + i,
-      "name": "DE1_LRDFT000" + i,
-      "number": "" + i,
+      "name": `DE1_LRDFT000${i}`,
+      "number": `${i}`,
       "firmwareVersion": "18.11.14.01",
       "hardwareVersion": "23.05.23.01",
-      "profileId": ""+i,
+      "profileId": `${i}`,
       "manufacturerId": "1",
       "group": "LRDFT",
       "connectionRouterAddress": "00:25:96:FF:FE:12:34:56",
@@ -276,7 +275,7 @@ exports = async function (data) {
       "deviceClass": "1",
       "productCode": "1",
       "status": "unused",
-      "clientOID": ""+insertedIds[1],
+      "clientOID": `${insertedIds[1]}`,
       "clientName": "DEV - Jardel",
       "clientInitials": "JJJ",
       "clientChannel": 26,
@@ -295,8 +294,10 @@ exports = async function (data) {
   /**
    * rebuild deviceTypes collection
    */
+  parameters = [];
 
   
+  context.services.get("mongodb-atlas").db("configRadio").collection("users").insertMany(parameters);
 
   return dbResponse
 }
