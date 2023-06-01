@@ -10,6 +10,7 @@ exports = async function (data) {
   // context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
 
   var parameters = []
+  var dbResponse
 
   dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
     {
