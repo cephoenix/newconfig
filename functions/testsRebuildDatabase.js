@@ -17,7 +17,7 @@ exports = async function (data) {
   
 
   try {
-    await context.services.get("mongodb-atlas").db("configRadio").collection("newTable").deleteMany({})
+    await context.services.get("mongodb-atlas").db("configRadio").collection("asdf").deleteMany({})
   } catch (e) {
     return {debug: "AAA"}
   }
