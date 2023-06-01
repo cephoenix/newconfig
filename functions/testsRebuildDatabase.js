@@ -8,12 +8,20 @@ exports = async function (data) {
     await context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
     await context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
     await context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("typos").deleteMany({})
+    
   } catch (e) {
+    return {debug: true}
     throw e
   }
 
-  return {debug: true}
+  
+
+  try {
+    await context.services.get("mongodb-atlas").db("configRadio").collection("typos").deleteMany({})
+  } catch (e) {
+    return {debug: e}
+  }
+
 
   var parameters = []
   var dbResponse
