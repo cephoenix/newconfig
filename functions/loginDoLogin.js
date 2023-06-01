@@ -70,7 +70,7 @@ exports = async function (payload) {
     body: {},
     encodeBodyAsJSON: true
   })
-  return {debug: response}
+  return {debug: JSON.parse(response.body.Data.text())}
   var deviceTypes = []
 
   response.forEach(element => {
