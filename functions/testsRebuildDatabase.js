@@ -8,7 +8,7 @@ exports = async function (data) {
   var resp = await axios.post('https://www.google.com').then((a) => {
     return a
   })
-  return axios;
+  return resp;
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
