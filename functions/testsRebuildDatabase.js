@@ -4,7 +4,7 @@ exports = async function (data) {
   var dbResponse;
 
   var resp = await axios.post('https://www.google.com') 
-  return resp.data;
+  return axios;
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
