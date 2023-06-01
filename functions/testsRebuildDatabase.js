@@ -309,10 +309,11 @@ exports = async function (data) {
 
   deviceTypes.forEach(element => {
     parameters.push({
-      productCode: element.Codigo,
-      initials: element.SiglaConfRadio,
-      class: element.deviceClass,
-      description: element.Nome
+      a: "B"
+      // productCode: element.Codigo,
+      // initials: element.SiglaConfRadio,
+      // class: element.deviceClass,
+      // description: element.Nome
     })
   });
 
