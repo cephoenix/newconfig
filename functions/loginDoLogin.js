@@ -58,5 +58,30 @@ exports = async function (payload) {
   }
 
 
-  return { "sessionId": "A52B7A89FE6A3BA58D8C", loggedUser: loggedUser }  //@todo implementar mecanismo de sessão
+  return { 
+    "sessionId": "A52B7A89FE6A3BA58D8C", 
+    loggedUser: loggedUser , 
+    deviceTypes: [
+      {
+        id: 141,
+        initials: "LRDFT",
+        description: "Detector de Fumaça/Termo Long Range 2.0"
+      },
+      {
+        id: 142,
+        initials: "LRAIR",
+        description: "Acionador Manual IP67 Long Range"
+      },
+      {
+        id: 149,
+        initials: "LRPFH",
+        description: "Coordenador LRPFH"
+      },
+      {
+        id: 151,
+        initials: "LRRIF",
+        description: "Repetidor com Sirene e Visual 2.0"
+      }
+    ]
+  }  //@todo implementar mecanismo de sessão
 }
