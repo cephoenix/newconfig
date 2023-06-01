@@ -17,7 +17,7 @@ exports = async function (data) {
   })
 
   // The response body is a BSON.Binary object. Parse it and return.
-  return response.body
+  return response.body.text()
   
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
