@@ -10,13 +10,11 @@ exports = async function (data) {
   //   encodeBodyAsJSON: true
   // })
   var response = await context.http.get({
-    url: "https://www.google.com",
-    body: {},
-    encodeBodyAsJSON: true
+    url: "https://www.google.com"
   })
 
   // The response body is a BSON.Binary object. Parse it and return.
-  return response
+  return response.data.text()
   
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
