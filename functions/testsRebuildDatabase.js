@@ -1,6 +1,8 @@
 
 exports = async function (data) {
 
+return {debug: true}
+
   try {
     context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
     context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
@@ -327,8 +329,8 @@ exports = async function (data) {
   
   try {
 
-    // dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
-    // dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("types").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
+    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
+    dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("types").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
 
   } catch (e) {
     throw e
