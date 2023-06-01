@@ -308,7 +308,7 @@ exports = async function (data) {
   })
   var deviceTypes = JSON.parse(response.body.text()).response.results
 
-  parameters2 = []
+  var parameters2 = []
 
   deviceTypes.forEach(element => {
     parameters2.push({
