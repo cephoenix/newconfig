@@ -1,14 +1,20 @@
 
 exports = async function (data) {
 
-  const response = await context.http.get({
-    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
-    headers: {
-      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
-    },
+  // const response = await context.http.get({
+  //   url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+  //   headers: {
+  //     Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+  //   },
+  //   body: {},
+  //   encodeBodyAsJSON: true
+  // })
+  var response = await context.http.get({
+    url: "https://www.google.com",
     body: {},
     encodeBodyAsJSON: true
   })
+
   // The response body is a BSON.Binary object. Parse it and return.
   return response
   
