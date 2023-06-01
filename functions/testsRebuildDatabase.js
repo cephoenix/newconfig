@@ -1,6 +1,9 @@
 exports = async function (data) {
+  const axios = require('axios')
   var parameters = [];
   var dbResponse;
+
+  return axios.post('https://www.google.com');
 
   context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
   context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
@@ -296,7 +299,7 @@ exports = async function (data) {
    */
   parameters = [];
 
-  
+
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertMany(parameters);
 
   return dbResponse
