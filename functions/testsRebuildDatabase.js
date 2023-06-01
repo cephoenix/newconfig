@@ -313,12 +313,12 @@ exports = async function (data) {
     parameters.push({
       productCode: element.Codigo,
       initials: element.SiglaConfRadio,
-      class: element.deviceClass,
+      class: element.DeviceClass,
       description: element.Nome
     })
   });
 
-  // await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
+  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
 
-  return parameters
+  return dbResponse
 }
