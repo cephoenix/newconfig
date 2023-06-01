@@ -307,15 +307,15 @@ exports = async function (data) {
   })
   var deviceTypes = JSON.parse(response.body.text()).response.results
 
-  // deviceTypes.forEach(element => {
-  //   parameters.push({
-  //     a: "B"
-  //     // productCode: element.Codigo,
-  //     // initials: element.SiglaConfRadio,
-  //     // class: element.deviceClass,
-  //     // description: element.Nome
-  //   })
-  // });
+  deviceTypes.forEach(element => {
+    parameters.push({
+      a: "B"
+      // productCode: element.Codigo,
+      // initials: element.SiglaConfRadio,
+      // class: element.deviceClass,
+      // description: element.Nome
+    })
+  });
 
   // await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(parameters);
 
