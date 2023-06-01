@@ -8,7 +8,6 @@ exports = async function (data) {
     await context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
     await context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
     await context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("types").deleteMany({})
   } catch (e) {
     throw e
   }
