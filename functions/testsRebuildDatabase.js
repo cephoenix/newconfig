@@ -319,6 +319,8 @@ exports = async function (data) {
   // });
 
   // dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertOne({ aff: true, ffff: true, RIP: true, success: false});
+  
+  dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").insertMany([{ aff: true, ffff: true, RIP: true, success: false}])
 
   return dbResponse
 }
