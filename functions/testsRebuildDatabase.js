@@ -297,27 +297,27 @@ exports = async function (data) {
    * rebuild deviceTypes collection
    */
 
-  var response = await context.http.get({
-    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
-    requestHeaders: {
-      "Content-Type": ["application/json"],
-      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
-    },
-    body: {},
-    encodeBodyAsJSON: true
-  })
-  var deviceTypes = JSON.parse(response.body.text()).response.results
+  // var response = await context.http.get({
+  //   url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+  //   requestHeaders: {
+  //     "Content-Type": ["application/json"],
+  //     Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+  //   },
+  //   body: {},
+  //   encodeBodyAsJSON: true
+  // })
+  // var deviceTypes = JSON.parse(response.body.text()).response.results
 
-  var parameters2 = []
+  // var parameters2 = []
 
-  deviceTypes.forEach(element => {
-    parameters2.push({
-      productCode: element.Codigo,
-      initials: element.SiglaConfRadio,
-      class: element.DeviceClass,
-      description: element.Nome
-    })
-  });
+  // deviceTypes.forEach(element => {
+  //   parameters2.push({
+  //     productCode: element.Codigo,
+  //     initials: element.SiglaConfRadio,
+  //     class: element.DeviceClass,
+  //     description: element.Nome
+  //   })
+  // });
 
   dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertOne({ aff: true, ffff: true, RIP: true, success: false});
 
