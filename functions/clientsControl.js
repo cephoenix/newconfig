@@ -53,7 +53,7 @@ exports = async function (payload) {
       operationName = 'databaseFindMany';
       operationParameters = {
         collection: 'clients',
-        query: JSON.stringify(payload.body.text())
+        query: payload.body.text()
       }
       //payload.body.text();
       break;
