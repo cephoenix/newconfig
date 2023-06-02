@@ -15,13 +15,17 @@ exports = async function (payload) {
     action = payload.action;
   }
 
-  operationParameters.collection = `clients`
-  if(payload.body != undefined) {
-    operationParameters.query = payload.body.text()
+  try {
+    operationParameters.query = JSON.parse(payload.body.text())
+  } catch (e) {
+    operationParameters.query = {}
   }
+  operationParameters.collection = `clients`
+  // if(payload.body != undefined) {
+  //   operationParameters.query = payload.body.text()
+  // }
   
   switch (action) {
-
     case 'create':
       let query = {
         $or: [
