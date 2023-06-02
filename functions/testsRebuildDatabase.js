@@ -3,25 +3,45 @@ exports = async function (data) {
 
   try {
     await context.services.get("mongodb-atlas").db("configRadio").collection("clients").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
-    
   } catch (e) {
-    throw "Problema ao limpar collections do Banco de Dados"
+    throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela clientes"
   }
 
-  
+  try {
+    await context.services.get("mongodb-atlas").db("configRadio").collection("parameters").deleteMany({})
+  } catch (e) {
+    throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela parameters"
+  }
 
-  // try {
-  //   await context.services.get("mongodb-atlas").db("configRadio").collection("asdf").deleteMany({})
-  // } catch (e) {
-  //   return {debug: "AAA"}
-  // }
+  try {
+    await context.services.get("mongodb-atlas").db("configRadio").collection("radios").deleteMany({})
+  } catch (e) {
+    throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela radios"
+  }
 
+  try {
+    await context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
+  } catch (e) {
+    throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela radiosRecordingLog"
+  }
+
+  try {
+    await context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
+  } catch (e) {
+    throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela users"
+  }
+
+  try {
+    await context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
+  } catch (e) {
+    throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela usersLoginLog"
+  }
+
+  try {
+    await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
+  } catch (e) {
+    throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela deviceTypes"
+  }
 
   var parameters = []
   var dbResponse
