@@ -1,27 +1,5 @@
 [
     {
-        "route": "/users",
-        "http_method": "POST",
-        "function_name": "usersControl",
-        "validation_method": "NO_VALIDATION",
-        "respond_result": true,
-        "fetch_custom_user_data": false,
-        "create_user_on_auth": false,
-        "disabled": false,
-        "return_type": "JSON"
-    },
-    {
-        "route": "/tests",
-        "http_method": "POST",
-        "function_name": "testsControl",
-        "validation_method": "NO_VALIDATION",
-        "respond_result": true,
-        "fetch_custom_user_data": false,
-        "create_user_on_auth": false,
-        "disabled": false,
-        "return_type": "JSON"
-    },
-    {
         "route": "/login",
         "http_method": "POST",
         "function_name": "loginControl",
@@ -47,6 +25,28 @@
         "route": "/radios",
         "http_method": "POST",
         "function_name": "radiosControl",
+        "validation_method": "NO_VALIDATION",
+        "respond_result": true,
+        "fetch_custom_user_data": false,
+        "create_user_on_auth": false,
+        "disabled": false,
+        "return_type": "JSON"
+    },
+    {
+        "route": "/users",
+        "http_method": "POST",
+        "function_name": "usersControl",
+        "validation_method": "NO_VALIDATION",
+        "respond_result": true,
+        "fetch_custom_user_data": false,
+        "create_user_on_auth": false,
+        "disabled": false,
+        "return_type": "JSON"
+    },
+    {
+        "route": "/tests",
+        "http_method": "POST",
+        "function_name": "testsControl",
         "validation_method": "NO_VALIDATION",
         "respond_result": true,
         "fetch_custom_user_data": false,
