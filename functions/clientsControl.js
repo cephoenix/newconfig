@@ -16,8 +16,10 @@ exports = async function (payload) {
   }
 
   operationParameters.collection = `clients`
-  operationParameters.query = payload.body.text()
-
+  if(payload.body != undefined) {
+    operationParameters.query = payload.body.text()
+  }
+  
   switch (action) {
 
     case 'create':
