@@ -8,10 +8,10 @@ exports = async function (data) {
     await context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog").deleteMany({})
     await context.services.get("mongodb-atlas").db("configRadio").collection("users").deleteMany({})
     await context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog").deleteMany({})
-    await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").deleteMany({})
+    
     
   } catch (e) {
-    throw e
+    throw "Problema ao limpar collections do Banco de Dados"
   }
 
   
