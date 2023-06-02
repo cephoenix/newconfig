@@ -197,35 +197,35 @@ exports = async function (data) {
       },
       "clients": [
           {
-            "id":""+insertedIds[0], 
+            "id":`${insertedIds[0]}`, 
             "name": "DEV - Carlos Emílio",
             "initials":"CEP",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+insertedIds[1], 
+            "id":`${insertedIds[1]}`,
             "name": "DEV - Jardel",
             "initials":"JJJ",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+insertedIds[2], 
+            "id":`${insertedIds[2]}`,
             "name": "DEV - Robson",
             "initials":"ROB",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+insertedIds[3], 
+            "id":`${insertedIds[3]}`,
             "name": "ADRIANO - TomCRUIZ",
             "initials":"0GQ",
             "channel":26,
             "clientType":"Admin"
           },
           {
-            "id":""+insertedIds[4], 
+            "id":`${insertedIds[4]}`,
             "name": "Desenvolvimento 1",
             "initials":"DE1",
             "channel":26,
@@ -252,35 +252,35 @@ exports = async function (data) {
       },
       "clients": [
         {
-          "id":""+dbResponse.insertedIds[0], 
+          "id":`${dbResponse.insertedIds[0]}`,
           "name": "DEV - Carlos Emílio",
           "initials":"CEP",
           "channel":26,
           "clientType":"Admin"
         },
         {
-          "id":""+dbResponse.insertedIds[1], 
+          "id":`${dbResponse.insertedIds[1]}`,
           "name": "DEV - Jardel",
           "initials":"JJJ",
           "channel":26,
           "clientType":"Admin"
         },
         {
-          "id":""+dbResponse.insertedIds[2], 
+          "id":`${dbResponse.insertedIds[2]}`,
           "name": "DEV - Robson",
           "initials":"ROB",
           "channel":26,
           "clientType":"Admin"
         },
         {
-          "id":""+dbResponse.insertedIds[3], 
+          "id":`${dbResponse.insertedIds[3]}`,
           "name": "ADRIANO - TomCRUIZ",
           "initials":"0GQ",
           "channel":26,
           "clientType":"Admin"
         },
         {
-          "id":""+dbResponse.insertedIds[4], 
+          "id":`${dbResponse.insertedIds[4]}`,
           "name": "Desenvolvimento 1",
           "initials":"DE1",
           "channel":26,
@@ -295,7 +295,7 @@ exports = async function (data) {
     parameters.push({
       "address64Bit": `00000000000000${i}`,
       "address16Bits": `000${i}`,
-      "oldDatabaseId": "" + i,
+      "oldDatabaseId": `${i}`,
       "name": `DE1_LRDFT000${i}`,
       "number": `${i}`,
       "firmwareVersion": "18.11.14.01",
@@ -338,7 +338,6 @@ exports = async function (data) {
 
   var deviceTypes = []
   var rawData = JSON.parse(response.body.text()).response.results
-  var debug = []
   rawData.forEach(element => {
     if(element.SiglaConfRadio.includes("LR") && element.DeviceClass != "6") {
       deviceTypes.push({
