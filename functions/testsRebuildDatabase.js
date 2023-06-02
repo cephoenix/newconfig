@@ -325,5 +325,32 @@ exports = async function (data) {
   } catch (e) {
     throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
   }
+
+  var response = await context.http.get({
+    url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+    requestHeaders: {
+      "Content-Type": ["application/json"],
+      Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+    },
+    body: {},
+    encodeBodyAsJSON: true
+  })
+
+  var deviceTypes = []
+  var rawData = JSON.parse(response.body.text()).response.results
+
+  rawData.forEach(element => {
+    if(element.SiglaConfRadio.includes("LR") && element.SiglaConfRadio.DeviceClass != "6") {
+      deviceTypes.push({
+        productCode: element.Codigo,
+        initials: element.SiglaConfRadio,
+        class: element.DeviceClass,
+        description: element.Nome
+      })
+    }
+  });
+
+  dbResponse = await context.functions.execute("databaseInsertMany", deviceTypes)  
+
   return dbResponse
 }

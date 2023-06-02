@@ -1,6 +1,10 @@
 exports = async function (data) {
   var parameters;
-  
+
+  if (data.collection === undefined || data.collection === "" || data.collection === null) {
+    throw "É necessário informar uma collection para fazer a pesquisa!";
+  }
+
   if (data.query) {
     try {
       parameters = EJSON.parse(data.query)
@@ -8,11 +12,7 @@ exports = async function (data) {
       throw "Não foi possível buscar as informações no Banco de Dados. Favor conferir os critérios de busca!";
     }
   } else {
-    throw "É necessário informar os dados corretamente para fazer a pesquisa!";
-  }
-
-  if (data.collection === undefined || data.collection === "" || data.collection === null) {
-    throw "É necessário informar uma collection para fazer a pesquisa!";
+    throw "É necessário informar parâmetros de busca para a pesquisa!";
   }
 
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
@@ -20,6 +20,6 @@ exports = async function (data) {
   try {
     return await dbquery.findMany(parameters)
   } catch (e) {
-    throw "Não é possível buscar " + data.collection
+    throw "Não é possível buscar dados da tabela: " + data.collection + " Erro: " + e
   }
 };
