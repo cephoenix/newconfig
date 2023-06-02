@@ -63,9 +63,10 @@ exports = async function (payload) {
 
   var deviceTypes = await context.functions.execute("databaseFindMany", {query: JSON.stringify({}), collection: "deviceTypes"})
 
-  return { 
+  let resp = JSON.stringify({ 
     "sessionId": "A52B7A89FE6A3BA58D8C", 
     loggedUser: loggedUser , 
     deviceTypes: deviceTypes
-  }  //@todo implementar mecanismo de sessão
+  })
+  return  //@todo implementar mecanismo de sessão
 }
