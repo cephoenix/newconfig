@@ -68,5 +68,7 @@ exports = async function (payload) {
     loggedUser: loggedUser , 
     deviceTypes: deviceTypes
   })
+
+  return await context.functions.execute("enccryptText", resp, "ALKNTLGHAYGSAGGGAGAÇLJKHOPIALS")
   return  resp//@todo implementar mecanismo de sessão
 }
