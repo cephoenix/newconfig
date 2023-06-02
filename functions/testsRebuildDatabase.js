@@ -338,9 +338,10 @@ exports = async function (data) {
 
   var deviceTypes = []
   var rawData = JSON.parse(response.body.text()).response.results
-
+  var debug = []
   rawData.forEach(element => {
     if(element.SiglaConfRadio.includes("LR") && element.SiglaConfRadio.DeviceClass != "6") {
+      debug.push(element)
       deviceTypes.push({
         productCode: element.Codigo,
         initials: element.SiglaConfRadio,
@@ -352,6 +353,6 @@ exports = async function (data) {
 
   context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(deviceTypes);
   // dbResponse = await context.functions.execute("databaseInsertMany", deviceTypes)  
-  return deviceTypes
+  return debug
   return dbResponse
 }
