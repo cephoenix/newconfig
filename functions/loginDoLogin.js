@@ -69,5 +69,12 @@ exports = async function (payload) {
     deviceTypes: deviceTypes
   })
 
+  var temp = await context.functions.execute('encryptText', 'carlos')
+  
+  loggedUser.debug = {
+    text: "carlos",
+    encrypted: temp,
+    decrypted: await context.functions.execute('decryptText', temp)
+  }
   return loggedUser//@todo implementar mecanismo de sessão
 }
