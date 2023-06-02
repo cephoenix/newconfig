@@ -340,8 +340,7 @@ exports = async function (data) {
   var rawData = JSON.parse(response.body.text()).response.results
   var debug = []
   rawData.forEach(element => {
-    if(element.SiglaConfRadio.includes("LR") && element.SiglaConfRadio.DeviceClass != "6") {
-      debug.push(element)
+    if(element.SiglaConfRadio.includes("LR") && element.DeviceClass != "6") {
       deviceTypes.push({
         productCode: element.Codigo,
         initials: element.SiglaConfRadio,
