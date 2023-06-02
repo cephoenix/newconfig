@@ -37,11 +37,11 @@ exports = async function (payload) {
       break;
 
     case 'findAll':
+      operationName = 'databaseFindMany';
       operationParameters = {
         collection: 'clients',
         query: JSON.stringify({})
       }
-      operationName = 'databaseFindMany';
       break;
 
     // case 'getClients':
@@ -50,7 +50,7 @@ exports = async function (payload) {
     //   break;
 
     case 'findMany':
-      operationName = 'clientsFindMany';
+      operationName = 'databaseFindMany';
       operationParameters = payload.body.text();
       break;
 
