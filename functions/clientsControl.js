@@ -15,13 +15,13 @@ exports = async function (payload) {
     action = payload.action;
   }
 
-  try {
-    JSON.parse(payload.body.text())
-  } catch (e) {
-    resp.success = false
-    resp.data = "Favor informar dados válidos!"
-    return resp
-  }
+  // try {
+  //   JSON.parse(payload.body.text())
+  // } catch (e) {
+  //   resp.success = false
+  //   resp.data = "Favor informar dados válidos!"
+  //   return resp
+  // }
 
   switch (action) {
 
