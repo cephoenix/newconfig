@@ -61,7 +61,7 @@ exports = async function (payload) {
    * get deviceTypes
    */
 
-  var deviceTypes = await context.functions.execute("databaseFindMany", {query: {}, collection: deviceTypes})
+  var deviceTypes = await context.functions.execute("databaseFindMany", {query: {}, collection: "deviceTypes"})
 
   return { 
     "sessionId": "A52B7A89FE6A3BA58D8C", 
