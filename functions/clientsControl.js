@@ -37,8 +37,11 @@ exports = async function (payload) {
       break;
 
     case 'findAll':
-      operationName = 'clientsFindMany';
-      operationParameters = null;
+      operationParameters = {
+        collection: 'clients',
+        query: JSON.stringify({})
+      }
+      operationName = 'databaseFindMany';
       break;
 
     // case 'getClients':
