@@ -352,6 +352,6 @@ exports = async function (data) {
 
   context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(deviceTypes);
   // dbResponse = await context.functions.execute("databaseInsertMany", deviceTypes)  
-
+  return deviceTypes
   return dbResponse
 }
