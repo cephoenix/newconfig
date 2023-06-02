@@ -24,6 +24,14 @@ exports = async function (payload) {
         operationName = 'testsRebuildDatabase'
         operationParameters = null
         break;
+      case 'debug':
+        var temp = await context.functions.execute('encryptText', 'carlos')
+        return {
+          text: "carlos",
+          encrypted: temp,
+          decrypted: await context.functions.execute('decryptText', temp)
+        }
+        break;
 
     default:
       if (action != null) {
