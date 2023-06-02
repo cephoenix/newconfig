@@ -51,7 +51,11 @@ exports = async function (payload) {
 
     case 'findMany':
       operationName = 'databaseFindMany';
-      operationParameters = payload.body.text();
+      operationParameters = {
+        collection: 'clients',
+        query: JSON.stringify(payload.body.text())
+      }
+      //payload.body.text();
       break;
 
     case 'updateOne':
