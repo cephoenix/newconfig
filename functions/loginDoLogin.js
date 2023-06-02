@@ -73,7 +73,7 @@ exports = async function (payload) {
   try {
     ret = await context.functions.execute("enccryptText", resp)
   } catch (e) {
-    throw e
+    throw `Erro: ${e}`
   }
 
   return ret
