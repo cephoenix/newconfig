@@ -20,11 +20,6 @@ exports = async function (payload) {
    */
 
   switch (action) {
-    case 'populateRadiosCollection':
-      operationName = 'testsPopulateRadiosCollection'
-      operationParameters = null
-      break;
-
       case 'rebuildDatabase':
         operationName = 'testsRebuildDatabase'
         operationParameters = null
