@@ -69,13 +69,5 @@ exports = async function (payload) {
     deviceTypes: deviceTypes
   })
 
-  var ret
-  try {
-    ret = await context.functions.execute("encryptText", resp)
-  } catch (e) {
-    throw `Erro: ${e}`
-  }
-
-  return ret
-  return  resp//@todo implementar mecanismo de sessão
+  return loggedUser//@todo implementar mecanismo de sessão
 }
