@@ -1,6 +1,6 @@
 exports = async function (data) {
   var parameters;
-
+return {debug: data}
   if (data.collection === undefined || data.collection === "" || data.collection === null) {
     throw "É necessário informar uma collection para fazer a pesquisa!";
   }
