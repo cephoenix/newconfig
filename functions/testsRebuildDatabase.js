@@ -350,7 +350,7 @@ exports = async function (data) {
     }
   });
 
-  dbResponse = await context.functions.execute("databaseInsertMany", deviceTypes)  
+  // dbResponse = await context.functions.execute("databaseInsertMany", deviceTypes)  
 
   return dbResponse
 }
