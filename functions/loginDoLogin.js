@@ -71,7 +71,7 @@ exports = async function (payload) {
 
   var ret
   try {
-    ret = await context.functions.execute("enccryptText", resp)
+    ret = await context.functions.execute("encryptText", resp)
   } catch (e) {
     throw `Erro: ${e}`
   }
