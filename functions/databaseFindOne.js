@@ -1,6 +1,5 @@
 exports = async function (data) {
   var parameters
-  var options
   
   if (data.query) {
     try {

@@ -5,7 +5,6 @@ exports = async function (data) {
   let query;
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
 
-
   if (data == null || data == "" || data == undefined) {
     try {
       parameters = EJSON.parse(data)

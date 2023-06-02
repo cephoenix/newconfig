@@ -6,8 +6,8 @@ exports = async function (payload) {
   let operationName;
   var operationResponse
   var resp = {}
-  let operationParameters;
-  
+  var operationParameters = {};
+
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
@@ -15,65 +15,55 @@ exports = async function (payload) {
     action = payload.action;
   }
 
-  // try {
-  //   JSON.parse(payload.body.text())
-  // } catch (e) {
-  //   resp.success = false
-  //   resp.data = "Favor informar dados válidos!"
-  //   return resp
-  // }
+  operationParameters.collection = `clients`
+  operationParameters.query = payload.body.text()
 
   switch (action) {
 
     case 'create':
-      operationName = 'clientsCreate';
-      operationParameters = payload.body.text();
+      let query = {
+        $or: [
+          { "initials": parameters.initials },
+          { "cpfCnpj": parameters.cpfCnpj },
+          { "networkKey": parameters.networkKey },
+          { "panId": parameters.panId }
+        ]
+      }
+    
+      try {
+        dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify(parameters), collection: COLLECTION });
+      } catch (e) {
+        throw (e)
+      }
+
+      operationName = 'dataBaseInsertMany';
+      var params = payload.body.text()
+      
       break;
 
     case 'findOne':
       operationName = 'databaseFindOne';
-      operationParameters = { 
-        collection: "clients",
-        query: payload.body.text()
-      };
-      // operationParameters = payload.body.text();
       break;
 
     case 'findAll':
       operationName = 'databaseFindMany';
-      operationParameters = {
-        collection: 'clients',
-        query: '{}'
-      }
+      operationParameters.query = '{}'
       break;
-
-    // case 'getClients':
-    //   operationName = 'clientsGetClients';
-    //   operationParameters = payload.body.text();
-    //   break;
 
     case 'findMany':
       operationName = 'databaseFindMany';
-      operationParameters = {
-        collection: 'clients',
-        query: payload.body.text()
-      }
-      //payload.body.text();
       break;
 
     case 'updateOne':
       operationName = 'clientsUpdateOne';
-      operationParameters = payload.body.text();
       break;
 
     case 'excludeOne':
       operationName = 'clientsExcludeOne';
-      operationParameters = payload.body.text();
       break;
 
     case 'deleteOne':
       operationName = 'clientsDeleteOne';
-      operationParameters = payload.body.text();
       break;
 
     // case 'updateMany':
