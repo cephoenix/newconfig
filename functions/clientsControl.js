@@ -15,16 +15,13 @@ exports = async function (payload) {
     action = payload.action;
   }
 
-  try {
-    operationParameters.query = JSON.parse(payload.body.text())
-  } catch (e) {
+  if(payload.body != undefined) {
+    operationParameters.query = payload.body.text()
+  } else {
     operationParameters.query = {}
   }
   operationParameters.collection = `clients`
-  // if(payload.body != undefined) {
-  //   operationParameters.query = payload.body.text()
-  // }
-  
+
   switch (action) {
     case 'create':
       let query = {
