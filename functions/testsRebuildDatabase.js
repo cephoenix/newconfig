@@ -196,98 +196,360 @@ exports = async function (data) {
           "description": "Firebee"
       },
       "clients": [
-          {
-            "id":`${insertedIds[0]}`, 
-            "name": "DEV - Carlos Emílio",
-            "initials":"CEP",
-            "channel":26,
-            "clientType":"Admin"
+        {
+          "oldDatabaseId": 695,
+          "name": "DEV - Carlos Emílio",
+          "initials": "CEP",
+          "panId": "9994",
+          "extendedPanId": "9994",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
           },
-          {
-            "id":`${insertedIds[1]}`,
-            "name": "DEV - Jardel",
-            "initials":"JJJ",
-            "channel":26,
-            "clientType":"Admin"
+          "documentIdentificationNumber": "01412732166",
+          "taxId": "01412732166",
+          "nationalIdentificationNumber": "01412732166",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
+        },
+        {
+          "oldDatabaseId": 696,
+          "name": "DEV - Jardel",
+          "initials": "JJJ",
+          "panId": "9993",
+          "extendedPanId": "9993",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
           },
-          {
-            "id":`${insertedIds[2]}`,
-            "name": "DEV - Robson",
-            "initials":"ROB",
-            "channel":26,
-            "clientType":"Admin"
+          "documentIdentificationNumber": "009993",
+          "taxId": "009993",
+          "nationalIdentificationNumber": "009993",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
+        },
+        {
+          "oldDatabaseId": 17,
+          "name": "DEV - Robson",
+          "initials": "ROB",
+          "panId": "9995",
+          "extendedPanId": "9995",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
           },
-          {
-            "id":`${insertedIds[3]}`,
-            "name": "ADRIANO - TomCRUIZ",
-            "initials":"0GQ",
-            "channel":26,
-            "clientType":"Admin"
+          "documentIdentificationNumber": "009995",
+          "taxId": "009995",
+          "nationalIdentificationNumber": "009995",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
+        },
+        {
+          "oldDatabaseId": 686,
+          "name": "ADRIANO - TomCRUIZ",
+          "initials": "0GQ",
+          "panId": "9189",
+          "extendedPanId": "17A1826C573EA87E",
+          "linkKey": "3FA1A6328EBECBDA3914D41E696FF1D3",
+          "networkKey": "A1435FAEE5E6B0771868F6B2C2065B9B",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
           },
-          {
-            "id":`${insertedIds[4]}`,
-            "name": "Desenvolvimento 1",
-            "initials":"DE1",
-            "channel":26,
-            "clientType":"Admin"
-          }
-      ],
+          "documentIdentificationNumber": "5435787000166",
+          "taxId": "5435787000166",
+          "nationalIdentificationNumber": "5435787000166",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
+        },
+        {
+          "oldDatabaseId": 357,
+          "name": "Desenvolvimento 1",
+          "initials": "DE1",
+          "panId": "9085",
+          "extendedPanId": "9085",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
+          },
+          "documentIdentificationNumber": "009085",
+          "taxId": "009085",
+          "nationalIdentificationNumber": "009085",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
+        }],
+      // "clients": [
+      //     {
+      //       "id":`${insertedIds[0]}`, 
+      //       "name": "DEV - Carlos Emílio",
+      //       "initials":"CEP",
+      //       "channel":26,
+      //       "clientType":"Admin"
+      //     },
+      //     {
+      //       "id":`${insertedIds[1]}`,
+      //       "name": "DEV - Jardel",
+      //       "initials":"JJJ",
+      //       "channel":26,
+      //       "clientType":"Admin"
+      //     },
+      //     {
+      //       "id":`${insertedIds[2]}`,
+      //       "name": "DEV - Robson",
+      //       "initials":"ROB",
+      //       "channel":26,
+      //       "clientType":"Admin"
+      //     },
+      //     {
+      //       "id":`${insertedIds[3]}`,
+      //       "name": "ADRIANO - TomCRUIZ",
+      //       "initials":"0GQ",
+      //       "channel":26,
+      //       "clientType":"Admin"
+      //     },
+      //     {
+      //       "id":`${insertedIds[4]}`,
+      //       "name": "Desenvolvimento 1",
+      //       "initials":"DE1",
+      //       "channel":26,
+      //       "clientType":"Admin"
+      //     }
+      // ],
       "permissions": []
     }
   )
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
-      "login": "carlosemilio",
-      "password": "EFDA0BD51E79959399756DD0FC4BA89653780EF8",
-      "email": "carlosemilio@firebee.com.br",
-      "fullName": "Carlos Emílio Pereira",
-      "exhibitionName": "Carlão",
-      "cpfCnpj":"01412732166  ",
-      "zone": "Centro Oeste",
-      "profilePicture":"",
-      "permissionLevel": { 
+      login: "carlosemilio",
+      password: "EFDA0BD51E79959399756DD0FC4BA89653780EF8",
+      email: "carlosemilio@firebee.com.br",
+      fullName: "Carlos Emílio Pereira",
+      exhibitionName: "Carlão",
+      cpfCnpj:"01412732166  ",
+      zone: "Centro Oeste",
+      profilePicture:"",
+      permissionLevel: { 
           "level": 0, 
           "description": "Firebee"
       },
-      "clients": [
+      clients: [
         {
-          "id":`${dbResponse.insertedIds[0]}`,
+          "oldDatabaseId": 695,
           "name": "DEV - Carlos Emílio",
-          "initials":"CEP",
-          "channel":26,
-          "clientType":"Admin"
+          "initials": "CEP",
+          "panId": "9994",
+          "extendedPanId": "9994",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
+          },
+          "documentIdentificationNumber": "01412732166",
+          "taxId": "01412732166",
+          "nationalIdentificationNumber": "01412732166",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
         },
         {
-          "id":`${dbResponse.insertedIds[1]}`,
+          "oldDatabaseId": 696,
           "name": "DEV - Jardel",
-          "initials":"JJJ",
-          "channel":26,
-          "clientType":"Admin"
+          "initials": "JJJ",
+          "panId": "9993",
+          "extendedPanId": "9993",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
+          },
+          "documentIdentificationNumber": "009993",
+          "taxId": "009993",
+          "nationalIdentificationNumber": "009993",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
         },
         {
-          "id":`${dbResponse.insertedIds[2]}`,
+          "oldDatabaseId": 17,
           "name": "DEV - Robson",
-          "initials":"ROB",
-          "channel":26,
-          "clientType":"Admin"
+          "initials": "ROB",
+          "panId": "9995",
+          "extendedPanId": "9995",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
+          },
+          "documentIdentificationNumber": "009995",
+          "taxId": "009995",
+          "nationalIdentificationNumber": "009995",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
         },
         {
-          "id":`${dbResponse.insertedIds[3]}`,
+          "oldDatabaseId": 686,
           "name": "ADRIANO - TomCRUIZ",
-          "initials":"0GQ",
-          "channel":26,
-          "clientType":"Admin"
+          "initials": "0GQ",
+          "panId": "9189",
+          "extendedPanId": "17A1826C573EA87E",
+          "linkKey": "3FA1A6328EBECBDA3914D41E696FF1D3",
+          "networkKey": "A1435FAEE5E6B0771868F6B2C2065B9B",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
+          },
+          "documentIdentificationNumber": "5435787000166",
+          "taxId": "5435787000166",
+          "nationalIdentificationNumber": "5435787000166",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
         },
         {
-          "id":`${dbResponse.insertedIds[4]}`,
+          "oldDatabaseId": 357,
           "name": "Desenvolvimento 1",
-          "initials":"DE1",
-          "channel":26,
-          "clientType":"Admin"
-        }
-      ],
-      "permissions": []
+          "initials": "DE1",
+          "panId": "9085",
+          "extendedPanId": "9085",
+          "linkKey": "0001",
+          "networkKey": "0001",
+          "creationDate": new Date(),
+          "channel": 26,
+          "deviceSummary": {},
+          "clientType": {
+            type: 2,
+            name: "Cliente Final"
+          },
+          "documentIdentificationNumber": "009085",
+          "taxId": "009085",
+          "nationalIdentificationNumber": "009085",
+          "address": "",
+          "postalCode": "",
+          "state": "",
+          "stateInitials": "",
+          "province": "",
+          "city": "",
+          "country": ""
+        }],
+      // "clients": [
+      //   {
+      //     "id":`${dbResponse.insertedIds[0]}`,
+      //     "name": "DEV - Carlos Emílio",
+      //     "initials":"CEP",
+      //     "channel":26,
+      //     "clientType":"Admin"
+      //   },
+      //   {
+      //     "id":`${dbResponse.insertedIds[1]}`,
+      //     "name": "DEV - Jardel",
+      //     "initials":"JJJ",
+      //     "channel":26,
+      //     "clientType":"Admin"
+      //   },
+      //   {
+      //     "id":`${dbResponse.insertedIds[2]}`,
+      //     "name": "DEV - Robson",
+      //     "initials":"ROB",
+      //     "channel":26,
+      //     "clientType":"Admin"
+      //   },
+      //   {
+      //     "id":`${dbResponse.insertedIds[3]}`,
+      //     "name": "ADRIANO - TomCRUIZ",
+      //     "initials":"0GQ",
+      //     "channel":26,
+      //     "clientType":"Admin"
+      //   },
+      //   {
+      //     "id":`${dbResponse.insertedIds[4]}`,
+      //     "name": "Desenvolvimento 1",
+      //     "initials":"DE1",
+      //     "channel":26,
+      //     "clientType":"Admin"
+      //   }
+      // ],
+      permissions: []
     }
   )
 
