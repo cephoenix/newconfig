@@ -68,5 +68,5 @@ exports = async function (payload) {
     loggedUser: loggedUser , 
     deviceTypes: deviceTypes
   })
-  return  //@todo implementar mecanismo de sessão
+  return  resp//@todo implementar mecanismo de sessão
 }
