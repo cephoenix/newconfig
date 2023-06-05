@@ -49,11 +49,11 @@ exports = async function (payload) {
                     return {"teste":true}
   } catch (e) {
     success = false
-                return {"teste":false}
     operationResponse = e
   }
 
   resp.success = success
   resp.data = operationResponse
+                  return {"teste":operationResponse}
   return operationResponse
 };
