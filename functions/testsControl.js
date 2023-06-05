@@ -31,7 +31,6 @@ exports = async function (payload) {
           encrypted: temp,
           decrypted: await context.functions.execute('decryptText', temp)
         }
-        return resp
         break;
 
     default:
@@ -47,6 +46,7 @@ exports = async function (payload) {
 
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
+            return {"teste":true}
   } catch (e) {
     success = false
     operationResponse = e
