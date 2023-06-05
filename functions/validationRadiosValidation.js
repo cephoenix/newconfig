@@ -1,12 +1,13 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
-  let action;
-  var success = true;
-  let operationName;
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios")
+  let action
+  var success = true
+  let operationName
   var operationResponse
   var resp = {}
-  var operationParameters = {};
+  var operationParameters = {}
+  var parameterToValidate
 
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
@@ -15,11 +16,16 @@ exports = async function (payload) {
     throw "Ação inválida! Por favor forneça uma ação válida."
   }
 
-  operationParameters.collection = `clients`
+  operationParameters.collection = `radios`
 
   switch (action) {
     case 'create':
-      validateCreate(operationResponse)
+      try {
+        parameterToValidate = JSON.parse(payload.body.text())
+      } catch (error) {
+        throw `Erro ao inserir/atualizar Rádio (Parâmetros inválidos): ${error}`
+      }
+      validateCreate(parameterToValidate)
       break;
 
     case 'findOne':
@@ -27,24 +33,28 @@ exports = async function (payload) {
       break;
 
     case 'findAll':
-      operationName = 'databaseFindMany';
-      operationParameters.query = '{}'
+
       break;
 
     case 'findMany':
-      operationName = 'databaseFindMany';
+      
       break;
 
     case 'updateOne':
-      operationName = 'clientsUpdateOne';
+      try {
+        parameterToValidate = JSON.parse(payload.body.text())
+      } catch (error) {
+        throw `Erro ao inserir/atualizar Rádio (Parâmetros inválidos): ${error}`
+      }
+      validateUpdate(payload.text())
       break;
 
     case 'excludeOne':
-      operationName = 'clientsExcludeOne';
+      
       break;
 
     case 'deleteOne':
-      operationName = 'clientsDeleteOne';
+      
       break;
 
     // case 'updateMany':
@@ -87,5 +97,13 @@ exports = async function (payload) {
 };
 
 function validateCreate (params) {
-  
+  if(params.clientOID == undefined || params.clientOID == null || params.clientOID == "") {
+    throw `É necessário informar o ID do Cliente ao qual o Rádio pertence!`
+  }  
+}
+
+function validateUpdate (params) {
+  if(params.clientOID == undefined || params.clientOID == null || params.clientOID == "") {
+    throw `É necessário informar o ID do Cliente ao qual o Rádio pertence!`
+  }
 }
