@@ -25,8 +25,8 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-        return {"teste":true}
         var temp = await context.functions.execute('encryptText', 'carlos')
+        return {"teste":"KALDEMIR"+temp}
         resp = {
           text: "carlos",
           encrypted: temp,
