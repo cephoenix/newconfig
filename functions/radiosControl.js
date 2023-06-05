@@ -16,7 +16,7 @@ exports = async function (payload, response) {
   } catch (error) {
     return {
       success: false,
-      data: error
+      data: `Erro ao validar operação com Radio: ${error}`
     }
   }
 
@@ -103,7 +103,7 @@ exports = async function (payload, response) {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
     success = false
-    operationResponse = e
+    operationResponse = `Erro ao executar operação com Rádio: ${e}`
   }
 
   resp.success = success;
