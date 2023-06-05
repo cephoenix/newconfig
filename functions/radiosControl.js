@@ -12,10 +12,12 @@ exports = async function (payload, response) {
    */
 
   try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
-    action = payload.query.action;
-  } catch (err) {
-    action = payload.action;
+    await context.functions.execute(`validationRadiosValidation`, payload)
+  } catch (error) {
+    return {
+      success: false,
+      data: error
+    }
   }
 
   /**
@@ -25,7 +27,7 @@ exports = async function (payload, response) {
 
   switch (action) {
     case 'create':
-      operationName = 'radiosCreate';
+      operationName = 'databaseInsertOne';
       operationParameters = payload.body;
       break;
 
@@ -54,7 +56,7 @@ exports = async function (payload, response) {
       break;
 
     case 'updateOne':
-      operationName = 'radiosUpdateOne';
+      operationName = 'databaseUpdateOne';
       operationParameters = payload.body;
       break;
 

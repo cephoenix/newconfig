@@ -1,45 +1,27 @@
 exports = async function (data) {
-
   let dbResponse;
-  let resp = {};
-  let query;
   let parameters;
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
 
-  if (data) {
-    try {
-      parameters = EJSON.parse(data)
-    } catch (e) {
-      throw (e)
-    }
-  } else {
-    throw "Não é possível adicionar um registro em branco"
+  if (data.collection === undefined || data.collection === "" || data.collection === null) {
+    throw "É necessário informar uma collection onde o registro será inserido!";
   }
 
-  query = {
-    $or: [
-      { "initials": parameters.initials },
-      { "cpfCnpj": parameters.cpfCnpj },
-      { "networkKey": parameters.networkKey },
-      { "panId": parameters.panId }
-    ]
+  if (data.query === undefined || data.query === "" || data.query === null) {
+    throw "É necessário informar os dados do registro a ser inserido!";
   }
-
+  
   try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify(parameters), collection: "clients" });
+    parameters = JSON.parse(data)
   } catch (e) {
     throw (e)
   }
+  
 
-  if (!dbResponse) {
-    try {
-      dbResponse = await dbquery.insertOne(parameters);
-    } catch (e) {
-      throw e;
-    }
-    return dbResponse
-  } else {
-    throw "Cliente já cadastrado";
+  try {
+    dbResponse = await dbquery.insertOne(parameters);
+  } catch (e) {
+    throw e;
   }
-
+  return dbResponse
 };
