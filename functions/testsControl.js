@@ -45,8 +45,8 @@ exports = async function (payload) {
   }
 
   try {
-                return {"teste":true}
     operationResponse = await context.functions.execute(operationName, operationParameters);
+                    return {"teste":true}
   } catch (e) {
     success = false
                 return {"teste":false}
