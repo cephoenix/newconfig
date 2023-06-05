@@ -15,10 +15,10 @@ exports = async function (payload) {
     throw "Invalid action! Please fill in a propper action."
   }
 
-  if(payload.body != undefined) {
-    operationParameters.query = payload.body.text()
-  } else {
+  if(payload.body === undefined || payload.body === "" || payload.body === null) {
     operationParameters.query = {}
+  } else {
+    operationParameters.query = payload.body.text()
   }
   operationParameters.collection = `clients`
 
