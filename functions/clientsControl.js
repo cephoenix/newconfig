@@ -9,7 +9,7 @@ exports = async function (payload) {
   var operationParameters = {};
 
   try {
-    await context.functions.execute(`clientsValidation`, payload);
+    await context.functions.execute(`validationClientsValidation`, payload);
   } catch (error) {
     return {
       success: false,
