@@ -1,52 +1,74 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get(`mongodb-atlas`).db(`configRadio`).collection(`clients`);
-  let action;
-  var success = true;
-  let operationName;
+  const dbquery = context.services.get(`mongodb-atlas`).db(`configRadio`).collection(`clients`)
+  let action
+  var success = true
+  let operationName
   var operationResponse
   var resp = {}
-  var operationParameters = {};
+  var operationParameters = {}
 
   try {
-    await context.functions.execute(`validationClientsValidation`, payload);
+    await context.functions.execute(`validationClientsValidation`, payload)
   } catch (error) {
     return {
       success: false,
       data: error
     }
   }
-  
-  // maybe create a processing here 
+
+  // maybe create a general processing here 
+  if(payload.body == undefined || payload.body == "" || payload.body == null) {
+    operationParameters.query = {}
+  } else {
+    operationParameters.query = payload.body.text()
+  }
 
   switch (action) {
     case 'create':
-      operationName = 'dataBaseInsertMany';
+      operationName = 'dataBaseInsertMany'
+
+      let query = {
+        $or: [
+          { "initials": operationParameters.query.initials },
+          { "cpfCnpj": operationParameters.query.cpfCnpj },
+          { "networkKey": operationParameters.query.networkKey },
+          { "panId": operationParameters.query.panId }
+        ]
+      }
+
+      try {
+        dbResponse = await context.functions.execute('databaseFindOne', { query: query, collection: `clients` })
+      } catch (e) {
+        throw (e)
+      }
+
+      operationName = 'dataBaseInsertMany'
       break;
 
     case 'findOne':
-      operationName = 'databaseFindOne';
+      operationName = 'databaseFindOne'
       break;
 
     case 'findAll':
-      operationName = 'databaseFindMany';
+      operationName = 'databaseFindMany'
       operationParameters.query = '{}'
       break;
 
     case 'findMany':
-      operationName = 'databaseFindMany';
+      operationName = 'databaseFindMany'
       break;
 
     case 'updateOne':
-      operationName = 'clientsUpdateOne';
+      operationName = 'databaseUpdateOne'
       break;
 
     case 'excludeOne':
-      operationName = 'clientsExcludeOne';
+      operationName = 'databaseExcludeOne'
       break;
 
     case 'deleteOne':
-      operationName = 'clientsDeleteOne';
+      operationName = 'databaseDeleteOne'
       break;
 
     // case 'updateMany':
@@ -69,13 +91,13 @@ exports = async function (payload) {
   }
 
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
+    operationResponse = await context.functions.execute(operationName, operationParameters)
   } catch (e) {
       success = false
       operationResponse = e.message
   }
 
-  resp.success = true
+  resp.success = success                                                //if we got to this point success should be true
   resp.data = operationResponse
   return resp
 };

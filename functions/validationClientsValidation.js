@@ -12,37 +12,14 @@ exports = async function (payload) {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
   } catch (err) {
-    throw "Ação inválida! Por favor fornecça uma ação válida."
+    throw "Ação inválida! Por favor forneça uma ação válida."
   }
 
-  if(payload.body == undefined || payload.body == "" || payload.body == null) {
-    operationParameters.query = {}
-  } else {
-    operationParameters.query = payload.body.text()
-  }
   operationParameters.collection = `clients`
 
   switch (action) {
     case 'create':
       validateCreate(operationResponse)
-      let query = {
-        $or: [
-          { "initials": parameters.initials },
-          { "cpfCnpj": parameters.cpfCnpj },
-          { "networkKey": parameters.networkKey },
-          { "panId": parameters.panId }
-        ]
-      }
-    
-      try {
-        dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify(parameters), collection: COLLECTION });
-      } catch (e) {
-        throw (e)
-      }
-
-      operationName = 'dataBaseInsertMany';
-      var params = payload.body.text()
-      
       break;
 
     case 'findOne':
