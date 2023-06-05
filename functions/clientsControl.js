@@ -24,7 +24,7 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      return validate(operationResponse)
+      validateCreate(operationResponse)
       let query = {
         $or: [
           { "initials": parameters.initials },
@@ -109,6 +109,6 @@ exports = async function (payload) {
   return resp
 };
 
-function validate (params) {
-  return {debug: true, params: params}
+function validateCreate (params) {
+  throw "Rá! Debugando!"
 }
