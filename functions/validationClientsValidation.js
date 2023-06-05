@@ -23,7 +23,7 @@ exports = async function (payload) {
       break;
 
     case 'findOne':
-      operationName = 'databaseFindOne';
+      
       break;
 
     case 'findAll':
@@ -87,5 +87,5 @@ exports = async function (payload) {
 };
 
 function validateCreate (params) {
-  throw "Rá! Debugando!"
+  
 }
