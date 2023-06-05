@@ -12,7 +12,7 @@ exports = async function (payload) {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
   } catch (err) {
-    throw "Invalid action! Please fill in a propper action."
+    throw "Ação inválida! Por favor fornecça uma ação válida."
   }
 
   if(payload.body == undefined || payload.body == "" || payload.body == null) {

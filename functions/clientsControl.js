@@ -58,14 +58,6 @@ exports = async function (payload) {
     //   //   ]
     //   // );
     //   break;
-
-    default:
-      success = false
-      if (action != null) {
-        response = "Ação inválida!";
-      } else {
-        response = "Nenhuma ação informada!";
-      }
   }
 
   try {
