@@ -12,7 +12,7 @@ exports = async function (payload) {
     await context.functions.execute(`validationClientsValidation`, payload)
   } catch (error) {
     return {
-      success: `falsea`,
+      success: false,
       data: error
     }
   }
@@ -88,6 +88,16 @@ exports = async function (payload) {
     //   //   ]
     //   // );
     //   break;
+
+    default:
+      if (action != null) {
+        resp.data = "Ação inválida!"
+      } else {
+        resp.data = "Nenhuma ação informada!"
+      }
+
+      resp.success = false
+      return resp
   }
 
   try {
