@@ -1,6 +1,6 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
+  const dbquery = context.services.get(`mongodb-atlas`).db(`configRadio`).collection(`clients`);
   let action;
   var success = true;
   let operationName;
@@ -8,41 +8,12 @@ exports = async function (payload) {
   var resp = {}
   var operationParameters = {};
 
-  try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
-    action = payload.query.action;
-  } catch (err) {
-    throw "Invalid action! Please fill in a propper action."
-  }
-
-  if(payload.body == undefined || payload.body == "" || payload.body == null) {
-    operationParameters.query = {}
-  } else {
-    operationParameters.query = payload.body.text()
-  }
-  operationParameters.collection = `clients`
+  await context.functions.execute(`clientsValidation`, payload);
+  // maybe create a processing here 
 
   switch (action) {
     case 'create':
-      validateCreate(operationResponse)
-      let query = {
-        $or: [
-          { "initials": parameters.initials },
-          { "cpfCnpj": parameters.cpfCnpj },
-          { "networkKey": parameters.networkKey },
-          { "panId": parameters.panId }
-        ]
-      }
-    
-      try {
-        dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify(parameters), collection: COLLECTION });
-      } catch (e) {
-        throw (e)
-      }
-
       operationName = 'dataBaseInsertMany';
-      var params = payload.body.text()
-      
       break;
 
     case 'findOne':
@@ -108,7 +79,3 @@ exports = async function (payload) {
   resp.data = operationResponse
   return resp
 };
-
-function validateCreate (params) {
-  throw "Rá! Debugando!"
-}
