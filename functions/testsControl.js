@@ -26,12 +26,12 @@ exports = async function (payload) {
         break;
       case 'debug':
         var temp = await context.functions.execute('encryptText', 'carlos')
-        return {"teste":"KALDEMIR"+temp}
         resp = {
           text: "carlos",
           encrypted: temp,
           decrypted: await context.functions.execute('decryptText', temp)
         }
+        return resp
         break;
 
     default:
