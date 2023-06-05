@@ -8,7 +8,15 @@ exports = async function (payload) {
   var resp = {}
   var operationParameters = {};
 
-  await context.functions.execute(`clientsValidation`, payload);
+  try {
+    await context.functions.execute(`clientsValidation`, payload);
+  } catch (error) {
+    return {
+      success: false,
+      data: error
+    }
+  }
+  
   // maybe create a processing here 
 
   switch (action) {
