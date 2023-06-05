@@ -25,19 +25,21 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
+        
         var temp = await context.functions.execute('encryptText', 'carlos')
         resp = {
           text: "carlos",
           encrypted: temp,
           decrypted: await context.functions.execute('decryptText', temp)
         }
+        return resp
         break;
 
     default:
       if (action != null) {
-        resp.data = "Ação inválida!"
+        resp.data = `Ação inválida!`
       } else {
-        resp.data = "Nenhuma ação informada!"
+        resp.data = `Nenhuma ação informada!`
       }
 
       resp.success = false
@@ -46,14 +48,11 @@ exports = async function (payload) {
 
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
-                    return {"teste":true}
   } catch (e) {
-    success = false
-    operationResponse = e
+    throw `Erro ao executar operação: ${e}`
   }
 
   resp.success = success
   resp.data = operationResponse
-                  return {"teste":operationResponse}
   return operationResponse
 };
