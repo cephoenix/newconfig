@@ -91,9 +91,9 @@ exports = async function (payload) {
 
     default:
       if (action != null) {
-        resp.data = "Ação inválida!"
+        resp.data = `Ação inválida!`
       } else {
-        resp.data = "Nenhuma ação informada!"
+        resp.data = `Nenhuma ação informada! ${action}`
       }
 
       resp.success = false
