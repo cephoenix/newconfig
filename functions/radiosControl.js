@@ -7,6 +7,10 @@ exports = async function (payload, response) {
   let operationParameters
   var success = true
   
+  /**
+   * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
+   */
+
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
