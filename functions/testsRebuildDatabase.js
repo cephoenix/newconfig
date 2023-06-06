@@ -603,8 +603,8 @@ exports = async function (data) {
   rawData.forEach(element => {
     if (element.SiglaConfRadio.includes("LR") && element.DeviceClass != "6") {
 
-      let x = `${element.SiglaConfRadio}}`
-      let y = element.DescriptionPTBR
+      let x = `${element.SiglaConfRadio}`
+      let y = element.DescriptionPTBR.slice(0,6)
 
       if (y != undefined) {
         x += ` - ${y}`
