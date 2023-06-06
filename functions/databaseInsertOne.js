@@ -18,8 +18,6 @@ exports = async function (data) {
     throw (e)
   }
   
-
-  
   try {
     dbResponse = await dbquery.insertOne(parameters);
   } catch (e) {

@@ -11,10 +11,19 @@ exports = async function (payload, response) {
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
-    return {debug: action}
+    //return {debug: action}
   } catch (err) {
     action = payload.action
-    return {debug: false}
+    //return {debug: false}
+  }
+
+  try {
+    await context.functions.execute(`validationRadiosValidation`, payload)
+  } catch (error) {
+    return {
+      success: false,
+      data: `Erro ao validar operação com Radio: ${error}`
+    }
   }
 
   switch (action) {
