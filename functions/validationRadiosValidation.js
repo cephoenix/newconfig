@@ -46,7 +46,7 @@ exports = async function (payload) {
       } catch (error) {
         throw `Erro ao inserir/atualizar Rádio (Parâmetros inválidos): ${error}`
       }
-      validateUpdate(payload.text())
+      validateUpdate(parameterToValidate)
       break;
 
     case 'excludeOne':
