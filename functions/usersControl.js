@@ -18,11 +18,11 @@ exports = async function (payload, response) {
   }
 
   try {
-    await context.functions.execute(`validationRadiosValidation`, payload)
+    await context.functions.execute(`usersValidation`, payload)
   } catch (error) {
     return {
       success: false,
-      data: `Erro ao validar operação com Radio: ${error}`
+      data: `Erro ao validar operação com Usuário: ${error}`
     }
   }
 
