@@ -605,7 +605,7 @@ exports = async function (data) {
       deviceTypes.push({
         productCode: element.Codigo,
         initials: element.SiglaConfRadio,
-        exhibitionName:  initials + description.splice(-6),
+        exhibitionName:  initials + description.slice(-6),
         class: element.DeviceClass,
         description: element.Nome
       })
