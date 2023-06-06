@@ -604,10 +604,10 @@ exports = async function (data) {
     if (element.SiglaConfRadio.includes("LR") && element.DeviceClass != "6") {
 
       let x = `${element.SiglaConfRadio}`
-      let y = element.DescriptionPTBR.slice(0,6)
+      let y = element.DescriptionPTBR
 
       if (y != undefined) {
-        x += ` - ${y}`
+        x += ` - ${y.slice(0,6)}`
       }
 
       deviceTypes.push({
