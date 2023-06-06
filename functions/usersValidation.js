@@ -1,6 +1,6 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users");
   let action;
   var success = true;
   let operationName;
@@ -8,22 +8,21 @@ exports = async function (payload) {
   var resp = {}
   var operationParameters = {};
 
-  try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
-    action = payload.query.action;
-  } catch (err) {
-    throw "Ação inválida! Por favor forneça uma ação válida."
-  }
+  /**
+ * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
+ */
 
-  operationParameters.collection = `clients`
+
+
+  operationParameters.collection = `users`
 
   switch (action) {
     case 'create':
-      validateCreate(operationResponse)
+      validateCreate(payload)
       break;
 
     case 'findOne':
-      
+
       break;
 
     case 'findAll':
@@ -77,8 +76,8 @@ exports = async function (payload) {
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
-      success = false
-      operationResponse = e.message
+    success = false
+    operationResponse = e.message
   }
 
   resp.success = success
@@ -86,6 +85,44 @@ exports = async function (payload) {
   return resp
 };
 
-function validateCreate (params) {
-  
+async function validateCreate(payload) {
+
+
+  try {
+    parameters = EJSON.parse(data)
+  } catch (e) {
+    throw `Erro ao criar usuário:  ${e}`
+  }
+
+  if(!parameters.exhibitionName) {
+    throw "O campo 'Nome de exibição' é obrigatório!";
+  }
+
+  if(!parameters.permissionLevel) {
+    throw "O campo 'Nível de permissão' é obrigatório!"
+  }
+
+  query = {
+    $or: [
+      { "login": parameters.login },
+      { "cpfCnpj": parameters.cpfCnpj }
+    ]
+  }
+
+  try {
+    dbResponse = await context.functions.execute('databaseFindMany', { query: query, collection: `clients` })
+  } catch (e) {
+    throw `Erro ao buscar usuário: ${e}`
+  }
+
+  if(dbResponse != undefined) {
+    throw `Usuário já existe`
+  }
+
+  // try {
+
+  //   dbResponse = await dbquery.findOne(query)
+  // } catch (e) {
+  //   throw `Não foi possível criar usuário: ${e}`;
+  // }
 }

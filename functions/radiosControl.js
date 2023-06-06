@@ -12,7 +12,7 @@ exports = async function (payload, response) {
    */
 
   try {
-    await context.functions.execute(`validationRadiosValidation`, payload)
+    await context.functions.execute(`radiosValidation`, payload)
   } catch (error) {
     return {
       success: false,
