@@ -57,6 +57,7 @@ exports = async function (payload) {
       
       break;
 
+      
     // case 'updateMany':
     //   // resultado = await dbquery.updateOne(
     //   //   args.filter, 
