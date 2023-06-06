@@ -607,7 +607,7 @@ exports = async function (data) {
       let y = element.DescriptionPTBR
 
       if (y != undefined) {
-        x += ` - ${y.slice(0,6)}`
+        x += ` - ${y.slice(0,13)}`
       }
 
       deviceTypes.push({
