@@ -18,7 +18,7 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      operationName = 'dataBaseInsertOne'
+      operationName = 'databaseInsertOne'
       break;
 
     case 'findOne':
