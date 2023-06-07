@@ -13,17 +13,8 @@ exports = async function (payload) {
       data: error
     }
   }
-
-  try {
-    operationParameters.query = payload.body.text()
-  } catch (error) {
-    throw {
-      success: false,
-      data: `Erro ao buscar parâmetros da operação: ${error}`
-    }
-  }
-
-  action = action = payload.query.action
+  
+  action = payload.query.action
 
   switch (action) {
     case 'create':
@@ -64,6 +55,7 @@ exports = async function (payload) {
 
   try {
     operationParameters.collection = `clients`
+    operationParameters.query = payload.body.text()
     operationResponse = await context.functions.execute(operationName, operationParameters)
     return {
       success: true,
