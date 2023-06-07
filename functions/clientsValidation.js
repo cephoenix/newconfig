@@ -67,7 +67,7 @@ exports = async function (payload) {
 
     default:
       success = false
-      throw {debug: action}
+      throw {debug: (action != null)}
       if (action != null) {
         response = "Ação inválida!";
       } else {
