@@ -55,6 +55,7 @@ exports = async function (payload) {
 
   try {
     operationParameters.collection = `clients`
+    return {debug2: EJSON.parse(payload.body.text())}
     operationParameters.query = payload.body.text()
     operationResponse = await context.functions.execute(operationName, operationParameters)
     return {
@@ -64,7 +65,7 @@ exports = async function (payload) {
   } catch (error) {
     return {
       success: false,
-      data: `Ocorreu um erro! ${error}`
+      data: `Ocorreu um erro (1)! ${error}`
     }
   }
 };
