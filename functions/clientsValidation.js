@@ -20,21 +20,27 @@ exports = async function (payload) {
       break;
 
     case 'findOne':
+      await validateFindOne(payload)
       break;
 
     case 'findAll':
+      await validateFindAll(payload)
       break;
 
     case 'findMany':
+      await validateFindMany(payload)
       break;
 
     case 'updateOne':
+      await validateUpdateOne(payload)
       break;
 
     case 'excludeOne':
+      await validateExcludeOne(payload)
       break;
 
     case 'deleteOne':
+      await validateDeleteOne(payload)
       break;
 
     default:
