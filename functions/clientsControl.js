@@ -2,26 +2,26 @@ exports = async function (payload) {
 
   const dbquery = context.services.get(`mongodb-atlas`).db(`configRadio`).collection(`clients`)
   let action
-  var success = true
   let operationName
   var operationResponse
-  var resp = {}
   var operationParameters = {}
 
   try {
     await context.functions.execute(`clientsValidation`, payload)
   } catch (error) {
-    return {
+    throw {
       success: false,
       data: error
     }
   }
 
-  // maybe create a general processing here 
-  if(payload.body == undefined || payload.body == "" || payload.body == null) {
-    operationParameters.query = {}
-  } else {
+  try {
     operationParameters.query = payload.body.text()
+  } catch (error) {
+    throw {
+      success: false,
+      data: `Erro ao efetuar operação: ${error}`
+    }
   }
 
   switch (action) {
@@ -35,7 +35,7 @@ exports = async function (payload) {
 
     case 'findAll':
       operationName = 'databaseFindMany'
-      operationParameters.query = '{}'
+      operationParameters.query = {}
       break;
 
     case 'findMany':
@@ -55,24 +55,22 @@ exports = async function (payload) {
       break;
 
     default:
-      if (action != null) {
-        resp.data = `Ação inválida!`
-      } else {
-        resp.data = `Nenhuma ação informada! ${action}`
+      throw {
+        success: false,
+        data: (action != null) ? `Ação inválida!` : `Nenhuma ação informada! ${action}`
       }
-
-      resp.success = false
-      return resp
   }
 
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters)
-  } catch (e) {
-      success = false
-      operationResponse = e.message
+    return {
+      success: true,
+      data: operationResponse
+    }
+  } catch (error) {
+    throw {
+      success: false,
+      data: error
+    }
   }
-
-  resp.success = success                                                //if we got to this point success should be true
-  resp.data = operationResponse
-  return resp
 };
