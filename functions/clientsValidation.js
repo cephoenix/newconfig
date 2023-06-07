@@ -57,7 +57,7 @@ async function validateCreate (body) {
   var parameters
 
   try {
-    parameters = JSON.parse(body)
+    parameters = EJSON.parse(body)
   } catch (error) {
     throw `Erro ao inserir cliente (1): ${error}`
   }
