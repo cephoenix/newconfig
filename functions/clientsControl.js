@@ -26,24 +26,24 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      operationName = 'dataBaseInsertMany'
+      // operationName = 'dataBaseInsertOne'
 
-      let query = {
-        $or: [
-          { "initials": operationParameters.query.initials },
-          { "cpfCnpj": operationParameters.query.cpfCnpj },
-          { "networkKey": operationParameters.query.networkKey },
-          { "panId": operationParameters.query.panId }
-        ]
-      }
+      // let query = {
+      //   $or: [
+      //     { "initials": operationParameters.query.initials },
+      //     { "cpfCnpj": operationParameters.query.cpfCnpj },
+      //     { "networkKey": operationParameters.query.networkKey },
+      //     { "panId": operationParameters.query.panId }
+      //   ]
+      // }
 
-      try {
-        dbResponse = await context.functions.execute('databaseFindOne', { query: query, collection: `clients` })
-      } catch (e) {
-        throw (e)
-      }
+      // try {
+      //   dbResponse = await context.functions.execute('databaseFindOne', { query: query, collection: `clients` })
+      // } catch (e) {
+      //   throw (e)
+      // }
 
-      operationName = 'dataBaseInsertMany'
+      operationName = 'dataBaseInsertOne'
       break;
 
     case 'findOne':
