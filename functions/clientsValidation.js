@@ -67,11 +67,11 @@ exports = async function (payload) {
 
     default:
       success = false
-      throw {debug: (action != null)}
       if (action != null) {
         response = "Ação inválida!";
       } else {
         response = "Nenhuma ação informada!";
+        throw {debug: (action != null)}
       }
   }
 
