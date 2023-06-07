@@ -27,7 +27,6 @@ exports = async function (payload) {
   switch (action) {
     case 'create':
       // operationName = 'dataBaseInsertOne'
-
       // let query = {
       //   $or: [
       //     { "initials": operationParameters.query.initials },
