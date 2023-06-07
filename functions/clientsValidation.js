@@ -71,7 +71,7 @@ async function validateCreate (body) {
   }
 
   try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: query, collection: `clients` })
+    dbResponse = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
   } catch (e) {
     throw `Erro ao inserir cliente(2): ${e}`
   }
