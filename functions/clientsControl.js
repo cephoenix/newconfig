@@ -55,7 +55,6 @@ exports = async function (payload) {
 
   try {
     operationParameters.collection = `clients`
-    return {debug2: EJSON.parse(payload.body.text())}
     operationParameters.query = payload.body.text()
     operationResponse = await context.functions.execute(operationName, operationParameters)
     return {
