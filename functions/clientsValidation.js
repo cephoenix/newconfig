@@ -58,7 +58,7 @@ async function validateCreate (payload) {
   try {
     parameters = JSON.parse(payload)
   } catch (error) {
-    throw `Erro ao inserir cliente: ${error}`
+    throw `Erro ao inserir cliente (1): ${error}`
   }
   let query = {
     $or: [
@@ -72,6 +72,6 @@ async function validateCreate (payload) {
   try {
     dbResponse = await context.functions.execute('databaseFindOne', { query: query, collection: `clients` })
   } catch (e) {
-    throw `Erro ao inserir cliente: ${e}`
+    throw `Erro ao inserir cliente(2): ${e}`
   }
 }
