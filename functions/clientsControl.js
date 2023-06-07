@@ -8,12 +8,12 @@ exports = async function (payload) {
   try {
     await context.functions.execute(`clientsValidation`, payload)
   } catch (error) {
-    throw {
+    return {
       success: false,
       data: error
     }
   }
-  
+
   action = payload.query.action
 
   switch (action) {
