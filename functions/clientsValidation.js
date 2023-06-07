@@ -41,18 +41,18 @@ exports = async function (payload) {
     default:
       success = false
       if (action == null || action == undefined || action == ``) {
-        response = "Ação inválida!";
+        response = `Nenhuma ação informada!`;
       } else {
-        response = "Nenhuma ação informada!";
+        response = `Ação (${action}) inválida!`;
         throw {debug: (action != null)}
       }
   }
 
-  try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
-  } catch (e) {
-      throw `Não é possível validar cliente. Erro: ${e}`
-  }
+  // try {
+  //   operationResponse = await context.functions.execute(operationName, operationParameters);
+  // } catch (e) {
+  //     throw `Não é possível validar cliente. Erro: ${e}`
+  // }
 
   resp.success = success
   resp.data = operationResponse

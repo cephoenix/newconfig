@@ -1,10 +1,18 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get(`mongodb-atlas`).db(`configRadio`).collection(`clients`)
-  let action
-  let operationName
+  var action
+  var operationName
   var operationResponse
   var operationParameters = {}
+
+  try {
+    action = payload.query.action
+  } catch (error) {
+    throw {
+      success: false,
+      data: `Nenhuma ação informada! Erro: ${error}`
+    }
+  }
 
   try {
     await context.functions.execute(`clientsValidation`, payload)
@@ -57,11 +65,12 @@ exports = async function (payload) {
     default:
       throw {
         success: false,
-        data: (action != null) ? `Ação inválida!` : `Nenhuma ação informada! ${action}`
+        data: `Ação inválida!`
       }
   }
 
   try {
+    operationParameters.collection = `clients`
     operationResponse = await context.functions.execute(operationName, operationParameters)
     return {
       success: true,
@@ -70,7 +79,7 @@ exports = async function (payload) {
   } catch (error) {
     throw {
       success: false,
-      data: error
+      data: `Ocorreu um erro! ${error}`
     }
   }
 };
