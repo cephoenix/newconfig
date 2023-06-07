@@ -16,7 +16,7 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      validateCreate(payload)
+      await validateCreate(payload)
       break;
 
     case 'findOne':
