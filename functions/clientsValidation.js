@@ -71,9 +71,12 @@ async function validateCreate (body) {
   }
 
   try {
-    let resp = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
-    throw {debug: JSON.stringify(resp), a: resp == null}
+    // let resp = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
+    if(await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` }) != null) {
+      throw `Esse cliente já existe!`
+    }
+    // throw {debug: JSON.stringify(resp), a: resp == null}
   } catch (error) {
-    throw `Erro ao inserir cliente(2): ${JSON.stringify(error)}`
+    throw `Erro ao inserir cliente(2): ${error}`
   }
 }
