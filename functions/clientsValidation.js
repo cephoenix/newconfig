@@ -15,59 +15,32 @@ exports = async function (payload) {
     throw "Ação inválida! Por favor forneça uma ação válida."
   }
 
-  operationParameters.collection = `clients`
-
   switch (action) {
     case 'create':
       validateCreate(operationResponse)
       break;
 
     case 'findOne':
-      
       break;
 
     case 'findAll':
-      operationName = 'databaseFindMany';
-      operationParameters.query = '{}'
       break;
 
     case 'findMany':
-      operationName = 'databaseFindMany';
       break;
 
     case 'updateOne':
-      operationName = 'clientsUpdateOne';
       break;
 
     case 'excludeOne':
-      operationName = 'clientsExcludeOne';
       break;
 
     case 'deleteOne':
-      operationName = 'clientsDeleteOne';
       break;
-
-    // case 'updateMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: args.values}
-    //   //   ]
-    //   // );
-    //   break;
-
-    // case 'excludeMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: {status : "removed", DataExclusao : "passa data" , deletedAt: new Date()}}
-    //   //   ]
-    //   // );
-    //   break;
 
     default:
       success = false
-      if (action != null) {
+      if (action == null || action == undefined || action == ``) {
         response = "Ação inválida!";
       } else {
         response = "Nenhuma ação informada!";
@@ -78,8 +51,7 @@ exports = async function (payload) {
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters);
   } catch (e) {
-      success = false
-      operationResponse = e.message
+      throw `Não é possível validar cliente. Erro: ${e}`
   }
 
   resp.success = success
