@@ -7,7 +7,7 @@ exports = async function (payload) {
   var operationResponse
   var resp = {}
   var operationParameters = {};
-
+throw {debug: payload}
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action;
