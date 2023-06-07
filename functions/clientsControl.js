@@ -47,7 +47,7 @@ exports = async function (payload) {
       break;
 
     default:
-      throw {
+      return {
         success: false,
         data: `Ação inválida!`
       }
@@ -62,7 +62,7 @@ exports = async function (payload) {
       data: operationResponse
     }
   } catch (error) {
-    throw {
+    return {
       success: false,
       data: `Ocorreu um erro! ${error}`
     }
