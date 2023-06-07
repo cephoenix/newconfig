@@ -17,7 +17,7 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      validateCreate(operationResponse)
+      validateCreate(payload)
       break;
 
     case 'findOne':
@@ -59,6 +59,61 @@ exports = async function (payload) {
   return resp
 };
 
-function validateCreate (params) {
-  
+async function validateCreate (payload) {
+  var parameters
+  if(payload.body == undefined || payload.body == "" || payload.body == null) {
+    throw `Dados inválidos!`
+  } else {
+    try {
+      parameters = JSON.parse(payload.body.text())
+    } catch (error) {
+      throw `Dados inválidos. Erro: ${error}`
+    }
+  }
+
+  if(await isEmpty(parameters.initials)) {
+    throw `É necessário fornecer as iniciais do Cliente!`
+  }
+
+  if(await isEmpty(parameters.cpfCnpj)) {
+    throw `É necessário fornecer o CPF/CNPJ do Cliente!`
+  }
+
+  if(await isEmpty(parameters.networkKey)) {
+    throw `É necessário fornecer a Chave de Rede (Network Key) do Cliente!`
+  }
+
+  if(await isEmpty(parameters.panId)) {
+    throw `É necessário fornecer o PAN ID do Cliente!`
+  }
+
+  query = {
+    $or: [
+      { "initials": parameters.initials },
+      { "cpfCnpj": parameters.cpfCnpj },
+      { "networkKey": parameters.networkKey },
+      { "panId": parameters.panId }
+    ]
+  }
+
+  try {
+    dbResponse = await context.functions.execute(`databaseFindOne`, { query: EJSON.stringify(query), collection: `clients` });
+  } catch (e) {
+    throw (e)
+  }
+
+  if (await isEmpty(dbResponse)) {
+    try {
+      dbResponse = await dbquery.insertOne(parameters);
+    } catch (e) {
+      throw e;
+    }
+    return dbResponse
+  } else {
+    throw `Cliente já cadastrado`
+  }
+}
+
+async function isEmpty (data) {
+  return data != undefined && data != `` && data != null
 }
