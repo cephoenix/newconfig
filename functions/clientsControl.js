@@ -6,15 +6,6 @@ exports = async function (payload) {
   var operationParameters = {}
 
   try {
-    action = payload.query.action
-  } catch (error) {
-    throw {
-      success: false,
-      data: `Nenhuma ação informada! Erro: ${error}`
-    }
-  }
-
-  try {
     await context.functions.execute(`clientsValidation`, payload)
   } catch (error) {
     throw {
@@ -28,9 +19,11 @@ exports = async function (payload) {
   } catch (error) {
     throw {
       success: false,
-      data: `Erro ao efetuar operação: ${error}`
+      data: `Erro ao buscar parâmetros da operação: ${error}`
     }
   }
+
+  action = action = payload.query.action
 
   switch (action) {
     case 'create':
