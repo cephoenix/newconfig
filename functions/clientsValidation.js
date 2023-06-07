@@ -1,10 +1,11 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
-  let action;
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients")
+  let action
+  var body
 
   try {
-    payload.body.text()
+    body = payload.body.text()
   } catch (error) {
     throw {
       success: false,
@@ -16,31 +17,31 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      await validateCreate(payload)
+      await validateCreate(body)
       break;
 
     case 'findOne':
-      await validateFindOne(payload)
+      await validateFindOne(body)
       break;
 
     case 'findAll':
-      await validateFindAll(payload)
+      await validateFindAll(body)
       break;
 
     case 'findMany':
-      await validateFindMany(payload)
+      await validateFindMany(body)
       break;
 
     case 'updateOne':
-      await validateUpdateOne(payload)
+      await validateUpdateOne(body)
       break;
 
     case 'excludeOne':
-      await validateExcludeOne(payload)
+      await validateExcludeOne(body)
       break;
 
     case 'deleteOne':
-      await validateDeleteOne(payload)
+      await validateDeleteOne(body)
       break;
 
     default:
@@ -52,11 +53,11 @@ exports = async function (payload) {
   }
 };
 
-async function validateCreate (payload) {
+async function validateCreate (body) {
   var parameters
 
   try {
-    parameters = JSON.parse(payload)
+    parameters = JSON.parse(body)
   } catch (error) {
     throw `Erro ao inserir cliente (1): ${error}`
   }
