@@ -16,7 +16,6 @@ exports = async function (payload) {
       data: error
     }
   }
-
   // maybe create a general processing here 
   if(payload.body == undefined || payload.body == "" || payload.body == null) {
     operationParameters.query = {}
