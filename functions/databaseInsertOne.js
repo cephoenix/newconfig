@@ -13,15 +13,16 @@ exports = async function (data) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`${data.collection}`)
   
   try {
+    return {debug: data}
     parameters = JSON.parse(data)
   } catch (e) {
-    throw (e)
+    throw `Erro ao inserir registro no banco de dados(1): ${e}`
   }
   
   try {
     dbResponse = await dbquery.insertOne(parameters);
   } catch (e) {
-    throw e;
+    throw `Erro ao inserir registro no banco de dados(2): ${e}`
   }
   return dbResponse
 };

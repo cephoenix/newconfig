@@ -17,7 +17,6 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      return {debug: 'rá'}
       await validateCreate(body)
       break;
 
