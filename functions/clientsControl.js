@@ -64,7 +64,7 @@ exports = async function (payload) {
   } catch (error) {
     return {
       success: false,
-      data: `Ocorreu um erro (1)! ${error}`
+      data: `Erro ao inserir cliente (3)! ${error}`
     }
   }
 };
