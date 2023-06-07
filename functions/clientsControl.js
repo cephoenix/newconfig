@@ -54,25 +54,6 @@ exports = async function (payload) {
       operationName = 'databaseDeleteOne'
       break;
 
-    // case 'updateMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: args.values}
-    //   //   ]
-    //   // );
-    //   break;
-
-
-    // case 'excludeMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: {status : "removed", DataExclusao : "passa data" , deletedAt: new Date()}}
-    //   //   ]
-    //   // );
-    //   break;
-
     default:
       if (action != null) {
         resp.data = `Ação inválida!`
