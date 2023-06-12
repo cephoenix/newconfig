@@ -92,8 +92,8 @@ async function validateCreate(payload) {
   } catch (e) {
     throw `Erro ao buscar usuário: ${e}`
   }
-throw {debug: JSON.stringify(dbResponse)}
-  if(dbResponse != undefined) {
+throw {debug: JSON.stringify(dbResponse), moreDebug: (dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {})}
+  if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
     throw `Esse usuário já existe!`
   }
 }
