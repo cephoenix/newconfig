@@ -4,6 +4,7 @@ exports = async function (payload, response) {
   let operationName
   let operationResponse
   let operationParameters = {}
+  var password
 
   try {
     await context.functions.execute(`usersValidation`, payload)
@@ -21,6 +22,26 @@ exports = async function (payload, response) {
   switch (action) {
     case 'create':
       operationName = 'databaseInsertOne'
+      try {
+        password = await context.functions.execute("decryptText", parameters.password);
+      } catch (e) {
+        throw `Erro ao decriptografar a senha fornecida: ${e}`
+      }
+  
+      try {
+        password = await context.functions.execute("encryptPassword", password);
+      } catch (e) {
+        throw `Erro ao encriptar a senha a ser gravada no Banco de Dados: ${e}`
+      }
+
+      try {
+        let query = JSON.parse(operationParameters.query)
+        query.password = password
+        operationParameters.query = query
+      } catch (error) {
+        throw `Forneça informações válidas para criar usuário! ${error}`
+      }
+
       break;
 
     case 'findOne':
