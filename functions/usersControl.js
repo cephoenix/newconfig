@@ -1,9 +1,9 @@
-exports = async function (payload, response) {
+exports = async function (payload) {
 
-  let action
-  let operationName
-  let operationResponse
-  let operationParameters = {}
+  var action
+  var operationName
+  var operationResponse
+  var operationParameters = {}
   var password
 
   try {
