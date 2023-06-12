@@ -61,6 +61,7 @@ async function validateCreate (body) {
   } catch (error) {
     throw `Erro ao inserir cliente (1): ${error}`
   }
+
   let query = {
     $or: [
       { "initials": parameters.initials },
@@ -79,4 +80,28 @@ async function validateCreate (body) {
   } catch (error) {
     throw `Erro ao inserir cliente(2): ${error}`
   }
+}
+
+async function validateFindOne (body) {
+
+}
+
+async function validateFindAll (body) {
+  
+}
+
+async function validateFindMany (body) {
+  
+}
+
+async function validateUpdateOne (body) {
+  
+}
+
+async function validateExcludeOne (body) {
+  
+}
+
+async function validateDeleteOne (body) {
+  
 }
