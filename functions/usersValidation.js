@@ -64,20 +64,28 @@ exports = async function (payload) {
 };
 
 async function validateCreate(payload) {
-
+  var parameters
 
   try {
-    parameters = EJSON.parse(data)
+    parameters = EJSON.parse(payload)
   } catch (e) {
     throw `Erro ao criar usuário:  ${e}`
   }
 
-  if(!parameters.exhibitionName) {
+  if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
     throw "O campo 'Nome de exibição' é obrigatório!";
   }
 
-  if(!parameters.permissionLevel) {
+  if(parameters.permissionLevel == `` || parameters.permissionLevel == undefined || parameters.permissionLevel == null) {
     throw "O campo 'Nível de permissão' é obrigatório!"
+  }
+
+  if(parameters.login == `` || parameters.login == undefined || parameters.login == null) {
+    throw "O campo 'Login' é obrigatório!";
+  }
+
+  if(parameters.cpfCnpj == `` || parameters.cpfCnpj == undefined || parameters.cpfCnpj == null) {
+    throw "O campo 'CPF/CNPJ' é obrigatório!"
   }
 
   query = {
