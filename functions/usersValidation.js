@@ -101,7 +101,7 @@ async function validateCreate(payload) {
     moreDebug2: (dbResponse == ''),
     moreDebug3: (dbResponse == null),
     moreDebug4: (dbResponse == {}),
-    moreDebug5: Object.keys(dbResponse).length
+    moreDebug5: Object.keys(JSON.stringify(dbResponse)).length
   }
 
   if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
