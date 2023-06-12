@@ -1,88 +1,66 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users");
-  let action;
-  var success = true;
-  let operationName;
-  var operationResponse
-  var resp = {}
-  var operationParameters = {};
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users")
+  let action
+  // var success = true
+  // let operationName
+  // var operationResponse
+  // var resp = {}
+  // var operationParameters = {}
+  var body
 
+  try {
+    body = payload.body.text()
+  } catch (error) {
+    throw {
+      success: false,
+      data: `Erro ao buscar parâmetros da operação: ${error}`
+    }
+  }
+
+  action = payload.query.action
   /**
  * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
  */
-
-
 
   operationParameters.collection = `users`
 
   switch (action) {
     case 'create':
-      validateCreate(payload)
+      await validateCreate(body)
       break;
 
     case 'findOne':
-
+      await validateFindOne(body)
       break;
 
     case 'findAll':
-      operationName = 'databaseFindMany';
-      operationParameters.query = '{}'
+      await validateFindAll(body)
       break;
 
     case 'findMany':
-      operationName = 'databaseFindMany';
+      await validateFindMany(body)
       break;
 
     case 'updateOne':
-      operationName = 'clientsUpdateOne';
+      await validateUpdateOne(body)
       break;
 
     case 'excludeOne':
-      operationName = 'clientsExcludeOne';
+      await validateExcludeOne(body)
       break;
 
     case 'deleteOne':
-      operationName = 'clientsDeleteOne';
+      await validateDeleteOne(body)
       break;
 
-    // case 'updateMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: args.values}
-    //   //   ]
-    //   // );
-    //   break;
-
-    // case 'excludeMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: {status : "removed", DataExclusao : "passa data" , deletedAt: new Date()}}
-    //   //   ]
-    //   // );
-    //   break;
-
     default:
-      success = false
-      if (action != null) {
-        response = "Ação inválida!";
+      if (action == null || action == undefined || action == ``) {
+        throw `Nenhuma ação informada!`;
       } else {
-        response = "Nenhuma ação informada!";
+        throw `Ação (${action}) inválida!`;
       }
   }
-
-  try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
-  } catch (e) {
-    success = false
-    operationResponse = e.message
-  }
-
-  resp.success = success
-  resp.data = operationResponse
-  return resp
 };
 
 async function validateCreate(payload) {
@@ -118,11 +96,28 @@ async function validateCreate(payload) {
   if(dbResponse != undefined) {
     throw `Usuário já existe`
   }
+}
 
-  // try {
+async function validateFindOne (body) {
 
-  //   dbResponse = await dbquery.findOne(query)
-  // } catch (e) {
-  //   throw `Não foi possível criar usuário: ${e}`;
-  // }
+}
+
+async function validateFindAll (body) {
+  
+}
+
+async function validateFindMany (body) {
+  
+}
+
+async function validateUpdateOne (body) {
+  
+}
+
+async function validateExcludeOne (body) {
+  
+}
+
+async function validateDeleteOne (body) {
+  
 }

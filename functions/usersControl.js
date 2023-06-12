@@ -1,21 +1,9 @@
 exports = async function (payload, response) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users")
   let action
-  let resp = {}
-  let debug
   let operationName
   let operationResponse
-  let operationParameters
-
-  try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
-    action = payload.query.action
-    //return {debug: action}
-  } catch (err) {
-    action = payload.action
-    //return {debug: false}
-  }
+  let operationParameters = {}
 
   try {
     await context.functions.execute(`usersValidation`, payload)
@@ -25,11 +13,13 @@ exports = async function (payload, response) {
       data: `Erro ao validar operação com Usuário: ${error}`
     }
   }
+  
+  action = payload.query.action
 
   switch (action) {
 
     case 'create':
-      operationName = 'usersCreate'
+      operationName = 'databaseInsertOne'
       operationParameters = payload.body.text()
       break;
 
@@ -85,7 +75,7 @@ exports = async function (payload, response) {
       throw "Nenhuma ação foi informada!"
   }
 
-
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users")
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters)
   } catch (e) {
