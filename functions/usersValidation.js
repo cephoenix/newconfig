@@ -59,7 +59,7 @@ async function validateCreate(payload) {
   var parameters
 
   try {
-    parameters = EJSON.parse(payload)
+    parameters = JSON.parse(payload)
   } catch (e) {
     throw `Erro ao criar usuário:  ${e}`
   }

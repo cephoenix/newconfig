@@ -22,6 +22,7 @@ exports = async function (payload) {
   switch (action) {
     case 'create':
       operationName = 'databaseInsertOne'
+      parameters = JSON.parse(payload)
       try {
         password = await context.functions.execute("decryptText", parameters.password);
       } catch (e) {
