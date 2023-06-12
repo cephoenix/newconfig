@@ -38,6 +38,7 @@ exports = async function (payload) {
 
       try {
         parameters.password = password
+        parameters.blocked = true
         operationParameters.query = JSON.stringify(parameters)
       } catch (error) {
         throw `Forneça informações válidas para criar usuário! ${error}`
