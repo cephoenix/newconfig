@@ -19,7 +19,7 @@ exports = async function (data) {
 
   try {
     let resp = await dbquery.findOne(parameters)
-    return {Ra: false, resp: resp}
+    return {Ra: false, resp: resp, params: parameters}
     return resp
   } catch (e) {
     throw "Não é possível buscar " + data.collection;
