@@ -94,7 +94,7 @@ async function validateCreate(payload) {
   }
 
   if(dbResponse != undefined) {
-    throw `Usuário já existe`
+    throw `Esse usuário já existe!`
   }
 }
 
