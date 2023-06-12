@@ -55,11 +55,11 @@ exports = async function (payload) {
   }
 };
 
-async function validateCreate(payload) {
+async function validateCreate(body) {
   var parameters
 
   try {
-    parameters = JSON.parse(payload)
+    parameters = JSON.parse(body)
   } catch (e) {
     throw `Erro ao criar usuário:  ${e}`
   }
@@ -99,25 +99,80 @@ async function validateCreate(payload) {
 }
 
 async function validateFindOne (body) {
-
+  try {
+    JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao buscar usuário:  ${e}`
+  }
 }
 
 async function validateFindAll (body) {
-  
+  try {
+    JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao buscar todos os usuários:  ${e}`
+  }
 }
 
 async function validateFindMany (body) {
-  
+  try {
+    JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao buscar usuários:  ${e}`
+  }
 }
 
 async function validateUpdateOne (body) {
-  
+  var parameters
+  try {
+    parameters = JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao criar usuário:  ${e}`
+  }
+
+  if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
+    throw `O campo "Nome de exibição" é obrigatório!`
+  }
+
+  if(parameters.permissionLevel == `` || parameters.permissionLevel == undefined || parameters.permissionLevel == null) {
+    throw `O campo "Nível de permissão" é obrigatório!`
+  }
+
+  if(parameters.login == `` || parameters.login == undefined || parameters.login == null) {
+    throw `O campo "Login" é obrigatório!`;
+  }
+
+  if(parameters.cpfCnpj == `` || parameters.cpfCnpj == undefined || parameters.cpfCnpj == null) {
+    throw `O campo "CPF/CNPJ" é obrigatório!`
+  }
+
+  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
+    throw `O campo "_id" é obrigatório!`
+  }
 }
 
 async function validateExcludeOne (body) {
-  
+  var parameters
+  try {
+    parameters = JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao criar usuário:  ${e}`
+  }
+
+  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
+    throw `O campo "_id" é obrigatório!`
+  }
 }
 
 async function validateDeleteOne (body) {
-  
+  var parameters
+  try {
+    parameters = JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao criar usuário:  ${e}`
+  }
+
+  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
+    throw `O campo "_id" é obrigatório!`
+  }
 }
