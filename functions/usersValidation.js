@@ -93,10 +93,6 @@ async function validateCreate(payload) {
     throw `Erro ao buscar usuário: ${e}`
   }
 
-  throw {
-    dbResponse: dbResponse
-  }
-
   if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
     throw `Esse usuário já existe!`
   }
