@@ -51,7 +51,7 @@ exports = async function (payload) {
     throw "Senha ou usuário incorretos!"
   }
 
-  if(loggedUser.blocket) {
+  if(loggedUser.blocked) {
     try {
       await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date() })
     } catch (e) {
