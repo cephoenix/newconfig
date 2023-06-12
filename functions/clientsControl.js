@@ -10,7 +10,7 @@ exports = async function (payload) {
   } catch (error) {
     return {
       success: false,
-      data: `Erro ao validar operação com Cliente: ${error}`
+      data: `${error}`
     }
   }
 
