@@ -88,7 +88,7 @@ async function validateCreate(payload) {
   }
 
   try {
-    dbResponse = await context.functions.execute('databaseFindMany', { query: query, collection: `clients` })
+    dbResponse = await context.functions.execute('databaseFindMany', { query: JSON.stringify(query), collection: `clients` })
   } catch (e) {
     throw `Erro ao buscar usuário: ${e}`
   }
