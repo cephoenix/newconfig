@@ -48,9 +48,9 @@ exports = async function (payload) {
 
     default:
       if (action == null || action == undefined || action == ``) {
-        throw `Nenhuma ação informada!`;
+        throw `Nenhuma ação informada!`
       } else {
-        throw `Ação (${action}) inválida!`;
+        throw `Ação (${action}) inválida!`
       }
   }
 };
@@ -65,19 +65,19 @@ async function validateCreate(payload) {
   }
 
   if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
-    throw "O campo 'Nome de exibição' é obrigatório!";
+    throw `O campo "Nome de exibição" é obrigatório!`
   }
 
   if(parameters.permissionLevel == `` || parameters.permissionLevel == undefined || parameters.permissionLevel == null) {
-    throw "O campo 'Nível de permissão' é obrigatório!"
+    throw `O campo "Nível de permissão" é obrigatório!`
   }
 
   if(parameters.login == `` || parameters.login == undefined || parameters.login == null) {
-    throw "O campo 'Login' é obrigatório!";
+    throw `O campo "Login" é obrigatório!`;
   }
 
   if(parameters.cpfCnpj == `` || parameters.cpfCnpj == undefined || parameters.cpfCnpj == null) {
-    throw "O campo 'CPF/CNPJ' é obrigatório!"
+    throw `O campo "CPF/CNPJ" é obrigatório!`
   }
 
   query = {
@@ -88,7 +88,7 @@ async function validateCreate(payload) {
   }
 
   try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `users` })
+    dbResponse = await context.functions.execute(`databaseFindOne`, { query: JSON.stringify(query), collection: `users` })
   } catch (e) {
     throw `Erro ao buscar usuário: ${e}`
   }
