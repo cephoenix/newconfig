@@ -12,7 +12,7 @@ exports = async function (payload) {
   } catch (error) {
     return {
       success: false,
-      data: `${JSON.stringify(error)}`
+      data: `${error}`
     }
   }
   

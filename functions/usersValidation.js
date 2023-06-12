@@ -88,13 +88,12 @@ async function validateCreate(payload) {
   }
 
   try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
+    dbResponse = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `users` })
   } catch (e) {
     throw `Erro ao buscar usuário: ${e}`
   }
 
   throw {
-    query: query,
     dbResponse: dbResponse
   }
 
