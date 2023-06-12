@@ -15,74 +15,56 @@ exports = async function (payload, response) {
   }
   
   action = payload.query.action
+  operationParameters.collection = `users`
+  operationParameters.query = payload.body.text()
 
   switch (action) {
-
     case 'create':
       operationName = 'databaseInsertOne'
-      operationParameters = payload.body.text()
       break;
 
     case 'findOne':
-      operationName = 'usersFindOne'
-      operationParameters = payload.body.text()
+      operationName = 'databaseFindOne'
       break;
 
     case 'findAll':
-      operationName = 'usersFindMany'
-      operationParameters = null
+      operationName = 'databaseFindMany'
+      operationParameters.query = {}
       break;
 
     case 'findMany':
-      operationName = 'usersFindMany'
-      operationParameters = payload.body.text()
+      operationName = 'databaseFindMany'
       break;
 
     case 'updateOne':
-      operationName = 'usersUpdateOne';
-      operationParameters = payload.body.text()
+      operationName = 'databaseUpdateOne'
       break;
 
     case 'excludeOne':
-      operationName = 'usersExcludeOne';
-      operationParameters = payload.body.text()
+      operationName = 'databaseExcludeOne'
       break;
 
     case 'deleteOne':
-      operationName = 'usersDeleteOne';
-      operationParameters = payload.body.text()
+      operationName = 'databaseDeleteOne'
       break;
 
-    // case 'updateMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: args.values}
-    //   //   ]
-    //   // );
-    //   break;
-
-    // case 'excludeMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: {status : "removed", DataExclusao : "passa data" , deletedAt: new Date()}}
-    //   //   ]
-    //   // );
-    //   break;
-
     default:
-      throw "Nenhuma ação foi informada!"
+      return {
+        success: false,
+        data: `Ação inválida!`
+      }
   }
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("users")
   try {
     operationResponse = await context.functions.execute(operationName, operationParameters)
-  } catch (e) {
-    throw (e)
+    return {
+      success: true,
+      data: operationResponse
+    }
+  } catch (error) {
+    throw {
+      success: false,
+      data: `Erro ao executar operação ${operationName} em Usuário! ${error}`
+    }
   }
-
-  resp.success = "true"
-  resp.data = operationResponse
-  return resp
 };

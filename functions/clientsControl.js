@@ -15,6 +15,8 @@ exports = async function (payload) {
   }
 
   action = payload.query.action
+  operationParameters.collection = `clients`
+  operationParameters.query = payload.body.text()
 
   switch (action) {
     case 'create':
@@ -54,17 +56,15 @@ exports = async function (payload) {
   }
 
   try {
-    operationParameters.collection = `clients`
-    operationParameters.query = payload.body.text()
     operationResponse = await context.functions.execute(operationName, operationParameters)
     return {
       success: true,
       data: operationResponse
     }
   } catch (error) {
-    return {
+    throw {
       success: false,
-      data: `Erro ao inserir cliente (3)! ${error}`
+      data: `Erro ao executar operação ${operationName} em Cliente! ${error}`
     }
   }
 };
