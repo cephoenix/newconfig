@@ -17,8 +17,6 @@ exports = async function (payload) {
  * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
  */
 
-  operationParameters.collection = `users`
-
   switch (action) {
     case 'create':
       await validateCreate(body)
