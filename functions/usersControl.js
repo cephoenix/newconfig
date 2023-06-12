@@ -5,6 +5,7 @@ exports = async function (payload) {
   var operationResponse
   var operationParameters = {}
   var password
+  var parameters
 
   try {
     await context.functions.execute(`usersValidation`, payload)
@@ -22,7 +23,7 @@ exports = async function (payload) {
   switch (action) {
     case 'create':
       operationName = 'databaseInsertOne'
-      parameters = JSON.parse(payload)
+      parameters = JSON.parse(operationParameters.query)
       try {
         password = await context.functions.execute("decryptText", parameters.password);
       } catch (e) {
@@ -36,9 +37,8 @@ exports = async function (payload) {
       }
 
       try {
-        let query = JSON.parse(operationParameters.query)
-        query.password = password
-        operationParameters.query = query
+        parameters.password = password
+        operationParameters.query = JSON.stringify(parameters)
       } catch (error) {
         throw `Forneça informações válidas para criar usuário! ${error}`
       }
