@@ -8,7 +8,7 @@ exports = async function (data) {
     try {
       parameters = EJSON.parse(data)
     } catch (e) {
-      throw (e)
+      throw `Falha ao deletar registro! ${e}`
     }
   } else {
     throw "Não é possível excluir um registro em branco"

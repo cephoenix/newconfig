@@ -4,9 +4,8 @@ exports = async function (payload) {
   let resp = {}
   let operationName
   let operationResponse
-  let operationParameters
-  var success = true
-  
+  let operationParameters = {}
+    
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
    */
@@ -25,20 +24,22 @@ exports = async function (payload) {
    * Verificações específicas são feitas dentro de cada uma das operações
    */
 
+  action = payload.query.action
+  operationParameters.collection = `radios`
+  operationParameters.query = payload.body.text()
+
   switch (action) {
     case 'create':
       operationName = 'databaseInsertOne';
-      operationParameters = payload.body;
       break;
 
     case 'findOne':
-      operationName = 'radiosFindOne';
-      operationParameters = payload.body;
+      operationName = 'databaseFindOne';
       break;
 
     case 'findAll':
-      operationName = 'radiosFindMany';
-      operationParameters = null;
+      operationName = 'databaseFindMany';
+      operationParameters = {};
       break;
 
     case 'findMany':
@@ -52,22 +53,19 @@ exports = async function (payload) {
         throw "É necessário fornecer informações válidas (array) para pesquisar no Banco de Dados! (3)"
       }
 
-      operationName = 'radiosFindMany';
+      operationName = 'databaseFindMany';
       break;
 
     case 'updateOne':
       operationName = 'databaseUpdateOne';
-      operationParameters = payload.body;
       break;
 
     case 'excludeOne':
-      operationName = 'radiosExcludeOne';
-      operationParameters = payload.body;
+      operationName = 'databaseExcludeOne';
       break;
 
     case 'deleteOne':
-      operationName = 'radiosDeleteOne';
-      operationParameters = payload.body;
+      operationName = 'databaseDeleteOne';
       break;
 
     case 'insertMany':
@@ -89,24 +87,22 @@ exports = async function (payload) {
       break;
 
     default:
-      if (action != null) {
-        resp.data = "Ação inválida!"
-      } else {
-        resp.data = "Nenhuma ação informada!"
+      return {
+        success: false,
+        data: `Ação inválida!`
       }
-
-      resp.success = false
-      return resp
   }
   
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
-  } catch (e) {
-    success = false
-    operationResponse = `Erro ao executar operação com Rádio: ${e}`
+    operationResponse = await context.functions.execute(operationName, operationParameters)
+    return {
+      success: true,
+      data: operationResponse
+    }
+  } catch (error) {
+    throw {
+      success: false,
+      data: `Erro ao executar operação ${operationName} em Rádios! ${error}`
+    }
   }
-
-  resp.success = success;
-  resp.data = operationResponse;
-  return resp;
 };

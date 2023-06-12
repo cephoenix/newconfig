@@ -1,110 +1,149 @@
 exports = async function (payload) {
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radios")
   let action
-  var success = true
-  let operationName
-  var operationResponse
-  var resp = {}
-  var operationParameters = {}
-  var parameterToValidate
+  var body
 
   try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
-    action = payload.query.action;
-  } catch (err) {
-    throw "Ação inválida! Por favor forneça uma ação válida."
+    body = payload.body.text()
+  } catch (error) {
+    throw `Erro ao buscar parâmetros da operação: ${error}`
   }
-
-  operationParameters.collection = `radios`
 
   switch (action) {
     case 'create':
-      try {
-        parameterToValidate = JSON.parse(payload.body.text())
-      } catch (error) {
-        throw `Erro ao inserir/atualizar Rádio (Parâmetros inválidos): ${error}`
-      }
-      validateCreate(parameterToValidate)
+      await validateCreate(body)
       break;
 
     case 'findOne':
-      
+      await validateFindOne(body)
       break;
 
     case 'findAll':
-
+      await validateFindAll(body)
       break;
 
     case 'findMany':
-      
+      await validateFindMany(body)
       break;
 
     case 'updateOne':
-      try {
-        parameterToValidate = JSON.parse(payload.body.text())
-      } catch (error) {
-        throw `Erro ao inserir/atualizar Rádio (Parâmetros inválidos): ${error}`
-      }
-      validateUpdate(parameterToValidate)
+      await validateUpdateOne(body)
       break;
 
     case 'excludeOne':
-      
+      await validateExcludeOne(body)
       break;
 
     case 'deleteOne':
-      
+      await validateDeleteOne(body)
       break;
 
-      
-    // case 'updateMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: args.values}
-    //   //   ]
-    //   // );
-    //   break;
-
-    // case 'excludeMany':
-    //   // resultado = await dbquery.updateOne(
-    //   //   args.filter, 
-    //   //   [
-    //   //     {$set: {status : "removed", DataExclusao : "passa data" , deletedAt: new Date()}}
-    //   //   ]
-    //   // );
-    //   break;
-
     default:
-      success = false
-      if (action != null) {
-        response = "Ação inválida!";
+      if (action == null || action == undefined || action == ``) {
+        throw `Nenhuma ação informada!`
       } else {
-        response = "Nenhuma ação informada!";
+        throw `Ação (${action}) inválida!`
       }
   }
-
-  try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
-  } catch (e) {
-      success = false
-      operationResponse = e.message
-  }
-
-  resp.success = success
-  resp.data = operationResponse
-  return resp
 };
 
-function validateCreate (params) {
-  if(params.clientOID == undefined || params.clientOID == null || params.clientOID == "") {
-    throw `É necessário informar o ID do Cliente ao qual o Rádio pertence!`
-  }  
+async function validateCreate (data) {
+  var parameters
+
+  try {
+    parameters = JSON.parse(data)
+  } catch (e) {
+    throw `Erro ao criar Radio:  ${e}`
+  }
+
+  if(parameters.address64Bit == undefined || parameters.address64Bit == null || parameters.address64Bit == "") {
+    throw `É necessário informar o Endereço 64 bits (MAC) do Rádio!`
+  }
+
+  query = { address64Bit:parameters.address64Bit }
+
+  try {
+    dbResponse = await context.functions.execute(`databaseFindOne`, { query: JSON.stringify(query), collection: `radios` })
+  } catch (e) {
+    throw `Erro ao buscar Rádio: ${e}`
+  }
+
+  if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
+    throw `Esse Rádio já existe!`
+  }
 }
 
-function validateUpdate (params) {
-  if(params.clientOID == undefined || params.clientOID == null || params.clientOID == "") {
-    throw `É necessário informar o ID do Cliente ao qual o Rádio pertence!`
+async function validateFindOne (body) {
+  try {
+    JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao buscar Rádio:  ${e}`
+  }
+}
+
+async function validateFindAll (data) {
+  try {
+    JSON.parse(data)
+  } catch (e) {
+    throw `Erro ao buscar todos os Rádios:  ${e}`
+  }
+}
+
+async function validateFindMany (body) {
+  try {
+    JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao buscar Rádios:  ${e}`
+  }
+}
+
+async function validateUpdateOne (body) {
+  var parameters
+  try {
+    parameters = JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao atualizar Rádio:  ${e}`
+  }
+
+  if(parameters.address64Bit == undefined || parameters.address64Bit == null || parameters.address64Bit == "") {
+    throw `É necessário informar o Endereço 64 bits (MAC) do Rádio!`
+  }
+
+  query = { address64Bit:parameters.address64Bit }
+
+  try {
+    dbResponse = await context.functions.execute(`databaseFindOne`, { query: JSON.stringify(query), collection: `radios` })
+  } catch (e) {
+    throw `Erro ao buscar Rádio: ${e}`
+  }
+
+  if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
+    throw `Esse Rádio já existe!`
+  }
+}
+
+async function validateExcludeOne (body) {
+  var parameters
+  try {
+    parameters = JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao excluir Rádio:  ${e}`
+  }
+
+  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
+    throw `O campo "_id" é obrigatório!`
+  }
+}
+
+async function validateDeleteOne (body) {
+  var parameters
+  try {
+    parameters = JSON.parse(body)
+  } catch (e) {
+    throw `Erro ao deletar Rádio:  ${e}`
+  }
+
+  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
+    throw `O campo "_id" é obrigatório!`
   }
 }

@@ -6,10 +6,7 @@ exports = async function (payload) {
   try {
     body = payload.body.text()
   } catch (error) {
-    throw {
-      success: false,
-      data: `Erro ao buscar parâmetros da operação: ${error}`
-    }
+    throw `Erro ao buscar parâmetros da operação: ${error}`
   }
 
   action = payload.query.action
@@ -61,7 +58,7 @@ async function validateCreate(body) {
   try {
     parameters = JSON.parse(body)
   } catch (e) {
-    throw `Erro ao criar usuário:  ${e}`
+    throw `Erro ao criar Usuário:  ${e}`
   }
 
   if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
@@ -110,7 +107,7 @@ async function validateFindAll (body) {
   try {
     JSON.parse(body)
   } catch (e) {
-    throw `Erro ao buscar todos os usuários:  ${e}`
+    throw `Erro ao buscar todos os Usuários:  ${e}`
   }
 }
 
@@ -118,7 +115,7 @@ async function validateFindMany (body) {
   try {
     JSON.parse(body)
   } catch (e) {
-    throw `Erro ao buscar usuários:  ${e}`
+    throw `Erro ao buscar Usuários:  ${e}`
   }
 }
 
@@ -127,7 +124,7 @@ async function validateUpdateOne (body) {
   try {
     parameters = JSON.parse(body)
   } catch (e) {
-    throw `Erro ao criar usuário:  ${e}`
+    throw `Erro ao atualizar Usuário:  ${e}`
   }
 
   if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
@@ -156,7 +153,7 @@ async function validateExcludeOne (body) {
   try {
     parameters = JSON.parse(body)
   } catch (e) {
-    throw `Erro ao criar usuário:  ${e}`
+    throw `Erro ao excluir Usuário:  ${e}`
   }
 
   if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
@@ -169,7 +166,7 @@ async function validateDeleteOne (body) {
   try {
     parameters = JSON.parse(body)
   } catch (e) {
-    throw `Erro ao criar usuário:  ${e}`
+    throw `Erro ao deletar Usuário:  ${e}`
   }
 
   if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
