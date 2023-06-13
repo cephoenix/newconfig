@@ -25,29 +25,21 @@ async function execute(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
-        dbquery.findOne(parameters.query)
-        break;
+        return await dbquery.findOne(parameters.query)
       case 'findMany':
-        dbquery.findMany(parameters.query)
-        break;
+        return await dbquery.findMany(parameters.query)
       case 'insertOne':
-        dbquery.insertOne(parameters.query)
-        break;
+        return await dbquery.insertOne(parameters.query)
       case 'insertMany':
-        dbquery.insertMany(parameters.query)
-        break;
+        return await dbquery.insertMany(parameters.query)
       case 'updateOne':
-        dbquery.updateOne(parameters.query)
-        break;
+        return await dbquery.updateOne(parameters.query)
       case 'updateMany':
-        dbquery.updateMany(parameters.query)
-        break;
+        return await dbquery.updateMany(parameters.query)
       case 'deleteOne':
-        dbquery.deleteOne(parameters.query)
-        break;
+        return await dbquery.deleteOne(parameters.query)
       case 'excludeOne':
-        dbquery.updateOne(parameters.query)
-        break;
+        return await dbquery.updateOne(parameters.query)
       default:
         throw `Operação inválida! ${action}`
     }
