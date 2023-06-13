@@ -9,22 +9,22 @@ exports = async function (payload) {
   var databaseCollection = `users`
   var databaseAction
   var databaseQuery
-  var request
+  var requestData
   
   try {
-    request = await context.functions.execute(`proccessRequest`, payload)
+    requestData = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
     return { success: false, data: error}
   }
 
   try {
-    await context.functions.execute(`usersValidation`, request)
+    await context.functions.execute(`usersValidation`, requestData)
   } catch (error) {
     return { success: false, data: error}
   }
 
-  action = request.urlParameters.action
-  databaseQuery = request.body
+  action = requestData.urlParameters.action
+  databaseQuery = requestData.body
 
   // operationParameters.collection = `users`
   // operationParameters.query = request.body
