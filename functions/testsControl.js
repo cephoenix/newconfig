@@ -27,14 +27,15 @@ exports = async function (payload) {
       case 'debug':
         
         try {
-          let resp = await context.functions.execute(`databaseControl`, {
+          let parameters = {
             action: `findOne`,
             collection: `users`,
             query: { login:`carlosemilio` }
-          });
+          }
+
           return {
             success: true, 
-            data: resp
+            data: await context.functions.execute(`databaseControl`, parameters)
           }
         } catch (error) {
           throw {
