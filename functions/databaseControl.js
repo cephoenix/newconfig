@@ -15,7 +15,7 @@ exports = async function(data){
   try {
     return await execute(data)
   } catch (error) {
-    return {debug2: true}
+    return {debug2: error}
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
   }
 };
