@@ -8,7 +8,7 @@ exports = async function (payload) {
     body = {}
   } else {
     try {
-      return {debug: payload.body, typeof: typeof payload.body, istrue: (typeof payload.body == 'undefined'), objectkeys: Object.keys(payload.body)}
+      return {debug: payload.body.text(), typeof: typeof payload.body, istrue: (typeof payload.body == 'undefined'), objectkeys: Object.keys(payload.body).length}
       body = JSON.parse(payload.body.text())
     } catch (error) {
       throw `Erro ao processar corpo da requisição. Verifique os dados fornecidos! Erro: ${error}`
