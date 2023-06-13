@@ -10,11 +10,11 @@ exports = async function (payload) {
   //   throw `Erro ao processar cabeçalhos! ${error}`
   // }
 
-  try {
-    query = JSON.parse(payload.query)
-  } catch (error) {
-    throw `Erro ao processar operações/ações! ${error}`
-  }
+  // try {
+  //   query = JSON.parse(payload.query)
+  // } catch (error) {
+  //   throw `Erro ao processar operações/ações! ${error}`
+  // }
 
   try {
     body = JSON.parse(payload.body)
@@ -23,8 +23,8 @@ exports = async function (payload) {
   }
 
   return {
-    headers: headers,
-    query: query,
+    headers: payload.headers,
+    query: payload.query,
     body: body
   }
 };
