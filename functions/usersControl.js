@@ -11,6 +11,12 @@ exports = async function (payload) {
   var databaseQuery
 
   try {
+    await context.functions.execute(`proccessRequest`, payload)
+  } catch (error) {
+    throw error
+  }
+
+  try {
     await context.functions.execute(`usersValidation`, payload)
   } catch (error) {
     throw error
