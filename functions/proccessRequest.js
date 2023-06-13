@@ -4,11 +4,11 @@ exports = async function (payload) {
   var query
   var body
 
-  try {
-    headers = JSON.parse(payload.headers)
-  } catch (error) {
-    throw `Erro ao processar cabeçalhos! ${error}`
-  }
+  // try {
+  //   headers = JSON.parse(payload.headers)
+  // } catch (error) {
+  //   throw `Erro ao processar cabeçalhos! ${error}`
+  // }
 
   try {
     query = JSON.parse(payload.query)
