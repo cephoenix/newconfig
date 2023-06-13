@@ -1,70 +1,72 @@
 exports = async function (payload) {
 
-  var action
-  var operationName
-  var operationResponse
-  var operationParameters = {}
+  return {debug: payload}
 
-  try {
-    await context.functions.execute(`clientsValidation`, payload)
-  } catch (error) {
-    return {
-      success: false,
-      data: `${error}`
-    }
-  }
+  // var action
+  // var operationName
+  // var operationResponse
+  // var operationParameters = {}
 
-  action = payload.query.action
-  operationParameters.collection = `clients`
-  operationParameters.query = payload.body.text()
+  // try {
+  //   await context.functions.execute(`clientsValidation`, payload)
+  // } catch (error) {
+  //   return {
+  //     success: false,
+  //     data: `${error}`
+  //   }
+  // }
 
-  switch (action) {
-    case 'create':
-      operationName = 'databaseInsertOne'
-      break;
+  // action = payload.query.action
+  // operationParameters.collection = `clients`
+  // operationParameters.query = payload.body.text()
 
-    case 'findOne':
-      operationName = 'databaseFindOne'
-      break;
+  // switch (action) {
+  //   case 'create':
+  //     operationName = 'databaseInsertOne'
+  //     break;
 
-    case 'findAll':
-      operationName = 'databaseFindMany'
-      operationParameters.query = {}
-      break;
+  //   case 'findOne':
+  //     operationName = 'databaseFindOne'
+  //     break;
 
-    case 'findMany':
-      operationName = 'databaseFindMany'
-      break;
+  //   case 'findAll':
+  //     operationName = 'databaseFindMany'
+  //     operationParameters.query = {}
+  //     break;
 
-    case 'updateOne':
-      operationName = 'databaseUpdateOne'
-      break;
+  //   case 'findMany':
+  //     operationName = 'databaseFindMany'
+  //     break;
 
-    case 'excludeOne':
-      operationName = 'databaseExcludeOne'
-      break;
+  //   case 'updateOne':
+  //     operationName = 'databaseUpdateOne'
+  //     break;
 
-    case 'deleteOne':
-      operationName = 'databaseDeleteOne'
-      break;
+  //   case 'excludeOne':
+  //     operationName = 'databaseExcludeOne'
+  //     break;
 
-    default:
-      return {
-        success: false,
-        data: `Ação inválida!`
-      }
-  }
+  //   case 'deleteOne':
+  //     operationName = 'databaseDeleteOne'
+  //     break;
 
-  try {
-    operationResponse = await context.functions.execute(operationName, operationParameters)
-    return {
-      success: true,
-      data: operationResponse
-    }
-  } catch (error) {
-    throw {
-      success: false,
-      data: `Erro ao executar operação ${operationName} em Cliente! ${error}`
-    }
-  }
+  //   default:
+  //     return {
+  //       success: false,
+  //       data: `Ação inválida!`
+  //     }
+  // }
+
+  // try {
+  //   operationResponse = await context.functions.execute(operationName, operationParameters)
+  //   return {
+  //     success: true,
+  //     data: operationResponse
+  //   }
+  // } catch (error) {
+  //   throw {
+  //     success: false,
+  //     data: `Erro ao executar operação ${operationName} em Cliente! ${error}`
+  //   }
+  // }
 };

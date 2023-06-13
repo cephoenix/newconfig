@@ -25,26 +25,7 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-        
-        try {
-          let parameters = {
-            action: `findOne`,
-            collection: `users`,
-            query: { login:`carlosemilio` }
-          }
-
-          return {
-            success: true, 
-            data: await context.functions.execute(`databaseControl`, parameters)
-          }
-        } catch (error) {
-          throw {
-            success: false,
-            data: `Falha: ${error}`
-          }
-        }
-
-        return resp
+        return await context.functions.execute(`proccessRequest`, payload);
         break;
 
     default:
