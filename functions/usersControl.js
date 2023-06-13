@@ -21,11 +21,6 @@ exports = async function (payload) {
   action = requestData.urlParameters.action
   databaseQuery = requestData.body
 
-  // operationParameters.collection = `users`
-  // operationParameters.query = request.body
-
-  // databaseQuery = JSON.parse(payload.body.text())
-
   switch (action) {
     case 'create':
       databaseAction = `insertOne`
