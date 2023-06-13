@@ -1,70 +1,74 @@
 exports = async function (payload) {
 
   var action
-  var operationName
-  var operationResponse
-  var operationParameters = {}
+  const databaseCollection = `users`
+  var databaseAction
+  var databaseQuery
+  var requestData
+
+  try {
+    requestData = await context.functions.execute(`proccessRequest`, payload)
+  } catch (error) {
+    return { success: false, data: error}
+  }
 
   try {
     await context.functions.execute(`clientsValidation`, payload)
   } catch (error) {
-    return {
-      success: false,
-      data: `${error}`
-    }
+    return { success: false, data: error}
   }
 
-  action = payload.query.action
-  operationParameters.collection = `clients`
-  operationParameters.query = payload.body.text()
+  action = requestData.urlParameters.action
+  databaseQuery = requestData.body
 
   switch (action) {
     case 'create':
-      operationName = 'databaseInsertOne'
+      databaseAction = `insertOne`
       break;
 
-    case 'findOne':
-      operationName = 'databaseFindOne'
-      break;
+      case 'findOne':
+        databaseAction = `findOne`
+        break;
 
-    case 'findAll':
-      operationName = 'databaseFindMany'
-      operationParameters.query = {}
-      break;
-
-    case 'findMany':
-      operationName = 'databaseFindMany'
-      break;
-
-    case 'updateOne':
-      operationName = 'databaseUpdateOne'
-      break;
-
-    case 'excludeOne':
-      operationName = 'databaseExcludeOne'
-      break;
-
-    case 'deleteOne':
-      operationName = 'databaseDeleteOne'
-      break;
-
-    default:
-      return {
-        success: false,
-        data: `Ação inválida!`
-      }
+      case 'findAll':
+        databaseAction = `findAll`
+        databaseQuery = {}
+        break;
+  
+      case 'findMany':
+        databaseAction = `findMany`
+        break;
+  
+      case 'updateOne':
+        databaseAction = `updateOne`
+        break;
+  
+      case 'excludeOne':
+        databaseAction = `excludeOne`
+        break;
+  
+      case 'deleteOne':
+        databaseAction = `deleteOne`
+        break;
+  
+      default:
+        return { success: false, data: `Ação inválida!`}
   }
 
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters)
+
+    let databaseParameters = {
+      action: databaseAction,
+      collection: databaseCollection,
+      query: databaseQuery
+    }
+
     return {
       success: true,
-      data: operationResponse
+      data: await context.functions.execute(`databaseControl`, databaseParameters)
     }
+
   } catch (error) {
-    throw {
-      success: false,
-      data: `Erro ao executar operação ${operationName} em Cliente! ${error}`
-    }
+    return { success: false, data: `Erro ao executar operação ${action} em Usuário! ${error}` }
   }
 };
