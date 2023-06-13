@@ -1,5 +1,5 @@
 exports = async function(data){
-return {debug: data}
+
   if (data.action == undefined || data.action == "" || data.action == null) {
     throw `É necessário informar a ação a ser realizada!`
   }

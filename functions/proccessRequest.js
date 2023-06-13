@@ -31,7 +31,7 @@ exports = async function (payload) {
   // } catch (error) {
   //   throw `Erro ao processar parâmetros! ${error}`
   // }
-return payload
+
   return {
     headers: payload.headers,
     urlParameters: payload.query,

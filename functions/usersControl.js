@@ -10,7 +10,7 @@ exports = async function (payload) {
   var databaseAction
   var databaseQuery
   var request
-
+  return {debug: payload}
   try {
     request = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
