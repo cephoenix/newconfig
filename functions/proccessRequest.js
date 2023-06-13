@@ -1,16 +1,16 @@
 exports = async function (payload) {
 
-  var headers
-  var query
+  // var headers
+  // var query
   var body
 
   if(payload.body == undefined || payload.body == `` || payload.body == null) {
     body = {}
   } else {
     try {
-      body = JSON.parse(payload.body)
+      body = JSON.parse(payload.body.text())
     } catch (error) {
-      throw `Erro ao processar corpo da requisição! ${error}`
+      throw `Erro ao processar corpo da requisição. Verifique os dados fornecidos! Erro: ${error}`
     }
   }
 
