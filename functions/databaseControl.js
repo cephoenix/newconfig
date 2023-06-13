@@ -13,7 +13,7 @@ exports = async function(data){
   }
 
   try {
-    return execute(data)
+    return await execute(data)
   } catch (error) {
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
   }
