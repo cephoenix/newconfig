@@ -9,23 +9,24 @@ exports = async function (payload) {
   var databaseCollection = `users`
   var databaseAction
   var databaseQuery
+  var request
 
   try {
-    await context.functions.execute(`proccessRequest`, payload)
+    request = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
-    throw error
+    throw { success: false, data: error}
   }
 
   try {
     await context.functions.execute(`usersValidation`, payload)
   } catch (error) {
-    throw error
+    throw { success: false, data: error}
   }
-  
-  action = payload.query.action
-  
+
+  action = request.urlParameters.action
+
   operationParameters.collection = `users`
-  operationParameters.query = payload.body.text()
+  operationParameters.query = request.body
 
   databaseQuery = JSON.parse(payload.body.text())
 
@@ -86,10 +87,7 @@ exports = async function (payload) {
       break;
 
     default:
-      return {
-        success: false,
-        data: `Ação inválida!`
-      }
+      return { success: false, data: `Ação inválida!`}
   }
 
   try {
@@ -106,9 +104,6 @@ exports = async function (payload) {
     }
 
   } catch (error) {
-    throw {
-      success: false,
-      data: `Erro ao executar operação ${action} em Usuário! ${error}`
-    }
+    throw { success: false, data: `Erro ao executar operação ${action} em Usuário! ${error}` }
   }
 };
