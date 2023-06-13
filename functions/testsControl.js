@@ -28,7 +28,7 @@ exports = async function (payload) {
         try {
           return await context.functions.execute(`proccessRequest`, payload);
         } catch (error) {
-          return {deubo: error}
+          throw error
         }
         break;
 
