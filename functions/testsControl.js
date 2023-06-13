@@ -26,12 +26,23 @@ exports = async function (payload) {
         break;
       case 'debug':
         
-        var temp = await context.functions.execute('encryptText', 'carlos')
-        resp = {
-          text: "carlos",
-          encrypted: temp,
-          decrypted: await context.functions.execute('decryptText', temp)
+        try {
+          let resp = await context.functions.execute(`databaseControl`, {
+            action: `findOne`,
+            collection: `users`,
+            query: `{ 'login':'carlosemilio' }`
+          });
+          return {
+            success: true, 
+            data: resp
+          }
+        } catch (error) {
+          throw {
+            success: false,
+            data: `Falha: ${error}`
+          }
         }
+
         return resp
         break;
 
