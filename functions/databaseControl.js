@@ -1,15 +1,15 @@
 exports = async function(data){
 
   if (data.action == undefined || data.action == "" || data.action == null) {
-    throw `É necessário informar uma ação a ser realizada!`
+    throw `É necessário informar a ação a ser realizada!`
   }
 
   if (data.collection == undefined || data.collection == "" || data.collection == null) {
-    throw `É necessário informar uma collection realizar a operação!`
+    throw `É necessário informar uma collection sobre a qual a ação será realizada!`
   }
 
   if (data.query == null || data.query == `` || data.query == undefined) {
-    throw `É necessário informar os dados corretamente para realizar a operação!`
+    throw `É necessário informar os parâmetros corretamente para realizar a operação!`
   }
 
   try {
