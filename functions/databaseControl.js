@@ -13,15 +13,15 @@ exports = async function(data){
   }
 
   try {
-    return execute(data.query)
+    return execute(data)
   } catch (error) {
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
   }
 };
 
 async function execute(parameters) {
+  
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
-
   try {
     switch (action) {
       case 'findOne':
