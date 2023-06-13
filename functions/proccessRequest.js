@@ -3,8 +3,8 @@ exports = async function (payload) {
   // var headers
   // var query
   var body
-  return {debug: payload.body, typeof: typeof payload.body, istrue: (typeof payload.body == 'undefined'), objectkeys: Object.keys(payload.body)}
-  if(payload.body == undefined || payload.body == `` || payload.body == null) {
+  // return {debug: payload.body, typeof: typeof payload.body, istrue: (typeof payload.body == 'undefined'), objectkeys: Object.keys(payload.body)}
+  if(payload.body == undefined || payload.body == `` || payload.body == null || payload.body == 'undefined' || (typeof payload.body == 'undefined')) {
     body = {}
   } else {
     try {
