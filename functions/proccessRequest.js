@@ -4,6 +4,16 @@ exports = async function (payload) {
   var query
   var body
 
+  if(payload.body == undefined || payload.body == `` || payload.body == null) {
+    body = {}
+  } else {
+    try {
+      body = JSON.parse(payload.body)
+    } catch (error) {
+      throw `Erro ao processar corpo da requisição! ${error}`
+    }
+  }
+
   // try {
   //   headers = JSON.parse(payload.headers)
   // } catch (error) {

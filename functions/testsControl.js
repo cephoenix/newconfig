@@ -25,7 +25,11 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-        return await context.functions.execute(`proccessRequest`, payload);
+        try {
+          return await context.functions.execute(`proccessRequest`, payload);
+        } catch (error) {
+          return {deubo: error}
+        }
         break;
 
     default:
