@@ -46,7 +46,7 @@ exports = async function (payload) {
       break;
 
     case 'findAll':
-      databaseAction = `findAll`
+      databaseAction = `findMany`
       databaseQuery = {}
       break;
 
