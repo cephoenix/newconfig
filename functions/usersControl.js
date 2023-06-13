@@ -57,7 +57,6 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: `Forneça informações válidas para criar usuário! ${error}`}
       }
-
       break;
 
     case 'findOne':
