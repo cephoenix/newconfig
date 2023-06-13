@@ -3,12 +3,12 @@ exports = async function (payload) {
   // var headers
   // var query
   var body
-
+  return {debug: payload.body, typeof: typeof payload.body}
   if(payload.body == undefined || payload.body == `` || payload.body == null) {
     body = {}
   } else {
     try {
-      return {debug: payload.body, typeof: typeof payload.body}
+      
       body = JSON.parse(payload.body.text())
     } catch (error) {
       throw `Erro ao processar corpo da requisição. Verifique os dados fornecidos! Erro: ${error}`
