@@ -27,7 +27,7 @@ async function execute(parameters) {
       case 'findOne':
         return await dbquery.findOne(parameters.query)
       case 'findMany':
-        return await dbquery.findMany(parameters.query)
+        return await dbquery.find(parameters.query)
       case 'insertOne':
         return await dbquery.insertOne(parameters.query)
       case 'insertMany':
