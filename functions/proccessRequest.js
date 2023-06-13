@@ -16,15 +16,16 @@ exports = async function (payload) {
   //   throw `Erro ao processar operações/ações! ${error}`
   // }
 
-  try {
-    body = JSON.parse(payload.body)
-  } catch (error) {
-    throw `Erro ao processar parâmetros! ${error}`
-  }
+  // try {
+  //   body = JSON.parse(payload.body)
+  // } catch (error) {
+  //   throw `Erro ao processar parâmetros! ${error}`
+  // }
 
   return {
     headers: payload.headers,
     query: payload.query,
-    body: body
+    body: body,
+    debug: JSON.parse(payload.body.text())
   }
 };
