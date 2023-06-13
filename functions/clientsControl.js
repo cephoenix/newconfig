@@ -11,7 +11,7 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error}
   }
-
+return {debug: requestData}
   try {
     await context.functions.execute(`clientsValidation`, payload)
   } catch (error) {
