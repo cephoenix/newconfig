@@ -1,46 +1,44 @@
-exports = async function (payload) {
+exports = async function (data) {
+  
+  // try {
+  //   body = payload.body.text()
+  // } catch (error) {
+  //   throw {
+  //     success: false,
+  //     data: `Erro ao buscar parâmetros da operação: ${error}`
+  //   }
+  // }
 
-  let action
-  var body
-
-  try {
-    body = payload.body.text()
-  } catch (error) {
-    throw {
-      success: false,
-      data: `Erro ao buscar parâmetros da operação: ${error}`
-    }
-  }
-
-  action = payload.query.action
+  var action = data.urlParameters.action
+  var parameters = data.body
 
   switch (action) {
     case 'create':
-      await validateCreate(body)
+      await validateCreate(parameters)
       break;
 
     case 'findOne':
-      await validateFindOne(body)
+      await validateFindOne(parameters)
       break;
 
     case 'findAll':
-      await validateFindAll(body)
+      await validateFindAll(parameters)
       break;
 
     case 'findMany':
-      await validateFindMany(body)
+      await validateFindMany(parameters)
       break;
 
     case 'updateOne':
-      await validateUpdateOne(body)
+      await validateUpdateOne(parameters)
       break;
 
     case 'excludeOne':
-      await validateExcludeOne(body)
+      await validateExcludeOne(parameters)
       break;
 
     case 'deleteOne':
-      await validateDeleteOne(body)
+      await validateDeleteOne(parameters)
       break;
 
     default:
@@ -52,14 +50,7 @@ exports = async function (payload) {
   }
 };
 
-async function validateCreate (body) {
-  var parameters
-
-  try {
-    parameters = EJSON.parse(body)
-  } catch (error) {
-    throw `Erro ao inserir cliente (1): ${error}`
-  }
+async function validateCreate (parameters) {
 
   let query = {
     $or: [
