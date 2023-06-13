@@ -8,7 +8,7 @@ exports = async function (data) {
   //     data: `Erro ao buscar parâmetros da operação: ${error}`
   //   }
   // }
-
+  return {debug: data}
   var action = data.urlParameters.action
   var parameters = data.body
 
