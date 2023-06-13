@@ -23,7 +23,6 @@ async function execute(parameters) {
   
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
   try {
-    return {debug: true}
     switch (parameters.action) {
       case 'findOne':
         return await dbquery.findOne(parameters.query)
@@ -42,6 +41,7 @@ async function execute(parameters) {
       case 'excludeOne':
         return await dbquery.updateOne(parameters.query)
       default:
+        return {debug: true}
         throw `Operação inválida! Operação informada: ${action}`
     }
   } catch (error) {
