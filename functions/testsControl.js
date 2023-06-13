@@ -30,7 +30,7 @@ exports = async function (payload) {
           let resp = await context.functions.execute(`databaseControl`, {
             action: `findOne`,
             collection: `users`,
-            query: `{ 'login':'carlosemilio' }`
+            query: { login:`carlosemilio` }
           });
           return {
             success: true, 
