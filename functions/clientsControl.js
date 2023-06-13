@@ -13,7 +13,7 @@ exports = async function (payload) {
   }
 
   try {
-    await context.functions.execute(`clientsValidation`, payload)
+    await context.functions.execute(`clientsValidation`, requestData)
   } catch (error) {
     return { success: false, data: error}
   }
