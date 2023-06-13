@@ -15,7 +15,6 @@ exports = async function(data){
   try {
     return await execute(data)
   } catch (error) {
-    return {debug2: error}
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
   }
 };
@@ -42,7 +41,7 @@ async function execute(parameters) {
       case 'excludeOne':
         return await dbquery.updateOne(parameters.query)
       default:
-        throw `Operação inválida! Operação informada: ${action}`
+        throw `Operação inválida! Operação informada: ${parameters.action}`
     }
   } catch (error) {
     throw error
