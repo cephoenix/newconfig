@@ -41,7 +41,7 @@ async function execute(parameters) {
       case 'excludeOne':
         return await dbquery.updateOne(parameters.query)
       default:
-        throw `Operação inválida! ${action}`
+        throw `Operação inválida! Operação informada: ${action}`
     }
   } catch (error) {
     throw error
