@@ -6,7 +6,7 @@ exports = async function (payload) {
   var operationParameters = {}
   var password
   var parameters
-  var databaseCollection = `users`
+  const databaseCollection = `users`
   var databaseAction
   var databaseQuery
   var requestData
@@ -34,62 +34,46 @@ exports = async function (payload) {
   switch (action) {
     case 'create':
       databaseAction = `insertOne`
-      operationParameters.action = `insertOne`
-      // operationName = 'databaseInsertOne'
-      parameters = JSON.parse(operationParameters.query)
 
       try {
-        password = await context.functions.execute("decryptText", parameters.password);
+        databaseQuery.password = await context.functions.execute("decryptText", databaseQuery.password);
       } catch (e) {
         return { success: false, data: `Erro ao decriptografar a senha fornecida: ${e}`}
       }
   
       try {
-        password = await context.functions.execute("encryptPassword", password);
+        databaseQuery.password = await context.functions.execute("encryptPassword", databaseQuery.password);
       } catch (e) {
         return { success: false, data: `Erro ao encriptar a senha a ser gravada no Banco de Dados: ${e}`}
       }
 
-      try {
-        parameters.password = password
-        parameters.blocked = true
-        operationParameters.query = JSON.stringify(parameters)
-      } catch (error) {
-        return { success: false, data: `Forneça informações válidas para criar usuário! ${error}`}
-      }
+      databaseQuery.blocked = true                                                                           // All users are blocked by default. Someone with the right permission level need to activate them
+
       break;
 
     case 'findOne':
       databaseAction = `findOne`
-      // operationParameters.action = `findOne`
-      // operationName = 'databaseFindOne'
       break;
 
     case 'findAll':
       databaseAction = `findAll`
-      // operationParameters.action = `findAll`
-      // operationName = 'databaseFindMany'
-      operationParameters.query = {}
+      databaseQuery = {}
       break;
 
     case 'findMany':
       databaseAction = `findMany`
-      // operationName = 'databaseFindMany'
       break;
 
     case 'updateOne':
       databaseAction = `updateOne`
-      // operationName = 'databaseUpdateOne'
       break;
 
     case 'excludeOne':
       databaseAction = `excludeOne`
-      // operationName = 'databaseExcludeOne'
       break;
 
     case 'deleteOne':
       databaseAction = `deleteOne`
-      // operationName = 'databaseDeleteOne'
       break;
 
     default:
