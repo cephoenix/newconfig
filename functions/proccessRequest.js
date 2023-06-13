@@ -36,7 +36,6 @@ exports = async function (payload) {
   return {
     headers: payload.headers,
     query: payload.query,
-    body: body,
-    debug: JSON.parse(payload.body.text())
+    body: body
   }
 };
