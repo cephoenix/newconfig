@@ -23,7 +23,7 @@ async function execute(parameters) {
   
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
   try {
-    switch (action) {
+    switch (parameters.action) {
       case 'findOne':
         dbquery.findOne(parameters.query)
         break;
