@@ -1,11 +1,6 @@
 exports = async function (payload) {
 
   var action
-  var operationName
-  var operationResponse
-  var operationParameters = {}
-  var password
-  var parameters
   const databaseCollection = `users`
   var databaseAction
   var databaseQuery
