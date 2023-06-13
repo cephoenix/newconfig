@@ -3,26 +3,32 @@ exports = async function (data) {
   let dbResponse;
   let query;
   let parameters;
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("clients");
 
-  if (data) {
-    try {
-      parameters = EJSON.parse(data)
-    } catch (e) {
-      throw (e)
-    }
-  } else {
-    throw `Não é possível excluir um registro em branco`
+  if (data.collection == undefined || data.collection == `` || data.collection == null) {
+    throw `É necessário informar uma collection para realizar a operação!`;
   }
 
-  parameters.exclusionDate = query = { "_id": new BSON.ObjectId(parameters._id) }
+  if (data.query != null && data.query != `` && data.query != undefined) {
+    try {
+      parameters = EJSON.parse(data.query)
+    } catch (e) {
+      throw `Não foi possível realizar a operação. Favor conferir as informações fornecidas! ${e}`;
+    }
+  } else {
+    throw `É necessário informar os dados corretamente para realizar a operação!`;
+  }
+
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(data.collection)
+
+  query = { "_id": new BSON.ObjectId(parameters._id) }
+
   try {
     dbResponse = await dbquery.updateOne(
       query,
       { $set: { exclusionDate: new Date() } },
       { upsert: false })
   } catch (e) {
-    throw `Falha ao excluir registro! ${e}`
+    throw `Falha ao excluir registro da collection ${data.collection}! ${e}`
   }
 
   return dbResponse
