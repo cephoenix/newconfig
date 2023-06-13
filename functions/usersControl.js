@@ -24,11 +24,12 @@ exports = async function (payload) {
   }
 
   action = request.urlParameters.action
+  databaseQuery = request.body
 
-  operationParameters.collection = `users`
-  operationParameters.query = request.body
+  // operationParameters.collection = `users`
+  // operationParameters.query = request.body
 
-  databaseQuery = JSON.parse(payload.body.text())
+  // databaseQuery = JSON.parse(payload.body.text())
 
   switch (action) {
     case 'create':
@@ -36,6 +37,7 @@ exports = async function (payload) {
       operationParameters.action = `insertOne`
       // operationName = 'databaseInsertOne'
       parameters = JSON.parse(operationParameters.query)
+
       try {
         password = await context.functions.execute("decryptText", parameters.password);
       } catch (e) {
@@ -60,30 +62,35 @@ exports = async function (payload) {
 
     case 'findOne':
       databaseAction = `findOne`
-      operationParameters.action = `findOne`
+      // operationParameters.action = `findOne`
       // operationName = 'databaseFindOne'
       break;
 
     case 'findAll':
-      operationParameters.action = `findAll`
-      operationName = 'databaseFindMany'
+      databaseAction = `findAll`
+      // operationParameters.action = `findAll`
+      // operationName = 'databaseFindMany'
       operationParameters.query = {}
       break;
 
     case 'findMany':
-      operationName = 'databaseFindMany'
+      databaseAction = `findMany`
+      // operationName = 'databaseFindMany'
       break;
 
     case 'updateOne':
-      operationName = 'databaseUpdateOne'
+      databaseAction = `updateOne`
+      // operationName = 'databaseUpdateOne'
       break;
 
     case 'excludeOne':
-      operationName = 'databaseExcludeOne'
+      databaseAction = `excludeOne`
+      // operationName = 'databaseExcludeOne'
       break;
 
     case 'deleteOne':
-      operationName = 'databaseDeleteOne'
+      databaseAction = `deleteOne`
+      // operationName = 'databaseDeleteOne'
       break;
 
     default:
@@ -91,7 +98,7 @@ exports = async function (payload) {
   }
 
   try {
-    
+
     let databaseParameters = {
       action: databaseAction,
       collection: databaseCollection,
