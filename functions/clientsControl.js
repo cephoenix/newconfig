@@ -1,7 +1,7 @@
 exports = async function (payload) {
 
   var action
-  const databaseCollection = `users`
+  const databaseCollection = `clients`
   var databaseAction
   var databaseQuery
   var requestData
