@@ -14,13 +14,13 @@ exports = async function (payload) {
   try {
     request = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
-    throw { success: false, data: error}
+    return { success: false, data: error}
   }
 
   try {
     await context.functions.execute(`usersValidation`, payload)
   } catch (error) {
-    throw { success: false, data: error}
+    return { success: false, data: error}
   }
 
   action = request.urlParameters.action
@@ -41,13 +41,13 @@ exports = async function (payload) {
       try {
         password = await context.functions.execute("decryptText", parameters.password);
       } catch (e) {
-        throw `Erro ao decriptografar a senha fornecida: ${e}`
+        return { success: false, data: `Erro ao decriptografar a senha fornecida: ${e}`}
       }
   
       try {
         password = await context.functions.execute("encryptPassword", password);
       } catch (e) {
-        throw `Erro ao encriptar a senha a ser gravada no Banco de Dados: ${e}`
+        return { success: false, data: `Erro ao encriptar a senha a ser gravada no Banco de Dados: ${e}`}
       }
 
       try {
@@ -55,7 +55,7 @@ exports = async function (payload) {
         parameters.blocked = true
         operationParameters.query = JSON.stringify(parameters)
       } catch (error) {
-        throw `Forneça informações válidas para criar usuário! ${error}`
+        return { success: false, data: `Forneça informações válidas para criar usuário! ${error}`}
       }
 
       break;
@@ -111,6 +111,6 @@ exports = async function (payload) {
     }
 
   } catch (error) {
-    throw { success: false, data: `Erro ao executar operação ${action} em Usuário! ${error}` }
+    return { success: false, data: `Erro ao executar operação ${action} em Usuário! ${error}` }
   }
 };
