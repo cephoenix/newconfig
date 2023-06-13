@@ -6,23 +6,28 @@ exports = async function (payload) {
   var operationParameters = {}
   var password
   var parameters
+  var databaseCollection = `users`
+  var databaseAction
+  var databaseQuery
 
   try {
     await context.functions.execute(`usersValidation`, payload)
   } catch (error) {
-    return {
-      success: false,
-      data: `${JSON.stringify(error)}`
-    }
+    throw error
   }
   
   action = payload.query.action
+  
   operationParameters.collection = `users`
   operationParameters.query = payload.body.text()
 
+  databaseQuery = JSON.parse(payload.body.text())
+
   switch (action) {
     case 'create':
-      operationName = 'databaseInsertOne'
+      databaseAction = `insertOne`
+      operationParameters.action = `insertOne`
+      // operationName = 'databaseInsertOne'
       parameters = JSON.parse(operationParameters.query)
       try {
         password = await context.functions.execute("decryptText", parameters.password);
@@ -47,10 +52,13 @@ exports = async function (payload) {
       break;
 
     case 'findOne':
-      operationName = 'databaseFindOne'
+      databaseAction = `findOne`
+      operationParameters.action = `findOne`
+      // operationName = 'databaseFindOne'
       break;
 
     case 'findAll':
+      operationParameters.action = `findAll`
       operationName = 'databaseFindMany'
       operationParameters.query = {}
       break;
@@ -79,15 +87,22 @@ exports = async function (payload) {
   }
 
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters)
+    
+    let databaseParameters = {
+      action: databaseAction,
+      collection: databaseCollection,
+      query: databaseQuery
+    }
+
     return {
       success: true,
-      data: operationResponse
+      data: await context.functions.execute(`databaseControl`, databaseParameters)
     }
+
   } catch (error) {
     throw {
       success: false,
-      data: `Erro ao executar operação ${operationName} em Usuário! ${error}`
+      data: `Erro ao executar operação ${action} em Usuário! ${error}`
     }
   }
 };
