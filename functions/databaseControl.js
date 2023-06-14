@@ -42,6 +42,8 @@ async function execute(parameters) {
         return await dbquery.insertMany(parameters.query, parameters.options)
       case 'updateOne':
         return await dbquery.updateOne(parameters.filter, parameters.query, parameters.options)
+      case `findOneAndUpdate`:
+        return await dbquery.findOneAndUpdate(parameters.filter, parameters.query, parameters.options )
       case 'updateMany':
         return await dbquery.updateMany(parameters.filter, parameters.query, parameters.options)
       case 'deleteOne':
