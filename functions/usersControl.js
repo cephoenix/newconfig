@@ -57,10 +57,12 @@ exports = async function (payload) {
         throw `Falha ao buscar usuário a ser bloqueado! ${error}`
       }
 
+      return {foundUser: userToBlock, dbParameters: databaseParameters}
+
       if(userToBlock.blocked == true) {
         throw `Esse usuário já está bloqueado!`
       }
-      return {foundUser: userToBlock, dbParameters: databaseParameters}
+      
       userToBlock.blocked = true
 
       /**
