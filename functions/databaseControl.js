@@ -104,6 +104,7 @@ async function validate(parameters) {
  * @returns 
  */
 async function preproccess(parameters) {
+  return {preprocess: parameters}
   try {
     switch (parameters.action) {
       case 'findOne':
