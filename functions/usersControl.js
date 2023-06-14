@@ -4,6 +4,7 @@ exports = async function (payload) {
   const databaseCollection = `users`
   var databaseAction
   var databaseQuery
+  var databaseFilter
   var requestData
   var databaseParameters
   
