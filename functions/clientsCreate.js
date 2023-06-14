@@ -1,4 +1,4 @@
-// exports = async function (data) {
+exports = async function (data) {
 
 //   let dbResponse;
 //   let resp = {};
@@ -41,4 +41,6 @@
 //   // } else {
 //   //   throw "Cliente já cadastrado"
 //   // }
-// };
+
+    throw `deprecated`
+};
