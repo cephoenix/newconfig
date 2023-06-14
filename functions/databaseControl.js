@@ -1,5 +1,5 @@
 exports = async function(data){
-
+return {insidebdcontrol: data}
   /**
    * Valida os dados antes de tentar executar a operação no Banco de dados
    */
