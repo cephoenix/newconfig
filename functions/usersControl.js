@@ -12,7 +12,7 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error}
   }
-
+return {payload: payload, data: requestData}
   try {
     await context.functions.execute(`usersValidation`, requestData)
   } catch (error) {
