@@ -84,6 +84,6 @@ exports = async function (payload) {
     }
 
   } catch (error) {
-    return { success: false, data: `Erro ao executar operação ${action} em Usuário! ${error}` }
+    return { success: false, data: error }
   }
 };
