@@ -103,9 +103,9 @@ async function preproccess(parameters) {
       case 'findOne':
         
         if(parameters._id != null && parameters._id != undefined && parameters._id != ``) {
-          parameters._id = new BSON.ObjectId(parameters._id)
+          parameters._id = new BSON.ObjectId(parameters.query._id)
         }
-        return {testando: parameters, testando2: parameters._id/*new BSON.ObjectId(parameters._id)*/}
+        // return {testando: parameters.query._id, testando2: new BSON.ObjectId(parameters.query._id)}
         return parameters;
     }
   } catch (error) {
