@@ -17,7 +17,7 @@ exports = async function(data){
   } catch (error) {
     throw `Falha ao executar pré-processamento dos dados a serem utilizados  na operação a ser efetuada no banco de dados! ${error}`
   }
-  return {insidebdcontrol: data}
+
   /**
    * Executa a operação no banco de dados
    * Nesse ponto os dados já devem ter sido validados e preparados para a operação
