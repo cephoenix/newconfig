@@ -10,6 +10,15 @@ exports = async function(data){
   }
 
   /**
+   * Prepara dados para a operação
+   */
+  try {
+    data = await preproccess(data)
+  } catch (error) {
+    throw `Falha ao executar pré-processamento dos dados a serem utilizados  na operação a ser efetuada no banco de dados! ${error}`
+  }
+
+  /**
    * Executa a operação no banco de dados
    * Nesse ponto os dados já devem ter sido validados e preparados para a operação
    */
@@ -60,30 +69,44 @@ async function execute(parameters) {
  * Valida os dados antes de executar a operação no Banco de Dados
  * @param {*} data 
  */
-async function validate(data) {
+async function validate(parameters) {
 
-  if (data.action == undefined || data.action == "" || data.action == null) {
+  if (parameters.action == undefined || parameters.action == "" || parameters.action == null) {
     throw `É necessário informar a ação a ser realizada!`
   }
 
-  if (data.collection == undefined || data.collection == "" || data.collection == null) {
+  if (parameters.collection == undefined || parameters.collection == "" || parameters.collection == null) {
     throw `É necessário informar uma collection sobre a qual a ação será realizada!`
   }
 
-  if (data.query == null || data.query == `` || data.query == undefined) {
+  if (parameters.query == null || parameters.query == `` || parameters.query == undefined) {
     throw `É necessário informar os parâmetros corretamente para realizar a operação!`
   }
 
-  // if ((data.action == `updateOne` || data.action == `updateMany`) && (data.options == null || data.options == `` || data.options == undefined)) {
+  // if ((parameters.action == `updateOne` || parameters.action == `updateMany`) && (parameters.options == null || parameters.options == `` || parameters.options == undefined)) {
   //   throw `É necessário informar um critério para definir quais documentos serão atualizados!`
   // }
 
-  switch (data.action) {
+  switch (parameters.action) {
     case 'updateOne':
     case `updateMany`:
-      if(data.filter == null || data.filter == `` || data.filter == undefined) {
+      if(parameters.filter == null || parameters.filter == `` || parameters.filter == undefined) {
         throw `É necessário informar um critério para definir quais documentos serão atualizados!`
       }
       break;
+  }
+}
+
+async function preproccess(parameters) {
+  try {
+    switch (parameters.action) {
+      case 'findOne':
+        if(parameters._id != null && parameters._id != undefined && parameters._id != ``) {
+          parameters._id = new BSON.ObjectId(parameters._id)
+        }
+        break;
+    }
+  } catch (error) {
+    throw error
   }
 }
