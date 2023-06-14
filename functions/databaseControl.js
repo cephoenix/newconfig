@@ -40,6 +40,7 @@ async function execute(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
+        return parameters.query
         return await dbquery.findOne(parameters.query)
       case 'findMany':
         return await dbquery.find(parameters.query)
