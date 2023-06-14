@@ -104,15 +104,14 @@ async function validate(parameters) {
  */
 async function preproccess(parameters) {
   try {
-    return {debug: parameters}
     switch (parameters.action) {
       case 'findOne':
-        
         if(parameters.query._id != null && parameters.query._id != undefined && parameters.query._id != ``) {
           parameters.query.filter._id = new BSON.ObjectId(parameters.query._id)
         }
-        return parameters;
+        
     }
+    return parameters;
   } catch (error) {
     throw error
   }
