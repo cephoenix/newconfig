@@ -43,7 +43,7 @@ exports = async function (payload) {
   
   if (loggedUser.password !== hashedPass) {
     try {
-      await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date() })
+      await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: `Senha incorreta` })
     } catch (e) {
       throw (e)
     }
@@ -53,7 +53,7 @@ exports = async function (payload) {
 
   if(loggedUser.blocked) {
     try {
-      await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date() })
+      await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: `Usuário bloqueado` })
     } catch (e) {
       throw (e)
     }
