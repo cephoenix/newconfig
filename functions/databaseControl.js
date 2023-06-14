@@ -104,7 +104,7 @@ async function preproccess(parameters) {
         if(parameters._id != null && parameters._id != undefined && parameters._id != ``) {
           parameters._id = new BSON.ObjectId(parameters._id)
         }
-        break;
+        return parameters;
     }
   } catch (error) {
     throw error
