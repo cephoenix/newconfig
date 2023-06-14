@@ -79,6 +79,9 @@ async function execute(parameters) {
  */
 async function validate(parameters) {
 
+  /**
+   * Essa verificação é comum a todas as operações
+   */
   if (parameters.action == undefined || parameters.action == "" || parameters.action == null) {
     throw `É necessário informar a ação a ser realizada!`
   }
@@ -91,14 +94,13 @@ async function validate(parameters) {
     throw `É necessário informar os parâmetros corretamente para realizar a operação!`
   }
 
-  // if ((parameters.action == `updateOne` || parameters.action == `updateMany`) && (parameters.options == null || parameters.options == `` || parameters.options == undefined)) {
-  //   throw `É necessário informar um critério para definir quais documentos serão atualizados!`
-  // }
-
+  /**
+   * As verificações abaixo são específicas para cada operação
+   */
   switch (parameters.action) {
     case 'updateOne':
     case `updateMany`:
-      if(parameters.query.filter == null || parameters.query.filter == `` || parameters.query.filter == undefined) {
+      if(parameters.filter == null || parameters.filter == `` || parameters.filter == undefined) {
         throw `É necessário informar um critério para definir quais documentos serão atualizados!`
       }
       break;
@@ -114,9 +116,8 @@ async function preproccess(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
-        if(parameters.query._id != null && parameters.query._id != undefined && parameters.query._id != ``) {
-          parameters.query._id = new BSON.ObjectId(parameters.query._id)
-        }
+        parameters.query._id = new BSON.ObjectId(parameters.query._id)                        // Já foi validado, então esse campo existe
+        
     }
     return parameters;
   } catch (error) {
