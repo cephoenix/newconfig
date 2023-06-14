@@ -1,23 +1,9 @@
 exports = async function(data){
-
-  if (data.action == undefined || data.action == "" || data.action == null) {
-    throw `É necessário informar a ação a ser realizada!`
-  }
-
-  if (data.collection == undefined || data.collection == "" || data.collection == null) {
-    throw `É necessário informar uma collection sobre a qual a ação será realizada!`
-  }
-
-  if (data.query == null || data.query == `` || data.query == undefined) {
-    throw `É necessário informar os parâmetros corretamente para realizar a operação!`
-  }
-
-  // if ((data.action == `updateOne` || data.action == `updateMany`) && (data.options == null || data.options == `` || data.options == undefined)) {
-  //   throw `É necessário informar um critério para definir quais documentos serão atualizados!`
-  // }
-
-  if((data.action == `updateOne` || data.action == `updateMany`)  && (data.filter == null || data.filter == `` || data.filter == undefined)) {
-    throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+  
+  try {
+    await validate(data)
+  } catch (error) {
+    throw `Falha ao executar operação no banco de dados! ${error}`
   }
 
   try {
@@ -55,5 +41,28 @@ async function execute(parameters) {
     }
   } catch (error) {
     throw error
+  }
+}
+
+async function validate(data) {
+
+  if (data.action == undefined || data.action == "" || data.action == null) {
+    throw `É necessário informar a ação a ser realizada!`
+  }
+
+  if (data.collection == undefined || data.collection == "" || data.collection == null) {
+    throw `É necessário informar uma collection sobre a qual a ação será realizada!`
+  }
+
+  if (data.query == null || data.query == `` || data.query == undefined) {
+    throw `É necessário informar os parâmetros corretamente para realizar a operação!`
+  }
+
+  // if ((data.action == `updateOne` || data.action == `updateMany`) && (data.options == null || data.options == `` || data.options == undefined)) {
+  //   throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+  // }
+
+  if((data.action == `updateOne` || data.action == `updateMany`)  && (data.filter == null || data.filter == `` || data.filter == undefined)) {
+    throw `É necessário informar um critério para definir quais documentos serão atualizados!`
   }
 }
