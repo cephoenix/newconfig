@@ -24,8 +24,6 @@ exports = async function (payload) {
 
   switch (action) {
     case 'create':
-      databaseAction = `insertOne`
-
       try {
         databaseQuery.password = await context.functions.execute("decryptText", databaseQuery.password);
       } catch (e) {
@@ -38,6 +36,7 @@ exports = async function (payload) {
         return { success: false, data: `Erro ao encriptar a senha a ser gravada no Banco de Dados: ${e}`}
       }
 
+      databaseAction = `insertOne`
       databaseQuery.blocked = true                                                                           // All users are blocked by default. Someone with the right permission level need to activate them
       break;
 
