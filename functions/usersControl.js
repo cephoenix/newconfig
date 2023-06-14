@@ -48,7 +48,7 @@ exports = async function (payload) {
       databaseParameters = {
         action: `findOne`,
         collection: `users`,
-        query: { "_id": parameters._id }
+        query: { "_id": databaseQuery._id }
       }
 
       try {
