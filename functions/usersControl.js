@@ -5,6 +5,7 @@ exports = async function (payload) {
   var databaseAction
   var databaseQuery
   var requestData
+  var databaseParameters
   
   try {
     requestData = await context.functions.execute(`proccessRequest`, payload)
@@ -38,7 +39,69 @@ exports = async function (payload) {
       }
 
       databaseQuery.blocked = true                                                                           // All users are blocked by default. Someone with the right permission level need to activate them
+      break;
 
+    case `blockUser`:
+      let userToBlock
+      /**
+       * Preparing to block
+       */
+      databaseParameters = {
+        action: `findOne`,
+        collection: `users`,
+        query: { "_id": parameters._id }
+      }
+
+      try {
+        userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
+      } catch (error) {
+        throw `Falha ao buscar usuário a ser bloqueado! ${error}`
+      }
+
+      if(userToBlock.blocked == true) {
+        throw `Esse usuário já está bloqueado!`
+      }
+      
+      userToBlock.blocked = true
+
+      /**
+       * Updating register after 'blocked' field has been set to true
+       */
+      databaseAction = `updateOne`
+      databaseQuery = userToBlock
+      
+      break;
+
+    case `unblockUser`:
+      
+      let userToUnblock
+      /**
+       * Preparing to unblock
+       */
+      databaseParameters = {
+        action: `findOne`,
+        collection: `users`,
+        query: { "_id": parameters._id }
+      }
+
+      try {
+        userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
+      } catch (error) {
+        throw `Falha ao buscar usuário a ser bloqueado! ${error}`
+      }
+
+      if(userToUnblock.blocked == false) {
+        throw `Esse usuário já está desbloqueado!`
+      }
+      
+      userToUnblock.blocked = false
+
+      /**
+       * Updating register after 'blocked' field has been set to true
+       */
+      databaseAction = `updateOne`
+      databaseQuery = userToUnblock
+      
       break;
 
     case 'findOne':

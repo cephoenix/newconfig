@@ -16,6 +16,14 @@ exports = async function (data) {
       await validateCreate(parameters)
       break;
 
+    case `blockUser`:
+      await validateBlockUser(parameters)
+      break;
+
+    case `unblockUser`:
+      await validateUnblockUser(parameters)
+      break;
+
     case 'findOne':
       await validateFindOne(parameters)
       break;
@@ -82,6 +90,18 @@ async function validateCreate(parameters) {
 
   if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
     throw `Esse usuário já existe!`
+  }
+}
+
+async function validateBlockUser (parameters) {
+  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
+    throw `É necessário fornecer o campo "_id" do usuário a ser bloqueado!`
+  }
+}
+
+async function validateUnblockUser (parameters) {
+  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
+    throw `É necessário fornecer o campo "_id" do usuário a ser desbloqueado!`
   }
 }
 
