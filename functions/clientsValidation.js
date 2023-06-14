@@ -51,7 +51,7 @@ exports = async function (data) {
 };
 
 async function validateCreate (parameters) {
-
+  var resp
   let query = {
     $or: [
       { "initials": parameters.initials },
@@ -62,13 +62,13 @@ async function validateCreate (parameters) {
   }
 
   try {
-    // let resp = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
-    if(await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` }) != null) {
-      throw `Esse cliente já existe!`
-    }
-    // throw {debug: JSON.stringify(resp), a: resp == null}
+    resp = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
   } catch (error) {
-    throw `Erro ao inserir cliente(2): ${error}`
+    throw `Erro ao verificar se o cliente já existe: ${error}`
+  }
+
+  if(resp != null) {
+    throw `Esse cliente já existe!`
   }
 }
 
