@@ -26,7 +26,9 @@ exports = async function (payload) {
         break;
       case 'debug':
         let a = `teste`
-        var id = await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).findOne(new BSON.ObjectId('647f7bf836742bf8539e457a'))
+        var id = await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).findOne(
+          {"_id": new BSON.ObjectId('647f7bf836742bf8539e457a')}
+        )
         return {debug: {"_id": id}}
         break;
 
