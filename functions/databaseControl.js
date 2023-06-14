@@ -23,7 +23,6 @@ exports = async function(data){
    * Nesse ponto os dados já devem ter sido validados e preparados para a operação
    */
   try {
-    return {debug: data}
     return await execute(data)
   } catch (error) {
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
@@ -104,15 +103,12 @@ async function validate(parameters) {
  * @returns 
  */
 async function preproccess(parameters) {
-  return {preprocess: parameters}
   try {
     switch (parameters.action) {
       case 'findOne':
-        
-        if(parameters._id != null && parameters._id != undefined && parameters._id != ``) {
-          parameters._id = new BSON.ObjectId(parameters.query._id)
+        if(parameters.query._id != null && parameters.query._id != undefined && parameters.query._id != ``) {
+          parameters.query.filter._id = new BSON.ObjectId(parameters.query._id)
         }
-        // return {testando: parameters.query._id, testando2: new BSON.ObjectId(parameters.query._id)}
         return parameters;
     }
   } catch (error) {
