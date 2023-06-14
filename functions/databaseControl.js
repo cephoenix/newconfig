@@ -1,11 +1,18 @@
 exports = async function(data){
 
+  /**
+   * Valida os dados antes de tentar executar a operação no Banco de dados
+   */
   try {
     await validate(data)
   } catch (error) {
     throw `Falha ao executar operação no banco de dados! ${error}`
   }
 
+  /**
+   * Executa a operação no banco de dados
+   * Nesse ponto os dados já devem ter sido validados e preparados para a operação
+   */
   try {
     return await execute(data)
   } catch (error) {
@@ -13,6 +20,11 @@ exports = async function(data){
   }
 };
 
+/**
+ * Executa a operação especificada no banco de dados
+ * @param {*} parameters 
+ * @returns 
+ */
 async function execute(parameters) {
   
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
@@ -44,6 +56,10 @@ async function execute(parameters) {
   }
 }
 
+/**
+ * Valida os dados antes de executar a operação no Banco de Dados
+ * @param {*} data 
+ */
 async function validate(data) {
 
   if (data.action == undefined || data.action == "" || data.action == null) {
