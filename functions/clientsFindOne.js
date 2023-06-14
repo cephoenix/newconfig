@@ -24,5 +24,5 @@ exports = async function (data) {
 
 //   return dbResponse;
 
-  throw "Essa função não existe mais"
+  throw `deprecated`
 };
