@@ -25,11 +25,7 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-        let a = `teste`
-        var resp = await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).findOne(
-          {"_id": new BSON.ObjectId('647f7bf836742bf8539e457a')}
-        )
-        return {debug: resp, query: {"_id": new BSON.ObjectId('647f7bf836742bf8539e457a')}}
+        var resp = await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date()})
         break;
 
     default:
