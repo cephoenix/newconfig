@@ -72,26 +72,28 @@ async function validateCreate (parameters) {
   }
 }
 
-async function validateFindOne (body) {
+async function validateFindOne (parameters) {
 
 }
 
-async function validateFindAll (body) {
+async function validateFindAll (parameters) {
   
 }
 
-async function validateFindMany (body) {
+async function validateFindMany (parameters) {
   
 }
 
-async function validateUpdateOne (body) {
+async function validateUpdateOne (parameters) {
+  if(parameters._id == null || parameters._id == "" || parameters._id == undefined) {
+    throw "É necessário informar o ObjectId do documento a ser atualizado!"
+  }
+}
+
+async function validateExcludeOne (parameters) {
   
 }
 
-async function validateExcludeOne (body) {
-  
-}
-
-async function validateDeleteOne (body) {
+async function validateDeleteOne (parameters) {
   
 }
