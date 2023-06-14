@@ -26,7 +26,7 @@ exports = async function (payload) {
         break;
       case 'debug':
         let a = `teste`
-        return {debug: a.equals(`teste`)}
+        return {debug: {"_id": new BSON.ObjectId('647f7bf836742bf8539e457a')}}
         break;
 
     default:
