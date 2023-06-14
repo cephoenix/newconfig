@@ -1,5 +1,5 @@
 exports = async function(data){
-return {insidebdcontrol: data}
+
   /**
    * Valida os dados antes de tentar executar a operação no Banco de dados
    */
@@ -17,7 +17,7 @@ return {insidebdcontrol: data}
   } catch (error) {
     throw `Falha ao executar pré-processamento dos dados a serem utilizados  na operação a ser efetuada no banco de dados! ${error}`
   }
-
+  return {insidebdcontrol: data}
   /**
    * Executa a operação no banco de dados
    * Nesse ponto os dados já devem ter sido validados e preparados para a operação
@@ -109,7 +109,6 @@ async function preproccess(parameters) {
         if(parameters.query._id != null && parameters.query._id != undefined && parameters.query._id != ``) {
           parameters.query.filter._id = new BSON.ObjectId(parameters.query._id)
         }
-        
     }
     return parameters;
   } catch (error) {
