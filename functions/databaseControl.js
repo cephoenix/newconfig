@@ -106,6 +106,7 @@ async function preproccess(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
+        return {debug: parameters}
         if(parameters.query._id != null && parameters.query._id != undefined && parameters.query._id != ``) {
           parameters.query.filter._id = new BSON.ObjectId(parameters.query._id)
         }
