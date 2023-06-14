@@ -12,6 +12,14 @@ exports = async function(data){
     throw `É necessário informar os parâmetros corretamente para realizar a operação!`
   }
 
+  // if ((data.action == `updateOne` || data.action == `updateMany`) && (data.options == null || data.options == `` || data.options == undefined)) {
+  //   throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+  // }
+
+  if((data.action == `updateOne` || data.action == `updateMany`)  && (data.filter == null || data.filter == `` || data.filter == undefined)) {
+    throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+  }
+
   try {
     return await execute(data)
   } catch (error) {
@@ -29,17 +37,17 @@ async function execute(parameters) {
       case 'findMany':
         return await dbquery.find(parameters.query)
       case 'insertOne':
-        return await dbquery.insertOne(parameters.query)
+        return await dbquery.insertOne(parameters.query, parameters.options)
       case 'insertMany':
-        return await dbquery.insertMany(parameters.query)
+        return await dbquery.insertMany(parameters.query, parameters.options)
       case 'updateOne':
-        return await dbquery.updateOne(parameters.query)
+        return await dbquery.updateOne(parameters.filter, parameters.query, parameters.options)
       case 'updateMany':
-        return await dbquery.updateMany(parameters.query)
+        return await dbquery.updateMany(parameters.filter, parameters.query, parameters.options)
       case 'deleteOne':
-        return await dbquery.deleteOne(parameters.query)
+        return await dbquery.deleteOne(parameters.filter, parameters.options)
       case 'excludeOne':
-        return await dbquery.updateOne(parameters.query)
+        return await dbquery.deleteMany(parameters.filter, parameters.options)
       default:
         throw `Ação inválida.`
     }

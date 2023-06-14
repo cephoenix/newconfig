@@ -94,7 +94,7 @@ async function validateFindAll (parameters) {
 }
 
 async function validateFindMany (parameters) {
-
+ 
 }
 
 async function validateUpdateOne (parameters) {
