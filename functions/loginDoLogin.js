@@ -67,9 +67,16 @@ exports = async function (payload) {
     throw (e)
   }
 
+  let databaseParameters = {
+    action: `findMany`,
+    collection: `deviceTypes`,
+    query: { },
+    filter: {}
+  }
+
   return { 
     "sessionId": "A52B7A89FE6A3BA58D8C", 
     loggedUser: loggedUser , 
-    deviceTypes: await context.functions.execute("databaseFindMany", {query: JSON.stringify({}), collection: "deviceTypes"})
+    deviceTypes: await context.functions.execute(`databaseControl`, databaseParameters)
   } //@todo implementar mecanismo de sessão
 }
