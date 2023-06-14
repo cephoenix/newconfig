@@ -90,7 +90,7 @@ async function validate(parameters) {
   switch (parameters.action) {
     case 'updateOne':
     case `updateMany`:
-      if(parameters.filter == null || parameters.filter == `` || parameters.filter == undefined) {
+      if(parameters.query.filter == null || parameters.query.filter == `` || parameters.query.filter == undefined) {
         throw `É necessário informar um critério para definir quais documentos serão atualizados!`
       }
       break;
