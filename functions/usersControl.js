@@ -7,18 +7,27 @@ exports = async function (payload) {
   var requestData
   var databaseParameters
   
+  /**
+   * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
+   */
   try {
     requestData = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
     return { success: false, data: error}
   }
 
+  /**
+   * Valida os dados de acordo com a ação requisitada
+   */
   try {
     await context.functions.execute(`usersValidation`, requestData)
   } catch (error) {
     return { success: false, data: error}
   }
 
+  /**
+   * Executa algum tratamento antes, se necessário e depois faz a operação com o Banco de Dados
+   */
   action = requestData.urlParameters.action
   databaseQuery = requestData.body
 
@@ -53,12 +62,9 @@ exports = async function (payload) {
 
       try {
         userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
-        return {foundUser: userToBlock, dbParameters: databaseParameters}
       } catch (error) {
         throw `Falha ao buscar usuário a ser bloqueado! ${error}`
       }
-
-      
 
       if(userToBlock.blocked == true) {
         throw `Esse usuário já está bloqueado!`
