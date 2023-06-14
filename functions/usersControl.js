@@ -78,6 +78,7 @@ exports = async function (payload) {
        */
       databaseAction = `updateOne`
       databaseQuery = userToBlock
+      databaseFilter = {_id: parameters._id}
       
       break;
 
