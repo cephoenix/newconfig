@@ -1,5 +1,5 @@
 exports = async function(data){
-  
+
   try {
     await validate(data)
   } catch (error) {
@@ -62,7 +62,12 @@ async function validate(data) {
   //   throw `É necessário informar um critério para definir quais documentos serão atualizados!`
   // }
 
-  if((data.action == `updateOne` || data.action == `updateMany`)  && (data.filter == null || data.filter == `` || data.filter == undefined)) {
-    throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+  switch (data.action) {
+    case 'updateOne':
+    case `updateMany`:
+      if(data.filter == null || data.filter == `` || data.filter == undefined) {
+        throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+      }
+      break;
   }
 }
