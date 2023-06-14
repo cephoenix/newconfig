@@ -101,6 +101,7 @@ async function preproccess(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
+        return {testando: parameters, boolean1: (parameters._id != null), boolean2: (parameters._id != undefined), boolean3: (parameters._id != ``)}
         if(parameters._id != null && parameters._id != undefined && parameters._id != ``) {
           parameters._id = new BSON.ObjectId(parameters._id)
         }
