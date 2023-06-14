@@ -41,7 +41,7 @@ exports = async function (payload) {
       break;
 
     case `blockUser`:
-      let userToBlock
+      var userToBlock
       /**
        * Preparing to block
        */
@@ -53,11 +53,12 @@ exports = async function (payload) {
 
       try {
         userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
+        return {foundUser: userToBlock, dbParameters: databaseParameters}
       } catch (error) {
         throw `Falha ao buscar usuário a ser bloqueado! ${error}`
       }
 
-      return {foundUser: userToBlock, dbParameters: databaseParameters}
+      
 
       if(userToBlock.blocked == true) {
         throw `Esse usuário já está bloqueado!`
