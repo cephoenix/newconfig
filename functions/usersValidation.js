@@ -59,20 +59,20 @@ exports = async function (data) {
 
 async function validateCreate(parameters) {
 
-  if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
-    throw `O campo "Nome de exibição" é obrigatório!`
-  }
-
-  if(parameters.permissionLevel == `` || parameters.permissionLevel == undefined || parameters.permissionLevel == null) {
-    throw `O campo "Nível de permissão" é obrigatório!`
-  }
-
   if(parameters.login == `` || parameters.login == undefined || parameters.login == null) {
     throw `O campo "Login" é obrigatório!`;
   }
 
   if(parameters.cpfCnpj == `` || parameters.cpfCnpj == undefined || parameters.cpfCnpj == null) {
     throw `O campo "CPF/CNPJ" é obrigatório!`
+  }
+
+  if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
+    throw `O campo "Nome de exibição" é obrigatório!`
+  }
+
+  if(parameters.permissionLevel == `` || parameters.permissionLevel == undefined || parameters.permissionLevel == null) {
+    throw `O campo "Nível de permissão" é obrigatório!`
   }
 
   query = {
