@@ -184,8 +184,8 @@ async function blockUser(parameters) {
     blocked: userToBlock.blocked, 
     a: (userToBlock.blocked != undefined), 
     b: (userToBlock.blocked == true), 
-    c: (userToBlock.blocked == {}), 
-    d: (Realm.isEmpty(userToBlock.blocked)),
+    c: (userToBlock.blocked == {}),
+    d: (userToBlock.blocked === Object),
     user: userToBlock 
   }
   if(userToBlock.blocked != undefined && (userToBlock.blocked == true || userToBlock.blocked == {})) { //Tem que verificar com undefined senão dá pau
