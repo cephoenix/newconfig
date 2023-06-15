@@ -83,7 +83,7 @@ exports = async function (payload) {
        * Updating register after 'blocked' field has been set to true
        */
 
-      return { success: false, data: userToBlock }
+      // return { success: false, data: userToBlock }
       
       databaseAction = `updateOne`
       databaseQuery = userToBlock
