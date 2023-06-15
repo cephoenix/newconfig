@@ -92,7 +92,7 @@ async function validateCreate(parameters) {
   } catch (e) {
     throw `Erro ao buscar usuário (validação de usuário): ${e}`
   }
-throw { query: query, response: dbResponse}
+
   if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
     throw `Esse usuário já existe!`
   }
