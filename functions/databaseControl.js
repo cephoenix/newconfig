@@ -40,7 +40,7 @@ async function execute(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
-        return await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).findOne(parameters.query)
+        return await dbquery.findOne(parameters.query)
       case 'findMany':
         return await dbquery.find(parameters.query)
       case 'insertOne':
