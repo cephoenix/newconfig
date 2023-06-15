@@ -47,7 +47,7 @@ exports = async function (payload) {
       }
 
       databaseAction = `insertOne`
-      databaseQuery.blocked = true                                                                           // All users are blocked by default. Someone with the right permission level need to activate them
+      databaseQuery.blocked = true                                         // All users are blocked by default. Someone with the right permission level needs to activate them
       break;
 
     case `blockUser`:
@@ -64,11 +64,11 @@ exports = async function (payload) {
       try {
         userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
       } catch (error) {
-        throw `Falha ao buscar usuário a ser bloqueado! ${error}`
+        return { success: false, data: `Falha ao buscar usuário a ser bloqueado! ${error}`}
       }
 
       if(userToBlock.blocked == true) {
-        throw `Esse usuário já está bloqueado!`
+        return { success: false, data: `Esse usuário já está bloqueado!`}
       }
       
       userToBlock.blocked = true
@@ -97,13 +97,13 @@ exports = async function (payload) {
       try {
         userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
       } catch (error) {
-        throw `Falha ao buscar usuário a ser bloqueado! ${error}`
+        return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
       }
 
       if(userToUnblock.blocked == false) {
-        throw `Esse usuário já está desbloqueado!`
+        return { success: false, data: `Esse usuário já está desbloqueado!`}
       }
-      
+
       userToUnblock.blocked = false
 
       /**
