@@ -97,7 +97,7 @@ exports = async function (payload) {
         return { success: false, data: error }
       }
 
-      return { success: false, data: userToUnblock }
+      throw { success: false, data: userToUnblock }
       
       // /**
       //  * Preparing to unblock
