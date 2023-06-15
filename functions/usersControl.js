@@ -103,7 +103,7 @@ exports = async function (payload) {
         return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
       }
 
-      if(userToUnblock.blocked == false) {
+      if(userToUnblock.blocked == false || userToUnblock.blocked == undefined || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
         return { success: false, data: `Esse usuário já está desbloqueado!`}
       }
 
@@ -188,7 +188,7 @@ async function blockUser(parameters) {
     return { success: false, data: `Falha ao buscar usuário a ser bloqueado! ${error}`}
   }
 
-  if(userToBlock.blocked == true) {
+  if(userToBlock.blocked == false || userToBlock.blocked == undefined || userToBlock.blocked == null || userToBlock.blocked == ``) {
     throw `Esse usuário já está bloqueado!`
   }
   
