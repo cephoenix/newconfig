@@ -51,27 +51,30 @@ exports = async function (payload) {
       break;
 
     case `blockUser`:
-      var userToBlock
-      /**
-       * Preparing to block
-       */
-      databaseParameters = {
-        action: `findOne`,
-        collection: `users`,
-        query: { _id: databaseQuery._id }
-      }
 
-      try {
-        userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
-      } catch (error) {
-        return { success: false, data: `Falha ao buscar usuário a ser bloqueado! ${error}`}
-      }
-
-      if(userToBlock.blocked == true) {
-        return { success: false, data: `Esse usuário já está bloqueado!`}
-      }
       
-      userToBlock.blocked = true
+
+      let userToBlock = await blockUser(databaseQuery);
+      // /**
+      //  * Preparing to block
+      //  */
+      // databaseParameters = {
+      //   action: `findOne`,
+      //   collection: `users`,
+      //   query: { _id: databaseQuery._id }
+      // }
+
+      // try {
+      //   userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
+      // } catch (error) {
+      //   return { success: false, data: `Falha ao buscar usuário a ser bloqueado! ${error}`}
+      // }
+
+      // if(userToBlock.blocked == true) {
+      //   return { success: false, data: `Esse usuário já está bloqueado!`}
+      // }
+      
+      // userToBlock.blocked = true
 
       /**
        * Updating register after 'blocked' field has been set to true
@@ -169,7 +172,29 @@ async function createUser(parameters) {
 }
 
 async function blockUser(parameters) {
+  var userToBlock
+  /**
+   * Preparing to block
+   */
+  databaseParameters = {
+    action: `findOne`,
+    collection: `users`,
+    query: { _id: parameters._id }
+  }
+
+  try {
+    userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
+  } catch (error) {
+    return { success: false, data: `Falha ao buscar usuário a ser bloqueado! ${error}`}
+  }
+
+  if(userToBlock.blocked == true) {
+    throw `Esse usuário já está bloqueado!`
+  }
   
+  userToBlock.blocked = true
+
+  return userToBlock
 }
 
 async function unblockUser(parameters) {
