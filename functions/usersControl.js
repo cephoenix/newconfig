@@ -51,10 +51,13 @@ exports = async function (payload) {
       break;
 
     case `blockUser`:
-
-      
-
-      let userToBlock = await blockUser(databaseQuery);
+      var userToBlock
+      try {
+        var userToBlock = await blockUser(databaseQuery);
+      } catch (error) {
+        return { success: false, data: error }
+      }
+       
       // /**
       //  * Preparing to block
       //  */
@@ -86,7 +89,14 @@ exports = async function (payload) {
       break;
 
     case `unblockUser`:
-      let userToUnblock = await unblockUser(databaseQuery);
+      var userToUnblock 
+      
+      try {
+        userToUnblock = await unblockUser(databaseQuery);  
+      } catch (error) {
+        return { success: false, data: error }
+      }
+      
       // /**
       //  * Preparing to unblock
       //  */
