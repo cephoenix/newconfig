@@ -205,7 +205,7 @@ async function blockUser(parameters) {
     return { success: false, data: `Falha ao buscar usuário a ser bloqueado! ${error}`}
   }
 
-  if(userToBlock.blocked |= undefined && userToBlock.blocked == true) { //Tem que verificar com undeined senão dá pau
+  if(userToBlock.blocked |= undefined && userToBlock.blocked == true) { //Tem que verificar com undefined senão dá pau
     return { success: false, data: `Esse usuário já está bloqueado!`}
   }
   throw {debug: userToBlock}  
@@ -236,7 +236,7 @@ async function unblockUser(parameters) {
     return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
   }
 
-  if(userToUnblock.blocked == false || userToUnblock.blocked == undefined || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
+  if(userToUnblock.blocked == undefined || userToUnblock.blocked == false || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
     return { success: false, data: `Esse usuário já está desbloqueado!`}
   }
 
