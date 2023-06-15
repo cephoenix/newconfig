@@ -21,7 +21,7 @@ exports = async function (payload) {
    * Valida os dados de acordo com a ação requisitada
    */
   try {
-    return {degu: await context.functions.execute(`usersValidation`, requestData)}
+    await context.functions.execute(`usersValidation`, requestData)
   } catch (error) {
     return { success: false, data: error}
   }
