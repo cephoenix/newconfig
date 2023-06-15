@@ -86,28 +86,27 @@ exports = async function (payload) {
       break;
 
     case `unblockUser`:
-      
-      let userToUnblock
-      /**
-       * Preparing to unblock
-       */
-      databaseParameters = {
-        action: `findOne`,
-        collection: `users`,
-        query: { _id: databaseQuery._id }
-      }
+      let userToUnblock = await unblockUser(databaseQuery);
+      // /**
+      //  * Preparing to unblock
+      //  */
+      // databaseParameters = {
+      //   action: `findOne`,
+      //   collection: `users`,
+      //   query: { _id: databaseQuery._id }
+      // }
 
-      try {
-        userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
-      } catch (error) {
-        return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
-      }
+      // try {
+      //   userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
+      // } catch (error) {
+      //   return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
+      // }
 
-      if(userToUnblock.blocked == false || userToUnblock.blocked == undefined || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
-        return { success: false, data: `Esse usuário já está desbloqueado!`}
-      }
+      // if(userToUnblock.blocked == false || userToUnblock.blocked == undefined || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
+      //   return { success: false, data: `Esse usuário já está desbloqueado!`}
+      // }
 
-      userToUnblock.blocked = false
+      // userToUnblock.blocked = false
 
       /**
        * Updating register after 'blocked' field has been set to true
@@ -166,11 +165,19 @@ exports = async function (payload) {
   }
 };
 
-
+/**
+ * 
+ * @param {*} parameters 
+ */
 async function createUser(parameters) {
 
 }
 
+/**
+ * 
+ * @param {*} parameters 
+ * @returns 
+ */
 async function blockUser(parameters) {
   var userToBlock
   /**
@@ -189,7 +196,7 @@ async function blockUser(parameters) {
   }
 
   if(userToBlock.blocked == false || userToBlock.blocked == undefined || userToBlock.blocked == null || userToBlock.blocked == ``) {
-    throw `Esse usuário já está bloqueado!`
+    return { success: false, data: `Esse usuário já está bloqueado!`}
   }
   
   userToBlock.blocked = true
@@ -197,6 +204,32 @@ async function blockUser(parameters) {
   return userToBlock
 }
 
+/**
+ * 
+ * @param {*} parameters 
+ * @returns 
+ */
 async function unblockUser(parameters) {
-  
+  let userToUnblock
+  /**
+   * Preparing to unblock
+   */
+  databaseParameters = {
+    action: `findOne`,
+    collection: `users`,
+    query: { _id: databaseQuery._id }
+  }
+
+  try {
+    userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
+  } catch (error) {
+    return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
+  }
+
+  if(userToUnblock.blocked == false || userToUnblock.blocked == undefined || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
+    return { success: false, data: `Esse usuário já está desbloqueado!`}
+  }
+
+  userToUnblock.blocked = false
+  return userToBlock
 }
