@@ -205,11 +205,11 @@ async function blockUser(parameters) {
   try {
     userToBlock = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (error) {
-    return { success: false, data: `Falha ao buscar usuário a ser bloqueado! ${error}`}
+    throw `Falha ao buscar usuário a ser bloqueado! ${error}`
   }
   
   if(userToBlock.blocked != undefined && userToBlock.blocked == true) { //Tem que verificar com undefined senão dá pau
-    return { success: false, data: `Esse usuário já está bloqueado!`}
+    throw `Esse usuário já está bloqueado!`
   }
   
   userToBlock.blocked = true
@@ -236,13 +236,13 @@ async function unblockUser(parameters) {
   try {
     userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (error) {
-    return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
+    throw `Falha ao buscar usuário a ser desbloqueado! ${error}`
   }
 
   if(userToUnblock.blocked == undefined || userToUnblock.blocked == false || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
-    return { success: false, data: `Esse usuário já está desbloqueado!`}
+    throw `Esse usuário já está desbloqueado!`
   }
 
   userToUnblock.blocked = false
-  return userToBlock
+  return userToUnblock
 }
