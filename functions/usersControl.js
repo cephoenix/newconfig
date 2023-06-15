@@ -162,3 +162,16 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 };
+
+
+async function createUser(parameters) {
+
+}
+
+async function blockUser(parameters) {
+  
+}
+
+async function unblockUser(parameters) {
+  
+}
