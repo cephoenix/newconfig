@@ -82,6 +82,9 @@ exports = async function (payload) {
       /**
        * Updating register after 'blocked' field has been set to true
        */
+
+      return { success: false, data: userToBlock }
+      
       databaseAction = `updateOne`
       databaseQuery = userToBlock
       databaseFilter = {_id: databaseQuery._id}
@@ -97,8 +100,6 @@ exports = async function (payload) {
         return { success: false, data: error }
       }
 
-      throw { success: false, data: userToUnblock }
-      
       // /**
       //  * Preparing to unblock
       //  */
