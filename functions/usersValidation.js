@@ -88,6 +88,7 @@ async function validateCreate(parameters) {
       collection: `users`,
       query: query
     }
+    return {debug: databaseParameters}
     dbResponse = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (e) {
     throw `Erro ao buscar usuário (validação de usuário): ${e}`
