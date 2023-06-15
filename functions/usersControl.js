@@ -78,7 +78,7 @@ exports = async function (payload) {
        */
       databaseAction = `updateOne`
       databaseQuery = userToBlock
-      databaseFilter = {_id: parameters._id}
+      databaseFilter = {_id: databaseQuery._id}
       
       break;
 
@@ -91,7 +91,7 @@ exports = async function (payload) {
       databaseParameters = {
         action: `findOne`,
         collection: `users`,
-        query: { _id: parameters._id }
+        query: { _id: databaseQuery._id }
       }
 
       try {
