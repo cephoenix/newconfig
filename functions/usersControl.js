@@ -27,7 +27,7 @@ exports = async function (payload) {
   }
 
   /**
-   * Executa algum tratamento antes, se necessário e depois faz a operação com o Banco de Dados
+   * Executa algum tratamento antes, se necessário, e depois faz a operação com o Banco de Dados
    */
   action = requestData.urlParameters.action
   databaseQuery = requestData.body
