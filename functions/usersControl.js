@@ -180,7 +180,14 @@ async function blockUser(parameters) {
   } catch (error) {
     throw `Falha ao buscar usuário a ser bloqueado! ${error}`
   }
-  throw { blocked: userToBlock.blocked, a: (userToBlock.blocked != undefined), b: (userToBlock.blocked == true), c: (userToBlock.blocked == null), d: (userToBlock.blocked == ``), , user: userToBlock }
+  throw { 
+    blocked: userToBlock.blocked, 
+    a: (userToBlock.blocked != undefined), 
+    b: (userToBlock.blocked == true), 
+    c: (userToBlock.blocked == null), 
+    d: (userToBlock.blocked == ``), 
+    user: userToBlock 
+  }
   if(userToBlock.blocked != undefined && (userToBlock.blocked == true || userToBlock.blocked == null || userToBlock.blocked == ``)) { //Tem que verificar com undefined senão dá pau
     throw `Esse usuário já está bloqueado!`
   }
