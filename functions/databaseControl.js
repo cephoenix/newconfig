@@ -39,15 +39,15 @@ async function validate(parameters) {
   /**
    * Essa verificação é comum a todas as operações
    */
-  if (parameters.action == undefined || parameters.action == "" || parameters.action == null) {
+  if (await isEmpty(parameters.action)) {
     throw `É necessário informar a ação a ser realizada!`
   }
 
-  if (parameters.collection == undefined || parameters.collection == "" || parameters.collection == null) {
+  if (await isEmpty(parameters.collection)) {
     throw `É necessário informar uma collection sobre a qual a ação será realizada!`
   }
 
-  if (parameters.query == null || parameters.query == `` || parameters.query == undefined) {
+  if (await isEmpty(parameters.query)) {
     throw `É necessário informar os parâmetros corretamente para realizar a operação!`
   }
 
@@ -57,7 +57,7 @@ async function validate(parameters) {
   switch (parameters.action) {
     case 'updateOne':
     case `updateMany`:
-      if(parameters.filter == null || parameters.filter == `` || parameters.filter == undefined) {
+      if(await isEmpty(parameters.filter)) {
         throw `É necessário informar um critério para definir quais documentos serão atualizados!`
       }
       break;
@@ -98,7 +98,7 @@ async function execute(parameters) {
       case 'findOne':
         return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
       case 'findMany':
-        return await dbquery.find(parameters.query)
+        return await dbquery.find(parameters.query, parameters.projection, parameters.options)
       case 'insertOne':
         return await dbquery.insertOne(parameters.query, parameters.options)
       case 'insertMany':
@@ -119,4 +119,8 @@ async function execute(parameters) {
   } catch (error) {
     throw error
   }
+}
+
+async function isEmpty(valueToBeChecked) {
+  return  (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked== undefined)
 }

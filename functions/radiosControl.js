@@ -1,48 +1,54 @@
 exports = async function (payload) {
 
   let action
-  let resp = {}
   let operationName
   let operationResponse
   let operationParameters = {}
+  var requestData
+  var databaseAction
     
+  return {debug: payload}
+  /**
+   * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
+   */
+  try {
+    requestData = await context.functions.execute(`proccessRequest`, payload)
+  } catch (error) {
+    return { success: false, data: error}
+  }
+
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
    */
 
   try {
-    await context.functions.execute(`radiosValidation`, payload)
+    await context.functions.execute(`radiosValidation`, requestData)
   } catch (error) {
-    return {
-      success: false,
-      data: `Erro ao validar operação com Radio: ${error}`
-    }
+    return { success: false, data: error}
   }
 
   /**
-   * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
-   * Verificações específicas são feitas dentro de cada uma das operações
+   * Executa algum tratamento antes, se necessário, e depois faz a operação com o Banco de Dados
    */
-
-  action = payload.query.action
-  operationParameters.collection = `radios`
-  operationParameters.query = payload.body.text()
+  action = requestData.urlParameters.action
+  databaseQuery = requestData.body
 
   switch (action) {
     case 'create':
-      operationName = 'databaseInsertOne';
+      databaseAction = 'insertOne';
       break;
 
     case 'findOne':
-      operationName = 'databaseFindOne';
+      databaseAction = 'findOne';
       break;
 
     case 'findAll':
-      operationName = 'databaseFindMany';
+      operationName = 'findMany';
       operationParameters = {};
       break;
 
     case 'findMany':
+      operationName = 'findMany';
       if(payload.body == undefined || payload.body == null) {
         throw "É necessário fornecer informações válidas para pesquisar no Banco de Dados! (1)"
       }
@@ -52,8 +58,6 @@ exports = async function (payload) {
       } catch (e) {
         throw "É necessário fornecer informações válidas (array) para pesquisar no Banco de Dados! (3)"
       }
-
-      operationName = 'databaseFindMany';
       break;
 
     case 'updateOne':
