@@ -1,6 +1,7 @@
 exports = async function (payload) {
 
-  let action
+  const databaseCollection = `radios`
+  var action
   let operationName
   var databaseAction
   var databaseQuery
