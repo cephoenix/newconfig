@@ -5,14 +5,14 @@ exports = async function (payload) {
   var databaseAction
   var databaseQuery
   var databaseFilter
-  var requestData
+  var processedRequestData
   var databaseParameters
   
   /**
    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
    */
   try {
-    requestData = await context.functions.execute(`proccessRequest`, payload)
+    processedRequestData = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
     return { success: false, data: error}
   }
@@ -21,7 +21,7 @@ exports = async function (payload) {
    * Valida os dados de acordo com a ação requisitada
    */
   try {
-    await context.functions.execute(`usersValidation`, requestData)
+    await context.functions.execute(`usersValidation`, processedRequestData)
   } catch (error) {
     return { success: false, data: error}
   }
@@ -29,8 +29,8 @@ exports = async function (payload) {
   /**
    * Executa algum tratamento antes, se necessário, e depois faz a operação com o Banco de Dados
    */
-  action = requestData.urlParameters.action
-  databaseQuery = requestData.body
+  action = processedRequestData.urlParameters.action
+  databaseQuery = processedRequestData.body
 
   switch (action) {
     case 'create':

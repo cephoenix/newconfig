@@ -1,41 +1,35 @@
-exports = async function (payload) {
+exports = async function (data) {
 
-  let action
-  var body
-
-  try {
-    body = payload.body.text()
-  } catch (error) {
-    throw `Erro ao buscar parâmetros da operação: ${error}`
-  }
+  var action = data.urlParameters.action
+  var parameters = data.body
 
   switch (action) {
     case 'create':
-      await validateCreate(body)
+      await validateCreate(parameters)
       break;
 
     case 'findOne':
-      await validateFindOne(body)
+      await validateFindOne(parameters)
       break;
 
     case 'findAll':
-      await validateFindAll(body)
+      await validateFindAll(parameters)
       break;
 
     case 'findMany':
-      await validateFindMany(body)
+      await validateFindMany(parameters)
       break;
 
     case 'updateOne':
-      await validateUpdateOne(body)
+      await validateUpdateOne(parameters)
       break;
 
     case 'excludeOne':
-      await validateExcludeOne(body)
+      await validateExcludeOne(parameters)
       break;
 
     case 'deleteOne':
-      await validateDeleteOne(body)
+      await validateDeleteOne(parameters)
       break;
 
     default:
@@ -47,14 +41,7 @@ exports = async function (payload) {
   }
 };
 
-async function validateCreate (data) {
-  var parameters
-
-  try {
-    parameters = JSON.parse(data)
-  } catch (e) {
-    throw `Erro ao criar Radio:  ${e}`
-  }
+async function validateCreate (parameters) {
 
   if(parameters.address64Bit == undefined || parameters.address64Bit == null || parameters.address64Bit == "") {
     throw `É necessário informar o Endereço 64 bits (MAC) do Rádio!`
@@ -73,37 +60,19 @@ async function validateCreate (data) {
   }
 }
 
-async function validateFindOne (body) {
-  try {
-    JSON.parse(body)
-  } catch (e) {
-    throw `Erro ao buscar Rádio:  ${e}`
-  }
+async function validateFindOne (parameters) {
+
 }
 
-async function validateFindAll (data) {
-  try {
-    JSON.parse(data)
-  } catch (e) {
-    throw `Erro ao buscar todos os Rádios:  ${e}`
-  }
+async function validateFindAll (parameters) {
+
 }
 
-async function validateFindMany (body) {
-  try {
-    JSON.parse(body)
-  } catch (e) {
-    throw `Erro ao buscar Rádios:  ${e}`
-  }
+async function validateFindMany (parameters) {
+
 }
 
-async function validateUpdateOne (body) {
-  var parameters
-  try {
-    parameters = JSON.parse(body)
-  } catch (e) {
-    throw `Erro ao atualizar Rádio:  ${e}`
-  }
+async function validateUpdateOne (parameters) {
 
   if(parameters.address64Bit == undefined || parameters.address64Bit == null || parameters.address64Bit == "") {
     throw `É necessário informar o Endereço 64 bits (MAC) do Rádio!`
@@ -122,26 +91,14 @@ async function validateUpdateOne (body) {
   }
 }
 
-async function validateExcludeOne (body) {
-  var parameters
-  try {
-    parameters = JSON.parse(body)
-  } catch (e) {
-    throw `Erro ao excluir Rádio:  ${e}`
-  }
+async function validateExcludeOne (parameters) {
 
   if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
     throw `O campo "_id" é obrigatório!`
   }
 }
 
-async function validateDeleteOne (body) {
-  var parameters
-  try {
-    parameters = JSON.parse(body)
-  } catch (e) {
-    throw `Erro ao deletar Rádio:  ${e}`
-  }
+async function validateDeleteOne (parameters) {
 
   if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
     throw `O campo "_id" é obrigatório!`
