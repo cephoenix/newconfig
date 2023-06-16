@@ -29,41 +29,6 @@ exports = async function(data){
   }
 };
 
-/**
- * Executa a operação especificada no banco de dados
- * @param {*} parameters 
- * @returns 
- */
-async function execute(parameters) {
-  
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
-  try {
-    switch (parameters.action) {
-      case 'findOne':
-        return await dbquery.findOne(parameters.query)
-      case 'findMany':
-        return await dbquery.find(parameters.query)
-      case 'insertOne':
-        return await dbquery.insertOne(parameters.query, parameters.options)
-      case 'insertMany':
-        return await dbquery.insertMany(parameters.query, parameters.options)
-      case 'updateOne':
-        return await dbquery.updateOne(parameters.filter, parameters.query, parameters.options)
-      case `findOneAndUpdate`:
-        return await dbquery.findOneAndUpdate(parameters.filter, parameters.query, parameters.options )
-      case 'updateMany':
-        return await dbquery.updateMany(parameters.filter, parameters.query, parameters.options)
-      case 'deleteOne':
-        return await dbquery.deleteOne(parameters.filter, parameters.options)
-      case 'excludeOne':
-        return await dbquery.deleteMany(parameters.filter, parameters.options)
-      default:
-        throw `Ação inválida.`
-    }
-  } catch (error) {
-    throw error
-  }
-}
 
 /**
  * Valida os dados antes de executar a operação no Banco de Dados
@@ -99,8 +64,9 @@ async function validate(parameters) {
   }
 }
 
+
 /**
- * Proccess data before perform database operation
+ * Processa os dados antes de executar a(s) operação(ões) no banco de dados
  * @param {*} parameters 
  * @returns 
  */
@@ -113,6 +79,43 @@ async function preproccess(parameters) {
         }
     }
     return parameters;
+  } catch (error) {
+    throw error
+  }
+}
+
+
+/**
+ * Executa a operação escolhida
+ * @param {*} parameters 
+ * @returns 
+ */
+async function execute(parameters) {
+  
+  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
+  try {
+    switch (parameters.action) {
+      case 'findOne':
+        return await dbquery.findOne(parameters.query)
+      case 'findMany':
+        return await dbquery.find(parameters.query)
+      case 'insertOne':
+        return await dbquery.insertOne(parameters.query, parameters.options)
+      case 'insertMany':
+        return await dbquery.insertMany(parameters.query, parameters.options)
+      case 'updateOne':
+        return await dbquery.updateOne(parameters.filter, parameters.query, parameters.options)
+      case `findOneAndUpdate`:
+        return await dbquery.findOneAndUpdate(parameters.filter, parameters.query, parameters.options )
+      case 'updateMany':
+        return await dbquery.updateMany(parameters.filter, parameters.query, parameters.options)
+      case 'deleteOne':
+        return await dbquery.deleteOne(parameters.filter, parameters.options)
+      case 'excludeOne':
+        return await dbquery.deleteMany(parameters.filter, parameters.options)
+      default:
+        throw `Ação inválida.`
+    }
   } catch (error) {
     throw error
   }

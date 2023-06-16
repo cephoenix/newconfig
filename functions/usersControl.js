@@ -73,30 +73,6 @@ exports = async function (payload) {
         return { success: false, data: error }
       }
 
-      // /**
-      //  * Preparing to unblock
-      //  */
-      // databaseParameters = {
-      //   action: `findOne`,
-      //   collection: `users`,
-      //   query: { _id: databaseQuery._id }
-      // }
-
-      // try {
-      //   userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
-      // } catch (error) {
-      //   return { success: false, data: `Falha ao buscar usuário a ser desbloqueado! ${error}`}
-      // }
-
-      // if(userToUnblock.blocked == false || userToUnblock.blocked == undefined || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
-      //   return { success: false, data: `Esse usuário já está desbloqueado!`}
-      // }
-
-      // userToUnblock.blocked = false
-
-      /**
-       * Updating register after 'blocked' field has been set to true
-       */
       databaseAction = `updateOne`
       databaseQuery = userToUnblock
       databaseFilter = { _id: databaseQuery._id}
@@ -214,7 +190,7 @@ async function unblockUser(parameters) {
   try {
     userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (error) {
-    throw `Falha ao buscar usuário a ser desbloqueado! ${error}`
+    throw `Falha ao buscar usuário a ser desbloqueado!\n ${error}`
   }
 
   if(userToUnblock.blocked == undefined || userToUnblock.blocked == false || userToUnblock.blocked == null || userToUnblock.blocked == ``) {
