@@ -187,15 +187,7 @@ async function blockUser(parameters) {
     }
   }
 
-  throw { 
-    blocked: userToBlock.blocked, 
-    a: (userToBlock.blocked == undefined), 
-    b: (userToBlock.blocked == true), 
-    c: (userToBlock.blocked == {}),
-    d: (userToBlock.blocked === Object),
-    user: userToBlock 
-  }
-  if(userToBlock.blocked != undefined && (userToBlock.blocked == true || userToBlock.blocked == {})) { //Tem que verificar com undefined senão dá pau
+  if(userToBlock.blocked != undefined && userToBlock.blocked == true) { //Tem que verificar com undefined senão dá pau
     throw `Esse usuário já está bloqueado!`
   }
 
