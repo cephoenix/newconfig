@@ -2,9 +2,11 @@ exports = async function (payload) {
 
   let action
   let operationName
-  let operationResponse
+  var databaseAction
+  var databaseQuery
+  var databaseFilter
   let operationParameters = {}
-  var requestData
+  var processedRequestData
   var databaseAction
     
   
@@ -12,7 +14,7 @@ exports = async function (payload) {
    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
    */
   try {
-    requestData = await context.functions.execute(`proccessRequest`, payload)
+    processedRequestData = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
     return { success: false, data: error}
   }
@@ -22,16 +24,16 @@ exports = async function (payload) {
    */
 
   try {
-    await context.functions.execute(`radiosValidation`, requestData)
+    await context.functions.execute(`radiosValidation`, processedRequestData)
   } catch (error) {
     return { success: false, data: error}
   }
-  return {debug: requestData}
+  
   /**
    * Executa algum tratamento antes, se necessário, e depois faz a operação com o Banco de Dados
    */
-  action = requestData.urlParameters.action
-  databaseQuery = requestData.body
+  action = processedRequestData.urlParameters.action
+  databaseQuery = processedRequestData.body
 
   switch (action) {
     case 'create':
@@ -91,22 +93,24 @@ exports = async function (payload) {
       break;
 
     default:
-      return {
-        success: false,
-        data: `Ação inválida!`
-      }
+      return { success: false, data: `Ação inválida!`}
   }
   
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters)
+
+    let databaseParameters = {
+      action: databaseAction,
+      collection: databaseCollection,
+      query: databaseQuery,
+      filter: databaseFilter
+    }
+
     return {
       success: true,
-      data: operationResponse
+      data: await context.functions.execute(`databaseControl`, databaseParameters)
     }
+
   } catch (error) {
-    throw {
-      success: false,
-      data: `Erro ao executar operação ${operationName} em Rádios! ${error}`
-    }
+    return { success: false, data: error }
   }
 };
