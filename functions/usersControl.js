@@ -180,9 +180,16 @@ async function blockUser(parameters) {
   } catch (error) {
     throw `Falha ao buscar usuário a ser bloqueado! ${error}`
   }
+
+  if(typeof userToBlock.blocked == 'object') {
+    if(Object.keys(userToBlock.blocked).length == 0) {
+      throw ``
+    }
+  }
+
   throw { 
     blocked: userToBlock.blocked, 
-    a: (userToBlock.blocked != undefined), 
+    a: (userToBlock.blocked == undefined), 
     b: (userToBlock.blocked == true), 
     c: (userToBlock.blocked == {}),
     d: (userToBlock.blocked === Object),
