@@ -7,7 +7,7 @@ exports = async function (payload) {
   var requestData
   var databaseAction
     
-  return {debug: payload}
+  
   /**
    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
    */
@@ -26,7 +26,7 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error}
   }
-
+  return {debug: requestData}
   /**
    * Executa algum tratamento antes, se necessário, e depois faz a operação com o Banco de Dados
    */
