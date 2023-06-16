@@ -190,7 +190,7 @@ async function unblockUser(parameters) {
   try {
     userToUnblock = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (error) {
-    throw `Falha ao buscar usuário a ser desbloqueado!\n ${error}`
+    throw `Falha ao buscar usuário a ser desbloqueado! ${error}`
   }
 
   if(userToUnblock.blocked == undefined || userToUnblock.blocked == false || userToUnblock.blocked == null || userToUnblock.blocked == ``) {

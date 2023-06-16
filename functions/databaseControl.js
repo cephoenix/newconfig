@@ -96,7 +96,7 @@ async function execute(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
-        return await dbquery.findOne(parameters.query)
+        return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
       case 'findMany':
         return await dbquery.find(parameters.query)
       case 'insertOne':
