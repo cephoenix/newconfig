@@ -81,6 +81,7 @@ async function preproccess(parameters) {
           parameters.projection = {}
         }
     }
+    throw {debug: parameters}
     return parameters;
   } catch (error) {
     throw error
