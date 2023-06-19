@@ -119,9 +119,9 @@ async function execute(parameters) {
         }
       case 'findMany':
         if (parameters.projection == null) {
-          return await dbquery.findOne(parameters.query, parameters.options)
+          return await dbquery.find(parameters.query, parameters.options)
         } else {
-          return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
+          return await dbquery.find(parameters.query, parameters.projection, parameters.options)
         }
       case 'insertOne':
         return await dbquery.insertOne(parameters.query, parameters.options)
