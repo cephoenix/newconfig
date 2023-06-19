@@ -71,6 +71,7 @@ async function validate(parameters) {
  * @returns 
  */
 async function preproccess(parameters) {
+  throw {debug: parameters}
   try {
     switch (parameters.action) {
       case 'findOne':
