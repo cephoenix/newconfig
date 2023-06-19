@@ -1,4 +1,5 @@
-import Utils from './utils.js';
+
+const utils = require('./utils.js');
 exports = async function (payload) {
   
   let action
@@ -26,7 +27,7 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-         var u = new Utils();
+         var u = new utils();
         
         // return {
         //   m1: u.metodo1(),
