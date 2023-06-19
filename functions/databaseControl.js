@@ -87,7 +87,6 @@ async function preproccess(parameters) {
   }
 }
 
-
 /**
  * Executa a operação escolhida
  * @param {*} parameters 
