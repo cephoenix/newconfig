@@ -1,3 +1,25 @@
+class Utils {
+  constructor() {
+  }
+
+  metodo1() {
+    return 10
+  }
+
+  metodo2() {
+    return 20
+  }
+}
+export default Utils;
+
+
+
+
+
+
+
+
+
 exports = async function(arg){
   // This default function will get a value and find a document in MongoDB
   // To see plenty more examples of what you can do with functions see: 

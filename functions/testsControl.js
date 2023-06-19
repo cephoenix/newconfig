@@ -26,10 +26,15 @@ exports = async function (payload) {
         break;
       case 'debug':
         
-        // await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).findOne(
-        //   {"_id": new BSON.ObjectId('647f7bf836742bf8539e457a')}
-        // )
-        return {debug: await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})})}
+        const Utils = require('./utils.js');
+
+        var u = new Utils();
+        
+        return {
+          m1: u.metodo1(),
+          m2: u.metodo2(), 
+          debug: await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})})
+        }
         
         break;
 
