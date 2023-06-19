@@ -244,6 +244,7 @@ async function excludeUser(parameters) {
   }
 
   if(userToExclude.exclusionDate != undefined || userToExclude.exclusionDate != null || userToExclude.blocked != ``) {
+    throw {c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
     throw `Esse usuário já está excluído!`
   }
 }
