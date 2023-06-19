@@ -1,4 +1,4 @@
-exports = async function(data){
+exports = async function (data) {
 
   /**
    * Valida os dados antes de tentar executar a operação no Banco de dados
@@ -57,7 +57,7 @@ async function validate(parameters) {
   switch (parameters.action) {
     case 'updateOne':
     case `updateMany`:
-      if(await isEmpty(parameters.filter)) {
+      if (await isEmpty(parameters.filter)) {
         throw `É necessário informar um critério para definir quais documentos serão atualizados!`
       }
       break;
@@ -74,25 +74,27 @@ async function preproccess(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
+      case 'findMany':
         // cheking parameters.query._id against null or `` may cause undefined exception
-        if(parameters.query._id != undefined) {
+        if (parameters.query._id != undefined) {
           parameters.query._id = new BSON.ObjectId(parameters.query._id)
-        } else if(parameters.query._id != null && parameters.query._id != ``) {
+        } else if (parameters.query._id != null && parameters.query._id != ``) {
           parameters.query._id = new BSON.ObjectId(parameters.query._id)
         }
 
         // cheking parameters.projection against null or `` may cause undefined exception
-        if(parameters.projection == undefined) {
+        if (parameters.projection == undefined) {
           parameters.projection = null
-        } else if(parameters.projection == ``) { 
+        } else if (parameters.projection == ``) {
           parameters.projection = null
         }
 
-        if(parameters.options == undefined) {
+        if (parameters.options == undefined) {
           parameters.options = {}
-        } else if(parameters.options == ``) { 
+        } else if (parameters.options == ``) {
           parameters.options = {}
         }
+        break;
     }
     return parameters;
   } catch (error) {
@@ -110,7 +112,7 @@ async function execute(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
-        if(parameters.projection == null) {
+        if (parameters.projection == null) {
           return await dbquery.findOne(parameters.query, parameters.options)
         } else {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
@@ -124,7 +126,7 @@ async function execute(parameters) {
       case 'updateOne':
         return await dbquery.updateOne(parameters.filter, parameters.query, parameters.options)
       case `findOneAndUpdate`:
-        return await dbquery.findOneAndUpdate(parameters.filter, parameters.query, parameters.options )
+        return await dbquery.findOneAndUpdate(parameters.filter, parameters.query, parameters.options)
       case 'updateMany':
         return await dbquery.updateMany(parameters.filter, parameters.query, parameters.options)
       case 'deleteOne':
@@ -135,11 +137,11 @@ async function execute(parameters) {
         throw `Ação inválida.`
     }
   } catch (error) {
-    throw {DeuErro: error}
+    throw { DeuErro: error }
     throw error
   }
 }
 
 async function isEmpty(valueToBeChecked) {
-  return  (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked== undefined)
+  return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
 }
