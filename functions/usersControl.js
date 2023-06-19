@@ -115,11 +115,11 @@ exports = async function (payload) {
       let userToExclude
 
       try {
-        userToExclude = await excludeUser(databaseQuery);  
+        userToExclude = await prepareUserForExclusion(databaseQuery);  
       } catch (error) {
         return { success: false, data: error }
       }
-      return {debug: userToExclude}
+
       databaseAction = `updateOne`
       databaseQuery = userToExclude
       databaseFilter = { _id: databaseQuery._id}
@@ -226,7 +226,7 @@ async function unblockUser(parameters) {
   return userToUnblock
 }
 
-async function excludeUser(parameters) {
+async function prepareUserForExclusion(parameters) {
   
   let userToExclude
   /**
@@ -248,7 +248,11 @@ async function excludeUser(parameters) {
     if (!await isEmpty(userToExclude.exclusionDate)) {
       throw `Esse usuário já está excluído!`
     }
+  } else {
+    userToExclude.deletionDate = new Date()
   }
+
+  return userToExclude
 }
 
 async function isEmpty(valueToBeChecked) {
