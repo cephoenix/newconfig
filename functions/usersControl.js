@@ -31,6 +31,7 @@ exports = async function (payload) {
    */
   action = processedRequestData.urlParameters.action
   databaseQuery = processedRequestData.body
+  
 
   switch (action) {
     case 'create':
@@ -79,19 +80,19 @@ exports = async function (payload) {
       
       break;
 
-    case `excludeUser`:
-      let userToExclude
+    // case `excludeUser`:
+      
 
-      try {
-        userToUnblock = await excludeUser(databaseQuery);  
-      } catch (error) {
-        return { success: false, data: error }
-      }
+    //   try {
+    //     userToUnblock = await excludeUser(databaseQuery);  
+    //   } catch (error) {
+    //     return { success: false, data: error }
+    //   }
 
-      databaseAction = `updateOne`
-      databaseQuery = userToExclude
-      databaseFilter = { _id: databaseQuery._id}
-      break;
+    //   databaseAction = `updateOne`
+    //   databaseQuery = userToExclude
+    //   databaseFilter = { _id: databaseQuery._id}
+    //   break;
 
     case 'findOne':
       databaseAction = `findOne`
@@ -111,7 +112,17 @@ exports = async function (payload) {
       break;
 
     case 'excludeOne':
-      databaseAction = `excludeOne`
+      let userToExclude
+
+      try {
+        userToUnblock = await excludeUser(databaseQuery);  
+      } catch (error) {
+        return { success: false, data: error }
+      }
+
+      databaseAction = `updateOne`
+      databaseQuery = userToExclude
+      databaseFilter = { _id: databaseQuery._id}
       break;
 
     case 'deleteOne':
