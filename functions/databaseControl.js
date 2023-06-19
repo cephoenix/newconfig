@@ -74,10 +74,14 @@ async function preproccess(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
-        if(parameters.query._id != undefined && parameters.query._id != null && parameters.query._id != ``) {
+        // cheking parameters.query._id against null or `` may cause undefined exception
+        if(parameters.query._id != undefined) {
+          parameters.query._id = new BSON.ObjectId(parameters.query._id)
+        } else if(parameters.query._id != null && parameters.query._id != ``) {
           parameters.query._id = new BSON.ObjectId(parameters.query._id)
         }
-        // cheking parameters.projection agains null or `` may cause undefined exception
+
+        // cheking parameters.projection against null or `` may cause undefined exception
         if(parameters.projection == undefined) {
           parameters.projection = {}
         } else if(parameters.projection == null || parameters.projection == ``) { 
