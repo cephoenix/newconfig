@@ -1,5 +1,3 @@
-import moment from 'moment-timezone';
-
 exports = async function (payload) {
   var parameters;
   var loggedUser;

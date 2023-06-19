@@ -1,14 +1,2 @@
-class Utils {
-  constructor() {
-  }
-
-  metodo1() {
-    return 10
-  }
-
-  metodo2() {
-    return 20
-  }
+exports = async function (payload) {
 }
-
-module.exports = Utils
