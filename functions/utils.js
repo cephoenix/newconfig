@@ -1,4 +1,4 @@
-exports = class Utils {
+class Utils {
   constructor() {
   }
 
@@ -10,3 +10,5 @@ exports = class Utils {
     return 20
   }
 }
+
+module.exports = Utils
