@@ -243,13 +243,13 @@ async function prepareUserForExclusion(parameters) {
   } catch (error) {
     throw `Falha ao buscar usuário a ser excluído! ${JSON.stringify(error)}`
   }
-throw {debug: userToExclude}
+
   if(userToExclude.hasOwnProperty('exclusionDate')) {
     if (!await isEmpty(userToExclude.exclusionDate)) {
       throw `Esse usuário já está excluído!`
     }
   } else {
-    userToExclude.deletionDate = new Date()
+    userToExclude.exclusionDate = new Date()
   }
 
   return userToExclude
