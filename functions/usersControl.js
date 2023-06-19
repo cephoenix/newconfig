@@ -240,17 +240,15 @@ async function excludeUser(parameters) {
 
   try {
     userToExclude = await context.functions.execute(`databaseControl`, databaseParameters)
-    throw {c0: userToExclude.hasOwnProperty('exclusionDate'), c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
   } catch (error) {
     throw `Falha ao buscar usuário a ser excluído! ${JSON.stringify(error)}`
   }
 
   if(userToExclude.hasOwnProperty('exclusionDate')) {
+    throw {c0: userToExclude.hasOwnProperty('exclusionDate'), c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
     if (!await isEmpty(userToExclude.exclusionDate)) {
       throw `Esse usuário já está excluído!`
     }
-    
-    
   }
 }
 
