@@ -65,7 +65,7 @@ exports = async function (payload) {
       break;
 
     case `unblockUser`:
-      var userToUnblock 
+      let userToUnblock 
       
       try {
         userToUnblock = await unblockUser(databaseQuery);  
@@ -77,6 +77,20 @@ exports = async function (payload) {
       databaseQuery = userToUnblock
       databaseFilter = { _id: databaseQuery._id}
       
+      break;
+
+    case `excludeUser`:
+      let userToExclude
+
+      try {
+        userToUnblock = await excludeUser(databaseQuery);  
+      } catch (error) {
+        return { success: false, data: error }
+      }
+
+      databaseAction = `updateOne`
+      databaseQuery = userToExclude
+      databaseFilter = { _id: databaseQuery._id}
       break;
 
     case 'findOne':
@@ -199,4 +213,26 @@ async function unblockUser(parameters) {
 
   userToUnblock.blocked = false
   return userToUnblock
+}
+
+async function excludeUser(parameters) {
+  let userToExclude
+  /**
+   * Preparing to exclude
+   */
+  databaseParameters = {
+    action: `findOne`,
+    collection: `users`,
+    query: { _id: parameters._id }
+  }
+
+  try {
+    userToExclude = await context.functions.execute(`databaseControl`, databaseParameters)
+  } catch (error) {
+    throw `Falha ao buscar usuário a ser desbloqueado! ${error}`
+  }
+
+  if(userToExclude.exclusionDate != undefined || userToExclude.exclusionDate != null || userToExclude.blocked != ``) {
+    throw `Esse usuário já está excluído!`
+  }
 }
