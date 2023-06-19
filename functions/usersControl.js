@@ -242,7 +242,7 @@ async function excludeUser(parameters) {
   } catch (error) {
     throw `Falha ao buscar usuário a ser excluído! ${JSON.stringify(error)}`
   }
-
+throw {debug: userToExclude}
   if(userToExclude.exclusionDate != undefined || userToExclude.exclusionDate != null || userToExclude.blocked != ``) {
     throw `Esse usuário já está excluído!`
   }
