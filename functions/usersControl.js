@@ -119,6 +119,7 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: error }
       }
+      return {debug: userToExclude}
       databaseAction = `updateOne`
       databaseQuery = userToExclude
       databaseFilter = { _id: databaseQuery._id}
