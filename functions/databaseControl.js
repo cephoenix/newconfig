@@ -100,12 +100,13 @@ async function preproccess(parameters) {
  * @returns 
  */
 async function execute(parameters) {
-  throw {debug: parameters}
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
   try {
     switch (parameters.action) {
       case 'findOne':
+        throw {debug: parameters}
         return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
+
       case 'findMany':
         return await dbquery.find(parameters.query, parameters.projection, parameters.options)
       case 'insertOne':
@@ -126,6 +127,7 @@ async function execute(parameters) {
         throw `Ação inválida.`
     }
   } catch (error) {
+    throw {DeuErro: error}
     throw error
   }
 }
