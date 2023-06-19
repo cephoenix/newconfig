@@ -27,14 +27,14 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-         var u = new utils();
+        //  var u = new utils();
         
-        // return {
-        //   m1: u.metodo1(),
-        //   m2: u.metodo2(), 
-        //   debug: await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})})
-        // }
-        return {debug:{}}
+        // // return {
+        // //   m1: u.metodo1(),
+        // //   m2: u.metodo2(), 
+        // //   debug: await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})})
+        // // }
+        // return {debug:{}}
         break;
 
     default:
