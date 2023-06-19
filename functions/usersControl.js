@@ -119,10 +119,11 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: error }
       }
-throw {debug: databaseQuery}
+
       databaseAction = `updateOne`
       databaseQuery = userToExclude
       databaseFilter = { _id: databaseQuery._id}
+      throw {debug: databaseQuery}
       break;
 
     case 'deleteOne':
