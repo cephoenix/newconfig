@@ -227,7 +227,7 @@ async function unblockUser(parameters) {
 }
 
 async function excludeUser(parameters) {
-  throw {c0: userToExclude.hasOwnProperty('exclusionDate'), c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
+  
   let userToExclude
   /**
    * Preparing to exclude
@@ -240,6 +240,7 @@ async function excludeUser(parameters) {
 
   try {
     userToExclude = await context.functions.execute(`databaseControl`, databaseParameters)
+    throw {c0: userToExclude.hasOwnProperty('exclusionDate'), c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
   } catch (error) {
     throw `Falha ao buscar usuário a ser excluído! ${JSON.stringify(error)}`
   }
