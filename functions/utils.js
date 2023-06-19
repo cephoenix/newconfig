@@ -1,4 +1,4 @@
-class Utils {
+exports = class Utils {
   constructor() {
   }
 
@@ -10,4 +10,3 @@ class Utils {
     return 20
   }
 }
-export default Utils;
