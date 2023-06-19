@@ -240,7 +240,7 @@ async function excludeUser(parameters) {
   try {
     userToExclude = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (error) {
-    throw `Falha ao buscar usuário a ser desbloqueado! ${error}`
+    throw `Falha ao buscar usuário a ser excluído! ${error}`
   }
 
   if(userToExclude.exclusionDate != undefined || userToExclude.exclusionDate != null || userToExclude.blocked != ``) {
