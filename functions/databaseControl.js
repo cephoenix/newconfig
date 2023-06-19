@@ -83,9 +83,9 @@ async function preproccess(parameters) {
 
         // cheking parameters.projection against null or `` may cause undefined exception
         if(parameters.projection == undefined) {
-          parameters.projection = {}
+          parameters.projection = {_id: 1}
         } else if(parameters.projection == null || parameters.projection == ``) { 
-          parameters.projection = {}
+          parameters.projection = {_id: 1}
         }
     }
     return parameters;
