@@ -1,3 +1,4 @@
+import Utils from './utils.js';
 exports = async function (payload) {
   
   let action
@@ -25,17 +26,14 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-        
-        // const Utils = require('./utils.js');
-
-        // var u = new Utils();
+         var u = new Utils();
         
         // return {
         //   m1: u.metodo1(),
         //   m2: u.metodo2(), 
         //   debug: await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})})
         // }
-        
+        return {debug:{}}
         break;
 
     default:
