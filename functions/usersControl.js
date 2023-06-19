@@ -227,6 +227,7 @@ async function unblockUser(parameters) {
 }
 
 async function excludeUser(parameters) {
+  throw {c0: userToExclude.hasOwnProperty('exclusionDate'), c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
   let userToExclude
   /**
    * Preparing to exclude
@@ -247,7 +248,7 @@ async function excludeUser(parameters) {
     if (!await isEmpty(userToExclude.exclusionDate)) {
       throw `Esse usuário já está excluído!`
     }
-    throw {c0: userToExclude.hasOwnProperty('exclusionDate'), c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
+    
     
   }
 }
