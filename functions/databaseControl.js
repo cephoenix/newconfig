@@ -87,6 +87,12 @@ async function preproccess(parameters) {
         } else if(parameters.projection == ``) { 
           parameters.projection = null
         }
+
+        if(parameters.options == undefined) {
+          parameters.options = {}
+        } else if(parameters.options == ``) { 
+          parameters.options = {}
+        }
     }
     return parameters;
   } catch (error) {
@@ -105,7 +111,6 @@ async function execute(parameters) {
     switch (parameters.action) {
       case 'findOne':
         if(parameters.projection == null) {
-          throw {debug: parameters}
           return await dbquery.findOne(parameters.query, parameters.options)
         } else {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
