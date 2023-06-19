@@ -55,7 +55,7 @@ exports = async function (data) {
       "extendedPanId": await context.functions.execute('encryptText', '9994'),
       "linkKey": await context.functions.execute('encryptText', '0001'),
       "networkKey": await context.functions.execute('encryptText', '0001'),
-      "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+      "creationDate": new Date(),
       "channel": 26,
       "deviceSummary": {},
       "clientType": {
@@ -81,7 +81,7 @@ exports = async function (data) {
       "extendedPanId": await context.functions.execute('encryptText', '9993'),
       "linkKey": await context.functions.execute('encryptText', '0001'),
       "networkKey": await context.functions.execute('encryptText', '0001'),
-      "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+      "creationDate": new Date(),
       "channel": 26,
       "deviceSummary": {},
       "clientType": {
@@ -107,7 +107,7 @@ exports = async function (data) {
       "extendedPanId": await context.functions.execute('encryptText', '9995'),
       "linkKey": await context.functions.execute('encryptText', '0001'),
       "networkKey": await context.functions.execute('encryptText', '0001'),
-      "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+      "creationDate": new Date(),
       "channel": 26,
       "deviceSummary": {},
       "clientType": {
@@ -133,7 +133,7 @@ exports = async function (data) {
       "extendedPanId": await context.functions.execute('encryptText', '17A1826C573EA87E'),
       "linkKey": await context.functions.execute('encryptText', '3FA1A6328EBECBDA3914D41E696FF1D3'),
       "networkKey": await context.functions.execute('encryptText', 'A1435FAEE5E6B0771868F6B2C2065B9B'),
-      "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+      "creationDate": new Date(),
       "channel": 26,
       "deviceSummary": {},
       "clientType": {
@@ -159,7 +159,7 @@ exports = async function (data) {
       "extendedPanId": await context.functions.execute('encryptText', '9085'),
       "linkKey": await context.functions.execute('encryptText', '0001'),
       "networkKey": await context.functions.execute('encryptText', '0001'),
-      "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+      "creationDate": new Date(),
       "channel": 26,
       "deviceSummary": {},
       "clientType": {
@@ -204,7 +204,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9994'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -230,7 +230,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9993'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -256,7 +256,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9995'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -282,7 +282,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '17A1826C573EA87E'),
           "linkKey": await context.functions.execute('encryptText', '3FA1A6328EBECBDA3914D41E696FF1D3'),
           "networkKey": await context.functions.execute('encryptText', 'A1435FAEE5E6B0771868F6B2C2065B9B'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -308,7 +308,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9085'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -390,7 +390,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9994'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -416,7 +416,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9993'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -442,7 +442,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9995'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -468,7 +468,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '17A1826C573EA87E'),
           "linkKey": await context.functions.execute('encryptText', '3FA1A6328EBECBDA3914D41E696FF1D3'),
           "networkKey": await context.functions.execute('encryptText', 'A1435FAEE5E6B0771868F6B2C2065B9B'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -494,7 +494,7 @@ exports = async function (data) {
           "extendedPanId": await context.functions.execute('encryptText', '9085'),
           "linkKey": await context.functions.execute('encryptText', '0001'),
           "networkKey": await context.functions.execute('encryptText', '0001'),
-          "creationDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"}),
+          "creationDate": new Date(),
           "channel": 26,
           "deviceSummary": {},
           "clientType": {
@@ -578,7 +578,7 @@ exports = async function (data) {
       "clientInitials": "JJJ",
       "clientChannel": 26,
       "clientType": "Desenvolvimento",
-      "recordingDate": new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})
+      "recordingDate": new Date()
     })
   }
 
