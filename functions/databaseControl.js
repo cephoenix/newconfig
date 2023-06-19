@@ -17,7 +17,7 @@ exports = async function(data){
   } catch (error) {
     throw `Falha ao executar pré-processamento dos dados a serem utilizados  na operação a ser efetuada no banco de dados! ${JSON.stringify(error)}`
   }
-
+  throw {debug: data}
   /**
    * Executa a operação no banco de dados
    * Nesse ponto os dados já devem ter sido validados e preparados para a operação
@@ -71,7 +71,6 @@ async function validate(parameters) {
  * @returns 
  */
 async function preproccess(parameters) {
-  throw {debug: parameters}
   try {
     switch (parameters.action) {
       case 'findOne':
