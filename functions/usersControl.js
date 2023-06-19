@@ -249,7 +249,7 @@ async function prepareUserForExclusion(parameters) {
       throw `Esse usuário já está excluído!`
     }
   } else {
-    userToExclude.exclusionDate = new Date()
+    userToExclude.exclusionDate = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})
   }
 
   return userToExclude
