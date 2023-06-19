@@ -83,9 +83,9 @@ async function preproccess(parameters) {
 
         // cheking parameters.projection against null or `` may cause undefined exception
         if(parameters.projection == undefined) {
-          parameters.projection = {_id: 1}
-        } else if(parameters.projection == null || parameters.projection == ``) { 
-          parameters.projection = {_id: 1}
+          parameters.projection = null
+        } else if(parameters.projection == ``) { 
+          parameters.projection = null
         }
     }
     return parameters;
@@ -104,7 +104,11 @@ async function execute(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
-        return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
+        if(parameters.projection == null) {
+          return await dbquery.findOne(parameters.query, parameters.options)
+        } else {
+          return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
+        }
       case 'findMany':
         return await dbquery.find(parameters.query, parameters.projection, parameters.options)
       case 'insertOne':
