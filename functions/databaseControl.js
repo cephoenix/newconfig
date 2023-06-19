@@ -77,6 +77,9 @@ async function preproccess(parameters) {
         if(parameters.query._id != null && parameters.query._id != `` && parameters.query._id != undefined) {
           parameters.query._id = new BSON.ObjectId(parameters.query._id)
         }
+        if(parameters.projection != null && parameters.projection != `` && parameters.projection != undefined) {
+          parameters.projection = {}
+        }
     }
     return parameters;
   } catch (error) {
