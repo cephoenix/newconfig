@@ -243,8 +243,15 @@ async function excludeUser(parameters) {
     throw `Falha ao buscar usuário a ser excluído! ${JSON.stringify(error)}`
   }
 
-  if(userToExclude.exclusionDate != undefined || userToExclude.exclusionDate != null || userToExclude.blocked != ``) {
-    throw {c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
-    throw `Esse usuário já está excluído!`
+  if(userToExclude.hasOwnProperty('exclusionDate')) {
+    if (!await isEmpty(userToExclude.exclusionDate)) {
+      throw `Esse usuário já está excluído!`
+    }
+    throw {c0: userToExclude.hasOwnProperty('exclusionDate'), c1: (userToExclude.exclusionDate != undefined), c2:(userToExclude.exclusionDate != null), c3:(userToExclude.blocked != ``)}
+    
   }
+}
+
+async function isEmpty(valueToBeChecked) {
+  return  (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked== undefined)
 }
