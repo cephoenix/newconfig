@@ -189,7 +189,7 @@ exports = async function (data) {
     collection: `clients`,
     query: {}
   }
-  var allClients = await context.functions.execute(`databaseControl`, databaseParameters)
+  var allClients = [] //await context.functions.execute(`databaseControl`, databaseParameters)
 
   var userToInsert = {}
   userToInsert.login = `jardel0101`
