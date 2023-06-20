@@ -35,7 +35,7 @@ exports = async function (payload) {
    */
   action = processedRequestData.urlParameters.action
   databaseQuery = processedRequestData.body
-
+return {debug: true}
   switch (action) {
     case 'create':
       databaseAction = 'insertOne';
@@ -93,21 +93,20 @@ exports = async function (payload) {
       operationName = 'radiosInsertMany';
       break;
 
-      case 'getNewNumber':
-        
-        throw {debug: processedRequestData}
-        let databaseParameters = {
-          action: `findOne`,
-          collection: `clients`,
-          query: { _id: processedRequestData.clientId }
-        }
+    case 'getNewNumber':
+      
+      let databaseParameters = {
+        action: `findOne`,
+        collection: `clients`,
+        query: { _id: processedRequestData.clientId }
+      }
 
-        let temp = await context.functions.execute(`databaseControl`, databaseParameters)
-        
-        
+      let temp = await context.functions.execute(`databaseControl`, databaseParameters)
+      
+      
 
 
-        break;
+      break;
 
     default:
       return { success: false, data: `Ação inválida!`}
