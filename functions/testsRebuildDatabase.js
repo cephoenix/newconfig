@@ -204,7 +204,7 @@ exports = async function (data) {
   userToInsert.permissions = []
 
   var allClients = await context.functions.execute(`databaseControl`, databaseParameters)
-
+return {debug: allClients}
   // var insertedIds = JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
   // return {debug: allClients, type: typeof allClients}
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(userToInsert)
