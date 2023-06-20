@@ -180,6 +180,32 @@ exports = async function (data) {
       "province": "",
       "city": "",
       "country": ""
+    },
+    {
+      "oldDatabaseId": 357,
+      "name": "Desenvolvimento 8",
+      "initials": "DEV",
+      "panId": await context.functions.execute('encryptText', '9773'),
+      "extendedPanId": await context.functions.execute('encryptText', '8888'),
+      "linkKey": await context.functions.execute('encryptText', '0001'),
+      "networkKey": await context.functions.execute('encryptText', '0001'),
+      "creationDate": new Date(),
+      "channel": 15,
+      "deviceSummary": {},
+      "clientType": {
+        type: 2,
+        name: "Cliente Final"
+      },
+      "documentIdentificationNumber": "009085",
+      "taxId": "009085",
+      "nationalIdentificationNumber": "009085",
+      "address": "",
+      "postalCode": "",
+      "state": "",
+      "stateInitials": "",
+      "province": "",
+      "city": "",
+      "country": ""
     }]
   )
 
