@@ -190,7 +190,13 @@ exports = async function (data) {
     query: {}
   }
   var clients = await context.functions.execute(`databaseControl`, databaseParameters)
-  var allClients = [] 
+  var allClients = []
+  
+  return {clients: clients, len: clients.length, size: clients.size(), next: clients.hasNext()}
+  while(clients.hasNext()) {
+
+  }
+
   clients.forEach(client => {
     allClients.push(client)
   });
