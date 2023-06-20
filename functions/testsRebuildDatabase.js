@@ -318,5 +318,5 @@ exports = async function (data) {
 
   context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(deviceTypes);
   // dbResponse = await context.functions.execute("databaseInsertMany", deviceTypes)  
-  return dbResponse
+  return { success: true, data: `Reconstrução do Banco de Dados realizada com sucesso!`}
 }
