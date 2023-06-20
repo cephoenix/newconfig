@@ -196,7 +196,7 @@ exports = async function (data) {
   userToInsert.password = `EFDA0BD51E79959399756DD0FC4BA89653780EF8`
   userToInsert.email = `jardel@firebee.com.br`
   userToInsert.fullName = `Jardel Cândido`
-  userToInsert.exhibitionName = `Jejel`
+  userToInsert.exhibitionName = `Jardel`
   userToInsert.cpfCnpj = `01234567899`
   userToInsert.zone = `Centro Oeste`
   userToInsert.profilePicture = jardelProfilePicture
@@ -238,7 +238,7 @@ exports = async function (data) {
   let jardelsClient = await context.functions.execute(`databaseControl`, databaseParameters)
 
   let parameters = []
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 100; i++) {
     parameters.push({
       "address64Bit": `00000000000000${i}`,
       "address16Bits": `000${i}`,
