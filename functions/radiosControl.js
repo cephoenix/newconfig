@@ -98,7 +98,7 @@ exports = async function (payload) {
         let databaseParameters = {
           action: `findOne`,
           collection: `clients`,
-          query: { "_id": new BSON.ObjectId(parameters.clientId) }
+          query: { "_id": new BSON.ObjectId(processedRequestData.clientId) }
         }
 
         let temp = await context.functions.execute(`databaseControl`, databaseParameters)
