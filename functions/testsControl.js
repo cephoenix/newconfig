@@ -31,7 +31,7 @@ exports = async function (payload) {
         // ret.forEach(element => {
         //   temp.push(element)
         // });
-        return {ret: ret, temp: temp}
+        return {ret: ret, len: ret.length, pos1: ret[1]}
         // let databaseParameters = {
         //   action: `findMany`,
         //   collection: `clients`,
