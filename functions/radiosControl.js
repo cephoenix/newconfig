@@ -9,8 +9,7 @@ exports = async function (payload) {
   let operationParameters = {}
   var processedRequestData
   var databaseAction
-    
-  return {payload}
+
   /**
    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
    */
