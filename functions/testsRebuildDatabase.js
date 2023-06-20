@@ -190,8 +190,8 @@ exports = async function (data) {
     query: {}
   }
 
-  let allClients = await context.functions.execute(`databaseControl`, databaseParameters)
-return {debug: allClients}
+  var allClients = await context.functions.execute(`databaseControl`, databaseParameters)
+
   // var insertedIds = JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
