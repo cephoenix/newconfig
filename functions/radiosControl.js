@@ -94,7 +94,7 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      return {debug: action}
+      
       let databaseParameters = {
         action: `findOne`,
         collection: `clients`,
@@ -103,9 +103,6 @@ exports = async function (payload) {
 
       let temp = await context.functions.execute(`databaseControl`, databaseParameters)
       
-      
-
-
       break;
 
     default:
