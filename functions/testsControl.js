@@ -26,14 +26,15 @@ exports = async function (payload) {
         operationParameters = null
         break;
       case 'debug':
-        //  var u = new utils();
-        
-        // // return {
-        // //   m1: u.metodo1(),
-        // //   m2: u.metodo2(), 
-        // //   debug: await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date()})
-        // // }
-        return {debug:{panId: await context.functions.execute("encryptText", "8888"), initialPanId: await context.functions.execute("encryptText", "9773")}}
+
+        let databaseParameters = {
+          action: `findAll`,
+          collection: `clients`,
+          query: { }
+        }
+
+        let temp = await context.functions.execute(`databaseControl`, databaseParameters)
+        return {debug: temp}
         break;
 
     default:
