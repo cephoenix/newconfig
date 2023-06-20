@@ -35,7 +35,7 @@ exports = async function (payload) {
    */
   action = processedRequestData.urlParameters.action
   databaseQuery = processedRequestData.body
-  return {debug: action}
+
   switch (action) {
     case 'create':
       databaseAction = 'insertOne';
@@ -94,7 +94,7 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      
+      return {debug: action}
       let databaseParameters = {
         action: `findOne`,
         collection: `clients`,
