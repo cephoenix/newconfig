@@ -23,6 +23,7 @@ exports = async function (data) {
    * Nesse ponto os dados já devem ter sido validados e preparados para a operação
    */
   try {
+    return {d: data}
     return await execute(data)
   } catch (error) {
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
@@ -35,7 +36,7 @@ exports = async function (data) {
  * @param {*} data 
  */
 async function validate(parameters) {
-  return {debug: parameters}
+
   /**
    * Essa verificação é comum a todas as operações
    */
