@@ -27,12 +27,11 @@ exports = async function (payload) {
         break;
       case 'debug':
         const query = await context.services.get('mongodb-atlas').db('configRadio').collection(`users`)
-        ret=await query.find({});
-        
-        ret = EJSON.stringify(ret)
-        
-        console.log('ret',ret)
-        return ret;
+        let retAux=await query.find({});
+        retAux=await retAux.toArray();
+        console.log(JSON.stringify(retAux));
+      
+        return retAux;
         /*
         ret.forEach(element => {
           temp.push(element)
