@@ -94,7 +94,7 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      
+      return {debug: processedRequestData}
       let databaseParameters = {
         action: `findOne`,
         collection: `clients`,
