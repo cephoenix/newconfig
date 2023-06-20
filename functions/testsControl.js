@@ -31,8 +31,14 @@ exports = async function (payload) {
         // ret.forEach(element => {
         //   temp.push(element)
         // });
+        
+        
+        /*
         var temp = JSON.parse(JSON.stringify(ret))
         return {isArray: Array.isArray(ret), ret: ret, lenret: ret.length , iArray2: Array.isArray(temp), temp: temp, lentemp: temp.length}
+        */
+
+
         // let databaseParameters = {
         //   action: `findMany`,
         //   collection: `clients`,
@@ -41,6 +47,8 @@ exports = async function (payload) {
 
         // let temp = await context.functions.execute(`databaseControl`, databaseParameters)
         // return {debug: temp}
+
+        return ret
         break;
 
     default:
