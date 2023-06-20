@@ -28,7 +28,7 @@ exports = async function (payload) {
       case 'debug':
         var ret = await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).find({})
         var temp = []
-        ret.array.forEach(element => {
+        ret.forEach(element => {
           temp.push(element)
         });
         return {ret: ret, temp: temp}
