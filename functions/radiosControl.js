@@ -101,7 +101,7 @@ exports = async function (payload) {
       }
 
       let temp = await context.functions.execute(`databaseControl`, databaseParameters)
-      return {debug: temp}
+      return {debug: temp, params: databaseParameters}
       break;
 
     default:
