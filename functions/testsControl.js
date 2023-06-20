@@ -19,7 +19,7 @@ exports = async function (payload) {
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-  action='debug'
+
   switch (action) {
       case 'rebuildDatabase':
         operationName = 'testsRebuildDatabase'
