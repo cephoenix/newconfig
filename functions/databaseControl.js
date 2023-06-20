@@ -23,7 +23,6 @@ exports = async function (data) {
    * Nesse ponto os dados já devem ter sido validados e preparados para a operação
    */
   try {
-    return {d: data}
     return await execute(data)
   } catch (error) {
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
@@ -143,7 +142,7 @@ async function execute(parameters) {
     switch (parameters.action) {
       case 'findOne':
         if (parameters.projection == null) {
-          
+          return {query: data, response: await dbquery.findOne(parameters.query, parameters.options)}
           return await dbquery.findOne(parameters.query, parameters.options)
         } else {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
