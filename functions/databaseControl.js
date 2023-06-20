@@ -148,7 +148,8 @@ async function execute(parameters) {
         }
       case 'findMany':
         if (parameters.projection == null) {
-          return await dbquery.find(parameters.query, parameters.options)
+          var temp = await dbquery.find(parameters.query, parameters.options)
+          throw {debug: temp.hasNext()}
         } else {
           return await dbquery.find(parameters.query, parameters.projection, parameters.options)
         }
