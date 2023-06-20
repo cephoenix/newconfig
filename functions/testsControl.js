@@ -34,7 +34,7 @@ exports = async function (payload) {
         // //   m2: u.metodo2(), 
         // //   debug: await context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`).insertOne({debug: true, date: new Date()})
         // // }
-        // return {debug:{}}
+        return {debug:{panId: await context.functions.execute("encryptText", "8888"), initialPanId: await context.functions.execute("encryptText", "9773")}}
         break;
 
     default:
