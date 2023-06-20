@@ -139,10 +139,11 @@ async function preproccess(parameters) {
 async function execute(parameters) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
   try {
+    return {debug: parameters}
     switch (parameters.action) {
       case 'findOne':
         if (parameters.projection == null) {
-          return {debug: action}
+          
           return await dbquery.findOne(parameters.query, parameters.options)
         } else {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
