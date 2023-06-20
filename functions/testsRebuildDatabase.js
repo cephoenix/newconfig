@@ -230,7 +230,15 @@ exports = async function (data) {
       clients: allClients,
       permissions: []
     }
-  )
+  );
+
+  databaseParameters = {
+    action: `findOne`,
+    collection: `clients`,
+    query: {initials: `JJJ` }
+  }
+
+  let jardelsClient = await context.functions.execute(`databaseControl`, databaseParameters)
 
   for (let i = 0; i < 10000; i++) {
     parameters.push({
@@ -252,7 +260,7 @@ exports = async function (data) {
       "deviceClass": "1",
       "productCode": "1",
       "status": "unused",
-      "clientOID": `${insertedIds[1]}`,
+      "clientOID": `${jardelsClient._id}`,
       "clientName": "DEV - Jardel",
       "clientInitials": "JJJ",
       "clientChannel": 26,
