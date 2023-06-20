@@ -190,11 +190,10 @@ exports = async function (data) {
     query: {}
   }
 
-  var allClients = []
-  allClients = await context.functions.execute(`databaseControl`, databaseParameters)
+  var allClients = await context.functions.execute(`databaseControl`, databaseParameters)
 
   // var insertedIds = JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
-
+return {debug: allClients, type: typeof allClients}
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
       "login": "jardel0101",
