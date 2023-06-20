@@ -47,7 +47,7 @@ exports = async function (data) {
     throw "Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela deviceTypes"
   }
 
-  var parameters = []
+  
   var dbResponse
 
   dbResponse = await context.services.get("mongodb-atlas").db("configRadio").collection("clients").insertMany([
@@ -240,6 +240,7 @@ exports = async function (data) {
 
   let jardelsClient = await context.functions.execute(`databaseControl`, databaseParameters)
 
+  let parameters = []
   for (let i = 0; i < 10000; i++) {
     parameters.push({
       "address64Bit": `00000000000000${i}`,
@@ -269,11 +270,19 @@ exports = async function (data) {
     })
   }
 
-  try {
-    dbResponse = await context.functions.execute('radiosInsertMany', parameters);
-  } catch (e) {
-    throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
+  databaseParameters = {
+    action: `insertMany`,
+    collection: `radios`,
+    query: parameters
   }
+
+  await context.functions.execute(`databaseControl`, databaseParameters)
+
+  // try {
+  //   dbResponse = await context.functions.execute('radiosInsertMany', parameters);
+  // } catch (e) {
+  //   throw "Erro ao inserir dados no Banco (tests populate radios collection)!" + e
+  // }
 
   var response = await context.http.get({
     url: "https://app.firebee.com.br/api/1.1/obj/Products/",
