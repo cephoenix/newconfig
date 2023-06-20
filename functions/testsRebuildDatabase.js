@@ -262,10 +262,10 @@ exports = async function (data) {
       "productCode": "1",
       "status": "unused",
       "clientOID": `${jardelsClient._id}`,
-      "clientName": "DEV - Jardel",
-      "clientInitials": "JJJ",
-      "clientChannel": 26,
-      "clientType": "Desenvolvimento",
+      "clientName": `${jardelsClient.name}`,
+      "clientInitials": `${jardelsClient.initials}`,
+      "clientChannel": jardelsClient.channel,
+      "clientType": jardelsClient.clientType,
       "recordingDate": new Date()
     })
   }
