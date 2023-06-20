@@ -192,14 +192,9 @@ exports = async function (data) {
   var clients = await context.functions.execute(`databaseControl`, databaseParameters)
   var allClients = []
   
-  return {clients: clients, len: clients.length, size: clients.size(), next: clients.hasNext()}
   while(clients.hasNext()) {
-
+    allClients.push(clients.next())
   }
-
-  clients.forEach(client => {
-    allClients.push(client)
-  });
 
   var userToInsert = {}
   userToInsert.login = `jardel0101`
