@@ -35,7 +35,7 @@ exports = async function (payload) {
    */
   action = processedRequestData.urlParameters.action
   databaseQuery = processedRequestData.body
-return {debug: true}
+  return {debug: action}
   switch (action) {
     case 'create':
       databaseAction = 'insertOne';
