@@ -28,9 +28,9 @@ exports = async function (payload) {
       case 'debug':
 
         let databaseParameters = {
-          action: `findAll`,
+          action: `findMany`,
           collection: `clients`,
-          query: { }
+          query: {}
         }
 
         let temp = await context.functions.execute(`databaseControl`, databaseParameters)
