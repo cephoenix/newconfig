@@ -33,7 +33,7 @@ exports = async function (payload) {
         //   temp.push(element)
         // });
         
-        return {isArray: Array.isArray(ret), temp: temp, size: temp.length, retornou: ret[0] }
+        return {isArray: Array.isArray(ret), parsed: JSON.parse(ret), ret: ret }
         // let databaseParameters = {
         //   action: `findMany`,
         //   collection: `clients`,
