@@ -93,6 +93,21 @@ exports = async function (payload) {
       operationName = 'radiosInsertMany';
       break;
 
+      case 'getNewNumber':
+        
+        let databaseParameters = {
+          action: `findOne`,
+          collection: `clients`,
+          query: { "_id": new BSON.ObjectId(parameters.clientId) }
+        }
+
+        let temp = await context.functions.execute(`databaseControl`, databaseParameters)
+        
+        throw {debug: temp}
+
+
+        break;
+
     default:
       return { success: false, data: `Ação inválida!`}
   }

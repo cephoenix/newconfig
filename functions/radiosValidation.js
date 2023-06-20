@@ -32,6 +32,10 @@ exports = async function (data) {
       await validateDeleteOne(parameters)
       break;
 
+    case 'getNewNumber':
+      await validateGetNewNumber(parameters)
+      break;
+
     default:
       if (action == null || action == undefined || action == ``) {
         throw `Nenhuma ação informada!`
@@ -102,5 +106,15 @@ async function validateDeleteOne (parameters) {
 
   if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
     throw `O campo "_id" é obrigatório!`
+  }
+}
+
+async function validateGetNewNumber (parameters) {
+  if(parameters.mac == `` || parameters.mac == undefined || parameters.mac == null) {
+    throw `O campo "mac" é obrigatório!`
+  }
+
+  if(parameters.clientId == `` || parameters.clientId == undefined || parameters.clientId == null) {
+    throw `O campo "clientId" é obrigatório!`
   }
 }
