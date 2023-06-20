@@ -141,7 +141,6 @@ async function execute(parameters) {
         throw `Ação inválida.`
     }
   } catch (error) {
-    throw { DeuErro: error }
     throw error
   }
 }
