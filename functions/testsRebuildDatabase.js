@@ -190,7 +190,8 @@ exports = async function (data) {
     query: {}
   }
 
-  var allClients = await context.functions.execute(`databaseControl`, databaseParameters)
+  var allClients = []
+  allClients = await context.functions.execute(`databaseControl`, databaseParameters)
 
   // var insertedIds = JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
 
