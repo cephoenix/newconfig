@@ -10,7 +10,7 @@ exports = async function (payload) {
   var processedRequestData
   var databaseAction
     
-  
+  return {payload}
   /**
    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
    */
