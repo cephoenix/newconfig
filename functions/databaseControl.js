@@ -61,6 +61,35 @@ async function validate(parameters) {
         throw `É necessário informar um critério para definir quais documentos serão atualizados!`
       }
       break;
+    case 'findOne':
+
+      break;
+    case 'findMany':
+
+      break;
+    case 'insertOne':
+      
+      break;
+    case 'insertMany':
+      
+      break;
+    case 'updateOne':
+      
+      break;
+    case `findOneAndUpdate`:
+      
+      break;
+    case 'updateMany':
+      
+      break;
+    case 'deleteOne':
+      
+      break;
+    case 'excludeOne':
+      
+      break;
+    default:
+      throw `Ação inválida.`
   }
 }
 
@@ -139,8 +168,6 @@ async function execute(parameters) {
         return await dbquery.deleteOne(parameters.filter, parameters.options)
       case 'excludeOne':
         return await dbquery.deleteMany(parameters.filter, parameters.options)
-      default:
-        throw `Ação inválida.`
     }
   } catch (error) {
     throw error
