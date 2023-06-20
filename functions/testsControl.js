@@ -7,32 +7,37 @@ exports = async function (payload) {
   let operationResponse
   let operationParameters
   let success = true
-
+/*
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
   } catch (err) {
     action = payload.action
   }
-
+*/
   /**
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-
+  action='debug'
   switch (action) {
       case 'rebuildDatabase':
         operationName = 'testsRebuildDatabase'
         operationParameters = null
         break;
       case 'debug':
-        var ret = await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).find({})
-
-        return {ret: ret}
+        const query = await context.services.get('mongodb-atlas').db('configRadio').collection(`users`)
+        ret=await query.find({});
+        
+        ret = EJSON.stringify(ret)
+        
+        console.log('ret',ret)
+        return ret;
+        /*
         ret.forEach(element => {
           temp.push(element)
         });
-        
+        */
         
         /*
         var temp = JSON.parse(JSON.stringify(ret))
@@ -49,7 +54,7 @@ exports = async function (payload) {
         // let temp = await context.functions.execute(`databaseControl`, databaseParameters)
         // return {debug: temp}
 
-        return {ret: ret, len: ret.length}
+        return true
         break;
 
     default:
