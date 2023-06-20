@@ -239,7 +239,6 @@ exports = async function (data) {
   }
 
   let jardelsClient = await context.functions.execute(`databaseControl`, databaseParameters)
-return {clienteJardel: jardelsClient, id: jardelsClient._id}
 
   let parameters = []
   for (let i = 0; i < 10000; i++) {
