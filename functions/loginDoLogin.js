@@ -70,7 +70,7 @@ exports = async function (payload) {
   let databaseParameters = {
     action: `findMany`,
     collection: `deviceTypes`,
-    query: { },
+    query: {},
     filter: {}
   }
 
