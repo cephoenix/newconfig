@@ -190,28 +190,24 @@ exports = async function (data) {
     query: {}
   }
 
+  var userToInsert = {}
+  userToInsert.login = `jardel0101`
+  userToInsert.password = `EFDA0BD51E79959399756DD0FC4BA89653780EF8`
+  userToInsert.email = `jardel@firebee.com.br`
+  userToInsert.fullName = `Jardel Cândido`
+  userToInsert.exhibitionName = `Jejel`
+  userToInsert.cpfCnpj = `01234567899`
+  userToInsert.zone = `Centro Oeste`
+  userToInsert.profilePicture = jardelProfilePicture
+  userToInsert.permissionLevel = {level: 0, description: `Firebee`}
+  userToInsert.clients = allClients
+  userToInsert.permissions = []
+
   var allClients = await context.functions.execute(`databaseControl`, databaseParameters)
 
   // var insertedIds = JSON.parse(JSON.stringify(dbResponse)).insertedIds //Mega Gambiarra por causa de alguma coisa q o Mongo tá fazendo errado 
-return {debug: allClients, type: typeof allClients}
-  context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
-    {
-      "login": "jardel0101",
-      "password": "EFDA0BD51E79959399756DD0FC4BA89653780EF8",
-      "email": "jardel@firebee.com.br",
-      "fullName": "Jardel Cândido",
-      "exhibitionName": "Jejel",
-      "cpfCnpj": "01234567899",
-      "zone": "Centro Oeste",
-      "profilePicture": jardelProfilePicture,
-      "permissionLevel": {
-        "level": 0,
-        "description": "Firebee"
-      },
-      "clients": allClients,
-      "permissions": []
-    }
-  )
+  // return {debug: allClients, type: typeof allClients}
+  context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(userToInsert)
 
   context.services.get("mongodb-atlas").db("configRadio").collection("users").insertOne(
     {
