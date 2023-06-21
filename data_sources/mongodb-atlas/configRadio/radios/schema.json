@@ -1,0 +1,88 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "address16Bits": {
+            "bsonType": "string"
+        },
+        "address64Bit": {
+            "bsonType": "string"
+        },
+        "clientChannel": {
+            "bsonType": "long"
+        },
+        "clientInitials": {
+            "bsonType": "string"
+        },
+        "clientName": {
+            "bsonType": "string"
+        },
+        "clientOID": {
+            "bsonType": "string"
+        },
+        "clientType": {
+            "bsonType": "object",
+            "properties": {
+                "name": {
+                    "bsonType": "string"
+                },
+                "type": {
+                    "bsonType": "long"
+                }
+            }
+        },
+        "connectionRouterAddress": {
+            "bsonType": "string"
+        },
+        "deviceClass": {
+            "bsonType": "string"
+        },
+        "deviceTypeDescription": {
+            "bsonType": "string"
+        },
+        "deviceTypeId": {
+            "bsonType": "string"
+        },
+        "deviceTypeInitials": {
+            "bsonType": "string"
+        },
+        "deviceTypeName": {
+            "bsonType": "string"
+        },
+        "firmwareVersion": {
+            "bsonType": "string"
+        },
+        "group": {
+            "bsonType": "string"
+        },
+        "hardwareVersion": {
+            "bsonType": "string"
+        },
+        "manufacturerId": {
+            "bsonType": "string"
+        },
+        "name": {
+            "bsonType": "string"
+        },
+        "number": {
+            "bsonType": "string"
+        },
+        "oldDatabaseId": {
+            "bsonType": "string"
+        },
+        "productCode": {
+            "bsonType": "string"
+        },
+        "profileId": {
+            "bsonType": "string"
+        },
+        "recordingDate": {
+            "bsonType": "date"
+        },
+        "status": {
+            "bsonType": "string"
+        }
+    },
+    "title": "radio"
+}

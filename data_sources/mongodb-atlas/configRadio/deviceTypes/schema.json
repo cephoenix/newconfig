@@ -1,0 +1,23 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "class": {
+            "bsonType": "string"
+        },
+        "description": {
+            "bsonType": "string"
+        },
+        "exhibitionName": {
+            "bsonType": "string"
+        },
+        "initials": {
+            "bsonType": "string"
+        },
+        "productCode": {
+            "bsonType": "string"
+        }
+    },
+    "title": "deviceType"
+}

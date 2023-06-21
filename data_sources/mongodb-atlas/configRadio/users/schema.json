@@ -1,0 +1,126 @@
+{
+    "properties": {
+        "_id": {
+            "bsonType": "objectId"
+        },
+        "clients": {
+            "bsonType": "array",
+            "items": {
+                "bsonType": "object",
+                "properties": {
+                    "_id": {
+                        "bsonType": "objectId"
+                    },
+                    "address": {
+                        "bsonType": "string"
+                    },
+                    "channel": {
+                        "bsonType": "long"
+                    },
+                    "city": {
+                        "bsonType": "string"
+                    },
+                    "clientType": {
+                        "bsonType": "object",
+                        "properties": {
+                            "name": {
+                                "bsonType": "string"
+                            },
+                            "type": {
+                                "bsonType": "long"
+                            }
+                        }
+                    },
+                    "country": {
+                        "bsonType": "string"
+                    },
+                    "creationDate": {
+                        "bsonType": "date"
+                    },
+                    "deviceSummary": {
+                        "bsonType": "object",
+                        "properties": {}
+                    },
+                    "documentIdentificationNumber": {
+                        "bsonType": "string"
+                    },
+                    "extendedPanId": {
+                        "bsonType": "string"
+                    },
+                    "initials": {
+                        "bsonType": "string"
+                    },
+                    "linkKey": {
+                        "bsonType": "string"
+                    },
+                    "name": {
+                        "bsonType": "string"
+                    },
+                    "nationalIdentificationNumber": {
+                        "bsonType": "string"
+                    },
+                    "networkKey": {
+                        "bsonType": "string"
+                    },
+                    "oldDatabaseId": {
+                        "bsonType": "long"
+                    },
+                    "panId": {
+                        "bsonType": "string"
+                    },
+                    "postalCode": {
+                        "bsonType": "string"
+                    },
+                    "province": {
+                        "bsonType": "string"
+                    },
+                    "state": {
+                        "bsonType": "string"
+                    },
+                    "stateInitials": {
+                        "bsonType": "string"
+                    },
+                    "taxId": {
+                        "bsonType": "string"
+                    }
+                }
+            }
+        },
+        "cpfCnpj": {
+            "bsonType": "string"
+        },
+        "email": {
+            "bsonType": "string"
+        },
+        "exhibitionName": {
+            "bsonType": "string"
+        },
+        "fullName": {
+            "bsonType": "string"
+        },
+        "login": {
+            "bsonType": "string"
+        },
+        "password": {
+            "bsonType": "string"
+        },
+        "permissionLevel": {
+            "bsonType": "object",
+            "properties": {
+                "description": {
+                    "bsonType": "string"
+                },
+                "level": {
+                    "bsonType": "long"
+                }
+            }
+        },
+        "profilePicture": {
+            "bsonType": "string"
+        },
+        "zone": {
+            "bsonType": "string"
+        }
+    },
+    "title": "user"
+}
