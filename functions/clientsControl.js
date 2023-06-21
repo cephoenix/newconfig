@@ -62,9 +62,7 @@ exports = async function (payload) {
       collection: databaseCollection,
       query: databaseQuery
     }
-return {
-  query: databaseParameters
-}
+
     return {
       success: true,
       data: await context.functions.execute(`databaseControl`, databaseParameters)
