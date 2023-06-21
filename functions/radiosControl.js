@@ -101,10 +101,10 @@ exports = async function (payload) {
       }
 
       let device = await context.functions.execute(`databaseControl`, databaseParameters)
-      throw {debug: true, dev: device}
+      
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
-
+        throw {debug: true, ret: ret}
         //We need to check if there is any device of this type on this client network and return next number
         let databaseParameters = {
           action: `findOne`,
