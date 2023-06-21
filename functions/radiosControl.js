@@ -99,8 +99,18 @@ exports = async function (payload) {
         query: { _id: processedRequestData.body.clientId }
       }
 
-      let temp = await context.functions.execute(`databaseControl`, databaseParameters)
-      return {debug2: temp, params: databaseParameters}
+      let client = await context.functions.execute(`databaseControl`, databaseParameters)
+
+      databaseParameters = {
+        action: `findOne`,
+        collection: `radios`,
+        query: { mac: processedRequestData.body.mac }
+      }
+
+      let device = await context.functions.execute(`databaseControl`, databaseParameters)
+
+      return {debug2: client, ds: client.deviceSummary, device: device}
+
       break;
 
     default:
