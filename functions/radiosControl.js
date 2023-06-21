@@ -104,7 +104,7 @@ exports = async function (payload) {
       databaseParameters = {
         action: `findOne`,
         collection: `radios`,
-        query: { address64Bit: processedRequestData.body.address64Bit }
+        query: { address64Bit: processedRequestData.body.mac }
       }
 
       let device = await context.functions.execute(`databaseControl`, databaseParameters)
