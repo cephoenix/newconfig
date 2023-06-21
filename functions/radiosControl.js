@@ -8,8 +8,7 @@ exports = async function (payload) {
   var databaseFilter
   let operationParameters = {}
   var processedRequestData
-  var databaseAction
-return {debug: payload}
+
   /**
    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
    */
@@ -18,7 +17,7 @@ return {debug: payload}
   } catch (error) {
     return { success: false, data: error}
   }
-
+return processedRequestData
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
    */
