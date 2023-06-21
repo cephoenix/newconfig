@@ -98,7 +98,7 @@ exports = async function (payload) {
         collection: `clients`,
         query: { _id: processedRequestData.body.clientId }
       }
-
+return {p1: p}
       let temp = await context.functions.execute(`databaseControl`, databaseParameters)
       return {debug2: temp, params: p}
       break;
