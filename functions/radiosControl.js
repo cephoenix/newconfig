@@ -92,6 +92,7 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
+      throw {debug: true}
       var ret = {}
 
       databaseParameters = {
@@ -111,7 +112,7 @@ exports = async function (payload) {
           collection: `clients`,
           query: { _id: processedRequestData.body.clientId }
         }
-        throw {debug: true}
+        
         let client = await context.functions.execute(`databaseControl`, databaseParameters)
         
         let deviceType = processedRequestData.name.substring(4,8)
