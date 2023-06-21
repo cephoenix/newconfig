@@ -142,6 +142,7 @@ async function execute(parameters) {
   try {
     switch (parameters.action) {
       case 'findOne':
+        return await dbquery.findOne(parameters.query)
         if (parameters.projection == null) {
           return await dbquery.findOne(parameters.query, parameters.options)
         } else {
