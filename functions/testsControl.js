@@ -8,6 +8,8 @@ exports = async function (payload) {
   let operationParameters
   let success = true
 
+//Teste de sync
+
   try {
     //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
