@@ -9,7 +9,7 @@ exports = async function (payload) {
   let operationParameters = {}
   var processedRequestData
   var databaseAction
-
+return {debug: payload}
   /**
    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
    */
@@ -93,13 +93,7 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      let databaseParameters = {
-        action: `findOne`,
-        collection: `clients`,
-        query: { _id: processedRequestData.body.clientId }
-      }
-
-      let client = await context.functions.execute(`databaseControl`, databaseParameters)
+      var ret = {}
 
       databaseParameters = {
         action: `findOne`,
@@ -109,7 +103,50 @@ exports = async function (payload) {
 
       let device = await context.functions.execute(`databaseControl`, databaseParameters)
 
-      return {debug2: client, ds: client.deviceSummary, device: device}
+      if(await isEmpty(device)) {               //In this case, device network was never changed
+        ret.rewrite = false
+
+        //We need to check if there is any device of this type on this client network and return next number
+        let databaseParameters = {
+          action: `findOne`,
+          collection: `clients`,
+          query: { _id: processedRequestData.body.clientId }
+        }
+  
+        let client = await context.functions.execute(`databaseControl`, databaseParameters)
+        
+        let deviceType = processedRequestData.name.substring(4,8)
+
+        if(await isEmpty(client.deviceSummary)) {
+          client.deviceSummary = {}
+          client.deviceSummary.device = {}
+          client.deviceSummary.device.type = `${deviceType}`
+          ret.number = 1
+        } else {
+
+        }
+        
+      } else {                                  //In this case, device already exists
+        ret.rewrite = true
+        if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
+          ret.number = 1
+        } else {                                
+          ret.number = device.number
+        }
+      }
+
+
+
+
+
+
+
+
+
+      
+
+      return {ret: ret, debug2: client, ds: client.deviceSummary, device: device}
+      return { success: true, data: ret}
 
       break;
 
@@ -135,3 +172,9 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 };
+
+
+
+async function isEmpty(valueToBeChecked) {
+  return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
+}
