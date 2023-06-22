@@ -119,11 +119,9 @@ exports = async function (payload) {
       
       client = await context.functions.execute(`databaseControl`, databaseParameters)
 
-      
-      ret.overwrite = (device.deviceTypeInitials != deviceType)
-
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
+        ret.overwrite = false
         ret.name = `${client.initials}_${deviceType}0001`
 
         //Inicializar o resumo do dispositivo aqui
@@ -139,6 +137,7 @@ exports = async function (payload) {
         }
       } else {                                  //In this case, device already exists
         ret.rewrite = true
+        ret.overwrite = (device.deviceTypeInitials != deviceType)
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
           ret.name = `${client.initials}_${deviceType}0001`
           client.deviceSummary[deviceType] = 1
