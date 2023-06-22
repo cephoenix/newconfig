@@ -125,7 +125,7 @@ exports = async function (payload) {
 
         //Inicializar o resumo do dispositivo aqui
         if(await isEmpty(client.deviceSummary)) {
-          client.deviceSummary = {}
+          client.deviceSummary = { teste: true}
         } else {
           
         }
