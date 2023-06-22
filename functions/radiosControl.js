@@ -125,20 +125,22 @@ exports = async function (payload) {
 
         //Inicializar o resumo do dispositivo aqui
         if(await isEmpty(client.deviceSummary)) {
-          client.deviceSummary.teste = true
+          client.deviceSummary = {}
+          client.deviceSummary
+          client.deviceSummary[deviceType] = 1
         } else {
-          client.deviceSummary.teste2 = true
+          client.deviceSummary[deviceType] = 500
         }
       } else {                                  //In this case, device already exists
         ret.rewrite = true
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
           ret.number = 1
           ret.name = `${client.initials}_${deviceType}0001`
-          client.deviceSummary.teste3 = true
+          client.deviceSummary[deviceType] = 1
         } else {                                
           ret.number = device.number
           ret.name = device.name
-          client.deviceSummary.teste4 = true
+          client.deviceSummary[deviceType] = 501
         }
       }
       //Forçar gravação: Mesmo cliente, mas dispositivo diferente
