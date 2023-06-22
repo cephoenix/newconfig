@@ -188,6 +188,7 @@ async function execute(parameters) {
       //     "permissions": [],
       //     "blocked": true
       // }, {})
+        return {debug: {query: parameters.query, options: parameters.options}}
         return await dbquery.insertOne(parameters.query, parameters.options)
       case 'insertMany':
         return await dbquery.insertMany(parameters.query, parameters.options)
