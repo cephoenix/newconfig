@@ -118,15 +118,17 @@ async function preproccess(parameters) {
         } else if (parameters.projection == ``) {
           parameters.projection = null
         }
-
-        if (parameters.options == undefined) {
-          parameters.options = {}
-        } else if (parameters.options == ``) {
-          parameters.options = {}
-        }
         break;
     }
+
+    if (parameters.options == undefined) {
+      parameters.options = {}
+    } else if (parameters.options == ``) {
+      parameters.options = {}
+    }
+
     return parameters;
+    
   } catch (error) {
     throw error
   }
