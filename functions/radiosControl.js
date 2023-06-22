@@ -92,61 +92,9 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      var requestData = processedRequestData.body
-      var deviceType = requestData.deviceName.substring(4,9)
-      var ret = {}
-      var client
-      
-      ret.type = deviceType
+      return { success: true, data: await getRadioNumber(processedRequestData.body) }
 
-      databaseParameters = {
-        action: `findOne`,
-        collection: `radios`,
-        query: { address64Bit: requestData.mac }
-      }
-
-      let device = await context.functions.execute(`databaseControl`, databaseParameters)
-
-      //We need to check if there is any device of this type on this client network and return next number
-      let databaseParameters = {
-        action: `findOne`,
-        collection: `clients`,
-        query: { _id: requestData.clientId }
-      }
-      
-      client = await context.functions.execute(`databaseControl`, databaseParameters)
-
-      if(await isEmpty(device)) {               //In this case, device network was never changed
-        ret.rewrite = false
-        ret.overwrite = false
-        ret.name = `${client.initials}_${deviceType}0001`
-
-        //Inicializar o resumo do dispositivo aqui
-        if(await isEmpty(client.deviceSummary)) {
-          client.deviceSummary = {}
-          client.deviceSummary[deviceType] = 1
-        } else {
-          if(await isEmpty(client.deviceSummary[deviceType])) {
-            client.deviceSummary[deviceType] = 1
-          } else {
-            client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
-          }
-        }
-      } else {                                                                            //In this case, device already exists
-        ret.rewrite = true
-        ret.overwrite = (device.deviceTypeInitials != deviceType)
-        if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
-          ret.name = `${client.initials}_${deviceType}0001`
-          client.deviceSummary[deviceType] = 1
-        } else {
-          ret.name = device.name
-        }
-      }
-
-      return { success: true, data: ret}
       case 'changeClient':
-
-
 
         break;
     default:
@@ -172,7 +120,59 @@ exports = async function (payload) {
   }
 };
 
+async function getRadioNumber(requestData) {
+  var requestData = processedRequestData.body
+  var deviceType = requestData.deviceName.substring(4,9)
+  var ret = {}
+  var client
+  
+  ret.type = deviceType
 
+  databaseParameters = {
+    action: `findOne`,
+    collection: `radios`,
+    query: { address64Bit: requestData.mac }
+  }
+
+  let device = await context.functions.execute(`databaseControl`, databaseParameters)
+
+  //We need to check if there is any device of this type on this client network and return next number
+  let databaseParameters = {
+    action: `findOne`,
+    collection: `clients`,
+    query: { _id: requestData.clientId }
+  }
+  
+  client = await context.functions.execute(`databaseControl`, databaseParameters)
+
+  if(await isEmpty(device)) {               //In this case, device network was never changed
+    ret.rewrite = false
+    ret.overwrite = false
+    ret.name = `${client.initials}_${deviceType}0001`
+
+    //Inicializar o resumo do dispositivo aqui
+    if(await isEmpty(client.deviceSummary)) {
+      client.deviceSummary = {}
+      client.deviceSummary[deviceType] = 1
+    } else {
+      if(await isEmpty(client.deviceSummary[deviceType])) {
+        client.deviceSummary[deviceType] = 1
+      } else {
+        client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
+      }
+    }
+  } else {                                                                            //In this case, device already exists
+    ret.rewrite = true
+    ret.overwrite = (device.deviceTypeInitials != deviceType)
+    if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
+      ret.name = `${client.initials}_${deviceType}0001`
+      client.deviceSummary[deviceType] = 1
+    } else {
+      ret.name = device.name
+    }
+  }
+  return ret
+}
 
 async function isEmpty(valueToBeChecked) {
   return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
