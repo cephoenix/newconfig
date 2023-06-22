@@ -97,7 +97,7 @@ exports = async function (payload) {
       var requestData = processedRequestData.body
       var deviceType = requestData.deviceName.substring(4,9)
       var ret = {}
-      ret.debug = {}
+      ret.zdebug = {}
       ret.type = deviceType
 
       databaseParameters = {
