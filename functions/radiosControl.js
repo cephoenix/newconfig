@@ -127,6 +127,7 @@ exports = async function (payload) {
         } else {
 
         }
+        ret.debug = deviceSummary
 
       } else {                                  //In this case, device already exists
         ret.rewrite = true
