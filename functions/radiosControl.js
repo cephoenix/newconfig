@@ -104,6 +104,7 @@ exports = async function (payload) {
         query: { address64Bit: requestData.mac }
       }
       let device = await context.functions.execute(`databaseControl`, databaseParameters)
+
       device = await dbquery.findOne({address64Bit: requestData.mac})
 
       if(await isEmpty(device)) {               //In this case, device network was never changed
@@ -129,13 +130,12 @@ exports = async function (payload) {
 
       } else {                                  //In this case, device already exists
         ret.rewrite = true
+        ret.type = deviceType
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
           ret.number = 1
-          ret.type = deviceType
           ret.name = `${client.initials}_${deviceType}0001`
         } else {                                
           ret.number = device.number
-          ret.type = deviceType
           ret.name = device.name
         }
       }
