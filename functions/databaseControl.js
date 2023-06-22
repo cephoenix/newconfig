@@ -205,7 +205,7 @@ async function execute(parameters) {
         return await dbquery.deleteMany(parameters.filter, parameters.options)
     }
   } catch (error) {
-    throw {err: error}
+    throw {err: JSON.stringify(error)}
   }
 }
 
