@@ -92,6 +92,7 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
+      var deviceType = processedRequestData.deviceName.substring(4,8)
       var ret = {}
 
       databaseParameters = {
@@ -105,6 +106,7 @@ exports = async function (payload) {
       const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radios`)
 
       device = await dbquery.findOne({address64Bit: processedRequestData.body.mac})
+      
 
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
@@ -117,7 +119,6 @@ exports = async function (payload) {
         }
         
         let client = await context.functions.execute(`databaseControl`, databaseParameters)
-        var deviceType = processedRequestData.deviceName.substring(4,8)
         ret.type = deviceType
         ret.name = `${client.initials}_${deviceType}0001`
 
