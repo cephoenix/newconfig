@@ -143,13 +143,11 @@ exports = async function (payload) {
         }
       }
 
-      ret.debug = {}
-      
-      ret.debug.radio = device
-      ret.debug.databaseParameters = databaseParameters
-
       return { success: true, data: ret}
       case 'changeClient':
+
+
+
         break;
     default:
       return { success: false, data: `Ação inválida!`}
