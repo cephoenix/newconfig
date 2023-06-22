@@ -117,23 +117,27 @@ exports = async function (payload) {
         }
         
         let client = await context.functions.execute(`databaseControl`, databaseParameters)
-        
         let deviceType = processedRequestData.name.substring(4,8)
+        ret.type = deviceType
+        ret.name = `${client.initials}_${deviceType}0001`
 
+        //Inicializar o resumo do dispositivo aqui
         if(await isEmpty(client.deviceSummary)) {
           client.deviceSummary = {}
-          client.deviceSummary.device = {}
-          client.deviceSummary.device.type = `${deviceType}`
-          ret.number = 1
         } else {
 
         }
+
       } else {                                  //In this case, device already exists
         ret.rewrite = true
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
           ret.number = 1
+          ret.type = deviceType
+          ret.name = `${client.initials}_${deviceType}0001`
         } else {                                
           ret.number = device.number
+          ret.type = deviceType
+          ret.name = device.name
         }
       }
 
