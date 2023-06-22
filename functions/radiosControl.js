@@ -108,7 +108,7 @@ exports = async function (payload) {
       }
       let debugDevice = await context.functions.execute(`databaseControl`, databaseParameters)
 
-      device = await dbquery.findOne({address64Bit: requestData.mac})
+      device = await context.functions.execute(`databaseControl`, databaseParameters)
 
       //We need to check if there is any device of this type on this client network and return next number
       let databaseParameters = {
