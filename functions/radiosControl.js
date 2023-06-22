@@ -110,22 +110,22 @@ exports = async function (payload) {
 
       device = await dbquery.findOne({address64Bit: requestData.mac})
 
+      //We need to check if there is any device of this type on this client network and return next number
+      let databaseParameters = {
+        action: `findOne`,
+        collection: `clients`,
+        query: { _id: requestData.clientId }
+      }
+      
+      client = await context.functions.execute(`databaseControl`, databaseParameters)
+
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
-        
-        //We need to check if there is any device of this type on this client network and return next number
-        let databaseParameters = {
-          action: `findOne`,
-          collection: `clients`,
-          query: { _id: requestData.clientId }
-        }
-        
-        client = await context.functions.execute(`databaseControl`, databaseParameters)
         ret.name = `${client.initials}_${deviceType}0001`
 
         //Inicializar o resumo do dispositivo aqui
         if(await isEmpty(client.deviceSummary)) {
-          client.deviceSummary = { teste: true}
+          client.deviceSummary.teste = true
         } else {
           
         }
@@ -139,22 +139,11 @@ exports = async function (payload) {
           ret.name = device.name
         }
       }
-
-
-
-
-
-
-
-
+      //Forçar gravação: Mesmo cliente, mas dispositivo diferente
 
       ret.debug = {}
       ret.debug.client = client
-
-      
       return { success: true, data: ret}
-
-      break;
 
     default:
       return { success: false, data: `Ação inválida!`}
