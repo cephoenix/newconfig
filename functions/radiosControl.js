@@ -106,7 +106,7 @@ exports = async function (payload) {
         collection: `radios`,
         query: { address64Bit: requestData.mac }
       }
-      let device = await context.functions.execute(`databaseControl`, databaseParameters)
+      let debugDevice = await context.functions.execute(`databaseControl`, databaseParameters)
 
       device = await dbquery.findOne({address64Bit: requestData.mac})
 
@@ -145,6 +145,9 @@ exports = async function (payload) {
           ret.name = device.name
         }
       }
+
+      ret.debug = {}
+      ret.debug.radio = debugDevice
 
       return { success: true, data: ret}
       case 'changeClient':
