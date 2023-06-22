@@ -97,6 +97,7 @@ exports = async function (payload) {
       var requestData = processedRequestData.body
       var deviceType = requestData.deviceName.substring(4,9)
       var ret = {}
+      ret.debug = {}
       ret.type = deviceType
 
       databaseParameters = {
@@ -125,10 +126,9 @@ exports = async function (payload) {
         if(await isEmpty(client.deviceSummary)) {
           client.deviceSummary = {}
         } else {
-
+          
         }
-        ret.debug = deviceSummary
-
+        ret.debug.client = client
       } else {                                  //In this case, device already exists
         ret.rewrite = true
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
