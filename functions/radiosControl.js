@@ -95,7 +95,7 @@ exports = async function (payload) {
       const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radios`)
      
       var requestData = processedRequestData.body
-      var deviceType = requestData.deviceName.substring(4,8)
+      var deviceType = requestData.deviceName.substring(4,9)
       var ret = {}
 
       databaseParameters = {
