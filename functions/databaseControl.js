@@ -157,7 +157,37 @@ async function execute(parameters) {
         }
       case 'insertOne':
         
-        return await dbquery.insertOne({debug: false}, {})
+        return await dbquery.insertOne({
+          "login": "usuario07",
+          "cpfCnpj": "07",
+          "exhibitionName": "Carlão",
+          "permissionLevel": {
+              "level": 0,
+              "description": "Firebee"
+          },
+          "password": "F9DE888C0707A17F89E2DD4F2DB21BEE7B2766DB",
+          "email": "carlosemilio@firebee.com.br",
+          "fullName": "Carlos Emílio Pereira",
+          "zone": "Centro Oeste",
+          "clients": [
+              {
+                  "id": "6465411ff2e979495fbf7556",
+                  "name": "Carlos Emílio",
+                  "initials": "CEP",
+                  "channel": 26,
+                  "clientType": "Admin"
+              },
+              {
+                  "id": "646d34a9dbc71c44a1e003db",
+                  "name": "Carlos Emílio",
+                  "initials": "HEP",
+                  "channel": 26,
+                  "clientType": "Admin"
+              }
+          ],
+          "permissions": [],
+          "blocked": true
+      }, {})
         // return await dbquery.insertOne(parameters.query, parameters.options)
       case 'insertMany':
         return await dbquery.insertMany(parameters.query, parameters.options)
