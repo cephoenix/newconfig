@@ -92,6 +92,7 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
+      return {debug: true}
       return { success: true, data: await getRadioNumber(processedRequestData.body) }
 
       case 'changeClient':
