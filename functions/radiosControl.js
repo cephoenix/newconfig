@@ -128,7 +128,7 @@ exports = async function (payload) {
         } else {
           
         }
-        ret.debug.client = client
+        ret.zdebug.client = client
       } else {                                  //In this case, device already exists
         ret.rewrite = true
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
