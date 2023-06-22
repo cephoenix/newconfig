@@ -35,19 +35,7 @@
         "disable_arg_logs": true
     },
     {
-        "name": "databaseDeleteOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
         "name": "radiosControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "databaseExcludeOne",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -65,43 +53,15 @@
         "disable_arg_logs": true
     },
     {
-        "name": "databaseInsertMany",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "databaseInsertOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "databaseUpdateOne",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
         "name": "databaseControl",
         "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "databaseFindOne",
-        "private": false,
-        "disable_arg_logs": true
-    },
-    {
         "name": "encryptPassword",
         "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "databaseFindMany",
-        "private": false,
         "disable_arg_logs": true
     },
     {
