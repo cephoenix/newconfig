@@ -117,7 +117,7 @@ exports = async function (payload) {
         }
         
         let client = await context.functions.execute(`databaseControl`, databaseParameters)
-        let deviceType = processedRequestData.name.substring(4,8)
+        var deviceType = processedRequestData.name.substring(4,8)
         ret.type = deviceType
         ret.name = `${client.initials}_${deviceType}0001`
 
