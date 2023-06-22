@@ -61,10 +61,21 @@ async function validateCreate (parameters) {
     ]
   }
 
-  try {
-    resp = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
-  } catch (error) {
-    throw `Erro ao verificar se o cliente já existe: ${error}`
+  // try {
+  //   resp = await context.functions.execute('databaseFindOne', { query: JSON.stringify(query), collection: `clients` })
+  // } catch (error) {
+  //   throw `Erro ao verificar se o cliente já existe: ${error}`
+  // }
+
+  let databaseParameters = {
+    action: `findOne`,
+    collection: `clients`,
+    query: query
+  }
+
+  return {
+    success: true,
+    data: await context.functions.execute(`databaseControl`, databaseParameters)
   }
 
   if(resp != null) {
