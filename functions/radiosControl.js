@@ -92,8 +92,6 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radios`)
-     
       var requestData = processedRequestData.body
       var deviceType = requestData.deviceName.substring(4,9)
       var ret = {}
@@ -106,9 +104,8 @@ exports = async function (payload) {
         collection: `radios`,
         query: { address64Bit: requestData.mac }
       }
-      let debugDevice = await context.functions.execute(`databaseControl`, databaseParameters)
 
-      device = await context.functions.execute(`databaseControl`, databaseParameters)
+      let device = await context.functions.execute(`databaseControl`, databaseParameters)
 
       //We need to check if there is any device of this type on this client network and return next number
       let databaseParameters = {
