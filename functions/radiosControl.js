@@ -138,8 +138,6 @@ exports = async function (payload) {
           ret.number = device.number
           ret.name = device.name
         }
-        ret.debug = {}
-        ret.debug.client = client
       }
 
 
@@ -150,7 +148,8 @@ exports = async function (payload) {
 
 
 
-      
+      ret.debug = {}
+      ret.debug.client = client
 
       
       return { success: true, data: ret}
