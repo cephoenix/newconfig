@@ -143,8 +143,7 @@ async function execute(parameters) {
     switch (parameters.action) {
       case 'findOne':
         if (parameters.projection == null) {
-          return await dbquery.findOne({address64Bit: "000000000000001"}, {})
-          // return await dbquery.findOne(parameters.query, parameters.options)
+          return await dbquery.findOne(parameters.query, parameters.options)
         } else {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
         }

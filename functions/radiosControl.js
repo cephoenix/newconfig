@@ -99,9 +99,13 @@ exports = async function (payload) {
         collection: `radios`,
         query: { address64Bit: processedRequestData.body.mac }
       }
-
+      
       let device = await context.functions.execute(`databaseControl`, databaseParameters)
-      throw {debug: true, ret: ret, databaseParameters: databaseParameters}
+
+      const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radios`)
+
+      await dbquery.findOne({address64Bit: processedRequestData.body.mac})
+
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
         
