@@ -138,8 +138,8 @@ exports = async function (payload) {
           ret.number = device.number
           ret.name = device.name
         }
-        ret.zdebug = {}
-        ret.zdebug.client = client
+        ret.debug = {}
+        ret.debug.client = client
       }
 
 
