@@ -126,10 +126,13 @@ exports = async function (payload) {
         //Inicializar o resumo do dispositivo aqui
         if(await isEmpty(client.deviceSummary)) {
           client.deviceSummary = {}
-          client.deviceSummary
           client.deviceSummary[deviceType] = 1
         } else {
-          client.deviceSummary[deviceType] = 500
+          if(await isEmpty(client.deviceSummary[deviceType])) {
+            client.deviceSummary[deviceType] = 1
+          } else {
+            client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
+          }
         }
       } else {                                  //In this case, device already exists
         ret.rewrite = true
