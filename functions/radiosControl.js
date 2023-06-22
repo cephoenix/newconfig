@@ -135,20 +135,20 @@ exports = async function (payload) {
             client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
           }
         }
-      } else {                                  //In this case, device already exists
+      } else {                                                                            //In this case, device already exists
         ret.rewrite = true
         ret.overwrite = (device.deviceTypeInitials != deviceType)
-        if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
+        if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
           ret.name = `${client.initials}_${deviceType}0001`
           client.deviceSummary[deviceType] = 1
         } else {
           ret.name = device.name
         }
       }
-      //Forçar gravação: Mesmo cliente, mas dispositivo diferente
 
       return { success: true, data: ret}
-
+      case 'changeClient':
+        break;
     default:
       return { success: false, data: `Ação inválida!`}
   }
