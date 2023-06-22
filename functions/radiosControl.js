@@ -97,6 +97,7 @@ exports = async function (payload) {
       var requestData = processedRequestData.body
       var deviceType = requestData.deviceName.substring(4,9)
       var ret = {}
+      ret.type = deviceType
 
       databaseParameters = {
         action: `findOne`,
@@ -118,7 +119,6 @@ exports = async function (payload) {
         }
         
         let client = await context.functions.execute(`databaseControl`, databaseParameters)
-        ret.type = deviceType
         ret.name = `${client.initials}_${deviceType}0001`
 
         //Inicializar o resumo do dispositivo aqui
@@ -130,7 +130,6 @@ exports = async function (payload) {
 
       } else {                                  //In this case, device already exists
         ret.rewrite = true
-        ret.type = deviceType
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
           ret.number = 1
           ret.name = `${client.initials}_${deviceType}0001`
