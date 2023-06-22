@@ -92,12 +92,11 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      return {debug: true}
       return { success: true, data: await getRadioNumber(processedRequestData.body) }
 
-      case 'changeClient':
+    case 'changeClient':
 
-        break;
+      break;
     default:
       return { success: false, data: `Ação inválida!`}
   }
@@ -122,7 +121,6 @@ exports = async function (payload) {
 };
 
 async function getRadioNumber(requestData) {
-  var requestData = processedRequestData.body
   var deviceType = requestData.deviceName.substring(4,9)
   var ret = {}
   var client
