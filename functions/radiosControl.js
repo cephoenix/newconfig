@@ -119,6 +119,9 @@ exports = async function (payload) {
       
       client = await context.functions.execute(`databaseControl`, databaseParameters)
 
+      
+      ret.overwrite = (device.deviceTypeInitials != deviceType)
+
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
         ret.name = `${client.initials}_${deviceType}0001`
@@ -136,18 +139,15 @@ exports = async function (payload) {
         }
       } else {                                  //In this case, device already exists
         ret.rewrite = true
-        if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
+        if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
           ret.name = `${client.initials}_${deviceType}0001`
           client.deviceSummary[deviceType] = 1
-        } else {                                
+        } else {
           ret.name = device.name
-          client.deviceSummary[deviceType] = 501
         }
       }
       //Forçar gravação: Mesmo cliente, mas dispositivo diferente
 
-      ret.debug = {}
-      // ret.debug.client = client
       return { success: true, data: ret}
 
     default:
