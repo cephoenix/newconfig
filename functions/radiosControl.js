@@ -148,7 +148,7 @@ exports = async function (payload) {
 
       ret.debug = {}
       
-      ret.debug.radio = debugDevice
+      ret.debug.radio = device
       ret.debug.databaseParameters = databaseParameters
 
       return { success: true, data: ret}
