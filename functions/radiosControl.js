@@ -101,7 +101,7 @@ exports = async function (payload) {
       }
 
       let device = await context.functions.execute(`databaseControl`, databaseParameters)
-      throw {debug: true, ret: ret}
+      throw {debug: true, ret: ret, databaseParameters: databaseParameters}
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
         
