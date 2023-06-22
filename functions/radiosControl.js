@@ -105,7 +105,6 @@ exports = async function (payload) {
       const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radios`)
 
       device = await dbquery.findOne({address64Bit: processedRequestData.body.mac})
-      return {device: device}
 
       if(await isEmpty(device)) {               //In this case, device network was never changed
         ret.rewrite = false
@@ -129,7 +128,6 @@ exports = async function (payload) {
         } else {
 
         }
-        
       } else {                                  //In this case, device already exists
         ret.rewrite = true
         if(await isEmpty(device.number)) {      //If device already exists, but has no number we return number 1
