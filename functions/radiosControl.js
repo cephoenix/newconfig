@@ -147,7 +147,9 @@ exports = async function (payload) {
       }
 
       ret.debug = {}
+      
       ret.debug.radio = debugDevice
+      ret.debug.databaseParameters = databaseParameters
 
       return { success: true, data: ret}
       case 'changeClient':
