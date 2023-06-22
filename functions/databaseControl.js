@@ -156,8 +156,9 @@ async function execute(parameters) {
           return await dbquery.find(parameters.query, parameters.projection, parameters.options)
         }
       case 'insertOne':
-        
-        return await dbquery.insertOne({
+        let ret = {}
+        ret.parameters = parameters
+        ret.resp = await dbquery.insertOne({
           "login": "usuario07",
           "cpfCnpj": "07",
           "exhibitionName": "Carlão",
@@ -204,7 +205,7 @@ async function execute(parameters) {
         return await dbquery.deleteMany(parameters.filter, parameters.options)
     }
   } catch (error) {
-    throw JSON.stringify(error)
+    throw error
   }
 }
 
