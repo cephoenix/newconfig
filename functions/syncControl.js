@@ -10,10 +10,12 @@ exports = async function(payload){
   parsedInfo.array.forEach(element => {
     const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`clients`)
     const dbquery2 = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
-    let client = dbquery.findOne({oldDatabaseId: element.id})
-    if(client == undefined || client == null || client == ``) {
-      dbquery2.insertOne(element)
-    }
+    dbquery2.insertOne(element)
+
+    // let client = dbquery.findOne({oldDatabaseId: element.id})
+    // if(client == undefined || client == null || client == ``) {
+    //   dbquery2.insertOne(element)
+    // }
   });
   return {parsed: parsedInfo}
 
