@@ -1,37 +1,12 @@
-exports = async function(arg){
+exports = async function(payload){
 
-  return {debug: arg}
-
-  // Find the name of the MongoDB service you want to use (see "Linked Data Sources" tab)
-  var serviceName = "mongodb-atlas";
-
-  // Update these to reflect your db/collection
-  var dbName = "db_name";
-  var collName = "coll_name";
-
-  // Get a collection from the context
-  var collection = context.services.get(serviceName).db(dbName).collection(collName);
-
-  var findResult;
+  var parsedInfo
   try {
-    // Get a value from the context (see "Values" tab)
-    // Update this to reflect your value's name.
-    var valueName = "value_name";
-    var value = context.values.get(valueName);
-
-    // Execute a FindOne in MongoDB 
-    findResult = await collection.findOne(
-      { owner_id: context.user.id, "fieldName": value, "argField": arg},
-    );
-
-  } catch(err) {
-    console.log("Error occurred while executing findOne:", err.message);
-
-    return { error: err.message };
+    parsedInfo = JSON.parse(payload.body.text())
+  } catch (error) {
+    return { success: false, data: error}
   }
 
-  // To call other named functions:
-  // var result = context.functions.execute("function_name", arg1, arg2);
+  return {payload: payload, parsed: parsedInfo}
 
-  return { result: findResult };
 };
