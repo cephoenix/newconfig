@@ -7,7 +7,7 @@ exports = async function(payload){
     return { success: false, data: error}
   }
 
-  parsedInfo.array.forEach(element => {
+  parsedInfo.forEach(element => {
     const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`clients`)
     const dbquery2 = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
     dbquery2.insertOne(element)
