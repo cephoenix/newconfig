@@ -2,7 +2,7 @@ exports = async function(payload){
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("radiosRecordingLog")
 
   var parsedInfo
-  var resp 
+  var resp = []
 
   try {
     parsedInfo = JSON.parse(payload.body.text())
