@@ -12,7 +12,7 @@ exports = async function(payload){
 
   let client = dbquery.findOne({id: parsedInfo[0].id})
   // return { parsed: parsedInfo[0], client: client}
-  if(client == undefined || client == null || clinet == ``) {
+  if(client == undefined || client == null || client == ``) {
     resp = await dbquery.insertOne(client)
   }
   
