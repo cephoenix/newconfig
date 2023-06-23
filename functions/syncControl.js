@@ -11,6 +11,7 @@ exports = async function(payload){
   }
 
   let client = dbquery.findOne({id: parsedInfo[0].id})
+  client = await client.toArray()
   // return { parsed: parsedInfo[0], client: client}
   if(client == `null`) {
     resp = await dbquery.insertOne(client)
