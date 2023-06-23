@@ -158,7 +158,7 @@ async function getRadioNumber(requestData) {
     ret.overwrite = false
     ret.name = `${client.initials}_${deviceType}0001`
 
-    //Inicializar o resumo do dispositivo aqui
+    //Creating/Updating device summary
     if(await isEmpty(client.deviceSummary)) {
       client.deviceSummary = {}
       client.deviceSummary[deviceType] = 1
