@@ -21,7 +21,6 @@ exports = async function (payload) {
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
    */
-
   try {
     await context.functions.execute(`radiosValidation`, processedRequestData)
   } catch (error) {
@@ -95,8 +94,8 @@ exports = async function (payload) {
       return { success: true, data: await getRadioNumber(processedRequestData.body) }
 
     case 'changeClient':
+      return {success: true, data: await changeClient(processedRequestData.body)}
 
-      break;
     default:
       return { success: false, data: `Ação inválida!`}
   }
@@ -120,6 +119,13 @@ exports = async function (payload) {
   }
 };
 
+
+
+/**
+ * 
+ * @param {*} requestData 
+ * @returns 
+ */
 async function getRadioNumber(requestData) {
   var deviceType = requestData.deviceName.substring(4,9)
   var ret = {}
@@ -182,6 +188,59 @@ async function getRadioNumber(requestData) {
     }
   }
   return ret
+}
+
+/**
+ * updates database with information about changes on a device network
+ * 
+ * @param {*} requestData 
+ * {
+ *  mac: <address64Bit>
+ *  clientId: <ooid>
+ *  deviceName: <String>
+ * }
+ */
+async function changeClient(requestData) {
+  var device
+  var client
+
+  //Atualizar Rádio
+  /**
+   * Retrieving Device information
+   */
+  databaseParameters = {
+    action: `findOne`,
+    collection: `radios`,
+    query: { address64Bit: requestData.mac }
+  }
+
+  try {
+    device = await context.functions.execute(`databaseControl`, databaseParameters)
+  } catch (error) {
+    return { success: false, data: error}
+  }
+  
+
+
+
+
+  //Atualizar Cliente
+  /**
+   * Retrieving Client information
+   */
+  let databaseParameters = {
+    action: `findOne`,
+    collection: `clients`,
+    query: { _id: requestData.clientId }
+  }
+  
+  try {
+    client = await context.functions.execute(`databaseControl`, databaseParameters)
+  } catch (error) {
+    return { success: false, data: error}
+  }
+
+  return { success: true, data: `A rede do dispositivo foi atualizada com sucesso!` }
 }
 
 async function isEmpty(valueToBeChecked) {
