@@ -1,32 +1,38 @@
-// This function is the endpoint's request handler.
-exports = function({ query, headers, body}, response) {
-    // Data can be extracted from the request as follows:
+exports = async function(arg){
+  // This default function will get a value and find a document in MongoDB
+  // To see plenty more examples of what you can do with functions see: 
+  // https://www.mongodb.com/docs/atlas/app-services/functions/
 
-    // Query params, e.g. '?arg1=hello&arg2=world' => {arg1: "hello", arg2: "world"}
-    const {arg1, arg2} = query;
+  // Find the name of the MongoDB service you want to use (see "Linked Data Sources" tab)
+  var serviceName = "mongodb-atlas";
 
-    // Headers, e.g. {"Content-Type": ["application/json"]}
-    const contentTypes = headers["Content-Type"];
+  // Update these to reflect your db/collection
+  var dbName = "db_name";
+  var collName = "coll_name";
 
-    // Raw request body (if the client sent one).
-    // This is a binary object that can be accessed as a string using .text()
-    const reqBody = body;
+  // Get a collection from the context
+  var collection = context.services.get(serviceName).db(dbName).collection(collName);
 
-    console.log("arg1, arg2: ", arg1, arg2);
-    console.log("Content-Type:", JSON.stringify(contentTypes));
-    console.log("Request body:", reqBody);
+  var findResult;
+  try {
+    // Get a value from the context (see "Values" tab)
+    // Update this to reflect your value's name.
+    var valueName = "value_name";
+    var value = context.values.get(valueName);
 
-    // You can use 'context' to interact with other application features.
-    // Accessing a value:
-    // var x = context.values.get("value_name");
+    // Execute a FindOne in MongoDB 
+    findResult = await collection.findOne(
+      { owner_id: context.user.id, "fieldName": value, "argField": arg},
+    );
 
-    // Querying a mongodb service:
-    // const doc = context.services.get("mongodb-atlas").db("dbname").collection("coll_name").findOne();
+  } catch(err) {
+    console.log("Error occurred while executing findOne:", err.message);
 
-    // Calling a function:
-    // const result = context.functions.execute("function_name", arg1, arg2);
+    return { error: err.message };
+  }
 
-    // The return value of the function is sent as the response back to the client
-    // when the "Respond with Result" setting is set.
-    return  "Hello World!";
+  // To call other named functions:
+  // var result = context.functions.execute("function_name", arg1, arg2);
+
+  return { result: findResult };
 };
