@@ -12,7 +12,7 @@ exports = async function(payload){
     const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
     const dbquery2 = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
 
-    let client = dbquery.findOne({oldDatabaseId: element.id})
+    let client = dbquery.findOne({id: element.id})
     resp.push(element)
     if(client == undefined || client == null || client == ``) {
       resp.push(element)
