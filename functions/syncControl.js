@@ -21,7 +21,7 @@ exports = async function(payload){
 
     if(client.length == 0) {                           //Se o array não tiver elementos é por que não foi encontrado cliente com esse ID
       dbquery.insertOne(element)                       //Então eu faço a inserção dele no Mongo DB
-      resp.push(element)                               //E também adiciono ele no array de resposta
+      resp.push({id: element.id, sigla: element.sigla, nome: element.nome})                               //E também adiciono ele no array de resposta
     }
   });
   return resp
