@@ -10,7 +10,7 @@ exports = async function(payload){
     return { success: false, data: error}
   }
 
-  let client = await dbquery.findMany({id: parsedInfo[0].id})
+  let client = await dbquery.find({id: parsedInfo[0].id})
   client = await client.toArray()
   // return { parsed: parsedInfo[0], client: client}
   if(client == `null`) {
