@@ -79,7 +79,3 @@ exports = async function (payload) {
   resp.data = operationResponse
   return operationResponse
 };
-
-if (typeof module === 'object') {
-  module.exports = exports;
-}
