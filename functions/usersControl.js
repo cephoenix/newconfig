@@ -49,9 +49,6 @@ exports = async function (payload) {
 
       databaseAction = `insertOne`
       databaseQuery.blocked = true                                         // All users are blocked by default. Someone with the right permission level needs to activate them
-      
-      return await context.services.get("mongodb-atlas").db("configRadio").collection(`users`).insertOne(databaseQuery);
-
       break;
 
     case `blockUser`:
