@@ -19,6 +19,5 @@ exports = async function(payload){
       dbquery2.insertOne(element)
     }
   });
-  return {insertedClientes: resp}
-
+  return resp
 };
