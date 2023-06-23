@@ -127,6 +127,9 @@ async function getRadioNumber(requestData) {
   
   ret.type = deviceType
 
+  /**
+   * Retrieving Device information
+   */
   databaseParameters = {
     action: `findOne`,
     collection: `radios`,
@@ -135,6 +138,9 @@ async function getRadioNumber(requestData) {
 
   let device = await context.functions.execute(`databaseControl`, databaseParameters)
 
+  /**
+   * Retrieving Client information
+   */
   //We need to check if there is any device of this type on this client network and return next number
   let databaseParameters = {
     action: `findOne`,
@@ -144,6 +150,9 @@ async function getRadioNumber(requestData) {
   
   client = await context.functions.execute(`databaseControl`, databaseParameters)
 
+  /**
+   * Proccessing information
+   */
   if(await isEmpty(device)) {               //In this case, device network was never changed
     ret.rewrite = false
     ret.overwrite = false
