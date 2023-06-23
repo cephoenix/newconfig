@@ -164,27 +164,27 @@ async function getRadioNumber(requestData) {
     ret.overwrite = false
     ret.name = `${client.initials}_${deviceType}0001`
 
-    /**
-     * Creating/Updating device summary
-     */
-    if(await isEmpty(client.deviceSummary)) {
-      client.deviceSummary = {}
-      client.deviceSummary[deviceType] = 1
-    } else {
-      if(await isEmpty(client.deviceSummary[deviceType])) {
-        client.deviceSummary[deviceType] = 1
-      } else {
-        client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
-      }
-    }
+    // /**
+    //  * Creating/Updating device summary
+    //  */
+    // if(await isEmpty(client.deviceSummary)) {
+    //   client.deviceSummary = {}
+    //   client.deviceSummary[deviceType] = 1
+    // } else {
+    //   if(await isEmpty(client.deviceSummary[deviceType])) {
+    //     client.deviceSummary[deviceType] = 1
+    //   } else {
+    //     client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
+    //   }
+    // }
   } else {                                                                            //In this case, device already exists
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials != deviceType)
     if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
       ret.name = `${client.initials}_${deviceType}0001`
-      client.deviceSummary[deviceType] = 1
+      // client.deviceSummary[deviceType] = 1
     } else {
-      ret.name = device.name
+      ret.name = `${client.initials}_${deviceType}${device.number + 1}`
     }
   }
   return ret
@@ -220,10 +220,6 @@ async function changeClient(requestData) {
     return { success: false, data: error}
   }
   
-
-
-
-
   //Atualizar Cliente
   /**
    * Retrieving Client information
@@ -240,9 +236,108 @@ async function changeClient(requestData) {
     return { success: false, data: error}
   }
 
+  var deviceToInsert = {
+    'address64Bit': `${requestData.mac}`,
+    'address16Bits': 'FFFE',
+    'oldDatabaseId': ``,
+    'name': `${requestData.name}`,
+    'number': `${(requestData.name).substring(0,-4)}`,
+    'firmwareVersion': `${requestData.firmwareVersion}`,
+    'hardwareVersion': `${requestData.hardwareVersion}`,
+    'profileId': `${requestData.profileId}`,
+    'manufacturerId': `${requestData.manufacturerId}`,
+    'group': `${(requestData.name).substring(4,8)}`,
+    'connectionRouterAddress': `${requestData.connectionRouterAddress}`,
+    'deviceTypeId': `${requestData.deviceTypeId}`,
+    'deviceTypeInitials': `${requestData.deviceTypeInitials}`,
+    'deviceTypeName': `${requestData.deviceTypeName}`,
+    'deviceTypeDescription': `${requestData.deviceTypeDescription}`,
+    'deviceClass': `${requestData.deviceClass}`,
+    'productCode': `${requestData.productCode}`,
+    'status': "unused",
+    'clientOID': `${client._id}`,
+    'clientName': `${client.name}`,
+    'clientInitials': `${client.initials}`,
+    'clientChannel': `${client.channel}`,
+    'clientType': {
+      'type': `${client.clientType.type}`,
+      'name': `${client.clientType.name}`
+    },
+    'recordingDate': new Date()
+  }
+
+  if(await isEmpty(device)) {               //In this case, device network was never changed
+    //Atualiza as informações do Cliente primeiro
+    if(await isEmpty(client.deviceSummary)) {
+      client.deviceSummary = {}
+      client.deviceSummary[deviceType] = 1
+    } else {
+      if(await isEmpty(client.deviceSummary[deviceType])) {
+        client.deviceSummary[deviceType] = 1
+      } else {
+        client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
+        /**
+         * Atenção! Talvez seja necessário fazer uma validação entre o nome do dispositivo e esse número aqui
+         * 
+         */
+      }
+    }
+
+    let databaseParameters = {
+      action: `updateOne`,
+      collection: `clients`,
+      query: client
+    }
+    
+    try {
+      client = await context.functions.execute(`databaseControl`, databaseParameters)
+    } catch (error) {
+      return { success: false, data: `Falha ao atualizar cliente do Rádio! ${error}`}
+    }
+
+    //Depois cria o Dispositivo
+    databaseParameters = {
+      action: `insertOne`,
+      collection: `radios`,
+      query: deviceToInsert
+    }
+    
+    try {
+      client = await context.functions.execute(`databaseControl`, databaseParameters)
+    } catch (error) {
+      return { success: false, data: `Falha ao atualizar Rádio: ${error}`}
+    }
+
+  } else {                                                                            //In this case, device already exists
+    if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
+
+      client.deviceSummary[deviceType] = 1
+    } else {
+      // ret.name = device.name
+    }
+
+    //Depois atualiza o Dispositivo
+    databaseParameters = {
+      action: `updateOne`,
+      collection: `radios`,
+      query: deviceToInsert
+    }
+    
+    try {
+      client = await context.functions.execute(`databaseControl`, databaseParameters)
+    } catch (error) {
+      return { success: false, data: `Falha ao atualizar Rádio: ${error}`}
+    }
+  }
+
   return { success: true, data: `A rede do dispositivo foi atualizada com sucesso!` }
 }
 
+/**
+ * 
+ * @param {*} valueToBeChecked 
+ * @returns 
+ */
 async function isEmpty(valueToBeChecked) {
   return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
 }
