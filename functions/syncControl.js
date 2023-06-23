@@ -7,12 +7,13 @@ exports = async function(payload){
     return { success: false, data: error}
   }
 
+  let client = dbquery.findOne({id: 805})
+  return client
   let resp = []
   parsedInfo.forEach(element => {
     const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
     // const dbquery2 = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
 
-    let client = dbquery.findOne({id: 805})
     // resp.push(element)
     if(client == undefined || client == null || client == ``) {
       resp.push(element)
