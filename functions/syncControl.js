@@ -6,7 +6,7 @@ exports = async function(payload){
   } catch (error) {
     return { success: false, data: error}
   }
-
+  return {debug: parsedInfo}
   let resp = []
   parsedInfo.forEach(element => {
     const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
