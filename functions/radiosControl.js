@@ -141,7 +141,6 @@ async function getRadioNumber(requestData) {
   /**
    * Retrieving Client information
    */
-  //We need to check if there is any device of this type on this client network and return next number
   let databaseParameters = {
     action: `findOne`,
     collection: `clients`,
@@ -152,13 +151,16 @@ async function getRadioNumber(requestData) {
 
   /**
    * Proccessing information
+   * We need to check if there is any device of this type on this client network and return next number
    */
   if(await isEmpty(device)) {               //In this case, device network was never changed
     ret.rewrite = false
     ret.overwrite = false
     ret.name = `${client.initials}_${deviceType}0001`
 
-    //Creating/Updating device summary
+    /**
+     * Creating/Updating device summary
+     */
     if(await isEmpty(client.deviceSummary)) {
       client.deviceSummary = {}
       client.deviceSummary[deviceType] = 1
