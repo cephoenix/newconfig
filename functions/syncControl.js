@@ -14,6 +14,8 @@ exports = async function(payload){
   // return { parsed: parsedInfo[0], client: client}
   if(client == `null`) {
     resp = await dbquery.insertOne(client)
+  } else {
+    return {debug: client}
   }
   
   // parsedInfo.forEach(element => {
