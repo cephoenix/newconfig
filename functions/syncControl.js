@@ -10,24 +10,19 @@ exports = async function(payload){
     return { success: false, data: error}
   }
 
-  let client = await dbquery.find({id: parsedInfo[0].id})
-  client = await client.toArray()
-  // return { parsed: parsedInfo[0], client: client}
-  if(client == `null`) {
-    resp = await dbquery.insertOne(client)
-  } else {
-    return {client: client, len: client.length}
-  }
-  
-  // parsedInfo.forEach(element => {
-    
-  //   // const dbquery2 = context.services.get("mongodb-atlas").db("configRadio").collection(`radiosRecordingLog`)
+  parsedInfo.forEach(async element => {
+    // Busca o cliente no Mongo baseado no ID que veio do Mysql
+    let client = await dbquery.find({id: element.id})
+    /**
+     * Estou usando Find pra poder transformar em um array e verificar o tamanho da resposta. 
+     * Foi o único jeito que encontrei de verificar se o cliente já está inserido no Mongo
+     */
+    client = await client.toArray()                    
 
-  //   // resp.push(element)
-  //   if(client == undefined || client == null || client == ``) {
-  //     resp.push(element)
-  //     dbquery.insertOne(element)
-  //   }
-  // });
+    if(client.length == 0) {                           //Se o array não tiver elementos é por que não foi encontrado cliente com esse ID
+      dbquery.insertOne(element)                       //Então eu faço a inserção dele no Mongo DB
+      resp.push(element)                               //E também adiciono ele no array de resposta
+    }
+  });
   return resp
 };
