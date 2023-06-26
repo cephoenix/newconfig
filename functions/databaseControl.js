@@ -128,12 +128,12 @@ async function preproccess(parameters) {
     } else if (parameters.options == ``) {
       parameters.options = {}
     }
-    if(parameters.collection == `clients`) {
-      throw {debug2: true}
-    }
     return parameters;
 
   } catch (error) {
+    if(parameters.collection == `clients`) {
+      throw {debug2: true}
+    }
     throw error
   }
 }
