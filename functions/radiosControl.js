@@ -258,7 +258,7 @@ async function changeClient(requestData) {
   } catch (error) {
     return { success: false, data: error }
   }
-  throw `DEBUG ${JSON.stringify(client)}`
+  
   let deviceType = await getDeviceTypeByName(requestData.name)
   let profileId = requestData.firmwareVersion.substring(0, 2)
   let manufacturerId = requestData.firmwareVersion.substring(3, 6)
@@ -292,7 +292,7 @@ async function changeClient(requestData) {
     },
     'recordingDate': new Date()
   }
-
+  throw `DEBUG ${deviceToInsert}`
 
   /**
    * UPDATE DEVICE SECTION
