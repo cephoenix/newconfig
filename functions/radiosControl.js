@@ -420,6 +420,6 @@ async function getDeviceTypeByName(name) {
  * @returns 
  */
 async function isEmpty(valueToBeChecked) {
-  throw `DEBUG ${JSON.stringify(deviceToInsert)}`
+  throw `DEBUG ${JSON.stringify(valueToBeChecked)}`
   return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
 }
