@@ -314,7 +314,7 @@ async function changeClient(requestData) {
     try {
       filter = { _id: new BSON.ObjectId(client._id) }  
     } catch (error) {
-      throw `Erro de conversão no ID do cliente. Id: ${client._id}`
+      throw `Erro de conversão no ID do cliente. Id: ${client._id}. Erro: ${error}`
     }
     
     let options = { upsert: true}
