@@ -357,7 +357,7 @@ async function changeClient(requestData) {
       if(typeof error == 'object') {
         e = JSON.stringify(error)
       }
-      throw `Falha ao atualizar Rádio: ${e} Params: ${databaseParameters}`
+      throw `Falha ao inserir Rádio: ${e} Params: ${databaseParameters}`
     }
 
   } else {                                                                            //In this case, device already exists
@@ -379,7 +379,11 @@ async function changeClient(requestData) {
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
-      throw `Falha ao atualizar Rádio: ${error}`
+      let e = error
+      if(typeof error == 'object') {
+        e = JSON.stringify(error)
+      }
+      throw `Falha ao atualizar Rádio: ${e} Params: ${databaseParameters}`
     }
   }
 
