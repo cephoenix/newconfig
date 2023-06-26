@@ -304,6 +304,7 @@ async function changeClient(requestData) {
       client.deviceSummary = {}
       client.deviceSummary[deviceType] = 1
     } else {
+      throw `Tem summary`
       if (await isEmpty(client.deviceSummary[deviceType])) {
         client.deviceSummary[deviceType] = 1
       } else {
