@@ -16,7 +16,7 @@ exports = async function (data) {
     data = await preproccess(data)
   } catch (error) {
     let e = error
-    if(typeof error == object) {
+    if(typeof error == 'object') {
       e = JSON.stringify(error)
     }
     throw `Falha ao executar pré-processamento dos dados a serem utilizados  na operação (Action: ${data.action}, Collection: ${data.collection}) a ser efetuada no banco de dados! ${e}`
@@ -31,7 +31,7 @@ exports = async function (data) {
   } catch (error) {
     let e = error
     if(typeof error == 'object') {
-      e = JSON.stringify(error) + "DEB"
+      e = JSON.stringify(error)
     }
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${e}`
   }

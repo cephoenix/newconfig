@@ -101,7 +101,7 @@ exports = async function (payload) {
         return { success: true, data: await changeClient(processedRequestData.body) }
       } catch (error) {
         let e = error
-        if(typeof error == Object) {
+        if(typeof error == 'object') {
           e = JSON.stringify(error)
         }
         return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${e}` }
@@ -354,7 +354,7 @@ async function changeClient(requestData) {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
       let e = error
-      if(typeof error == Object) {
+      if(typeof error == 'object') {
         e = JSON.stringify(error)
       }
       throw `Falha ao atualizar Rádio: ${e}`
