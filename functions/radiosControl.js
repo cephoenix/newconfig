@@ -228,6 +228,21 @@ async function changeClient(requestData) {
   } catch (error) {
     return { success: false, data: error}
   }
+
+  /**
+   * Retrieving Client information
+   */
+  let databaseParameters = {
+    action: `findOne`,
+    collection: `clients`,
+    query: { _id: requestData.clientId }
+  }
+  
+  try {
+    client = await context.functions.execute(`databaseControl`, databaseParameters)
+  } catch (error) {
+    return { success: false, data: error}
+  }
   
   let deviceType = await getDeviceTypeByName(requestData.name)
   let profileId = requestData.firmwareVersion.substring(0,2)
@@ -336,20 +351,6 @@ async function changeClient(requestData) {
    */
 
   //Atualizar Cliente
-  /**
-   * Retrieving Client information
-   */
-  let databaseParameters = {
-    action: `findOne`,
-    collection: `clients`,
-    query: { _id: requestData.clientId }
-  }
-  
-  try {
-    client = await context.functions.execute(`databaseControl`, databaseParameters)
-  } catch (error) {
-    return { success: false, data: error}
-  }
 
   return { success: true, data: `A rede do dispositivo foi alterada com sucesso!` }
 }
