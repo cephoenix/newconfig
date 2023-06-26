@@ -105,9 +105,7 @@ async function preproccess(parameters) {
       case 'findOne':
       case 'findMany':
       case 'updateOne':
-        if(parameters.collection == `clients`) {
-          throw {debug2: true}
-        }
+
         // cheking parameters.query._id against null or `` may cause undefined exception
         if (parameters.query._id != undefined) {
           // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
@@ -115,7 +113,9 @@ async function preproccess(parameters) {
         } else if (parameters.query._id != null && parameters.query._id != ``) {
           parameters.query._id = new BSON.ObjectId(parameters.query._id)
         }
-
+        if(parameters.collection == `clients`) {
+          throw {debug2: true}
+        }
         // cheking parameters.projection against null or `` may cause undefined exception
         if (parameters.projection == undefined) {
           parameters.projection = null
