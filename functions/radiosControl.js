@@ -297,7 +297,7 @@ async function changeClient(requestData) {
    * UPDATE DEVICE SECTION
    */
   
-  if (device != undefined && device != null && device != ``) {               //In this case, device network was never changed
+  if (device != undefined && device != null && device != ``) {                          //In this case, device already exists
     if (await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
       client.deviceSummary[deviceType] = 1
     } else {
@@ -329,7 +329,7 @@ async function changeClient(requestData) {
     //   }
     //   throw `Falha ao atualizar Rádio: ${e} Params: ${JSON.stringify(databaseParameters)}`
     // }
-  } else {                                                                            //In this case, device already exists
+  } else {                                                                            //In this case, device network was never changed
 
     //Atualiza as informações do Cliente primeiro
     if (await isEmpty(client.deviceSummary)) {
