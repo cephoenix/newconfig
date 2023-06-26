@@ -310,6 +310,16 @@ async function changeClient(requestData) {
       }
     }
 
+    let filter = { _id: new BSON.ObjectId(client._id) }
+    let options = { upsert: true}
+
+    try {
+      const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(filter, client, options)
+    } catch (error) {
+      throw `Erro ao mudar dispositivo de rede`
+    }
+    
+
     let databaseParameters = {
       action: `updateOne`,
       collection: `clients`,
