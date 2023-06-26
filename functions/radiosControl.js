@@ -296,7 +296,8 @@ async function changeClient(requestData) {
   /**
    * UPDATE DEVICE SECTION
    */
-  if (await isEmpty(device)) {               //In this case, device network was never changed
+  
+  if (device != undefined && device != null && device != ``) {               //In this case, device network was never changed
     //Atualiza as informações do Cliente primeiro
     if (await isEmpty(client.deviceSummary)) {
       throw `Não tem summary`
@@ -420,6 +421,5 @@ async function getDeviceTypeByName(name) {
  * @returns 
  */
 async function isEmpty(valueToBeChecked) {
-  throw `DEBUG ${JSON.stringify(valueToBeChecked)}`
   return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
 }
