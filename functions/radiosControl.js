@@ -313,6 +313,7 @@ async function changeClient(requestData) {
     let databaseParameters = {
       action: `updateOne`,
       collection: `clients`,
+      filter: { id: requestData.clientId },
       query: client
     }
 
