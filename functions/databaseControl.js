@@ -128,6 +128,7 @@ async function preproccess(parameters) {
     } else if (parameters.options == ``) {
       parameters.options = {}
     }
+    throw {debug2: true, data: parameters}
     return parameters;
 
   } catch (error) {
