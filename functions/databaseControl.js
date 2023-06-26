@@ -113,9 +113,9 @@ async function preproccess(parameters) {
         // cheking parameters.query._id against null or `` may cause undefined exception
         if (parameters.query._id != undefined) {
           // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
-          parameters.query._id = new BSON.ObjectId(parameters.query._id)
+          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
         } else if (parameters.query._id != null && parameters.query._id != ``) {
-          parameters.query._id = new BSON.ObjectId(parameters.query._id)
+          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
         }
 
         // cheking parameters.projection against null or `` may cause undefined exception
