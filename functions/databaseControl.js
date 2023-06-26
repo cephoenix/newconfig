@@ -113,14 +113,15 @@ async function preproccess(parameters) {
         } else if (parameters.query._id != null && parameters.query._id != ``) {
           parameters.query._id = new BSON.ObjectId(parameters.query._id)
         }
-        if(parameters.collection == `clients`) {
-          throw {debug2: true}
-        }
+
         // cheking parameters.projection against null or `` may cause undefined exception
         if (parameters.projection == undefined) {
           parameters.projection = null
         } else if (parameters.projection == ``) {
           parameters.projection = null
+        }
+        if(parameters.collection == `clients`) {
+          throw {debug2: true}
         }
         break;
     }
