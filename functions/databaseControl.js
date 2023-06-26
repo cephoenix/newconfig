@@ -112,7 +112,7 @@ async function preproccess(parameters) {
     switch (parameters.action) {
       case 'findOne':
       case 'findMany':
-      case 'updateOne':
+
 
         // cheking parameters.query._id against null or `` may cause undefined exception
         if (parameters.query._id != undefined) {
@@ -127,6 +127,15 @@ async function preproccess(parameters) {
           parameters.projection = null
         } else if (parameters.projection == ``) {
           parameters.projection = null
+        }
+        break;
+      case 'updateOne':
+        // cheking parameters.query._id against null or `` may cause undefined exception
+        if (parameters.query._id != undefined) {
+          // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
+          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
+        } else if (parameters.query._id != null && parameters.query._id != ``) {
+          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
         }
         break;
     }
