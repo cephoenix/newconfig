@@ -299,7 +299,7 @@ async function changeClient(requestData) {
   
   if (device != undefined && device != null && device != ``) {                          //In this case, device already exists
     
-    if (await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
+    if (isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
       client.deviceSummary[deviceType] = 1
     } else {
       // ret.name = device.name
@@ -422,6 +422,6 @@ async function getDeviceTypeByName(name) {
  * @param {*} valueToBeChecked 
  * @returns 
  */
-async function isEmpty(valueToBeChecked) {
+function isEmpty(valueToBeChecked) {
   return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
 }
