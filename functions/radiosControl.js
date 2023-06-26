@@ -300,6 +300,7 @@ async function changeClient(requestData) {
   if (await isEmpty(device)) {               //In this case, device network was never changed
     //Atualiza as informações do Cliente primeiro
     if (await isEmpty(client.deviceSummary)) {
+      throw `Não tem summary`
       client.deviceSummary = {}
       client.deviceSummary[deviceType] = 1
     } else {
