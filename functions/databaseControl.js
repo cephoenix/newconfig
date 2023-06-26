@@ -120,9 +120,6 @@ async function preproccess(parameters) {
         } else if (parameters.projection == ``) {
           parameters.projection = null
         }
-        if(parameters.collection == `clients`) {
-          throw {debug2: true}
-        }
         break;
     }
 
@@ -131,7 +128,9 @@ async function preproccess(parameters) {
     } else if (parameters.options == ``) {
       parameters.options = {}
     }
-
+    if(parameters.collection == `clients`) {
+      throw {debug2: true}
+    }
     return parameters;
 
   } catch (error) {
