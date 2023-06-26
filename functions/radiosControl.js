@@ -204,6 +204,15 @@ async function changeClient(requestData) {
   var device
   var client
 
+  /**
+   * Campos obrigatórios:
+   * - mac
+   * - name
+   * - firmwareVersion
+   * - hardwareVersion
+   * 
+   */
+
   //Atualizar Rádio
   /**
    * Retrieving Device information
@@ -220,21 +229,9 @@ async function changeClient(requestData) {
     return { success: false, data: error}
   }
   
-  //Atualizar Cliente
-  /**
-   * Retrieving Client information
-   */
-  let databaseParameters = {
-    action: `findOne`,
-    collection: `clients`,
-    query: { _id: requestData.clientId }
-  }
-  
-  try {
-    client = await context.functions.execute(`databaseControl`, databaseParameters)
-  } catch (error) {
-    return { success: false, data: error}
-  }
+  let deviceType = await getDeviceTypeByName(requestData.name)
+  let profileId = requestData.firmwareVersion.substring(0,2)
+  let manufacturerId = requestData.firmwareVersion.substring(3,6)
 
   var deviceToInsert = {
     'address64Bit': `${requestData.mac}`,
@@ -244,16 +241,16 @@ async function changeClient(requestData) {
     'number': `${(requestData.name).substring(0,-4)}`,
     'firmwareVersion': `${requestData.firmwareVersion}`,
     'hardwareVersion': `${requestData.hardwareVersion}`,
-    'profileId': `${requestData.profileId}`,
-    'manufacturerId': `${requestData.manufacturerId}`,
-    'group': `${(requestData.name).substring(4,8)}`,
-    'connectionRouterAddress': `${requestData.connectionRouterAddress}`,
-    'deviceTypeId': `${requestData.deviceTypeId}`,
-    'deviceTypeInitials': `${requestData.deviceTypeInitials}`,
-    'deviceTypeName': `${requestData.deviceTypeName}`,
-    'deviceTypeDescription': `${requestData.deviceTypeDescription}`,
-    'deviceClass': `${requestData.deviceClass}`,
-    'productCode': `${requestData.productCode}`,
+    'profileId': `${profileId}`,
+    'manufacturerId': `${manufacturerId}`,
+    'group': `${(requestData.name).substring(4,8)}`,                         // I'm using the same as the device Initials
+    'connectionRouterAddress': `NOT USED`,                                   //${requestData.connectionRouterAddress}`
+    'deviceTypeId': `${deviceType.deviceTypeId}`,
+    'deviceTypeInitials': `${deviceType.deviceTypeInitials}`,
+    'deviceTypeName': `${deviceType.deviceTypeName}`,
+    'deviceTypeDescription': `${deviceType.deviceTypeDescription}`,
+    'deviceClass': `${deviceType.deviceClass}`,
+    'productCode': `${deviceType.productCode}`,
     'status': "unused",
     'clientOID': `${client._id}`,
     'clientName': `${client.name}`,
@@ -266,6 +263,10 @@ async function changeClient(requestData) {
     'recordingDate': new Date()
   }
 
+
+  /**
+   * UPDATE DEVICE SECTION
+   */
   if(await isEmpty(device)) {               //In this case, device network was never changed
     //Atualiza as informações do Cliente primeiro
     if(await isEmpty(client.deviceSummary)) {
@@ -310,7 +311,6 @@ async function changeClient(requestData) {
 
   } else {                                                                            //In this case, device already exists
     if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
-
       client.deviceSummary[deviceType] = 1
     } else {
       // ret.name = device.name
@@ -331,7 +331,37 @@ async function changeClient(requestData) {
     }
   }
 
+  /**
+   * UPDATE CLIENT SECTION
+   */
+
+  //Atualizar Cliente
+  /**
+   * Retrieving Client information
+   */
+  let databaseParameters = {
+    action: `findOne`,
+    collection: `clients`,
+    query: { _id: requestData.clientId }
+  }
+  
+  try {
+    client = await context.functions.execute(`databaseControl`, databaseParameters)
+  } catch (error) {
+    return { success: false, data: error}
+  }
+
   return { success: true, data: `A rede do dispositivo foi alterada com sucesso!` }
+}
+
+
+
+/**
+ * 
+ * @returns 
+ */
+async function getDeviceTypeByName(name) {
+  return { id: 1, initials: `LRDFT`, name: `Long Range Smoke Detector`, description: `Equipment used to detect smoke`};
 }
 
 /**
