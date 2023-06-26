@@ -302,7 +302,7 @@ async function changeClient(requestData) {
     if (device.number != undefined && device.number != null && device.number != `` /*isEmpty(device.number*/) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
       throw `debug2.1`
     } else {
-      throw `debug2.2 ${JSON.stringify(device)}`
+      throw `debug2.2 ${isEmpty(device.number)} - ${JSON.stringify(device)}`
       client.deviceSummary[deviceType] = 1
       // ret.name = device.name
     }
