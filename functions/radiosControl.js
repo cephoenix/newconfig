@@ -227,7 +227,7 @@ async function changeClient(requestData) {
    * - hardwareVersion
    * 
    */
-
+throw `DEBUG`
   //Atualizar Rádio
   /**
    * Retrieving Device information
