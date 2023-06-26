@@ -320,7 +320,8 @@ async function changeClient(requestData) {
     databaseParameters = {
       action: `updateOne`,
       collection: `radios`,
-      query: deviceToInsert
+      query: deviceToInsert,
+      options: {upsert: true}
     }
     
     try {
@@ -330,7 +331,7 @@ async function changeClient(requestData) {
     }
   }
 
-  return { success: true, data: `A rede do dispositivo foi atualizada com sucesso!` }
+  return { success: true, data: `A rede do dispositivo foi alterada com sucesso!` }
 }
 
 /**
