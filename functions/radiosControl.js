@@ -15,7 +15,7 @@ exports = async function (payload) {
   try {
     processedRequestData = await context.functions.execute(`proccessRequest`, payload)
   } catch (error) {
-    return { success: false, data: error}
+    return { success: false, data: error }
   }
 
   /**
@@ -24,9 +24,9 @@ exports = async function (payload) {
   try {
     await context.functions.execute(`radiosValidation`, processedRequestData)
   } catch (error) {
-    return { success: false, data: error}
+    return { success: false, data: error }
   }
-  
+
   /**
    * Executa algum tratamento antes, se necessário, e depois faz a operação com o Banco de Dados
    */
@@ -49,10 +49,10 @@ exports = async function (payload) {
 
     case 'findMany':
       operationName = 'findMany';
-      if(payload.body == undefined || payload.body == null) {
+      if (payload.body == undefined || payload.body == null) {
         throw "É necessário fornecer informações válidas para pesquisar no Banco de Dados! (1)"
       }
-      
+
       try {
         operationParameters = JSON.parse(payload.body.text())
       } catch (e) {
@@ -74,10 +74,10 @@ exports = async function (payload) {
 
     case 'insertMany':
 
-      if(payload.body == undefined) {
+      if (payload.body == undefined) {
         throw "É necessário fornecer informações válidas para inserir no Banco de Dados! (1)"
       }
-      
+
       if (payload.body == null) {
         throw "É necessário fornecer informações válidas para inserir no Banco de Dados! (2)"
       }
@@ -94,19 +94,19 @@ exports = async function (payload) {
       try {
         return { success: true, data: await getRadioNumber(processedRequestData.body) }
       } catch (error) {
-        return {success: false, data: `Erro ao obter numeração do dispositivo: ${error}`}
+        return { success: false, data: `Erro ao obter numeração do dispositivo: ${error}` }
       }
     case 'changeClient':
       try {
-        return {success: true, data: await changeClient(processedRequestData.body)}
+        return { success: true, data: await changeClient(processedRequestData.body) }
       } catch (error) {
-        return {success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${error}`}
+        return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${error}` }
       }
 
     default:
-      return { success: false, data: `Ação inválida!`}
+      return { success: false, data: `Ação inválida!` }
   }
-  
+
   try {
 
     let databaseParameters = {
@@ -134,10 +134,10 @@ exports = async function (payload) {
  * @returns 
  */
 async function getRadioNumber(requestData) {
-  var deviceType = requestData.deviceName.substring(4,9)
+  var deviceType = requestData.deviceName.substring(4, 9)
   var ret = {}
   var client
-  
+
   ret.type = deviceType
 
   /**
@@ -159,10 +159,10 @@ async function getRadioNumber(requestData) {
     collection: `clients`,
     query: { _id: requestData.clientId }
   }
-  
+
   client = await context.functions.execute(`databaseControl`, databaseParameters)
 
-  if(client == undefined) {
+  if (client == undefined) {
     throw `Não foi possível encontrar o cliente informado`
   }
 
@@ -170,7 +170,7 @@ async function getRadioNumber(requestData) {
    * Proccessing information
    * We need to check if there is any device of this type on this client network and return next number
    */
-  if(await isEmpty(device)) {               //In this case, device network was never changed
+  if (await isEmpty(device)) {               //In this case, device network was never changed
     ret.rewrite = false
     ret.overwrite = false
     ret.name = `${client.initials}_${deviceType}0001`
@@ -191,7 +191,7 @@ async function getRadioNumber(requestData) {
   } else {                                                                            //In this case, device already exists
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials != deviceType)
-    if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
+    if (await isEmpty(device.number)) {                                                 //If device already exists, but has no number we return number 1. This case probably will never happen (it shouldn't)
       ret.name = `${client.initials}_${deviceType}0001`
       // client.deviceSummary[deviceType] = 1
     } else {
@@ -237,7 +237,7 @@ async function changeClient(requestData) {
   try {
     device = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (error) {
-    return { success: false, data: error}
+    return { success: false, data: error }
   }
 
   /**
@@ -248,29 +248,29 @@ async function changeClient(requestData) {
     collection: `clients`,
     query: { _id: requestData.clientId }
   }
-  
+
   try {
     client = await context.functions.execute(`databaseControl`, databaseParameters)
   } catch (error) {
-    return { success: false, data: error}
+    return { success: false, data: error }
   }
-  
+
   let deviceType = await getDeviceTypeByName(requestData.name)
-  let profileId = requestData.firmwareVersion.substring(0,2)
-  let manufacturerId = requestData.firmwareVersion.substring(3,6)
+  let profileId = requestData.firmwareVersion.substring(0, 2)
+  let manufacturerId = requestData.firmwareVersion.substring(3, 6)
 
   var deviceToInsert = {
     'address64Bit': `${requestData.mac}`,
     'address16Bits': 'FFFE',
     'oldDatabaseId': ``,
     'name': `${requestData.name}`,
-    'number': `${(requestData.name).substring(0,-4)}`,
+    'number': `${(requestData.name).substring(0, -4)}`,
     'firmwareVersion': `${requestData.firmwareVersion}`,
     'hardwareVersion': `${requestData.hardwareVersion}`,
     'profileId': `${profileId}`,
     'manufacturerId': `${manufacturerId}`,
-    'group': `${(requestData.name).substring(4,8)}`,                         // I'm using the same as the device Initials
-    'connectionRouterAddress': `NOT USED`,                                   //${requestData.connectionRouterAddress}`
+    'group': `${(requestData.name).substring(4, 8)}`,                         // I'm using the same as the device Initials
+    'connectionRouterAddress': `NOT USED`,                                    //${requestData.connectionRouterAddress}`
     'deviceTypeId': `${deviceType.deviceTypeId}`,
     'deviceTypeInitials': `${deviceType.deviceTypeInitials}`,
     'deviceTypeName': `${deviceType.deviceTypeName}`,
@@ -293,13 +293,13 @@ async function changeClient(requestData) {
   /**
    * UPDATE DEVICE SECTION
    */
-  if(await isEmpty(device)) {               //In this case, device network was never changed
+  if (await isEmpty(device)) {               //In this case, device network was never changed
     //Atualiza as informações do Cliente primeiro
-    if(await isEmpty(client.deviceSummary)) {
+    if (await isEmpty(client.deviceSummary)) {
       client.deviceSummary = {}
       client.deviceSummary[deviceType] = 1
     } else {
-      if(await isEmpty(client.deviceSummary[deviceType])) {
+      if (await isEmpty(client.deviceSummary[deviceType])) {
         client.deviceSummary[deviceType] = 1
       } else {
         client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
@@ -315,7 +315,7 @@ async function changeClient(requestData) {
       collection: `clients`,
       query: client
     }
-    
+
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
@@ -328,7 +328,7 @@ async function changeClient(requestData) {
       collection: `radios`,
       query: deviceToInsert
     }
-    
+
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
@@ -336,7 +336,7 @@ async function changeClient(requestData) {
     }
 
   } else {                                                                            //In this case, device already exists
-    if(await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
+    if (await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
       client.deviceSummary[deviceType] = 1
     } else {
       // ret.name = device.name
@@ -346,10 +346,11 @@ async function changeClient(requestData) {
     databaseParameters = {
       action: `updateOne`,
       collection: `radios`,
+      filter: { mac: deviceToInsert.mac },
       query: deviceToInsert,
-      options: {upsert: true}
+      options: { upsert: true }
     }
-    
+
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
@@ -373,7 +374,7 @@ async function changeClient(requestData) {
  * @returns 
  */
 async function getDeviceTypeByName(name) {
-  return { id: 1, initials: `LRDFT`, name: `Long Range Smoke Detector`, description: `Equipment used to detect smoke`};
+  return { id: 1, initials: `LRDFT`, name: `Long Range Smoke Detector`, description: `Equipment used to detect smoke` };
 }
 
 /**
