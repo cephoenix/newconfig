@@ -367,23 +367,30 @@ async function changeClient(requestData) {
       // ret.name = device.name
     }
 
-    //Depois atualiza o Dispositivo
-    databaseParameters = {
-      action: `updateOne`,
-      collection: `radios`,
-      filter: { mac: deviceToInsert.mac },
-      query: deviceToInsert
-    }
-
     try {
-      client = await context.functions.execute(`databaseControl`, databaseParameters)
+      await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne({ mac: deviceToInsert.mac }, deviceToInsert)
     } catch (error) {
-      let e = error
-      if(typeof error == 'object') {
-        e = JSON.stringify(error)
-      }
-      throw `Falha ao atualizar Rádio: ${e} Params: ${JSON.stringify(databaseParameters)}`
+      throw `DEU BO: ${error}`
     }
+    
+
+    // //Depois atualiza o Dispositivo
+    // databaseParameters = {
+    //   action: `updateOne`,
+    //   collection: `radios`,
+    //   filter: { mac: deviceToInsert.mac },
+    //   query: deviceToInsert
+    // }
+
+    // try {
+    //   client = await context.functions.execute(`databaseControl`, databaseParameters)
+    // } catch (error) {
+    //   let e = error
+    //   if(typeof error == 'object') {
+    //     e = JSON.stringify(error)
+    //   }
+    //   throw `Falha ao atualizar Rádio: ${e} Params: ${JSON.stringify(databaseParameters)}`
+    // }
   }
 
   /**
