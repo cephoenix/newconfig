@@ -357,7 +357,7 @@ async function changeClient(requestData) {
       if(typeof error == 'object') {
         e = JSON.stringify(error)
       }
-      throw `Falha ao atualizar Rádio: ${e}`
+      throw `Falha ao atualizar Rádio: ${e} Params: ${databaseParameters}`
     }
 
   } else {                                                                            //In this case, device already exists
