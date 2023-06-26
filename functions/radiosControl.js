@@ -292,7 +292,6 @@ async function changeClient(requestData) {
     },
     'recordingDate': new Date()
   }
-  throw `DEBUG ${deviceToInsert}`
 
   /**
    * UPDATE DEVICE SECTION
@@ -421,5 +420,6 @@ async function getDeviceTypeByName(name) {
  * @returns 
  */
 async function isEmpty(valueToBeChecked) {
+  throw `DEBUG ${JSON.stringify(deviceToInsert)}`
   return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
 }
