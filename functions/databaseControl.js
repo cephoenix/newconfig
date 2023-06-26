@@ -105,6 +105,7 @@ async function preproccess(parameters) {
       case 'findOne':
       case 'findMany':
       case 'updateOne':
+        throw{debug: parameters}
         // cheking parameters.query._id against null or `` may cause undefined exception
         if (parameters.query._id != undefined) {
           // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
