@@ -227,7 +227,7 @@ async function changeClient(requestData) {
    * - hardwareVersion
    * 
    */
-throw `DEBUG`
+
   //Atualizar Rádio
   /**
    * Retrieving Device information
@@ -243,7 +243,7 @@ throw `DEBUG`
   } catch (error) {
     return { success: false, data: error }
   }
-
+  throw `DEBUG ${device}`
   /**
    * Retrieving Client information
    */
