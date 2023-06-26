@@ -300,12 +300,13 @@ async function changeClient(requestData) {
   if (device != undefined && device != null && device != ``) {                          //In this case, device already exists
     
     if (device.number != undefined && device.number != null && device.number != `` /*isEmpty(device.number*/) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
-      
+      throw `debug2.1`
     } else {
+      throw `debug2.2`
       client.deviceSummary[deviceType] = 1
       // ret.name = device.name
     }
-    throw `debug2`
+    
     var filter = { "mac": `${requestData.address64Bit}` }
 
     try {
