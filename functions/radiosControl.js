@@ -102,7 +102,6 @@ exports = async function (payload) {
       } catch (error) {
         return {success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${error}`}
       }
-      
 
     default:
       return { success: false, data: `Ação inválida!`}
@@ -320,7 +319,7 @@ async function changeClient(requestData) {
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
-      return { success: false, data: `Falha ao atualizar cliente do Rádio! ${error}`}
+      throw `Falha ao atualizar cliente do Rádio! ${error}`
     }
 
     //Depois cria o Dispositivo
@@ -333,7 +332,7 @@ async function changeClient(requestData) {
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
-      return { success: false, data: `Falha ao atualizar Rádio: ${error}`}
+      throw `Falha ao atualizar Rádio: ${error}`
     }
 
   } else {                                                                            //In this case, device already exists
@@ -354,7 +353,7 @@ async function changeClient(requestData) {
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
-      return { success: false, data: `Falha ao atualizar Rádio: ${error}`}
+      throw `Falha ao atualizar Rádio: ${error}`
     }
   }
 
@@ -364,7 +363,7 @@ async function changeClient(requestData) {
 
   //Atualizar Cliente
 
-  return { success: true, data: `A rede do dispositivo foi alterada com sucesso!` }
+  return `A rede do dispositivo foi alterada com sucesso!`
 }
 
 
