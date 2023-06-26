@@ -371,7 +371,7 @@ async function changeClient(requestData) {
     try {
       await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(filter, deviceToInsert)
     } catch (error) {
-      throw `DEU BO: ${error} >> f: ${filter} >> d: ${deviceToInsert} `
+      throw `DEU BO: ${error} >> f: ${JSON.stringify(filter)} >> d: ${JSON.stringify(deviceToInsert)} `
     }
     
 
