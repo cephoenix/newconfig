@@ -349,7 +349,11 @@ async function changeClient(requestData) {
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
-      throw `Falha ao atualizar Rádio: ${error}`
+      let e = error
+      if(typeof error == Object) {
+        e = JSON.stringify(error)
+      }
+      throw `Falha ao atualizar Rádio: ${e}`
     }
 
   } else {                                                                            //In this case, device already exists
