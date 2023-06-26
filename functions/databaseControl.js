@@ -139,6 +139,23 @@ async function preproccess(parameters) {
  * Executa a operação escolhida
  * @param {*} parameters 
  * @returns 
+ * 
+   >>>>> Exemplo de findOne 
+   >>>>> Veja a comparação com undefined... essa é a forma correta de verificar se o registro foi encontrado
+
+  let databaseParameters = {
+    action: `findOne`,
+    collection: `clients`,
+    query: { _id: requestData.clientId }
+  }
+  
+  client = await context.functions.execute(`databaseControl`, databaseParameters)
+
+  if(client == undefined) {
+    return {success: false, data: `Não foi possível encontrar o cliente informado`}
+  }
+
+ * 
  */
 async function execute(parameters) {
   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
