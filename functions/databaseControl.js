@@ -100,7 +100,7 @@ async function validate(parameters) {
  * @returns 
  */
 async function preproccess(parameters) {
-  try {
+  
     switch (parameters.action) {
       case 'findOne':
       case 'findMany':
@@ -128,15 +128,8 @@ async function preproccess(parameters) {
     } else if (parameters.options == ``) {
       parameters.options = {}
     }
-    throw {debug2: true, data: parameters}
+    // throw {debug2: true, data: parameters}
     return parameters;
-
-  } catch (error) {
-    if(parameters.collection == `clients`) {
-      throw {debug2: true}
-    }
-    throw error
-  }
 }
 
 /**
