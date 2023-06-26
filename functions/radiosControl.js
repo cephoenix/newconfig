@@ -312,7 +312,7 @@ async function changeClient(requestData) {
 
     let filter
     try {
-      filter = { _id: new BSON.ObjectId(client._id) }  
+      filter = { _id: new BSON.ObjectId(`${client._id}`) }  
     } catch (error) {
       throw `Erro de conversão no ID do cliente. Id: ${client._id}. ${error}`
     }
