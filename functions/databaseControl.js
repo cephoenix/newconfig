@@ -29,6 +29,10 @@ exports = async function (data) {
   try {
     return await execute(data)
   } catch (error) {
+    let e = error
+    if(typeof error == Object) {
+      e = JSON.stringify(error)
+    }
     throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${error}`
   }
 };
