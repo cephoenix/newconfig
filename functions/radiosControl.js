@@ -310,7 +310,13 @@ async function changeClient(requestData) {
       }
     }
 
-    let filter = { _id: new BSON.ObjectId(client._id) }
+    let filter
+    try {
+      filter = { _id: new BSON.ObjectId(client._id) }  
+    } catch (error) {
+      throw `Erro de conversão no ID do cliente`
+    }
+    
     let options = { upsert: true}
 
     try {
