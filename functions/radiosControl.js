@@ -383,7 +383,7 @@ async function changeClient(requestData) {
       if(typeof error == 'object') {
         e = JSON.stringify(error)
       }
-      throw `Falha ao atualizar Rádio: ${e} Params: ${databaseParameters}`
+      throw `Falha ao atualizar Rádio: ${e} Params: ${JSON.stringify(databaseParameters)}`
     }
   }
 
