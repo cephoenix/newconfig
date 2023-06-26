@@ -366,11 +366,12 @@ async function changeClient(requestData) {
     } else {
       // ret.name = device.name
     }
+    var filter = { mac: requestData.address64Bit }
 
     try {
-      await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne({ mac: requestData.address64Bit }, deviceToInsert)
+      await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(filter, deviceToInsert)
     } catch (error) {
-      throw `DEU BO: ${error}}`
+      throw `DEU BO: ${error} >> f: ${filter} >> d: ${deviceToInsert} `
     }
     
 
