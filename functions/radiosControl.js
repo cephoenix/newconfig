@@ -320,7 +320,7 @@ async function changeClient(requestData) {
     try {
       client = await context.functions.execute(`databaseControl`, databaseParameters)
     } catch (error) {
-      throw `Falha ao atualizar cliente do Rádio! ${error} DBParams: ${databaseParameters} `
+      throw `Falha ao atualizar cliente do Rádio! ${error} DBParams: ${JSON.stringify(databaseParameters)} `
     }
 
     //Depois cria o Dispositivo
