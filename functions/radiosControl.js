@@ -91,10 +91,18 @@ exports = async function (payload) {
       break;
 
     case 'getNewNumber':
-      return { success: true, data: await getRadioNumber(processedRequestData.body) }
-
+      try {
+        return { success: true, data: await getRadioNumber(processedRequestData.body) }
+      } catch (error) {
+        return {success: false, data: `Erro ao obter numeração do dispositivo: ${error}`}
+      }
     case 'changeClient':
-      return {success: true, data: await changeClient(processedRequestData.body)}
+      try {
+        return {success: true, data: await changeClient(processedRequestData.body)}
+      } catch (error) {
+        return {success: false, data: `Erro ao confirmar alteraçãod a rede do dispositivo: ${error}`}
+      }
+      
 
     default:
       return { success: false, data: `Ação inválida!`}
