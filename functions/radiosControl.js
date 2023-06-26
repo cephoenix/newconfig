@@ -332,12 +332,8 @@ async function changeClient(requestData) {
   } else {                                                                            //In this case, device network was never changed
 
     //Atualiza as informações do Cliente primeiro
-    if (await isEmpty(client.deviceSummary)) {
+    if (client.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
       throw `Não tem summary`
-      client.deviceSummary = {}
-      client.deviceSummary[deviceType] = 1
-    } else {
-      throw `Tem summary`
       if (await isEmpty(client.deviceSummary[deviceType])) {
         client.deviceSummary[deviceType] = 1
       } else {
@@ -347,6 +343,10 @@ async function changeClient(requestData) {
          * 
          */
       }
+    } else {
+      throw `Tem summary`
+      client.deviceSummary = {}
+      client.deviceSummary[deviceType] = 1
     }
 
     let filter
