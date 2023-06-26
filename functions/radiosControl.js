@@ -298,6 +298,39 @@ async function changeClient(requestData) {
    */
   
   if (device != undefined && device != null && device != ``) {               //In this case, device network was never changed
+    if (await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
+      client.deviceSummary[deviceType] = 1
+    } else {
+      // ret.name = device.name
+    }
+    var filter = { "mac": `${requestData.address64Bit}` }
+
+    try {
+      await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(filter, deviceToInsert)
+    } catch (error) {
+      throw `DEU BO: ${error} >> f: ${JSON.stringify(filter)} >> d: ${JSON.stringify(deviceToInsert)} `
+    }
+    
+
+    // //Depois atualiza o Dispositivo
+    // databaseParameters = {
+    //   action: `updateOne`,
+    //   collection: `radios`,
+    //   filter: { mac: deviceToInsert.mac },
+    //   query: deviceToInsert
+    // }
+
+    // try {
+    //   client = await context.functions.execute(`databaseControl`, databaseParameters)
+    // } catch (error) {
+    //   let e = error
+    //   if(typeof error == 'object') {
+    //     e = JSON.stringify(error)
+    //   }
+    //   throw `Falha ao atualizar Rádio: ${e} Params: ${JSON.stringify(databaseParameters)}`
+    // }
+  } else {                                                                            //In this case, device already exists
+
     //Atualiza as informações do Cliente primeiro
     if (await isEmpty(client.deviceSummary)) {
       throw `Não tem summary`
@@ -361,39 +394,6 @@ async function changeClient(requestData) {
       }
       throw `Falha ao inserir Rádio: ${e} Params: ${databaseParameters}`
     }
-
-  } else {                                                                            //In this case, device already exists
-    if (await isEmpty(device.number)) {                                                 //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
-      client.deviceSummary[deviceType] = 1
-    } else {
-      // ret.name = device.name
-    }
-    var filter = { "mac": `${requestData.address64Bit}` }
-
-    try {
-      await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(filter, deviceToInsert)
-    } catch (error) {
-      throw `DEU BO: ${error} >> f: ${JSON.stringify(filter)} >> d: ${JSON.stringify(deviceToInsert)} `
-    }
-    
-
-    // //Depois atualiza o Dispositivo
-    // databaseParameters = {
-    //   action: `updateOne`,
-    //   collection: `radios`,
-    //   filter: { mac: deviceToInsert.mac },
-    //   query: deviceToInsert
-    // }
-
-    // try {
-    //   client = await context.functions.execute(`databaseControl`, databaseParameters)
-    // } catch (error) {
-    //   let e = error
-    //   if(typeof error == 'object') {
-    //     e = JSON.stringify(error)
-    //   }
-    //   throw `Falha ao atualizar Rádio: ${e} Params: ${JSON.stringify(databaseParameters)}`
-    // }
   }
 
   /**
