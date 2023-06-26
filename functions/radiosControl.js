@@ -372,8 +372,7 @@ async function changeClient(requestData) {
       action: `updateOne`,
       collection: `radios`,
       filter: { mac: deviceToInsert.mac },
-      query: deviceToInsert,
-      options: { upsert: true }
+      query: deviceToInsert
     }
 
     try {
