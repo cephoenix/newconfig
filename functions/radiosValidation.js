@@ -36,7 +36,7 @@ exports = async function (data) {
       await validateGetNewNumber(parameters)
       break;
 
-    case 'getNewNumber':
+    case 'changeClient':
       await validateChangeClient(parameters)
       break;
 
@@ -129,6 +129,14 @@ async function validateChangeClient (parameters) {
   }
 
   if(parameters.clientId == `` || parameters.clientId == undefined || parameters.clientId == null) {
+    throw `O campo "clientId" é obrigatório!`
+  }
+
+  if(parameters.firmwareVersion == `` || parameters.firmwareVersion == undefined || parameters.firmwareVersion == null) {
+    throw `O campo "mac" é obrigatório!`
+  }
+
+  if(parameters.hardwareVersion == `` || parameters.hardwareVersion == undefined || parameters.hardwareVersion == null) {
     throw `O campo "clientId" é obrigatório!`
   }
 }

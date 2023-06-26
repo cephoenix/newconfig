@@ -100,7 +100,7 @@ exports = async function (payload) {
       try {
         return {success: true, data: await changeClient(processedRequestData.body)}
       } catch (error) {
-        return {success: false, data: `Erro ao confirmar alteraçãod a rede do dispositivo: ${error}`}
+        return {success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${error}`}
       }
       
 
