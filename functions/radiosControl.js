@@ -219,6 +219,8 @@ async function changeClient(requestData) {
   var device
   var client
 
+
+  throw {debug: requestData}
   /**
    * Campos obrigatórios:
    * - mac
