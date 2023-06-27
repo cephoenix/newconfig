@@ -406,8 +406,6 @@ async function changeClient(requestData) {
   return `A rede do dispositivo foi alterada com sucesso!`;
 }
 
-
-
 /**
  * 
  * @returns 
