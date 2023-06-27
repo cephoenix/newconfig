@@ -9,69 +9,69 @@ exports = async function (payload) {
   let operationParameters = {}
   var processedRequestData
 
-  // /**
-  //  * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
-  //  */
-  // try {
-  //   processedRequestData = await context.functions.execute(`proccessRequest`, payload)
-  // } catch (error) {
-  //   return { success: false, data: error }
-  // }
+  /**
+    * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
+    */
+  try {
+    processedRequestData = await context.functions.execute(`proccessRequest`, payload)
+  } catch (error) {
+    return { success: false, data: error }
+  }
 
-  processedRequestData = {
-    "headers": {
-        "Accept": [
-            "*/*"
-        ],
-        "Postman-Token": [
-            "6a9b9513-8152-41d3-a0d4-b84227a09a4b"
-        ],
-        "Content-Length": [
-            "287"
-        ],
-        "X-Forwarded-For": [
-            "200.181.33.155"
-        ],
-        "X-Forwarded-Proto": [
-            "https"
-        ],
-        "X-Envoy-External-Address": [
-            "200.181.33.155"
-        ],
-        "X-Cluster-Client-Ip": [
-            "200.181.33.155"
-        ],
-        "Content-Type": [
-            "application/json"
-        ],
-        "Accept-Encoding": [
-            "gzip, deflate, br"
-        ],
-        "X-Request-Id": [
-            "98cb09e3-4085-44c3-bb03-cd87bbc4dab0"
-        ],
-        "X-Forwarded-Client-Cert": [
-            "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-        ],
-        "User-Agent": [
-            "PostmanRuntime/7.32.3"
-        ]
-    },
-    "urlParameters": {
-        "action": "changeClient"
-    },
-    "body": {
-        "mac": "000000000000000A",
-        "clientId": "6494b3cd9fdaaf633f67286f",
-        "number": 1,
-        "name": "XXX_LRDFTFFFE967F3E",
-        "hardwareVersion": "1.0.0",
-        "firmwareVersion": "370223360",
-        "ProfileId": "",
-        "manufacturerId": "",
-        "userId": "64920b1cbf0f6a848f4f8220"
-    }
-}
+//   processedRequestData = {
+//     "headers": {
+//         "Accept": [
+//             "*/*"
+//         ],
+//         "Postman-Token": [
+//             "6a9b9513-8152-41d3-a0d4-b84227a09a4b"
+//         ],
+//         "Content-Length": [
+//             "287"
+//         ],
+//         "X-Forwarded-For": [
+//             "200.181.33.155"
+//         ],
+//         "X-Forwarded-Proto": [
+//             "https"
+//         ],
+//         "X-Envoy-External-Address": [
+//             "200.181.33.155"
+//         ],
+//         "X-Cluster-Client-Ip": [
+//             "200.181.33.155"
+//         ],
+//         "Content-Type": [
+//             "application/json"
+//         ],
+//         "Accept-Encoding": [
+//             "gzip, deflate, br"
+//         ],
+//         "X-Request-Id": [
+//             "98cb09e3-4085-44c3-bb03-cd87bbc4dab0"
+//         ],
+//         "X-Forwarded-Client-Cert": [
+//             "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
+//         ],
+//         "User-Agent": [
+//             "PostmanRuntime/7.32.3"
+//         ]
+//     },
+//     "urlParameters": {
+//         "action": "changeClient"
+//     },
+//     "body": {
+//         "mac": "000000000000000",
+//         "clientId": "6494b3cd9fdaaf633f672872",
+//         "number": 4,
+//         "name": "XXX_LRDFTFFFE967F3E",
+//         "hardwareVersion": "1.0.0",
+//         "firmwareVersion": "370223360",
+//         "ProfileId": "",
+//         "manufacturerId": "",
+//         "userId": "64920b1cbf0f6a848f4f8220"
+//     }
+// }
 
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
@@ -186,7 +186,6 @@ exports = async function (payload) {
 };
 
 
-
 /**
  * 
  * @param {*} requestData 
@@ -275,17 +274,6 @@ async function changeClient(requestData) {
   var client
 
 
-  requestData = {
-    mac: "000000000000000A",
-    clientId: "6494b3cd9fdaaf633f67286f",
-    number: 1,
-    name: "XXX_LRDFTFFFE967F3E",
-    hardwareVersion: "1.0.0",
-    firmwareVersion: "370223360",
-    ProfileId: "",
-    manufacturerId: "",
-    userId: "64920b1cbf0f6a848f4f8220"
-  }
   /**
    * Campos obrigatórios:
    * - mac
@@ -326,152 +314,201 @@ async function changeClient(requestData) {
     return { success: false, data: error }
   }
   
-  let deviceType = await getDeviceTypeByName(requestData.name)
+  var deviceType = await getDeviceTypeByName(requestData.name)
   let profileId = requestData.firmwareVersion.substring(0, 2)
   let manufacturerId = requestData.firmwareVersion.substring(3, 6)
 
-  var deviceToInsert = {
-    'address64Bit': `${requestData.mac}`,
-    'address16Bits': 'FFFE',
-    'oldDatabaseId': ``,
-    'name': `${requestData.name}`,
-    'number': `${(requestData.name).substring(0, -4)}`,
-    'firmwareVersion': `${requestData.firmwareVersion}`,
-    'hardwareVersion': `${requestData.hardwareVersion}`,
-    'profileId': `${profileId}`,
-    'manufacturerId': `${manufacturerId}`,
-    'group': `${(requestData.name).substring(4, 8)}`,                         // I'm using the same as the device Initials
-    'connectionRouterAddress': `NOT USED`,                                    //${requestData.connectionRouterAddress}`
-    'deviceTypeId': `${deviceType.deviceTypeId}`,
-    'deviceTypeInitials': `${deviceType.deviceTypeInitials}`,
-    'deviceTypeName': `${deviceType.deviceTypeName}`,
-    'deviceTypeDescription': `${deviceType.deviceTypeDescription}`,
-    'deviceClass': `${deviceType.deviceClass}`,
-    'productCode': `${deviceType.productCode}`,
-    'status': "unused",
-    'clientOID': `${client._id}`,
-    'clientName': `${client.name}`,
-    'clientInitials': `${client.initials}`,
-    'clientChannel': `${client.channel}`,
-    'clientType': {
-      'type': `${client.clientType.type}`,
-      'name': `${client.clientType.name}`
-    },
-    'recordingDate': new Date()
+
+  try {
+    // var deviceToInsert = {}
+    // deviceToInsert.name = requestData.name
+    var deviceToInsert = {
+      'name': `${requestData.name}`,
+      'number': `${requestData.number}`,
+      'firmwareVersion': `${requestData.firmwareVersion}`,
+      'hardwareVersion': `${requestData.hardwareVersion}`,
+      'profileId': `${profileId}`,
+      'manufacturerId': `${manufacturerId}`,
+      'group': `${(requestData.name).substring(4, 9)}`,                         // I'm using the same as the device Initials
+      'deviceTypeId': `${deviceType.id}`,
+      'deviceTypeInitials': `${deviceType.initials}`,
+      'deviceTypeName': `${deviceType.name}`,
+      'deviceTypeDescription': `${deviceType.description}`,
+      'deviceClass': `${deviceType.class}`,
+      'productCode': `${deviceType.productCode}`,
+      'clientOID': `${client._id}`,
+      'clientName': `${client.name}`,
+      'clientInitials': `${client.initials}`,
+      'clientChannel': `${client.channel}`,
+      'clientType': {
+        'type': `${client.clientType.type}`,
+        'name': `${client.clientType.name}`
+      },
+      'recordingDate': new Date()
+    }
+  } catch (e) {
+    console.log("DEBUG", e)
+    throw `Houve um problema com os dados do dispositivo a ser atualizado! ${e}`
+  }
+
+console.log("DEBUG" + device)
+  let n = 1
+  if (device != null && device.number != undefined && device.number != null && device.number != ``) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
+      n = requestData.number
   }
 
   /**
-   * UPDATE DEVICE SECTION
+   * UPSERT DEVICE
    */
+  try {
+    let filter = {address64Bit:requestData.mac}
+    await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(
+      filter,
+      {"$set": deviceToInsert},
+      {"upsert": true}
+    )
+  } catch (error) {
+    console.log(`1${filter}`)
+    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
+  }
   
-  if (device != undefined && device != null && device != ``) {                          //In this case, device already exists
-    
-    if (device.number != undefined && device.number != null && device.number != `` /*isEmpty(device.number*/) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
-      throw `debug2.1`
-    } else {
-      throw `debug2.2 ${isEmpty(device.number)} - ${JSON.stringify(device)}`
-      client.deviceSummary[deviceType] = 1
-      // ret.name = device.name
-    }
-    
-    var filter = { "mac": `${requestData.address64Bit}` }
-
-    try {
-      await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(filter, deviceToInsert)
-    } catch (error) {
-      throw `DEU BO: ${error} >> f: ${JSON.stringify(filter)} >> d: ${JSON.stringify(deviceToInsert)} `
-    }
-    
-
-    // //Depois atualiza o Dispositivo
-    // databaseParameters = {
-    //   action: `updateOne`,
-    //   collection: `radios`,
-    //   filter: { mac: deviceToInsert.mac },
-    //   query: deviceToInsert
-    // }
-
-    // try {
-    //   client = await context.functions.execute(`databaseControl`, databaseParameters)
-    // } catch (error) {
-    //   let e = error
-    //   if(typeof error == 'object') {
-    //     e = JSON.stringify(error)
-    //   }
-    //   throw `Falha ao atualizar Rádio: ${e} Params: ${JSON.stringify(databaseParameters)}`
-    // }
-  } else {                                                                            //In this case, device network was never changed
-    throw `debug3`
-    //Atualiza as informações do Cliente primeiro
-    if (client.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
-      throw `Não tem summary`
-      if (await isEmpty(client.deviceSummary[deviceType])) {
-        client.deviceSummary[deviceType] = 1
-      } else {
-        client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
-        /**
-         * Atenção! Talvez seja necessário fazer uma validação entre o nome do dispositivo e esse número aqui
-         * 
-         */
-      }
-    } else {
-      throw `Tem summary`
-      client.deviceSummary = {}
-      client.deviceSummary[deviceType] = 1
-    }
-
-    let filter
-    try {
-      filter = { _id: new BSON.ObjectId(`${client._id}`) }  
-    } catch (error) {
-      throw `Erro de conversão no ID do cliente. Id: ${client._id}. ${error}`
-    }
-    
-    let options = { upsert: true}
-
-    try {
-      const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(filter, client, options)
-    } catch (error) {
-      throw `Erro ao mudar dispositivo de rede`
-    }
-    
-
-    let databaseParameters = {
-      action: `updateOne`,
-      collection: `clients`,
-      filter: { id: requestData.clientId },
-      query: client
-    }
-
-    try {
-      client = await context.functions.execute(`databaseControl`, databaseParameters)
-    } catch (error) {
-      throw `Falha ao atualizar cliente do Rádio! ${JSON.stringify(error)} DBParams: ${JSON.stringify(databaseParameters)} `
-    }
-
-    //Depois cria o Dispositivo
-    databaseParameters = {
-      action: `insertOne`,
-      collection: `radios`,
-      query: deviceToInsert
-    }
-
-    try {
-      client = await context.functions.execute(`databaseControl`, databaseParameters)
-    } catch (error) {
-      let e = error
-      if(typeof error == 'object') {
-        e = JSON.stringify(error)
-      }
-      throw `Falha ao inserir Rádio: ${e} Params: ${databaseParameters}`
-    }
-  }
-
   /**
-   * UPDATE CLIENT SECTION
+   * UPDATE CLIENT
    */
+  try {
+    let filter = { _id: new BSON.ObjectId(`${client._id}`)}
+    
+    let clientToInsert = {}
+    if(clientToInsert.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
+      clientToInsert.deviceSummary[`${deviceType.initials}`] = requestData.number
+    } else {
+      clientToInsert.deviceSummary = {}
+      clientToInsert.deviceSummary[`${deviceType.initials}`] = requestData.number
+    }
 
-  //Atualizar Cliente
+    await context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(
+      filter,
+      {"$set": clientToInsert}
+    )
+  } catch (error) {
+    console.log(`2${filter}`)
+    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
+}
+
+  // if (device != undefined && device != null && device != ``) {                          //In this case, device already exists
+  
+  //   // /**
+  //   // * UPDATE DEVICE
+  //   // */
+    
+  //   // let n = 1
+  //   // if (device.number != undefined && device.number != null && device.number != ``) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
+  //   //     n = requestData.number
+  //   // }
+
+  //   // try {
+  //   //   let filter = {address64Bit:requestData.mac}
+  //   //   await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(
+  //   //     filter,
+  //   //     {"$set": deviceToInsert},
+  //   //     {"upsert": true}
+  //   //   )
+  //   // } catch (error) {
+  //   //   throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
+  //   // }
+
+  //   /**
+  //   * UPDATE CLIENT
+  //   */
+
+  //   try {
+  //     let filter = { _id: new BSON.ObjectId(`${client._id}`)}
+      
+  //     let clientToInsert = {}
+  //     if(clientToInsert.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
+  //       clientToInsert.deviceSummary[`${deviceType.initials}`] = requestData.number
+  //     } else {
+  //       clientToInsert.deviceSummary = {}
+  //       clientToInsert.deviceSummary[`${deviceType.initials}`] = requestData.number
+  //     }
+
+  //     await context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(
+  //       filter,
+  //       {"$set": clientToInsert}
+  //     )
+  //   } catch (error) {
+  //     throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
+  //   }
+    
+  // } else {                                                                            //In this case, device network was never changed
+  //   console.log("Device First time")
+
+  //   // //Atualiza as informações do Cliente primeiro
+  //   // if (client.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
+
+  //   //   if (await isEmpty(client.deviceSummary[deviceType])) {
+  //   //     client.deviceSummary[deviceType] = 1
+  //   //   } else {
+  //   //     client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
+  //   //     /**
+  //   //     * Atenção! Talvez seja necessário fazer uma validação entre o nome do dispositivo e esse número aqui
+  //   //     * 
+  //   //     */
+  //   //   }
+  //   // } else {
+  //   //   throw `Tem summary`
+  //   //   client.deviceSummary = {}
+  //   //   client.deviceSummary[deviceType] = 1
+  //   // }
+
+  //   // let filter
+  //   // try {
+  //   //   filter = { _id: new BSON.ObjectId(`${client._id}`) }  
+  //   // } catch (error) {
+  //   //   throw `Erro de conversão no ID do cliente. Id: ${client._id}. ${error}`
+  //   // }
+    
+  //   // let options = { upsert: true}
+
+  //   // try {
+  //   //   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(filter, client, options)
+  //   // } catch (error) {
+  //   //   throw `Erro ao mudar dispositivo de rede`
+  //   // }
+    
+
+  //   // let databaseParameters = {
+  //   //   action: `updateOne`,
+  //   //   collection: `clients`,
+  //   //   filter: { id: requestData.clientId },
+  //   //   query: client
+  //   // }
+
+  //   // try {
+  //   //   client = await context.functions.execute(`databaseControl`, databaseParameters)
+  //   // } catch (error) {
+  //   //   throw `Falha ao atualizar cliente do Rádio! ${JSON.stringify(error)} DBParams: ${JSON.stringify(databaseParameters)} `
+  //   // }
+
+  //   // //Depois cria o Dispositivo
+  //   // databaseParameters = {
+  //   //   action: `insertOne`,
+  //   //   collection: `radios`,
+  //   //   query: deviceToInsert
+  //   // }
+
+  //   // try {
+  //   //   client = await context.functions.execute(`databaseControl`, databaseParameters)
+  //   // } catch (error) {
+  //   //   let e = error
+  //   //   if(typeof error == 'object') {
+  //   //     e = JSON.stringify(error)
+  //   //   }
+  //   //   throw `Falha ao inserir Rádio: ${e} Params: ${databaseParameters}`
+  //   // }
+  // }
+
+
 
   return `A rede do dispositivo foi alterada com sucesso!`
 }
@@ -483,7 +520,7 @@ async function changeClient(requestData) {
  * @returns 
  */
 async function getDeviceTypeByName(name) {
-  return { id: 1, initials: `LRDFT`, name: `Long Range Smoke Detector`, description: `Equipment used to detect smoke` };
+  return { id: 1, initials: `LRDFT`, name: `Long Range Smoke Detector`, description: `Equipment used to detect smoke`, 'class': 1, productCode: 153524354};
 }
 
 /**
