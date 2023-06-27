@@ -18,67 +18,67 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 
-  //   processedRequestData = {
-  //     "headers": {
-  //         "Accept": [
-  //             "*/*"
-  //         ],
-  //         "Postman-Token": [
-  //             "6a9b9513-8152-41d3-a0d4-b84227a09a4b"
-  //         ],
-  //         "Content-Length": [
-  //             "287"
-  //         ],
-  //         "X-Forwarded-For": [
-  //             "200.181.33.155"
-  //         ],
-  //         "X-Forwarded-Proto": [
-  //             "https"
-  //         ],
-  //         "X-Envoy-External-Address": [
-  //             "200.181.33.155"
-  //         ],
-  //         "X-Cluster-Client-Ip": [
-  //             "200.181.33.155"
-  //         ],
-  //         "Content-Type": [
-  //             "application/json"
-  //         ],
-  //         "Accept-Encoding": [
-  //             "gzip, deflate, br"
-  //         ],
-  //         "X-Request-Id": [
-  //             "98cb09e3-4085-44c3-bb03-cd87bbc4dab0"
-  //         ],
-  //         "X-Forwarded-Client-Cert": [
-  //             "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-  //         ],
-  //         "User-Agent": [
-  //             "PostmanRuntime/7.32.3"
-  //         ]
-  //     },
-  //     // "urlParameters": {
-  //     //     "action": "changeClient"
-  //     // },
-  //     // "body": {
-  //     //     "mac": "000000000000000",
-  //     //     "clientId": "6494b3cd9fdaaf633f672872",
-  //     //     "name": "XXX_LRDFT0010",
-  //     //     "hardwareVersion": "1.0.0",
-  //     //     "firmwareVersion": "370223360",
-  //     //     "ProfileId": "",
-  //     //     "manufacturerId": "",
-  //     //     "userId": "64920b1cbf0f6a848f4f8220"
-  //     // },
-  //     "urlParameters": {
-  //         "action": "getNewNumber"
-  //     },
-  //     "body": {
-  //         "mac": "000000000000000",
-  //         "clientId": "6494b3cd9fdaaf633f672872",
-  //         "deviceName": "XXX_LRDFTFFFE967F3E"
-  //     }
-  // }
+    processedRequestData = {
+      "headers": {
+          "Accept": [
+              "*/*"
+          ],
+          "Postman-Token": [
+              "6a9b9513-8152-41d3-a0d4-b84227a09a4b"
+          ],
+          "Content-Length": [
+              "287"
+          ],
+          "X-Forwarded-For": [
+              "200.181.33.155"
+          ],
+          "X-Forwarded-Proto": [
+              "https"
+          ],
+          "X-Envoy-External-Address": [
+              "200.181.33.155"
+          ],
+          "X-Cluster-Client-Ip": [
+              "200.181.33.155"
+          ],
+          "Content-Type": [
+              "application/json"
+          ],
+          "Accept-Encoding": [
+              "gzip, deflate, br"
+          ],
+          "X-Request-Id": [
+              "98cb09e3-4085-44c3-bb03-cd87bbc4dab0"
+          ],
+          "X-Forwarded-Client-Cert": [
+              "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
+          ],
+          "User-Agent": [
+              "PostmanRuntime/7.32.3"
+          ]
+      },
+      "urlParameters": {
+          "action": "changeClient"
+      },
+      "body": {
+          "mac": "000000000000000",
+          "clientId": "649b369e1fd85eb54dc64b2d",
+          "name": "XXX_LRRFT0010",
+          "hardwareVersion": "1.0.0",
+          "firmwareVersion": "370223360",
+          "ProfileId": "",
+          "manufacturerId": "",
+          "userId": "649b369e1fd85eb54dc64b37"
+      },
+      // "urlParameters": {
+      //     "action": "getNewNumber"
+      // },
+      // "body": {
+      //     "mac": "000000000000000",
+      //     "clientId": "6494b3cd9fdaaf633f672872",
+      //     "deviceName": "XXX_LRDFTFFFE967F3E"
+      // }
+  }
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
    */
@@ -314,7 +314,7 @@ async function changeClient(requestData) {
   try {
     device = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
-    return { success: false, data: error };
+    return { success: false, data: `Erro ao buscar dispositivo. ${error}` };
   }
   
   /**
@@ -325,14 +325,26 @@ async function changeClient(requestData) {
     collection: `clients`,
     query: { _id: requestData.clientId }
   };
-
+console.log("DEBUG: ", deviceType)
   try {
     client = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
-    return { success: false, data: error };
+    throw`Erro ao buscar cliente. ${error}`;
   }
   
-  var deviceType = await getDeviceTypeByName(requestData.name);
+  if(client == undefined) {
+    throw `Cliente não encontrado!`;
+  }
+  
+  var deviceType;
+  try {
+    
+    deviceType = await getDeviceTypeByName(requestData.name);  
+  } catch (error) {
+    throw error;
+  }
+  
+
   let profileId = requestData.firmwareVersion.substring(0, 2);
   let manufacturerId = requestData.firmwareVersion.substring(3, 6);
 
@@ -368,7 +380,6 @@ async function changeClient(requestData) {
   } catch (e) {
     throw `Houve um problema com os dados do dispositivo a ser atualizado! ${e}`;
   }
-
   /**
    * UPSERT DEVICE
    */
@@ -412,18 +423,79 @@ async function changeClient(requestData) {
  * @returns 
  */
 async function getDeviceTypeByName(name) {
-  let deviceTypes = await context.services.get("mongodb-atlas").db("configRadio").collection(`deviceTypes`).find({sigla: name});
-  deviceTypes = await resp.toArray()
+  var initials = name.substring(4,9);
+  console.log("Debug")
+  let deviceTypes;
+  var typeToReturn;
+  try {
+    deviceTypes = await context.services.get("mongodb-atlas").db("configRadio").collection(`deviceTypes`).find({"initials":`${initials}`});
+    deviceTypes = await deviceTypes.toArray();
+  } catch (e) {
+    throw `Deu erro: ${e}`;
+  }
+  
+  try {
+    deviceTypes.forEach(type => {
+      
+      if(type.initials == initials) {
+        typeToReturn = type;
+      }
+    });    
+  } catch (e) {
+    throw `Não foi possível buscar a lista de Tipos de Dispositivo. ${e}`;
+  }
+  
+  
 
-  var typeToReturn
-  deviceTypes.array.forEach(type => {
-    if(type.name == name) {
-      typeToReturn = type
-    }
-  });
+  if(typeToReturn == undefined) {
 
-  return typeToReturn
-  return { id: 1, initials: `LRDFT`, name: `Long Range Smoke Detector`, description: `Equipment used to detect smoke`, 'class': 1, productCode: 153524354};
+    /**
+     * Quando não encontramos o dispositivo cadastrado, tentamos fazer uma busca na API do Buble
+     */
+     
+    var response = await context.http.get({
+      url: "https://app.firebee.com.br/api/1.1/obj/Products/",
+      requestHeaders: {
+        "Content-Type": ["application/json"],
+        Authorization: "Bearer 0b6336226cbe51d8b47e2f04b70de602"
+      },
+      body: {},
+      encodeBodyAsJSON: true
+    })
+  
+  console.log("Response: ", response)
+    var type = []
+    var rawData = await JSON.parse(response.body.text()).response.results
+    
+    rawData.forEach(element => {
+      // if (element.SiglaConfRadio.includes("LR") && element.DeviceClass != "6") {
+  
+      //   // let x = `${element.SiglaConfRadio}`
+      //   // let y = element.DescriptionPTBR
+        
+      //   // console.log("Y: ", y)
+  
+      //   // if (y != undefined) {
+      //   //   x += ` - ${y.slice(0,13)}`
+      //   // }
+      //   // console.log("i: ", initials, "sconf", element.SiglaConfRadio)
+      //   // if(element.SiglaConfRadio == initials) {
+      //   //   type.push({
+      //   //     productCode: element.Codigo,
+      //   //     initials: element.SiglaConfRadio,
+      //   //     exhibitionName: x,
+      //   //     class: element.DeviceClass,
+      //   //     description: element.Nome
+      //   //   });          
+      //   // }
+      // }
+    });
+    context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(deviceTypes);
+    
+    throw `Tipo de dispositivo (${initials}) não encontrado! `
+  }
+  
+  return typeToReturn;
 }
 
 /**
