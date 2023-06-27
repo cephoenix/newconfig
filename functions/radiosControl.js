@@ -324,7 +324,7 @@ async function changeClient(requestData) {
     // deviceToInsert.name = requestData.name
     var deviceToInsert = {
       'name': `${requestData.name}`,
-      'number': `${requestData.number}`,
+      'number': requestData.number,
       'firmwareVersion': `${requestData.firmwareVersion}`,
       'hardwareVersion': `${requestData.hardwareVersion}`,
       'profileId': `${profileId}`,
@@ -339,9 +339,9 @@ async function changeClient(requestData) {
       'clientOID': `${client._id}`,
       'clientName': `${client.name}`,
       'clientInitials': `${client.initials}`,
-      'clientChannel': `${client.channel}`,
+      'clientChannel': client.channel,
       'clientType': {
-        'type': `${client.clientType.type}`,
+        'type': client.clientType.type,
         'name': `${client.clientType.name}`
       },
       'recordingDate': new Date()
