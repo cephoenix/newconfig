@@ -263,13 +263,10 @@ async function getRadioNumber(requestData) {
         } else {
           definitiveNumber = 1;
         }
-        ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
       } else {
         definitiveNumber = 1
-        ret.name = `${client.initials}_${deviceType}0001`
       }
-      
-
+      ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
     } else {
       ret.name = `${device.name}`
     }
