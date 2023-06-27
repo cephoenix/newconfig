@@ -335,13 +335,14 @@ async function changeClient(requestData) {
   let profileId = requestData.firmwareVersion.substring(0, 2);
   let manufacturerId = requestData.firmwareVersion.substring(3, 6);
 
-
+  var deviceToInsert;
+  var deviceNumber;
   try {
     
-    var n = +requestData.name.substring(9,13);
-    var deviceToInsert = {
+    deviceNumber = +requestData.name.substring(9,13);
+    deviceToInsert = {
       'name': `${requestData.name}`,
-      'number': n,
+      'number': deviceNumber,
       'firmwareVersion': `${requestData.firmwareVersion}`,
       'hardwareVersion': `${requestData.hardwareVersion}`,
       'profileId': `${profileId}`,
@@ -367,11 +368,6 @@ async function changeClient(requestData) {
     throw `Houve um problema com os dados do dispositivo a ser atualizado! ${e}`;
   }
 
-  // let n = 1
-  // if (device != null && device.number != undefined && device.number != null && device.number != ``) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
-  //     n = requestData.number
-  // }
-
   /**
    * UPSERT DEVICE
    */
@@ -394,10 +390,10 @@ async function changeClient(requestData) {
     
     let clientToInsert = {};
     if(clientToInsert.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
-      clientToInsert.deviceSummary[`${deviceType.initials}`] = n;
+      clientToInsert.deviceSummary[`${deviceType.initials}`] = deviceNumber;
     } else {
       clientToInsert.deviceSummary = {};
-      clientToInsert.deviceSummary[`${deviceType.initials}`] = n;
+      clientToInsert.deviceSummary[`${deviceType.initials}`] = deviceNumber;
     }
 
     await context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(
@@ -407,121 +403,6 @@ async function changeClient(requestData) {
   } catch (error) {
     throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
 }
-
-  // if (device != undefined && device != null && device != ``) {                          //In this case, device already exists
-  
-  //   // /**
-  //   // * UPDATE DEVICE
-  //   // */
-    
-  //   // let n = 1
-  //   // if (device.number != undefined && device.number != null && device.number != ``) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
-  //   //     n = requestData.number
-  //   // }
-
-  //   // try {
-  //   //   let filter = {address64Bit:requestData.mac}
-  //   //   await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(
-  //   //     filter,
-  //   //     {"$set": deviceToInsert},
-  //   //     {"upsert": true}
-  //   //   )
-  //   // } catch (error) {
-  //   //   throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
-  //   // }
-
-  //   /**
-  //   * UPDATE CLIENT
-  //   */
-
-  //   try {
-  //     let filter = { _id: new BSON.ObjectId(`${client._id}`)}
-      
-  //     let clientToInsert = {}
-  //     if(clientToInsert.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
-  //       clientToInsert.deviceSummary[`${deviceType.initials}`] = requestData.number
-  //     } else {
-  //       clientToInsert.deviceSummary = {}
-  //       clientToInsert.deviceSummary[`${deviceType.initials}`] = requestData.number
-  //     }
-
-  //     await context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(
-  //       filter,
-  //       {"$set": clientToInsert}
-  //     )
-  //   } catch (error) {
-  //     throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
-  //   }
-    
-  // } else {                                                                            //In this case, device network was never changed
-
-  //   // //Atualiza as informações do Cliente primeiro
-  //   // if (client.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
-
-  //   //   if (await isEmpty(client.deviceSummary[deviceType])) {
-  //   //     client.deviceSummary[deviceType] = 1
-  //   //   } else {
-  //   //     client.deviceSummary[deviceType] = client.deviceSummary[deviceType] + 1
-  //   //     /**
-  //   //     * Atenção! Talvez seja necessário fazer uma validação entre o nome do dispositivo e esse número aqui
-  //   //     * 
-  //   //     */
-  //   //   }
-  //   // } else {
-  //   //   throw `Tem summary`
-  //   //   client.deviceSummary = {}
-  //   //   client.deviceSummary[deviceType] = 1
-  //   // }
-
-  //   // let filter
-  //   // try {
-  //   //   filter = { _id: new BSON.ObjectId(`${client._id}`) }  
-  //   // } catch (error) {
-  //   //   throw `Erro de conversão no ID do cliente. Id: ${client._id}. ${error}`
-  //   // }
-    
-  //   // let options = { upsert: true}
-
-  //   // try {
-  //   //   const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(filter, client, options)
-  //   // } catch (error) {
-  //   //   throw `Erro ao mudar dispositivo de rede`
-  //   // }
-    
-
-  //   // let databaseParameters = {
-  //   //   action: `updateOne`,
-  //   //   collection: `clients`,
-  //   //   filter: { id: requestData.clientId },
-  //   //   query: client
-  //   // }
-
-  //   // try {
-  //   //   client = await context.functions.execute(`databaseControl`, databaseParameters)
-  //   // } catch (error) {
-  //   //   throw `Falha ao atualizar cliente do Rádio! ${JSON.stringify(error)} DBParams: ${JSON.stringify(databaseParameters)} `
-  //   // }
-
-  //   // //Depois cria o Dispositivo
-  //   // databaseParameters = {
-  //   //   action: `insertOne`,
-  //   //   collection: `radios`,
-  //   //   query: deviceToInsert
-  //   // }
-
-  //   // try {
-  //   //   client = await context.functions.execute(`databaseControl`, databaseParameters)
-  //   // } catch (error) {
-  //   //   let e = error
-  //   //   if(typeof error == 'object') {
-  //   //     e = JSON.stringify(error)
-  //   //   }
-  //   //   throw `Falha ao inserir Rádio: ${e} Params: ${databaseParameters}`
-  //   // }
-  // }
-
-
-
   return `A rede do dispositivo foi alterada com sucesso!`;
 }
 
@@ -541,5 +422,5 @@ async function getDeviceTypeByName(name) {
  * @returns 
  */
 function isEmpty(valueToBeChecked) {
-  return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined || valueToBeChecked == NaN)
+  return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined || isNaN(valueToBeChecked));
 }
