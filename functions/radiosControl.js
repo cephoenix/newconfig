@@ -220,7 +220,17 @@ async function changeClient(requestData) {
   var client
 
 
-  throw {debug: requestData}
+  requestData = {
+    mac: "000000000000000A",
+    clientId: "6494b3cd9fdaaf633f67286f",
+    number: 1,
+    name: "XXX_LRDFTFFFE967F3E",
+    hardwareVersion: "1.0.0",
+    firmwareVersion: "370223360",
+    ProfileId: "",
+    manufacturerId: "",
+    userId: "64920b1cbf0f6a848f4f8220"
+  }
   /**
    * Campos obrigatórios:
    * - mac
