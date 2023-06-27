@@ -2,7 +2,7 @@ exports = async function (data) {
 
   var action = data.urlParameters.action
   var parameters = data.body
-
+console.log('PARAMS: ', JSON.stringify(parameters))
   switch (action) {
     case 'create':
       await validateCreate(parameters)
@@ -124,6 +124,7 @@ async function validateGetNewNumber (parameters) {
 }
 
 async function validateChangeClient (parameters) {
+
   if(parameters.mac == `` || parameters.mac == undefined || parameters.mac == null) {
     throw `O campo "mac" é obrigatório!`
   }
@@ -133,10 +134,10 @@ async function validateChangeClient (parameters) {
   }
 
   if(parameters.firmwareVersion == `` || parameters.firmwareVersion == undefined || parameters.firmwareVersion == null) {
-    throw `O campo "mac" é obrigatório!`
+    throw `O campo "firmwareVersion" é obrigatório!`
   }
 
   if(parameters.hardwareVersion == `` || parameters.hardwareVersion == undefined || parameters.hardwareVersion == null) {
-    throw `O campo "clientId" é obrigatório!`
+    throw `O campo "hardwareVersion" é obrigatório!`
   }
 }
