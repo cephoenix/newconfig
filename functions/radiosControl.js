@@ -347,11 +347,9 @@ async function changeClient(requestData) {
       'recordingDate': new Date()
     }
   } catch (e) {
-    console.log("DEBUG", e)
     throw `Houve um problema com os dados do dispositivo a ser atualizado! ${e}`
   }
 
-console.log("DEBUG" + device)
   let n = 1
   if (device != null && device.number != undefined && device.number != null && device.number != ``) {    //If device already exists, but has no number we should verify if device name is correct. Its number should be 0001
       n = requestData.number
