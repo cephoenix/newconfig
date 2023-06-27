@@ -63,7 +63,7 @@ exports = async function (payload) {
   //     // "body": {
   //     //     "mac": "000000000000000",
   //     //     "clientId": "6494b3cd9fdaaf633f672872",
-  //     //     "name": "XXX_LRDFT0003",
+  //     //     "name": "XXX_LRDFT0010",
   //     //     "hardwareVersion": "1.0.0",
   //     //     "firmwareVersion": "370223360",
   //     //     "ProfileId": "",
@@ -76,7 +76,7 @@ exports = async function (payload) {
   //     "body": {
   //         "mac": "000000000000000",
   //         "clientId": "6494b3cd9fdaaf633f672872",
-  //         "deviceName": "XXX_LRMATFFFE967F3E"
+  //         "deviceName": "XXX_LRDFTFFFE967F3E"
   //     }
   // }
   /**
@@ -236,26 +236,9 @@ async function getRadioNumber(requestData) {
    * Proccessing information
    * We need to check if there is any device of this type on this client network and return next number
    */
-  if (await isEmpty(device)) {               //In this case, device network was never changed
-    ret.rewrite = false
-    ret.overwrite = false
-    
+  if (device != undefined && device != null && device != `` && !isNaN(device)) {               //In this case, device network was never changed
     let definitiveNumber
-    if(client.deviceSummary == undefined)  {
-      definitiveNumber = 1
-    } else {
-      let lastDeviceNumber = client.deviceSummary[`${deviceType}`]
-      if(lastDeviceNumber != null && lastDeviceNumber != undefined && lastDeviceNumber != ``) {
-        definitiveNumber = lastDeviceNumber + 1
-      } else {
-        definitiveNumber = 1;
-      }
-    }
-    
-    ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
-  } else {                                                                            //In this case, device already exists
-    let definitiveNumber
-    ret.rewrite = true
+    ret.rewrite = true;
     ret.overwrite = (device.deviceTypeInitials != deviceType);
     if(ret.overwrite) {
       if(client.summary != undefined && client.summary != null && client.summary != ``) {
@@ -272,6 +255,24 @@ async function getRadioNumber(requestData) {
     } else {
       ret.name = `${device.name}`;
     }
+  } else {                                                                            //In this case, device already exists
+    ret.rewrite = false
+    ret.overwrite = false
+    
+    let definitiveNumber
+    if(client.deviceSummary == undefined)  {
+      definitiveNumber = 1
+    } else {
+      let lastDeviceNumber = client.deviceSummary[`${deviceType}`]
+      if(lastDeviceNumber != null && lastDeviceNumber != undefined && lastDeviceNumber != ``) {
+        definitiveNumber = lastDeviceNumber + 1
+      } else {
+        definitiveNumber = 1;
+      }
+    }
+    
+    ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
+    console.log("Entrou aqui", JSON.stringify(device));
   }
   return ret;
 }
