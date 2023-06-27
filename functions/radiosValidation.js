@@ -2,7 +2,7 @@ exports = async function (data) {
 
   var action = data.urlParameters.action
   var parameters = data.body
-console.log('PARAMS: ', JSON.stringify(parameters))
+
   switch (action) {
     case 'create':
       await validateCreate(parameters)
