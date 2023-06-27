@@ -63,7 +63,7 @@ exports = async function (payload) {
       "body": {
           "mac": "000000000000000",
           "clientId": "649b369e1fd85eb54dc64b2d",
-          "name": "XXX_LRRFT0010",
+          "name": "XXX_LRRSA0010",
           "hardwareVersion": "1.0.0",
           "firmwareVersion": "370223360",
           "ProfileId": "",
@@ -325,7 +325,7 @@ async function changeClient(requestData) {
     collection: `clients`,
     query: { _id: requestData.clientId }
   };
-console.log("DEBUG: ", deviceType)
+
   try {
     client = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
@@ -423,8 +423,9 @@ console.log("DEBUG: ", deviceType)
  * @returns 
  */
 async function getDeviceTypeByName(name) {
+  
   var initials = name.substring(4,9);
-  console.log("Debug")
+   
   let deviceTypes;
   var typeToReturn;
   try {
@@ -436,7 +437,6 @@ async function getDeviceTypeByName(name) {
   
   try {
     deviceTypes.forEach(type => {
-      
       if(type.initials == initials) {
         typeToReturn = type;
       }
@@ -448,10 +448,9 @@ async function getDeviceTypeByName(name) {
   
 
   if(typeToReturn == undefined) {
-
     /**
-     * Quando não encontramos o dispositivo cadastrado, tentamos fazer uma busca na API do Buble
-     */
+    * Quando não encontramos o dispositivo cadastrado, tentamos fazer uma busca na API do Buble
+    */
      
     var response = await context.http.get({
       url: "https://app.firebee.com.br/api/1.1/obj/Products/",
@@ -461,40 +460,49 @@ async function getDeviceTypeByName(name) {
       },
       body: {},
       encodeBodyAsJSON: true
-    })
-  
-  console.log("Response: ", response)
-    var type = []
-    var rawData = await JSON.parse(response.body.text()).response.results
-    
-    rawData.forEach(element => {
-      // if (element.SiglaConfRadio.includes("LR") && element.DeviceClass != "6") {
-  
-      //   // let x = `${element.SiglaConfRadio}`
-      //   // let y = element.DescriptionPTBR
-        
-      //   // console.log("Y: ", y)
-  
-      //   // if (y != undefined) {
-      //   //   x += ` - ${y.slice(0,13)}`
-      //   // }
-      //   // console.log("i: ", initials, "sconf", element.SiglaConfRadio)
-      //   // if(element.SiglaConfRadio == initials) {
-      //   //   type.push({
-      //   //     productCode: element.Codigo,
-      //   //     initials: element.SiglaConfRadio,
-      //   //     exhibitionName: x,
-      //   //     class: element.DeviceClass,
-      //   //     description: element.Nome
-      //   //   });          
-      //   // }
-      // }
     });
-    context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(deviceTypes);
-    
-    throw `Tipo de dispositivo (${initials}) não encontrado! `
-  }
   
+  
+    var type = [];
+    var rawData = await JSON.parse(response.body.text()).response.results;
+    
+    // Tentando buscar o tipo de dispositivo nos resultados encontrados
+    rawData.forEach(element => {
+      if (element.SiglaConfRadio.includes("LR") && element.DeviceClass != "6") {
+  
+        let x = `${element.SiglaConfRadio}`;
+        let y = element.DescriptionPTBR;
+        
+        if (y != undefined && y != null && y != ``) {
+          x += ` - ${y.slice(0,13)}`;
+        }
+
+        if(element.SiglaConfRadio == initials) {
+          type.push({
+            productCode: element.Codigo,
+            initials: element.SiglaConfRadio,
+            exhibitionName: x,
+            class: element.DeviceClass,
+            description: element.Nome
+          });          
+        }
+      }
+    });
+
+    //Se encontramos o tipo de dispositivo no Bubble inserimos ele no Banco de dados local e retornamos
+    if(type.length > 0) {
+      try {
+        await context.services.get("mongodb-atlas").db("configRadio").collection("deviceTypes").insertMany(type);
+      } catch (e) {
+        throw `Erro ao inserir Tipo de Dispositivo (${initials}) que não estava cadastrado! ${e}`;
+      }
+      return type;
+    }
+
+    //Se não encontramos o tipo de dispositivo no Bubble informamos um erro
+    throw `Tipo de dispositivo (${initials}) não encontrado! `;
+    
+  }
   return typeToReturn;
 }
 
