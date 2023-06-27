@@ -157,6 +157,7 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: `Erro ao obter numeração do dispositivo: ${error}` }
       }
+      break;
     case 'changeClient':
       try {
         return { success: true, data: await changeClient(processedRequestData.body) }
@@ -167,6 +168,7 @@ exports = async function (payload) {
         }
         return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${e}` }
       }
+      break;
 
     default:
       return { success: false, data: `Ação inválida!` }
@@ -207,7 +209,7 @@ async function getRadioNumber(requestData) {
   /**
    * Retrieving Device information
    */
-  databaseParameters = {
+  let databaseParameters = {
     action: `findOne`,
     collection: `radios`,
     query: { address64Bit: requestData.mac }
@@ -218,7 +220,7 @@ async function getRadioNumber(requestData) {
   /**
    * Retrieving Client information
    */
-  let databaseParameters = {
+  databaseParameters = {
     action: `findOne`,
     collection: `clients`,
     query: { _id: requestData.clientId }
@@ -238,7 +240,7 @@ async function getRadioNumber(requestData) {
     ret.rewrite = false
     ret.overwrite = false
     
-    var definitiveNumber
+    let definitiveNumber
     if(client.deviceSummary == undefined)  {
       definitiveNumber = 1
     } else {
@@ -252,26 +254,26 @@ async function getRadioNumber(requestData) {
     
     ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
   } else {                                                                            //In this case, device already exists
-  
+    let definitiveNumber
     ret.rewrite = true
-    ret.overwrite = (device.deviceTypeInitials != deviceType)
+    ret.overwrite = (device.deviceTypeInitials != deviceType);
     if(ret.overwrite) {
       if(client.summary != undefined && client.summary != null && client.summary != ``) {
-        let lastDeviceNumber = client.summary[`${deviceType}`]
+        let lastDeviceNumber = client.summary[`${deviceType}`];
         if(lastDeviceNumber != null && lastDeviceNumber != undefined && lastDeviceNumber != ``) {
-          definitiveNumber = lastDeviceNumber + 1
+          definitiveNumber = lastDeviceNumber + 1;
         } else {
           definitiveNumber = 1;
         }
       } else {
-        definitiveNumber = 1
+        definitiveNumber = 1;
       }
-      ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
+      ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`;
     } else {
-      ret.name = `${device.name}`
+      ret.name = `${device.name}`;
     }
   }
-  return ret
+  return ret;
 }
 
 /**
@@ -285,8 +287,8 @@ async function getRadioNumber(requestData) {
  * }
  */
 async function changeClient(requestData) {
-  var device
-  var client
+  var device;
+  var client;
 
 
   /**
@@ -302,41 +304,41 @@ async function changeClient(requestData) {
   /**
    * Retrieving Device information
    */
-  databaseParameters = {
+  let databaseParameters = {
     action: `findOne`,
     collection: `radios`,
     query: { address64Bit: requestData.mac }
-  }
+  };
 
   try {
-    device = await context.functions.execute(`databaseControl`, databaseParameters)
+    device = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
-    return { success: false, data: error }
+    return { success: false, data: error };
   }
   
   /**
    * Retrieving Client information
    */
-  let databaseParameters = {
+  databaseParameters = {
     action: `findOne`,
     collection: `clients`,
     query: { _id: requestData.clientId }
-  }
+  };
 
   try {
-    client = await context.functions.execute(`databaseControl`, databaseParameters)
+    client = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
-    return { success: false, data: error }
+    return { success: false, data: error };
   }
   
-  var deviceType = await getDeviceTypeByName(requestData.name)
-  let profileId = requestData.firmwareVersion.substring(0, 2)
-  let manufacturerId = requestData.firmwareVersion.substring(3, 6)
+  var deviceType = await getDeviceTypeByName(requestData.name);
+  let profileId = requestData.firmwareVersion.substring(0, 2);
+  let manufacturerId = requestData.firmwareVersion.substring(3, 6);
 
 
   try {
     
-    var n = +requestData.name.substring(9,13)
+    var n = +requestData.name.substring(9,13);
     var deviceToInsert = {
       'name': `${requestData.name}`,
       'number': n,
@@ -360,9 +362,9 @@ async function changeClient(requestData) {
         'name': `${client.clientType.name}`
       },
       'recordingDate': new Date()
-    }
+    };
   } catch (e) {
-    throw `Houve um problema com os dados do dispositivo a ser atualizado! ${e}`
+    throw `Houve um problema com os dados do dispositivo a ser atualizado! ${e}`;
   }
 
   // let n = 1
@@ -374,36 +376,36 @@ async function changeClient(requestData) {
    * UPSERT DEVICE
    */
   try {
-    let filter = {address64Bit:requestData.mac}
+    let filter = {address64Bit:requestData.mac};
     await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(
       filter,
       {"$set": deviceToInsert},
       {"upsert": true}
-    )
+    );
   } catch (error) {
-    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
+    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
   }
   
   /**
    * UPDATE CLIENT
    */
   try {
-    let filter = { _id: new BSON.ObjectId(`${client._id}`)}
+    let filter = { _id: new BSON.ObjectId(`${client._id}`)};
     
-    let clientToInsert = {}
+    let clientToInsert = {};
     if(clientToInsert.deviceSummary != undefined && client.deviceSummary != null && client.deviceSummary != ``) {
-      clientToInsert.deviceSummary[`${deviceType.initials}`] = n
+      clientToInsert.deviceSummary[`${deviceType.initials}`] = n;
     } else {
-      clientToInsert.deviceSummary = {}
-      clientToInsert.deviceSummary[`${deviceType.initials}`] = n
+      clientToInsert.deviceSummary = {};
+      clientToInsert.deviceSummary[`${deviceType.initials}`] = n;
     }
 
     await context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(
       filter,
       {"$set": clientToInsert}
-    )
+    );
   } catch (error) {
-    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`
+    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
 }
 
   // if (device != undefined && device != null && device != ``) {                          //In this case, device already exists
@@ -520,7 +522,7 @@ async function changeClient(requestData) {
 
 
 
-  return `A rede do dispositivo foi alterada com sucesso!`
+  return `A rede do dispositivo foi alterada com sucesso!`;
 }
 
 
