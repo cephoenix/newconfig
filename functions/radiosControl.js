@@ -9,14 +9,16 @@ exports = async function (payload) {
   let operationParameters = {}
   var processedRequestData
 
-  /**
-   * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
-   */
-  try {
-    processedRequestData = await context.functions.execute(`proccessRequest`, payload)
-  } catch (error) {
-    return { success: false, data: error }
-  }
+  // /**
+  //  * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
+  //  */
+  // try {
+  //   processedRequestData = await context.functions.execute(`proccessRequest`, payload)
+  // } catch (error) {
+  //   return { success: false, data: error }
+  // }
+
+  return {a: processedRequestData}
 
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
