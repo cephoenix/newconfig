@@ -9,16 +9,69 @@ exports = async function (payload) {
   let operationParameters = {}
   var processedRequestData
 
-  /**
-   * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
-   */
-  try {
-    processedRequestData = await context.functions.execute(`proccessRequest`, payload)
-  } catch (error) {
-    return { success: false, data: error }
-  }
+  // /**
+  //  * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
+  //  */
+  // try {
+  //   processedRequestData = await context.functions.execute(`proccessRequest`, payload)
+  // } catch (error) {
+  //   return { success: false, data: error }
+  // }
 
-  return {a: processedRequestData}
+  processedRequestData = {
+    "headers": {
+        "Accept": [
+            "*/*"
+        ],
+        "Postman-Token": [
+            "6a9b9513-8152-41d3-a0d4-b84227a09a4b"
+        ],
+        "Content-Length": [
+            "287"
+        ],
+        "X-Forwarded-For": [
+            "200.181.33.155"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ],
+        "X-Envoy-External-Address": [
+            "200.181.33.155"
+        ],
+        "X-Cluster-Client-Ip": [
+            "200.181.33.155"
+        ],
+        "Content-Type": [
+            "application/json"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "X-Request-Id": [
+            "98cb09e3-4085-44c3-bb03-cd87bbc4dab0"
+        ],
+        "X-Forwarded-Client-Cert": [
+            "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
+        ],
+        "User-Agent": [
+            "PostmanRuntime/7.32.3"
+        ]
+    },
+    "urlParameters": {
+        "action": "changeClient"
+    },
+    "body": {
+        "mac": "000000000000000A",
+        "clientId": "6494b3cd9fdaaf633f67286f",
+        "number": 1,
+        "name": "XXX_LRDFTFFFE967F3E",
+        "hardwareVersion": "1.0.0",
+        "firmwareVersion": "370223360",
+        "ProfileId": "",
+        "manufacturerId": "",
+        "userId": "64920b1cbf0f6a848f4f8220"
+    }
+}
 
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
