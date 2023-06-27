@@ -412,6 +412,17 @@ async function changeClient(requestData) {
  * @returns 
  */
 async function getDeviceTypeByName(name) {
+  let deviceTypes = await context.services.get("mongodb-atlas").db("configRadio").collection(`deviceTypes`).find({sigla: name});
+  deviceTypes = await resp.toArray()
+
+  var typeToReturn
+  deviceTypes.array.forEach(type => {
+    if(type.name == name) {
+      typeToReturn = type
+    }
+  });
+
+  return typeToReturn
   return { id: 1, initials: `LRDFT`, name: `Long Range Smoke Detector`, description: `Equipment used to detect smoke`, 'class': 1, productCode: 153524354};
 }
 
