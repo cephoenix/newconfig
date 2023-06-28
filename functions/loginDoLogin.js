@@ -56,7 +56,7 @@ exports = async function (payload) {
 
   return {
     sessionId: 'A52B7A89FE6A3BA58D8C',
-    loggedUser: loggedUser,
+    loggedUser,
     deviceTypes: await context.functions.execute('databaseControl', databaseParameters)
   } // @todo implementar mecanismo de sessão
 }

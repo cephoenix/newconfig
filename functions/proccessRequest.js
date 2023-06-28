@@ -36,6 +36,6 @@ exports = async function (payload) {
   return {
     headers: payload.headers,
     urlParameters: payload.query,
-    body: body
+    body
   }
 }
