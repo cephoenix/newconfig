@@ -5,8 +5,6 @@ exports = async function (payload) {
   let databaseAction
   let databaseFilter
   let processedRequestData
-  const action = processedRequestData.urlParameters.action
-  const databaseQuery = processedRequestData.body
 
   /**
     * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
@@ -78,6 +76,10 @@ exports = async function (payload) {
   //     //     "deviceName": "XXX_LRDFTFFFE967F3E"
   //     // }
   // }
+
+  const action = processedRequestData.urlParameters.action
+  const databaseQuery = processedRequestData.body
+  
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
    */
