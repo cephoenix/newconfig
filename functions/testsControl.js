@@ -1,17 +1,14 @@
-
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-  
   let action
-  var resp = {}
+  let resp
   let operationName
   let operationResponse
   let operationParameters
-  let success = true
-
-//Teste de sync
-
+  // eslint-disable-next-line no-undef
+  const query = await context.services.get('mongodb-atlas').db('configRadio').collection('users')
   try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
+    //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
   } catch (err) {
     action = payload.action
@@ -21,47 +18,41 @@ exports = async function (payload) {
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-
+  let retAux
   switch (action) {
-      case 'rebuildDatabase':
-        operationName = 'testsRebuildDatabase'
-        operationParameters = null
-        break;
-      case 'debug':
-        const query = await context.services.get('mongodb-atlas').db('configRadio').collection(`users`)
-        let retAux=await query.find({});
-        retAux=await retAux.toArray();
-     
-        return retAux;
-        /*
-        ret.forEach(element => {
-          temp.push(element)
-        });
-        */
-        
-        /*
-        var temp = JSON.parse(JSON.stringify(ret))
-        return {isArray: Array.isArray(ret), ret: ret, lenret: ret.length , iArray2: Array.isArray(temp), temp: temp, lentemp: temp.length}
-        */
+    case 'rebuildDatabase':
+      operationName = 'testsRebuildDatabase'
+      operationParameters = null
+      break
+    case 'debug':
+      retAux = await query.find({})
+      retAux = await retAux.toArray()
+      return retAux
+      /*
+      ret.forEach(element => {
+        temp.push(element)
+      });
+      */
 
+      /*
+      var temp = JSON.parse(JSON.stringify(ret))
+      return {isArray: Array.isArray(ret), ret: ret, lenret: ret.length , iArray2: Array.isArray(temp), temp: temp, lentemp: temp.length}
+      */
 
-        // let databaseParameters = {
-        //   action: `findMany`,
-        //   collection: `clients`,
-        //   query: {}
-        // }
+      // let databaseParameters = {
+      //   action: `findMany`,
+      //   collection: `clients`,
+      //   query: {}
+      // }
 
-        // let temp = await context.functions.execute(`databaseControl`, databaseParameters)
-        // return {debug: temp}
-
-        return true
-        break;
+      // let temp = await context.functions.execute(`databaseControl`, databaseParameters)
+      // return {debug: temp}
 
     default:
       if (action != null) {
-        resp.data = `Ação inválida!`
+        resp.data = 'Ação inválida!'
       } else {
-        resp.data = `Nenhuma ação informada!`
+        resp.data = 'Nenhuma ação informada!'
       }
 
       resp.success = false
@@ -69,16 +60,17 @@ exports = async function (payload) {
   }
 
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
+    // eslint-disable-next-line no-undef
+    operationResponse = await context.functions.execute(operationName, operationParameters)
   } catch (e) {
-    throw `Erro ao executar operação: ${e}`
+    throw new Error(`Erro ao executar operação: ${e}`)
   }
 
-  resp.success = success
+  resp.success = true
   resp.data = operationResponse
   return operationResponse
-};
+}
 
 if (typeof module === 'object') {
-  module.exports = exports;
+  module.exports = exports
 }
