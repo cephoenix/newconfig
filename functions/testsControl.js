@@ -21,51 +21,48 @@ exports = async function (payload) {
   
   let processedRequestData = 
   {
-    "query": {
-        "action": "rebuildDatabase"
-    },
     "headers": {
-        "Content-Type": [
-            "text/plain"
-        ],
-        "Accept-Encoding": [
-            "gzip, deflate, br"
-        ],
-        "X-Forwarded-For": [
-            "200.181.33.155"
-        ],
-        "X-Forwarded-Proto": [
-            "https"
-        ],
-        "X-Request-Id": [
-            "219f8c29-b376-468a-b09f-4a553a6c2134"
-        ],
-        "X-Forwarded-Client-Cert": [
-            "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-        ],
         "Accept": [
             "*/*"
         ],
         "Postman-Token": [
-            "5b1fa51f-f3f1-4479-8eef-fcbcc38958c4"
+            "a49fe3a8-730b-443f-9c2a-2c1721c5412e"
         ],
         "Content-Length": [
             "4"
         ],
-        "User-Agent": [
-            "PostmanRuntime/7.32.3"
+        "Content-Type": [
+            "text/plain"
         ],
-        "X-Envoy-External-Address": [
+        "X-Forwarded-For": [
             "200.181.33.155"
+        ],
+        "X-Request-Id": [
+            "afa2f969-c880-4bc8-9497-5a7c01d21e5c"
+        ],
+        "X-Forwarded-Client-Cert": [
+            "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
         ],
         "X-Cluster-Client-Ip": [
             "200.181.33.155"
+        ],
+        "User-Agent": [
+            "PostmanRuntime/7.32.3"
+        ],
+        "Accept-Encoding": [
+            "gzip, deflate, br"
+        ],
+        "X-Forwarded-Proto": [
+            "https"
+        ],
+        "X-Envoy-External-Address": [
+            "200.181.33.155"
         ]
     },
-    "body": {
-        "Subtype": 0,
-        "Data": "ewoKfQ=="
-    }
+    "urlParameters": {
+        "action": "rebuildDatabase"
+    },
+    "body": {}
   }
 
   /**
