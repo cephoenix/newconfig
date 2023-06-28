@@ -1,5 +1,6 @@
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
+  return payload
   let action
   let resp
   let operationName
