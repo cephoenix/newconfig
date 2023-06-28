@@ -398,17 +398,6 @@ async function changeClient(requestData) {
     throw `Ocorreu um erro ao atualizar o dispositivo! ${error}`;
   }
 
-  // try {
-  //   let filter = {address64Bit:requestData.mac};
-  //   await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(
-  //     filter,
-  //     {"$set": deviceToInsert},
-  //     {"upsert": true}
-  //   );
-  // } catch (error) {
-  //   throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
-  // }
-  
   /**
    * UPDATE CLIENT
    */
