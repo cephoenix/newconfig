@@ -220,7 +220,7 @@ async function getRadioNumber (requestData) {
 
   const client = await context.functions.execute('databaseControl', databaseParameters)
 
-  if (client == undefined) {
+  if (client == null) {
     throw new Error('Não foi possível encontrar o cliente informado')
   }
 
