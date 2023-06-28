@@ -1,5 +1,27 @@
 [
     {
+        "route": "/radios",
+        "http_method": "POST",
+        "function_name": "radiosControl",
+        "validation_method": "NO_VALIDATION",
+        "respond_result": true,
+        "fetch_custom_user_data": false,
+        "create_user_on_auth": false,
+        "disabled": false,
+        "return_type": "JSON"
+    },
+    {
+        "route": "/users",
+        "http_method": "POST",
+        "function_name": "usersControl",
+        "validation_method": "NO_VALIDATION",
+        "respond_result": true,
+        "fetch_custom_user_data": false,
+        "create_user_on_auth": false,
+        "disabled": false,
+        "return_type": "JSON"
+    },
+    {
         "route": "/sync",
         "http_method": "POST",
         "function_name": "syncControl",
@@ -44,20 +66,9 @@
         "return_type": "JSON"
     },
     {
-        "route": "/radios",
+        "route": "/devices",
         "http_method": "POST",
-        "function_name": "radiosControl",
-        "validation_method": "NO_VALIDATION",
-        "respond_result": true,
-        "fetch_custom_user_data": false,
-        "create_user_on_auth": false,
-        "disabled": false,
-        "return_type": "JSON"
-    },
-    {
-        "route": "/users",
-        "http_method": "POST",
-        "function_name": "usersControl",
+        "function_name": "devicesControl",
         "validation_method": "NO_VALIDATION",
         "respond_result": true,
         "fetch_custom_user_data": false,
