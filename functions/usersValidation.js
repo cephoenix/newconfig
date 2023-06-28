@@ -89,7 +89,7 @@ async function validateCreate (parameters) {
     const databaseParameters = {
       action: 'findOne',
       collection: 'users',
-      query: query
+      query
     }
     dbResponse = await context.functions.execute('databaseControl', databaseParameters)
   } catch (e) {
