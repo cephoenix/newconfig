@@ -4,10 +4,6 @@ exports = async function (data) {
   let parameters
   let dbResponse
 
-  if (data === undefined) {
-    throw new Error('É necessário fornecer informações válidas para autenticação!')
-  }
-
   if (data == null) {
     throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
@@ -19,10 +15,6 @@ exports = async function (data) {
   }
 
   if (parameters.login == null || parameters.encryptedPassword == null) {
-    throw new Error('É necessário fornecer informações válidas para autenticação!')
-  }
-
-  if (parameters.login === undefined || parameters.encryptedPassword === undefined) {
     throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 

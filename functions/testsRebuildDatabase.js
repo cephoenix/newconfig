@@ -352,7 +352,7 @@ exports = async function (data) {
       const y = element.DescriptionPTBR
 
       // eslint-disable-next-line eqeqeq
-      if (y != undefined) {
+      if (y != null) {
         x += ` - ${y.slice(0, 13)}`
       }
 

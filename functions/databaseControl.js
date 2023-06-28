@@ -103,40 +103,27 @@ async function preproccess (parameters) {
   switch (parameters.action) {
     case 'findOne':
     case 'findMany':
-
-      // cheking parameters.query._id against null or `` may cause undefined exception
-      if (parameters.query._id !== undefined) {
-        // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
-        parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
-      } else if (parameters.query._id != null && parameters.query._id !== '') {
+      if (parameters.query._id != null && parameters.query._id !== '') {
         parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
       }
 
-      // cheking parameters.projection against null or `` may cause undefined exception
-      if (parameters.projection === undefined) {
-        parameters.projection = null
-      } else if (parameters.projection === '') {
+      if (parameters.projection == null || parameters.projection === '') {
         parameters.projection = null
       }
       break
     case 'updateOne':
-      if (parameters.query._id !== undefined) {
-        parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
-      } else if (parameters.query._id != null && parameters.query._id !== '') {
+      if (parameters.query._id != null && parameters.query._id !== '') {
         parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
       }
 
-      if (parameters.filter._id !== undefined) {
-        parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
-      } else if (parameters.filter._id != null && parameters.filter._id !== '') {
+      if (parameters.filter._id != null && parameters.filter._id !== '') {
         parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
       }
       break
   }
 
-  if (parameters.options === undefined) {
-    parameters.options = {}
-  } else if (parameters.options === '') {
+  // eslint-disable-next-line eqeqeq
+  if (parameters.options == null || parameters.options == '') {
     parameters.options = {}
   }
   // throw {debug2: true, data: parameters}
@@ -147,23 +134,6 @@ async function preproccess (parameters) {
  * Executa a operação escolhida
  * @param {*} parameters
  * @returns
- *
-   >>>>> Exemplo de findOne
-   >>>>> Veja a comparação com undefined... essa é a forma correta de verificar se o registro foi encontrado
-
-  let databaseParameters = {
-    action: `findOne`,
-    collection: `clients`,
-    query: { _id: requestData.clientId }
-  }
-
-  client = await context.functions.execute(`databaseControl`, databaseParameters)
-
-  if(client == undefined) {
-    return {success: false, data: `Não foi possível encontrar o cliente informado`}
-  }
-
- *
  */
 async function execute (parameters) {
   const dbquery = context.services.get('mongodb-atlas').db('configRadio').collection(parameters.collection)
@@ -202,5 +172,5 @@ async function execute (parameters) {
 }
 
 async function isEmpty (valueToBeChecked) {
-  return (valueToBeChecked == null || valueToBeChecked === '' || valueToBeChecked === undefined)
+  return (valueToBeChecked == null || valueToBeChecked === '')
 }

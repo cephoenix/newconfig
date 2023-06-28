@@ -5,7 +5,7 @@ exports = async function (payload) {
   // var query
   let body
 
-  if (payload.body === undefined || payload.body === '' || payload.body == null || payload.body === 'undefined' || (typeof payload.body === 'undefined')) {
+  if (payload.body == null || payload.body === '') {
     body = {}
   } else {
     try {

@@ -42,7 +42,7 @@ exports = async function (data) {
       break
 
     default:
-      if (action == null || action === undefined || action === '') {
+      if (action == null || action === '') {
         throw new Error('Nenhuma ação informada!')
       } else {
         throw new Error(`Ação (${action}) inválida!`)
@@ -51,7 +51,7 @@ exports = async function (data) {
 }
 
 async function validateCreate (parameters) {
-  if (parameters.address64Bit === undefined || parameters.address64Bit == null || parameters.address64Bit === '') {
+  if (parameters.address64Bit == null || parameters.address64Bit === '') {
     throw new Error('É necessário informar o Endereço 64 bits (MAC) do Rádio!')
   }
 
@@ -63,7 +63,7 @@ async function validateCreate (parameters) {
     throw new Error(`Erro ao buscar Rádio: ${e}`)
   }
 
-  if (dbResponse !== undefined && dbResponse !== '' && dbResponse != null && dbResponse !== {}) {
+  if (dbResponse !== '' && dbResponse != null && dbResponse !== {}) {
     throw new Error('Esse Rádio já existe!')
   }
 }
@@ -81,7 +81,7 @@ async function validateFindMany (parameters) {
 }
 
 async function validateUpdateOne (parameters) {
-  if (parameters.address64Bit === undefined || parameters.address64Bit == null || parameters.address64Bit === '') {
+  if (parameters.address64Bit == null || parameters.address64Bit === '') {
     throw new Error('É necessário informar o Endereço 64 bits (MAC) do Rádio!')
   }
 
@@ -93,47 +93,47 @@ async function validateUpdateOne (parameters) {
     throw new Error(`Erro ao buscar Rádio: ${e}`)
   }
 
-  if (dbResponse !== undefined && dbResponse !== '' && dbResponse != null && dbResponse !== {}) {
+  if (dbResponse !== '' && dbResponse != null && dbResponse !== {}) {
     throw new Error('Esse Rádio já existe!')
   }
 }
 
 async function validateExcludeOne (parameters) {
-  if (parameters._id === '' || parameters._id === undefined || parameters._id == null) {
+  if (parameters._id === '' || parameters._id == null) {
     throw new Error('O campo "_id" é obrigatório!')
   }
 }
 
 async function validateDeleteOne (parameters) {
-  if (parameters._id === '' || parameters._id === undefined || parameters._id == null) {
+  if (parameters._id === '' || parameters._id == null) {
     throw new Error('O campo "_id" é obrigatório!')
   }
 }
 
 async function validateGetNewNumber (parameters) {
-  if (parameters.mac === '' || parameters.mac === undefined || parameters.mac == null) {
+  if (parameters.mac === '' || parameters.mac == null) {
     throw new Error('O campo "mac" é obrigatório!')
   }
 
-  if (parameters.clientId === '' || parameters.clientId === undefined || parameters.clientId == null) {
+  if (parameters.clientId === '' || parameters.clientId == null) {
     throw new Error('O campo "clientId" é obrigatório!')
   }
 }
 
 async function validateChangeClient (parameters) {
-  if (parameters.mac === '' || parameters.mac === undefined || parameters.mac == null) {
+  if (parameters.mac === '' || parameters.mac == null) {
     throw new Error('O campo "mac" é obrigatório!')
   }
 
-  if (parameters.clientId === '' || parameters.clientId === undefined || parameters.clientId == null) {
+  if (parameters.clientId === '' || parameters.clientId == null) {
     throw new Error('O campo "clientId" é obrigatório!')
   }
 
-  if (parameters.firmwareVersion === '' || parameters.firmwareVersion === undefined || parameters.firmwareVersion == null) {
+  if (parameters.firmwareVersion === '' || parameters.firmwareVersion == null) {
     throw new Error('O campo "firmwareVersion" é obrigatório!')
   }
 
-  if (parameters.hardwareVersion === '' || parameters.hardwareVersion === undefined || parameters.hardwareVersion == null) {
+  if (parameters.hardwareVersion === '' || parameters.hardwareVersion == null) {
     throw new Error('O campo "hardwareVersion" é obrigatório!')
   }
 }

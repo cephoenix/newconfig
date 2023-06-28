@@ -34,7 +34,7 @@ exports = async function (data) {
       break
 
     default:
-      if (action == null || action === undefined || action === '') {
+      if (action == null || action === '') {
         throw new Error('Nenhuma ação informada!')
       } else {
         throw new Error(`Ação (${action}) inválida!`)
@@ -83,7 +83,7 @@ async function validateFindMany (parameters) {
 }
 
 async function validateUpdateOne (parameters) {
-  if (parameters._id == null || parameters._id === '' || parameters._id === undefined) {
+  if (parameters._id == null || parameters._id === '') {
     throw new Error('É necessário informar o ObjectId do documento a ser atualizado!')
   }
 }

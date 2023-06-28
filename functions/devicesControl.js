@@ -107,7 +107,7 @@ exports = async function (payload) {
 
     case 'findMany':
       operationName = 'findMany'
-      if (payload.body === undefined || payload.body == null) {
+      if (payload.body == null) {
         throw new Error('É necessário fornecer informações válidas para pesquisar no Banco de Dados!')
       }
 
@@ -131,10 +131,6 @@ exports = async function (payload) {
       break
 
     case 'insertMany':
-
-      if (payload.body === undefined) {
-        throw new Error('É necessário fornecer informações válidas para inserir no Banco de Dados!')
-      }
 
       if (payload.body == null) {
         throw new Error('É necessário fornecer informações válidas para inserir no Banco de Dados!')
@@ -218,7 +214,7 @@ async function getDeviceNumber (requestData) {
 
   const client = await context.functions.execute('databaseControl', databaseParameters)
 
-  if (client === undefined) {
+  if (client == null) {
     throw new Error('Não foi possível encontrar o cliente informado')
   }
 
@@ -226,14 +222,14 @@ async function getDeviceNumber (requestData) {
    * Proccessing information
    * We need to check if there is any device of this type on this client network and return next number
    */
-  if (device !== undefined && device != null && device !== '' && !isNaN(device)) { // In this case, device network was never changed
+  if (device != null && device !== '' && !isNaN(device)) { // In this case, device network was never changed
     let definitiveNumber
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
     if (ret.overwrite) {
-      if (client.summary !== undefined && client.summary != null && client.summary !== '') {
+      if (client.summary != null && client.summary !== '') {
         const lastDeviceNumber = client.summary[`${deviceType}`]
-        if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
+        if (lastDeviceNumber != null && lastDeviceNumber !== '') {
           definitiveNumber = lastDeviceNumber + 1
         } else {
           definitiveNumber = 1
@@ -250,11 +246,11 @@ async function getDeviceNumber (requestData) {
     ret.overwrite = false
 
     let definitiveNumber
-    if (client.deviceSummary === undefined) {
+    if (client.deviceSummary == null) {
       definitiveNumber = 1
     } else {
       const lastDeviceNumber = client.deviceSummary[`${deviceType}`]
-      if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
+      if (lastDeviceNumber != null && lastDeviceNumber !== '') {
         definitiveNumber = lastDeviceNumber + 1
       } else {
         definitiveNumber = 1
@@ -318,7 +314,7 @@ async function changeClient (requestData) {
     throw new Error(`Erro ao buscar cliente. ${error}`)
   }
 
-  if (client === undefined) {
+  if (client == null) {
     throw new Error('Cliente não encontrado!')
   }
 
@@ -383,7 +379,7 @@ async function changeClient (requestData) {
   try {
     const filter = { _id: new BSON.ObjectId(`${client._id}`) }
 
-    if (clientToInsert.deviceSummary !== undefined && client.deviceSummary != null && client.deviceSummary !== '') {
+    if (client.deviceSummary != null && client.deviceSummary !== '') {
       clientToInsert.deviceSummary[`${deviceType.initials}`] = deviceNumber
     } else {
       clientToInsert.deviceSummary = {}
@@ -424,7 +420,7 @@ async function getDeviceTypeByName (name) {
     throw new Error(`Não foi possível buscar a lista de Tipos de Dispositivo. ${e}`)
   }
 
-  if (typeToReturn === undefined) {
+  if (typeToReturn == null) {
     /**
     * Quando não encontramos o dispositivo cadastrado, tentamos fazer uma busca na API do Buble
     */
@@ -447,7 +443,7 @@ async function getDeviceTypeByName (name) {
         let x = `${element.SiglaConfRadio}`
         const y = element.DescriptionPTBR
 
-        if (y !== undefined && y != null && y !== '') {
+        if (y != null && y !== '') {
           x += ` - ${y.slice(0, 13)}`
         }
 

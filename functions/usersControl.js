@@ -167,7 +167,7 @@ async function blockUser (parameters) {
   //   }
   // }
 
-  if (userToBlock.blocked !== undefined && userToBlock.blocked === true) { // Tem que verificar com undefined senão dá pau
+  if (userToBlock.blocked != null && userToBlock.blocked === true) { // Tem que verificar com undefined senão dá pau
     throw new Error('Esse usuário já está bloqueado!')
   }
 
@@ -222,7 +222,7 @@ async function prepareUserForExclusion (parameters) {
     throw new Error(`Falha ao buscar usuário a ser excluído! ${JSON.stringify(error)}`)
   }
 
-  if (userToExclude.exclusionDate !== undefined && userToExclude.exclusionDate !== null && userToExclude.exclusionDate !== '') {
+  if (userToExclude.exclusionDate != null && userToExclude.exclusionDate !== '') {
     userToExclude.exclusionDate = new Date()
   } else {
     throw new Error('Esse usuário já está excluído!')

@@ -6,10 +6,6 @@ exports = async function (payload) {
   const data = payload.body
   const remoteIp = payload.headers['X-Cluster-Client-Ip'][0]
 
-  if (data === undefined) {
-    throw new Error('É necessário fornecer informações válidas para autenticação!')
-  }
-
   if (data == null) {
     throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
@@ -21,10 +17,6 @@ exports = async function (payload) {
   }
 
   if (parameters.login == null || parameters.encryptedPassword == null) {
-    throw new Error('É necessário fornecer informações válidas para autenticação!')
-  }
-
-  if (parameters.login === undefined || parameters.encryptedPassword === undefined) {
     throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
