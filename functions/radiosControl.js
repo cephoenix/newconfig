@@ -394,7 +394,7 @@ async function changeClient(requestData) {
   try {
     client = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
-    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
+    throw `Ocorreu um erro ao atualizar o dispositivo! ${error}`;
   }
 
   // try {
@@ -427,7 +427,7 @@ async function changeClient(requestData) {
       {"$set": clientToInsert}
     );
   } catch (error) {
-    throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
+    throw `Ocorreu um erro ao atualizar o cliente! ${error}`;
   }
   return `A rede do dispositivo foi alterada com sucesso!`;
 }
