@@ -61,7 +61,7 @@ async function validateCreate (parameters) {
   const databaseParameters = {
     action: 'findOne',
     collection: 'clients',
-    query: query
+    query
   }
 
   return {
