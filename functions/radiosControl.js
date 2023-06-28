@@ -393,7 +393,7 @@ async function changeClient(requestData) {
   };
 
   try {
-    client = await context.functions.execute(`databaseControl`, databaseParameters);
+    await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
     throw `Ocorreu um erro ao atualizar o dispositivo! ${error}`;
   }
