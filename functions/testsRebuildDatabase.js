@@ -26,6 +26,12 @@ exports = async function (data) {
   }
 
   try {
+    await context.services.get('mongodb-atlas').db('configRadio').collection('devices').deleteMany({})
+  } catch (e) {
+    throw new Error('Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela dispositivos')
+  }
+
+  try {
     await context.services.get('mongodb-atlas').db('configRadio').collection('radiosRecordingLog').deleteMany({})
   } catch (e) {
     throw new Error('Problema ao limpar collections do Banco de Dados. Verificar as permissões de leitura/escrita (Rules) na tabela radiosRecordingLog')
@@ -307,6 +313,14 @@ exports = async function (data) {
   databaseParameters = {
     action: 'insertMany',
     collection: 'radios',
+    query: parameters
+  }
+
+  await context.functions.execute('databaseControl', databaseParameters)
+
+  databaseParameters = {
+    action: 'insertMany',
+    collection: 'devices',
     query: parameters
   }
 
