@@ -427,7 +427,7 @@ async function changeClient(requestData) {
     //   {"$set": clientToInsert}
     // );
   } catch (error) {
-    throw `Ocorreu um erro ao atualizar o cliente! ${error}`;
+    throw `Ocorreu um erro ao atualizar o cliente! ${error} >> ${filter}`;
   }
   return `A rede do dispositivo foi alterada com sucesso!`;
 }
