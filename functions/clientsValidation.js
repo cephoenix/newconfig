@@ -95,3 +95,7 @@ async function validateExcludeOne (parameters) {
 async function validateDeleteOne (parameters) {
 
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

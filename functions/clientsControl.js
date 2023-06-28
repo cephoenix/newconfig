@@ -70,3 +70,7 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

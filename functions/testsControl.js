@@ -101,3 +101,7 @@ exports = async function (payload) {
 if (typeof module === 'object') {
   module.exports = exports
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

@@ -5,3 +5,7 @@ exports = async function (arg) {
   const encryptedPassword = utils.crypto.hash('sha1', salt + arg).toHex().toUpperCase()
   return encryptedPassword
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

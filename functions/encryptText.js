@@ -15,3 +15,7 @@ exports = async function (text) {
   ret = Buffer.from(ret).toString('base64')
   return ret
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

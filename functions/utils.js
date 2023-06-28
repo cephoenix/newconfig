@@ -3,3 +3,7 @@
 exports = async function (payload) {
 
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

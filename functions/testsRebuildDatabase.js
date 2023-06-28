@@ -368,3 +368,7 @@ exports = async function (data) {
 
   context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').insertMany(deviceTypes)
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

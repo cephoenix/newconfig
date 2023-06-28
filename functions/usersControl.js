@@ -230,3 +230,7 @@ async function prepareUserForExclusion (parameters) {
 
   return userToExclude
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

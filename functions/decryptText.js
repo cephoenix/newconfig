@@ -13,3 +13,7 @@ exports = async function (encodedPassword) {
     .join('')
   return temp
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

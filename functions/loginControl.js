@@ -46,3 +46,7 @@ exports = async function (payload) {
 
   return { success: true, data: operationResponse }
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

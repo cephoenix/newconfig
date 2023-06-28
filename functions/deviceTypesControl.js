@@ -47,3 +47,7 @@ exports = async function (payload) {
   resp.data = operationResponse
   return resp
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

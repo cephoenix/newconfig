@@ -475,3 +475,7 @@ async function getDeviceTypeByName (name) {
   }
   return typeToReturn
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

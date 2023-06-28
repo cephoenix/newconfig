@@ -158,3 +158,7 @@ async function validateDeleteOne (parameters) {
     throw new Error('O campo "_id" é obrigatório!')
   }
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

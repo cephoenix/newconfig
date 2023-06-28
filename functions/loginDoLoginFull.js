@@ -42,3 +42,7 @@ exports = async function (data) {
 
   return { sessionId: 'A52B7A89FE6A3BA58D8C', loggedUser: dbResponse } // @todo implementar mecanismo de sessão
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

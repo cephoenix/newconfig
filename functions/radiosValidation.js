@@ -137,3 +137,7 @@ async function validateChangeClient (parameters) {
     throw new Error('O campo "hardwareVersion" é obrigatório!')
   }
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

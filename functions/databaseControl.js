@@ -174,3 +174,7 @@ async function execute (parameters) {
 async function isEmpty (valueToBeChecked) {
   return (valueToBeChecked == null || valueToBeChecked === '')
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

@@ -41,3 +41,7 @@ exports = async function (data) {
 
   return dbResponse
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

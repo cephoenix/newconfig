@@ -28,3 +28,7 @@ exports = async function (payload) {
   })
   return resp
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}

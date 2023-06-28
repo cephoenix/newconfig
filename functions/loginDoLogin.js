@@ -60,3 +60,7 @@ exports = async function (payload) {
     deviceTypes: await context.functions.execute('databaseControl', databaseParameters)
   } // @todo implementar mecanismo de sessão
 }
+
+if (typeof module === 'object') {
+  module.exports = exports
+}
