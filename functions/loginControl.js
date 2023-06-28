@@ -1,5 +1,4 @@
 exports = async function (payload) {
-  console.log(payload)
   let action
   var resp = {}
   let operationName

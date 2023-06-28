@@ -272,7 +272,6 @@ async function getRadioNumber(requestData) {
     }
     
     ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
-    console.log("Entrou aqui", JSON.stringify(device));
   }
   return ret;
 }

@@ -31,8 +31,7 @@ exports = async function (payload) {
         const query = await context.services.get('mongodb-atlas').db('configRadio').collection(`users`)
         let retAux=await query.find({});
         retAux=await retAux.toArray();
-        console.log(JSON.stringify(retAux));
-      
+     
         return retAux;
         /*
         ret.forEach(element => {

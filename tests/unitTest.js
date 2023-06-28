@@ -49,5 +49,3 @@ test(
         }
     }
 );
-
-console.log("Teste!")
