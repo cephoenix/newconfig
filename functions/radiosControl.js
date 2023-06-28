@@ -195,6 +195,7 @@ exports = async function (payload) {
  */
 async function getRadioNumber (requestData) {
   const deviceType = requestData.deviceName.substring(4, 9)
+  const ret = {}
   ret.type = deviceType
 
   /**
