@@ -219,14 +219,16 @@ exports = async function (data) {
     collection: 'clients',
     query: {}
   }
-  const clients = await context.functions.execute('databaseControl', databaseParameters)
 
-  const allClients = await clients.toArray()
+  let clients = await context.functions.execute('databaseControl', databaseParameters)
+  clients = await clients.toArray()
 
-  // while(clients.hasNext()) {
-  //   allClients.push(clients.next())
-  // }
+  const allClients = []
 
+  clients.forEach((c) => {
+    allClients.push(c)
+  });
+  
   let userToInsert = {}
   userToInsert.login = 'jardel0101'
   userToInsert.password = 'EFDA0BD51E79959399756DD0FC4BA89653780EF8'
@@ -365,5 +367,4 @@ exports = async function (data) {
 
   context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').insertMany(deviceTypes)
   // dbResponse = await context.functions.execute('databaseInsertMany', deviceTypes)
-  return { success: true, data: 'Reconstrução do Banco de Dados realizada com sucesso!' }
 }
