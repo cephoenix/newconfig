@@ -344,14 +344,17 @@ exports = async function (data) {
     encodeBodyAsJSON: true
   })
 
+
   const deviceTypes = []
   const rawData = JSON.parse(response.body.text()).response.results
+  
   rawData.forEach(element => {
+    
     if (element.SiglaConfRadio.includes('LR') && element.DeviceClass !== '6') {
       let x = `${element.SiglaConfRadio}`
       const y = element.DescriptionPTBR
 
-      if (y !== undefined) {
+      if (y != undefined) {
         x += ` - ${y.slice(0, 13)}`
       }
 
@@ -366,5 +369,4 @@ exports = async function (data) {
   })
 
   context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').insertMany(deviceTypes)
-  // dbResponse = await context.functions.execute('databaseInsertMany', deviceTypes)
 }
