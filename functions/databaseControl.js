@@ -63,12 +63,6 @@ async function validate(parameters) {
    * As verificações abaixo são específicas para cada operação
    */
   switch (parameters.action) {
-    case 'updateOne':
-    case `updateMany`:
-      if (await isEmpty(parameters.filter)) {
-        throw `É necessário informar um critério para definir quais documentos serão atualizados!`
-      }
-      break;
     case 'findOne':
 
       break;
@@ -82,13 +76,11 @@ async function validate(parameters) {
       
       break;
     case 'updateOne':
-      
-      break;
     case `findOneAndUpdate`:
-      
-      break;
-    case 'updateMany':
-      
+    case `updateMany`:
+      if (await isEmpty(parameters.filter)) {
+        throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+      }
       break;
     case 'deleteOne':
       
@@ -130,12 +122,16 @@ async function preproccess(parameters) {
         }
         break;
       case 'updateOne':
-        // cheking parameters.query._id against null or `` may cause undefined exception
         if (parameters.query._id != undefined) {
-          // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
           parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
         } else if (parameters.query._id != null && parameters.query._id != ``) {
           parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
+        }
+
+        if (parameters.filter._id != undefined) {
+          parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
+        } else if (parameters.filter._id != null && parameters.filter._id != ``) {
+          parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
         }
         break;
     }

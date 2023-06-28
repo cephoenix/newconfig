@@ -328,7 +328,7 @@ async function changeClient(requestData) {
   try {
     client = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
-    throw`Erro ao buscar cliente. ${error}`;
+    throw `Erro ao buscar cliente. ${error}`;
   }
   
   if(client == undefined) {
@@ -382,16 +382,31 @@ async function changeClient(requestData) {
   /**
    * UPSERT DEVICE
    */
+
+  databaseParameters = {
+    action: `updateOne`,
+    collection: `radios`,
+    filter: { address64Bit:requestData.mac },
+    query: {"$set": deviceToInsert},
+    options: {"upsert": true}
+  };
+
   try {
-    let filter = {address64Bit:requestData.mac};
-    await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(
-      filter,
-      {"$set": deviceToInsert},
-      {"upsert": true}
-    );
+    client = await context.functions.execute(`databaseControl`, databaseParameters);
   } catch (error) {
     throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
   }
+
+  // try {
+  //   let filter = {address64Bit:requestData.mac};
+  //   await context.services.get("mongodb-atlas").db("configRadio").collection(`radios`).updateOne(
+  //     filter,
+  //     {"$set": deviceToInsert},
+  //     {"upsert": true}
+  //   );
+  // } catch (error) {
+  //   throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
+  // }
   
   /**
    * UPDATE CLIENT
@@ -413,7 +428,7 @@ async function changeClient(requestData) {
     );
   } catch (error) {
     throw `Ocorreu um erro ao atualizar o número do dispositivo! ${error}`;
-}
+  }
   return `A rede do dispositivo foi alterada com sucesso!`;
 }
 
