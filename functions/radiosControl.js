@@ -79,7 +79,6 @@ exports = async function (payload) {
 
   const action = processedRequestData.urlParameters.action
   const databaseQuery = processedRequestData.body
-  
   /**
    * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
    */

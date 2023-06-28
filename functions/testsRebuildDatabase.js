@@ -227,8 +227,8 @@ exports = async function (data) {
 
   clients.forEach((c) => {
     allClients.push(c)
-  });
-  
+  })
+
   let userToInsert = {}
   userToInsert.login = 'jardel0101'
   userToInsert.password = 'EFDA0BD51E79959399756DD0FC4BA89653780EF8'
@@ -344,16 +344,14 @@ exports = async function (data) {
     encodeBodyAsJSON: true
   })
 
-
   const deviceTypes = []
   const rawData = JSON.parse(response.body.text()).response.results
-  
   rawData.forEach(element => {
-    
     if (element.SiglaConfRadio.includes('LR') && element.DeviceClass !== '6') {
       let x = `${element.SiglaConfRadio}`
       const y = element.DescriptionPTBR
 
+      // eslint-disable-next-line eqeqeq
       if (y != undefined) {
         x += ` - ${y.slice(0, 13)}`
       }
