@@ -161,7 +161,6 @@ exports = async function (payload) {
     case 'changeClient':
       try {
         await changeClient(processedRequestData.body)
-        return { success: true, data: `A rede do dispositivo foi alterada com sucesso!` }
       } catch (error) {
         let e = error
         if(typeof error == 'object') {
@@ -169,6 +168,7 @@ exports = async function (payload) {
         }
         return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${e}` }
       }
+      return { success: true, data: `A rede do dispositivo foi alterada com sucesso!` }
       break;
 
     default:
@@ -428,7 +428,7 @@ async function changeClient(requestData) {
     //   {"$set": clientToInsert}
     // );
   } catch (error) {
-    throw `Ocorreu um erro ao atualizar o cliente! ${error} >> ${filter}`;
+    throw `Ocorreu um erro ao atualizar o cliente! ${error}`;
   }
 }
 
