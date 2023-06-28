@@ -1,50 +1,52 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (data) {
-  var parameters;
-  var dbResponse;
+  let parameters
+  let dbResponse
 
-  if(data == undefined) {
-    throw "É necessário fornecer informações válidas para autenticação! (1)"
+  if (data === undefined) {
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
-  
+
   if (data == null) {
-    throw "É necessário fornecer informações válidas para autenticação! (2)"
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
   try {
     parameters = JSON.parse(data.text())
   } catch (e) {
-    throw "É necessário fornecer informações válidas para autenticação! (3)"
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
-  if(parameters.login == null || parameters.encryptedPassword == null) {
-    throw "É necessário fornecer informações válidas para autenticação! (4)"
+  if (parameters.login == null || parameters.encryptedPassword == null) {
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
-  if(parameters.login == undefined || parameters.encryptedPassword == undefined) {
-    throw "É necessário fornecer informações válidas para autenticação! (5)"
+  if (parameters.login === undefined || parameters.encryptedPassword === undefined) {
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
   try {
-    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: "users" });
+    dbResponse = await context.functions.execute('databaseFindOne', { query: EJSON.stringify({ login: parameters.login }), collection: 'users' })
   } catch (e) {
-    throw "Erro ao buscar usuário no Banco de Dados! " + e
+    throw new Error(`Erro ao buscar usuário no Banco de Dados! ${e}`)
   }
 
-  if(dbResponse == null) {
-    throw "Senha ou usuário incorretos!"
+  if (dbResponse == null) {
+    throw new Error('Senha ou usuário incorretos!')
   }
-  
-  let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
-  let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
+
+  const decryptedPassword = await context.functions.execute('decryptText', parameters.encryptedPassword) // Decriptografa a senha e depois aplica o hash nela
+  const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
 
   if (dbResponse.password !== hashedPass) {
-    throw "Senha ou usuário incorretos!"
+    throw new Error('Senha ou usuário incorretos!')
   }
-// return {debug: true, dbResponse: dbResponse, clientsLength: dbResponse.clients.length, firstElement: dbResponse.clients[0]}
+  // return {debug: true, dbResponse: dbResponse, clientsLength: dbResponse.clients.length, firstElement: dbResponse.clients[0]}
   // for (let i = 0; i < dbResponse.clients.length; i++) {
   //   // const client = array[i];
   //   dbResponse.radios = await context.functions.execute("radiosFindMany", {"clientOID":dbResponse.clients[i]})
   // }
 
-  return { "sessionId": "A52B7A89FE6A3BA58D8C" , loggedUser: dbResponse}  //@todo implementar mecanismo de sessão
+  return { sessionId: 'A52B7A89FE6A3BA58D8C', loggedUser: dbResponse } // @todo implementar mecanismo de sessão
 }

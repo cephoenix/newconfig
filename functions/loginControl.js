@@ -1,13 +1,13 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
   let action
-  var resp = {}
   let operationName
   let operationResponse
   let operationParameters
-  let success = true
 
   try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
+    //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
   } catch (err) {
     action = payload.action
@@ -17,37 +17,32 @@ exports = async function (payload) {
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-
+  let msg
   switch (action) {
     case 'doLogin':
       operationName = 'loginDoLogin'
       operationParameters = payload
-      break;
+      break
 
     case 'doLoginFull':
       operationName = 'loginDoLoginFull'
       operationParameters = payload.body
-      break;
+      break
 
     default:
       if (action != null) {
-        resp.data = "Ação inválida!"
+        msg = 'Ação inválida!'
       } else {
-        resp.data = "Nenhuma ação informada!"
+        msg = 'Nenhuma ação informada!'
       }
-
-      resp.success = false
-      return resp
+      return { success: false, data: msg }
   }
 
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
+    operationResponse = await context.functions.execute(operationName, operationParameters)
   } catch (e) {
-    success = false
-    operationResponse = e
+    return { success: false, data: e }
   }
 
-  resp.success = success
-  resp.data = operationResponse
-  return resp
-};
+  return { success: true, data: operationResponse }
+}

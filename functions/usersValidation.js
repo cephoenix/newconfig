@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (data) {
-
   /**
    * data: {
    *     headers: ...
@@ -8,105 +9,107 @@ exports = async function (data) {
    * }
    */
 
-  var action = data.urlParameters.action
-  var parameters = data.body
+  const parameters = data.body
 
-  switch (action) {
+  switch (data.urlParameters.action) {
     case 'create':
       await validateCreate(parameters)
-      break;
+      break
 
-    case `blockUser`:
+    case 'blockUser':
       await validateBlockUser(parameters)
-      break;
+      break
 
-    case `unblockUser`:
+    case 'unblockUser':
       await validateUnblockUser(parameters)
-      break;
+      break
 
     case 'findOne':
       await validateFindOne(parameters)
-      break;
+      break
 
     case 'findAll':
       await validateFindAll(parameters)
-      break;
+      break
 
     case 'findMany':
       await validateFindMany(parameters)
-      break;
+      break
 
     case 'updateOne':
       await validateUpdateOne(parameters)
-      break;
+      break
 
     case 'excludeOne':
       await validateExcludeOne(parameters)
-      break;
+      break
 
     case 'deleteOne':
       await validateDeleteOne(parameters)
-      break;
+      break
 
     default:
-      if (action == null || action == undefined || action == ``) {
-        throw `Nenhuma ação informada!`
+      if (action == null || action === undefined || action === '') {
+        throw new Error('Nenhuma ação informada!')
       } else {
-        throw `Ação (${action}) inválida!`
+        throw new Error(`Ação (${action}) inválida!`)
       }
   }
-};
+}
 
-async function validateCreate(parameters) {
-
-  if(parameters.login == `` || parameters.login == undefined || parameters.login == null) {
-    throw `O campo "Login" é obrigatório!`;
+/**
+ *
+ * @param {*} parameters
+ */
+async function validateCreate (parameters) {
+  if (parameters.login === '' || parameters.login === undefined || parameters.login == null) {
+    throw new Error('O campo "Login" é obrigatório!')
   }
 
-  if(parameters.cpfCnpj == `` || parameters.cpfCnpj == undefined || parameters.cpfCnpj == null) {
-    throw `O campo "CPF/CNPJ" é obrigatório!`
+  if (parameters.cpfCnpj === '' || parameters.cpfCnpj === undefined || parameters.cpfCnpj == null) {
+    throw new Error('O campo "CPF/CNPJ" é obrigatório!')
   }
 
-  if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
-    throw `O campo "Nome de exibição" é obrigatório!`
+  if (parameters.exhibitionName === '' || parameters.exhibitionName === undefined || parameters.exhibitionName == null) {
+    throw new Error('O campo "Nome de exibição" é obrigatório!')
   }
 
-  if(parameters.permissionLevel == `` || parameters.permissionLevel == undefined || parameters.permissionLevel == null) {
-    throw `O campo "Nível de permissão" é obrigatório!`
+  if (parameters.permissionLevel === '' || parameters.permissionLevel === undefined || parameters.permissionLevel == null) {
+    throw new Error('O campo "Nível de permissão" é obrigatório!')
   }
 
   query = {
     $or: [
-      { "login": parameters.login },
-      { "cpfCnpj": parameters.cpfCnpj }
+      { login: parameters.login },
+      { cpfCnpj: parameters.cpfCnpj }
     ]
   }
 
   try {
-    let databaseParameters = {
-      action: `findOne`,
-      collection: `users`,
+    const databaseParameters = {
+      action: 'findOne',
+      collection: 'users',
       query: query
     }
-    dbResponse = await context.functions.execute(`databaseControl`, databaseParameters)
+    dbResponse = await context.functions.execute('databaseControl', databaseParameters)
   } catch (e) {
-    throw `Erro ao buscar usuário (validação de usuário): ${e}`
+    throw new Error(`Erro ao buscar usuário (validação de usuário): ${e}`)
   }
 
-  if(dbResponse != undefined && dbResponse != '' && dbResponse != null && dbResponse != {}) {
-    throw `Esse usuário já existe!`
+  if (dbResponse !== undefined && dbResponse !== '' && dbResponse != null && dbResponse !== {}) {
+    throw new Error('Esse usuário já existe!')
   }
 }
 
 async function validateBlockUser (parameters) {
-  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
-    throw `É necessário fornecer o campo "_id" do usuário a ser bloqueado!`
+  if (parameters._id === '' || parameters._id === undefined || parameters._id == null) {
+    throw new Error('É necessário fornecer o campo "_id" do usuário a ser bloqueado!')
   }
 }
 
 async function validateUnblockUser (parameters) {
-  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
-    throw `É necessário fornecer o campo "_id" do usuário a ser desbloqueado!`
+  if (parameters._id === '' || parameters._id === undefined || parameters._id == null) {
+    throw new Error('É necessário fornecer o campo "_id" do usuário a ser desbloqueado!')
   }
 }
 
@@ -119,40 +122,39 @@ async function validateFindAll (parameters) {
 }
 
 async function validateFindMany (parameters) {
- 
+
 }
 
 async function validateUpdateOne (parameters) {
-
-  if(parameters.exhibitionName == `` || parameters.exhibitionName == undefined || parameters.exhibitionName == null) {
-    throw `O campo "Nome de exibição" é obrigatório!`
+  if (parameters.exhibitionName === '' || parameters.exhibitionName === undefined || parameters.exhibitionName == null) {
+    throw new Error('O campo "Nome de exibição" é obrigatório!')
   }
 
-  if(parameters.permissionLevel == `` || parameters.permissionLevel == undefined || parameters.permissionLevel == null) {
-    throw `O campo "Nível de permissão" é obrigatório!`
+  if (parameters.permissionLevel === '' || parameters.permissionLevel === undefined || parameters.permissionLevel == null) {
+    throw new Error('O campo "Nível de permissão" é obrigatório!')
   }
 
-  if(parameters.login == `` || parameters.login == undefined || parameters.login == null) {
-    throw `O campo "Login" é obrigatório!`;
+  if (parameters.login === '' || parameters.login === undefined || parameters.login == null) {
+    throw new Error('O campo "Login" é obrigatório!')
   }
 
-  if(parameters.cpfCnpj == `` || parameters.cpfCnpj == undefined || parameters.cpfCnpj == null) {
-    throw `O campo "CPF/CNPJ" é obrigatório!`
+  if (parameters.cpfCnpj === '' || parameters.cpfCnpj === undefined || parameters.cpfCnpj == null) {
+    throw new Error('O campo "CPF/CNPJ" é obrigatório!')
   }
 
-  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
-    throw `O campo "_id" é obrigatório!`
+  if (parameters._id === '' || parameters._id === undefined || parameters._id == null) {
+    throw new Error('O campo "_id" é obrigatório!')
   }
 }
 
 async function validateExcludeOne (parameters) {
-  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
-    throw `O campo "_id" é obrigatório!`
+  if (parameters._id === '' || parameters._id === undefined || parameters._id == null) {
+    throw new Error('O campo "_id" é obrigatório!')
   }
 }
 
 async function validateDeleteOne (parameters) {
-  if(parameters._id == `` || parameters._id == undefined || parameters._id == null) {
-    throw `O campo "_id" é obrigatório!`
+  if (parameters._id === '' || parameters._id === undefined || parameters._id == null) {
+    throw new Error('O campo "_id" é obrigatório!')
   }
 }

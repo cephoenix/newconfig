@@ -1,12 +1,14 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (data) {
-
   /**
    * Valida os dados antes de tentar executar a operação no Banco de dados
    */
   try {
     await validate(data)
   } catch (error) {
-    throw `Falha ao executar operação no banco de dados! ${error}`
+    throw new Error(`Falha ao executar operação no banco de dados! ${error}`)
+    // throw `Falha ao executar operação no banco de dados! ${error}`
   }
 
   /**
@@ -16,10 +18,11 @@ exports = async function (data) {
     data = await preproccess(data)
   } catch (error) {
     let e = error
-    if(typeof error == 'object') {
+    if (typeof error === 'object') {
       e = JSON.stringify(error)
     }
-    throw `Falha ao executar pré-processamento dos dados a serem utilizados  na operação (Action: ${data.action}, Collection: ${data.collection}) a ser efetuada no banco de dados! ${e}`
+    throw new Error(`Falha ao executar pré-processamento dos dados a serem utilizados  na operação (Action: ${data.action}, Collection: ${data.collection}) a ser efetuada no banco de dados! ${e}`)
+    // throw `Falha ao executar pré-processamento dos dados a serem utilizados  na operação (Action: ${data.action}, Collection: ${data.collection}) a ser efetuada no banco de dados! ${e}`
   }
 
   /**
@@ -30,33 +33,31 @@ exports = async function (data) {
     return await execute(data)
   } catch (error) {
     let e = error
-    if(typeof error == 'object') {
+    if (typeof error === 'object') {
       e = JSON.stringify(error)
     }
-    throw `Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${e}`
+    throw new Error(`Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${e}`)
   }
-};
-
+}
 
 /**
  * Valida os dados antes de executar a operação no Banco de Dados
- * @param {*} data 
+ * @param {*} data
  */
-async function validate(parameters) {
-
+async function validate (parameters) {
   /**
    * Essa verificação é comum a todas as operações
    */
   if (await isEmpty(parameters.action)) {
-    throw `É necessário informar a ação a ser realizada!`
+    throw new Error('É necessário informar a ação a ser realizada!')
   }
 
   if (await isEmpty(parameters.collection)) {
-    throw `É necessário informar uma collection sobre a qual a ação será realizada!`
+    throw new Error('É necessário informar uma collection sobre a qual a ação será realizada!')
   }
 
   if (await isEmpty(parameters.query)) {
-    throw `É necessário informar os parâmetros corretamente para realizar a operação!`
+    throw new Error('É necessário informar os parâmetros corretamente para realizar a operação!')
   }
 
   /**
@@ -65,92 +66,89 @@ async function validate(parameters) {
   switch (parameters.action) {
     case 'findOne':
 
-      break;
+      break
     case 'findMany':
 
-      break;
+      break
     case 'insertOne':
-      
-      break;
+
+      break
     case 'insertMany':
-      
-      break;
+
+      break
     case 'updateOne':
-    case `findOneAndUpdate`:
-    case `updateMany`:
+    case 'findOneAndUpdate':
+    case 'updateMany':
       if (await isEmpty(parameters.filter)) {
-        throw `É necessário informar um critério para definir quais documentos serão atualizados!`
+        throw new Error('É necessário informar um critério para definir quais documentos serão atualizados!')
       }
-      break;
+      break
     case 'deleteOne':
-      
-      break;
+
+      break
     case 'excludeOne':
-      
-      break;
+
+      break
     default:
-      throw `Ação inválida.`
+      throw new Error('Ação inválida!')
   }
 }
 
-
 /**
  * Processa os dados antes de executar a(s) operação(ões) no banco de dados
- * @param {*} parameters 
- * @returns 
+ * @param {*} parameters
+ * @returns
  */
-async function preproccess(parameters) {
-  
-    switch (parameters.action) {
-      case 'findOne':
-      case 'findMany':
+async function preproccess (parameters) {
+  switch (parameters.action) {
+    case 'findOne':
+    case 'findMany':
 
+      // cheking parameters.query._id against null or `` may cause undefined exception
+      if (parameters.query._id !== undefined) {
+        // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
+        parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
+      } else if (parameters.query._id != null && parameters.query._id !== '') {
+        parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
+      }
 
-        // cheking parameters.query._id against null or `` may cause undefined exception
-        if (parameters.query._id != undefined) {
-          // throw {ponto1: {query: parameters.query, ooid: new BSON.ObjectId(parameters.query._id)}}
-          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
-        } else if (parameters.query._id != null && parameters.query._id != ``) {
-          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
-        }
+      // cheking parameters.projection against null or `` may cause undefined exception
+      if (parameters.projection === undefined) {
+        parameters.projection = null
+      } else if (parameters.projection === '') {
+        parameters.projection = null
+      }
+      break
+    case 'updateOne':
+      if (parameters.query._id !== undefined) {
+        parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
+      } else if (parameters.query._id != null && parameters.query._id !== '') {
+        parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
+      }
 
-        // cheking parameters.projection against null or `` may cause undefined exception
-        if (parameters.projection == undefined) {
-          parameters.projection = null
-        } else if (parameters.projection == ``) {
-          parameters.projection = null
-        }
-        break;
-      case 'updateOne':
-        if (parameters.query._id != undefined) {
-          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
-        } else if (parameters.query._id != null && parameters.query._id != ``) {
-          parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
-        }
+      if (parameters.filter._id !== undefined) {
+        parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
+      } else if (parameters.filter._id != null && parameters.filter._id !== '') {
+        parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
+      }
+      break
+  }
 
-        if (parameters.filter._id != undefined) {
-          parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
-        } else if (parameters.filter._id != null && parameters.filter._id != ``) {
-          parameters.filter._id = new BSON.ObjectId(`${parameters.filter._id}`)
-        }
-        break;
-    }
-
-    if (parameters.options == undefined) {
-      parameters.options = {}
-    } else if (parameters.options == ``) {
-      parameters.options = {}
-    }
-    // throw {debug2: true, data: parameters}
-    return parameters;
+  if (parameters.options === undefined) {
+    parameters.options = {}
+  } else if (parameters.options === '') {
+    parameters.options = {}
+  }
+  // throw {debug2: true, data: parameters}
+  return parameters
 }
 
 /**
  * Executa a operação escolhida
- * @param {*} parameters 
- * @returns 
- * 
-   >>>>> Exemplo de findOne 
+ * @param {*} parameters
+ * @returns
+ *
+   >>>>> Exemplo de findOne
    >>>>> Veja a comparação com undefined... essa é a forma correta de verificar se o registro foi encontrado
 
   let databaseParameters = {
@@ -158,17 +156,17 @@ async function preproccess(parameters) {
     collection: `clients`,
     query: { _id: requestData.clientId }
   }
-  
+
   client = await context.functions.execute(`databaseControl`, databaseParameters)
 
   if(client == undefined) {
     return {success: false, data: `Não foi possível encontrar o cliente informado`}
   }
 
- * 
+ *
  */
-async function execute(parameters) {
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection(parameters.collection)
+async function execute (parameters) {
+  const dbquery = context.services.get('mongodb-atlas').db('configRadio').collection(parameters.collection)
   try {
     switch (parameters.action) {
       case 'findOne':
@@ -189,7 +187,7 @@ async function execute(parameters) {
         return await dbquery.insertMany(parameters.query, parameters.options)
       case 'updateOne':
         return await dbquery.updateOne(parameters.filter, parameters.query, parameters.options)
-      case `findOneAndUpdate`:
+      case 'findOneAndUpdate':
         return await dbquery.findOneAndUpdate(parameters.filter, parameters.query, parameters.options)
       case 'updateMany':
         return await dbquery.updateMany(parameters.filter, parameters.query, parameters.options)
@@ -199,10 +197,10 @@ async function execute(parameters) {
         return await dbquery.deleteMany(parameters.filter, parameters.options)
     }
   } catch (error) {
-    throw {err: JSON.stringify(error)}
+    throw new Error({ err: JSON.stringify(error) })
   }
 }
 
-async function isEmpty(valueToBeChecked) {
-  return (valueToBeChecked == null || valueToBeChecked == `` || valueToBeChecked == undefined)
+async function isEmpty (valueToBeChecked) {
+  return (valueToBeChecked == null || valueToBeChecked === '' || valueToBeChecked === undefined)
 }

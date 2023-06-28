@@ -1,14 +1,14 @@
-exports = async function (payload, response) {
-  
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
+exports = async function (payload) {
   let action
-  var resp = {}
   let operationName
   let operationResponse
   let operationParameters
   let success = true
 
   try {
-    //id, action, page etc should be on url parameters. These parameters are contained inside payload.query
+    // id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
   } catch (err) {
     action = payload.action
@@ -22,14 +22,14 @@ exports = async function (payload, response) {
   switch (action) {
     case 'findAll':
       operationName = 'databaseFindMany'
-      operationParameters = {collection:"deviceTypes", query: {}}
-      break;
+      operationParameters = { collection: 'deviceTypes', query: {} }
+      break
 
     default:
       if (action != null) {
-        resp.data = "Ação inválida!"
+        resp.data = 'Ação inválida!'
       } else {
-        resp.data = "Nenhuma ação informada!"
+        resp.data = 'Nenhuma ação informada!'
       }
 
       resp.success = false
@@ -37,7 +37,7 @@ exports = async function (payload, response) {
   }
 
   try {
-    operationResponse = await context.functions.execute(operationName, operationParameters);
+    operationResponse = await context.functions.execute(operationName, operationParameters)
   } catch (e) {
     success = false
     operationResponse = e
@@ -46,4 +46,4 @@ exports = async function (payload, response) {
   resp.success = success
   resp.data = operationResponse
   return resp
-};
+}

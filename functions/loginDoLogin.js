@@ -1,82 +1,70 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-  var parameters;
-  var loggedUser;
-  var data = payload.body
-  var remoteIp = payload.headers['X-Cluster-Client-Ip'][0]
+  let parameters
+  let loggedUser
+  const data = payload.body
+  const remoteIp = payload.headers['X-Cluster-Client-Ip'][0]
 
-  if (data == undefined) {
-    throw "É necessário fornecer informações válidas para autenticação! (1)"
+  if (data === undefined) {
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
   if (data == null) {
-    throw "É necessário fornecer informações válidas para autenticação! (2)"
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
   try {
     parameters = JSON.parse(data.text())
   } catch (e) {
-    throw "É necessário fornecer informações válidas para autenticação! (3)"
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
   if (parameters.login == null || parameters.encryptedPassword == null) {
-    throw "É necessário fornecer informações válidas para autenticação! (4)"
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
-  if (parameters.login == undefined || parameters.encryptedPassword == undefined) {
-    throw "É necessário fornecer informações válidas para autenticação! (5)"
+  if (parameters.login === undefined || parameters.encryptedPassword === undefined) {
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
   }
 
   try {
-    loggedUser = await context.services.get("mongodb-atlas").db("configRadio").collection("users").findOne({"login":parameters.login})
+    loggedUser = await context.services.get('mongodb-atlas').db('configRadio').collection('users').findOne({ login: parameters.login })
   } catch (e) {
-    throw "Erro ao buscar usuário no Banco de Dados! " + e
+    throw new Error(`Erro ao buscar usuário no Banco de Dados! ${e}`)
   }
 
   if (loggedUser == null) {
-    throw "Senha ou usuário incorretos!"
+    throw new Error('Senha ou usuário incorretos!')
   }
 
-  let decryptedPassword = await context.functions.execute("decryptText", parameters.encryptedPassword) ///Decriptografa a senha e depois aplica o hash nela
-  let hashedPass = await context.functions.execute("encryptPassword", decryptedPassword)
+  const decryptedPassword = await context.functions.execute('decryptText', parameters.encryptedPassword) // Decriptografa a senha e depois aplica o hash nela
+  const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
 
-  const dbquery = context.services.get("mongodb-atlas").db("configRadio").collection("usersLoginLog")
-  
+  const dbquery = context.services.get('mongodb-atlas').db('configRadio').collection('usersLoginLog')
+
   if (loggedUser.password !== hashedPass) {
-    try {
-      await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: `Senha incorreta` })
-    } catch (e) {
-      throw (e)
-    }
-
-    throw "Senha ou usuário incorretos!"
+    await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
+    throw new Error('Senha ou usuário incorretos!')
   }
 
-  if(loggedUser.blocked) {
-    try {
-      await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: `Usuário bloqueado` })
-    } catch (e) {
-      throw (e)
-    }
-
-    throw `Usuário bloqueado!`
+  if (loggedUser.blocked) {
+    await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Usuário bloqueado' })
+    throw new Error('Usuário bloqueado!')
   }
 
-  try {
-    await dbquery.insertOne({ login: parameters.login, success: true, clientIp: remoteIp, date: new Date() })
-  } catch (e) {
-    throw (e)
-  }
+  await dbquery.insertOne({ login: parameters.login, success: true, clientIp: remoteIp, date: new Date() })
 
-  let databaseParameters = {
-    action: `findMany`,
-    collection: `deviceTypes`,
+  const databaseParameters = {
+    action: 'findMany',
+    collection: 'deviceTypes',
     query: {},
     filter: {}
   }
 
-  return { 
-    "sessionId": "A52B7A89FE6A3BA58D8C", 
-    loggedUser: loggedUser , 
-    deviceTypes: await context.functions.execute(`databaseControl`, databaseParameters)
-  } //@todo implementar mecanismo de sessão
+  return {
+    sessionId: 'A52B7A89FE6A3BA58D8C',
+    loggedUser: loggedUser,
+    deviceTypes: await context.functions.execute('databaseControl', databaseParameters)
+  } // @todo implementar mecanismo de sessão
 }

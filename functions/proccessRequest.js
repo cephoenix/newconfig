@@ -1,16 +1,17 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-
   // var headers
   // var query
-  var body
+  let body
 
-  if(payload.body == undefined || payload.body == `` || payload.body == null || payload.body == 'undefined' || (typeof payload.body == 'undefined')) {
+  if (payload.body === undefined || payload.body === '' || payload.body == null || payload.body === 'undefined' || (typeof payload.body === 'undefined')) {
     body = {}
   } else {
     try {
       body = JSON.parse(payload.body.text())
     } catch (error) {
-      throw `Erro ao processar corpo da requisição. Verifique os dados fornecidos! Erro: ${error}`
+      throw new Error(`Erro ao processar corpo da requisição. Verifique os dados fornecidos! Erro: ${error}`)
     }
   }
 
@@ -37,4 +38,4 @@ exports = async function (payload) {
     urlParameters: payload.query,
     body: body
   }
-};
+}

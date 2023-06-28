@@ -1,63 +1,54 @@
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
 exports = async function (data) {
-  
-  // try {
-  //   body = payload.body.text()
-  // } catch (error) {
-  //   throw {
-  //     success: false,
-  //     data: `Erro ao buscar parâmetros da operação: ${error}`
-  //   }
-  // }
-
-  var action = data.urlParameters.action
-  var parameters = data.body
+  const action = data.urlParameters.action
+  const parameters = data.body
 
   switch (action) {
     case 'create':
       await validateCreate(parameters)
-      break;
+      break
 
     case 'findOne':
       await validateFindOne(parameters)
-      break;
+      break
 
     case 'findAll':
       await validateFindAll(parameters)
-      break;
+      break
 
     case 'findMany':
       await validateFindMany(parameters)
-      break;
+      break
 
     case 'updateOne':
       await validateUpdateOne(parameters)
-      break;
+      break
 
     case 'excludeOne':
       await validateExcludeOne(parameters)
-      break;
+      break
 
     case 'deleteOne':
       await validateDeleteOne(parameters)
-      break;
+      break
 
     default:
-      if (action == null || action == undefined || action == ``) {
-        throw `Nenhuma ação informada!`;
+      if (action == null || action === undefined || action === '') {
+        throw new Error('Nenhuma ação informada!')
       } else {
-        throw `Ação (${action}) inválida!`;
+        throw new Error(`Ação (${action}) inválida!`)
       }
   }
-};
+}
 
 async function validateCreate (parameters) {
-  var resp
-  let query = {
+  const query = {
     $or: [
-      { "initials": parameters.initials },
-      { "cpfCnpj": parameters.cpfCnpj },
-      { "networkKey": parameters.networkKey },
-      { "panId": parameters.panId }
+      { initials: parameters.initials },
+      { cpfCnpj: parameters.cpfCnpj },
+      { networkKey: parameters.networkKey },
+      { panId: parameters.panId }
     ]
   }
 
@@ -67,19 +58,15 @@ async function validateCreate (parameters) {
   //   throw `Erro ao verificar se o cliente já existe: ${error}`
   // }
 
-  let databaseParameters = {
-    action: `findOne`,
-    collection: `clients`,
+  const databaseParameters = {
+    action: 'findOne',
+    collection: 'clients',
     query: query
   }
 
   return {
     success: true,
-    data: await context.functions.execute(`databaseControl`, databaseParameters)
-  }
-
-  if(resp != null) {
-    throw `Esse cliente já existe!`
+    data: await context.functions.execute('databaseControl', databaseParameters)
   }
 }
 
@@ -88,23 +75,23 @@ async function validateFindOne (parameters) {
 }
 
 async function validateFindAll (parameters) {
-  
+
 }
 
 async function validateFindMany (parameters) {
-  
+
 }
 
 async function validateUpdateOne (parameters) {
-  if(parameters._id == null || parameters._id == "" || parameters._id == undefined) {
-    throw "É necessário informar o ObjectId do documento a ser atualizado!"
+  if (parameters._id == null || parameters._id === '' || parameters._id === undefined) {
+    throw new Error('É necessário informar o ObjectId do documento a ser atualizado!')
   }
 }
 
 async function validateExcludeOne (parameters) {
-  
+
 }
 
 async function validateDeleteOne (parameters) {
-  
+
 }
