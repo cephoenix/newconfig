@@ -413,7 +413,6 @@ async function changeClient(requestData) {
    * UPDATE CLIENT
    */
   try {
-    throw `${JSON.stringify(client)}`
     let filter = { _id: new BSON.ObjectId(`${client._id}`)};
     
     let clientToInsert = {};
@@ -424,10 +423,10 @@ async function changeClient(requestData) {
       clientToInsert.deviceSummary[`${deviceType.initials}`] = deviceNumber;
     }
 
-    // await context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(
-    //   filter,
-    //   {"$set": clientToInsert}
-    // );
+    await context.services.get("mongodb-atlas").db("configRadio").collection(`clients`).updateOne(
+      filter,
+      {"$set": clientToInsert}
+    );
   } catch (error) {
     throw `Ocorreu um erro ao atualizar o cliente! ${error}`;
   }
