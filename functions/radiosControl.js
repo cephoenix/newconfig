@@ -67,15 +67,15 @@ exports = async function (payload) {
   //     manufacturerId: '',
   //     userId: '649b369e1fd85eb54dc64b37'
   //   }
-    // urlParameters: {
-    //   action: 'getNewNumber'
-    // },
-    // body: {
-    //   mac: '000000000000000',
-    //   clientId: '6494b3cd9fdaaf633f672872',
-    //   deviceName: 'XXX_LRDFTFFFE967F3E'
-    // }
-  }
+  // urlParameters: {
+  //   action: 'getNewNumber'
+  // },
+  // body: {
+  //   mac: '000000000000000',
+  //   clientId: '6494b3cd9fdaaf633f672872',
+  //   deviceName: 'XXX_LRDFTFFFE967F3E'
+  // }
+  // }
 
   const action = processedRequestData.urlParameters.action
   const databaseQuery = processedRequestData.body
