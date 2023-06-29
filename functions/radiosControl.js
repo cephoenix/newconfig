@@ -15,67 +15,67 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 
-  processedRequestData = {
-    headers: {
-      Accept: [
-        '*/*'
-      ],
-      'Postman-Token': [
-        '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
-      ],
-      'Content-Length': [
-        '287'
-      ],
-      'X-Forwarded-For': [
-        '200.181.33.155'
-      ],
-      'X-Forwarded-Proto': [
-        'https'
-      ],
-      'X-Envoy-External-Address': [
-        '200.181.33.155'
-      ],
-      'X-Cluster-Client-Ip': [
-        '200.181.33.155'
-      ],
-      'Content-Type': [
-        'application/json'
-      ],
-      'Accept-Encoding': [
-        'gzip, deflate, br'
-      ],
-      'X-Request-Id': [
-        '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
-      ],
-      'X-Forwarded-Client-Cert': [
-        'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
-      ],
-      'User-Agent': [
-        'PostmanRuntime/7.32.3'
-      ]
-    },
-    urlParameters: {
-      action: 'changeClient'
-    },
-    body: {
-      mac: '000000000000000',
-      clientId: '649c88e94c067236c8081ad5',
-      name: 'XXX_LRDFT0010',
-      hardwareVersion: '1.0.0',
-      firmwareVersion: '370223360',
-      ProfileId: '',
-      manufacturerId: '',
-      userId: '649c88e94c067236c8081adc'
-    }
-    // urlParameters: {
-    //   action: 'getNewNumber'
-    // },
-    // body: {
-    //   mac: '000000000000000',
-    //   clientId: '6494b3cd9fdaaf633f672872',
-    //   deviceName: 'XXX_LRDFTFFFE967F3E'
-    // }
-  }
+  // processedRequestData = {
+  //   headers: {
+  //     Accept: [
+  //       '*/*'
+  //     ],
+  //     'Postman-Token': [
+  //       '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
+  //     ],
+  //     'Content-Length': [
+  //       '287'
+  //     ],
+  //     'X-Forwarded-For': [
+  //       '200.181.33.155'
+  //     ],
+  //     'X-Forwarded-Proto': [
+  //       'https'
+  //     ],
+  //     'X-Envoy-External-Address': [
+  //       '200.181.33.155'
+  //     ],
+  //     'X-Cluster-Client-Ip': [
+  //       '200.181.33.155'
+  //     ],
+  //     'Content-Type': [
+  //       'application/json'
+  //     ],
+  //     'Accept-Encoding': [
+  //       'gzip, deflate, br'
+  //     ],
+  //     'X-Request-Id': [
+  //       '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
+  //     ],
+  //     'X-Forwarded-Client-Cert': [
+  //       'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
+  //     ],
+  //     'User-Agent': [
+  //       'PostmanRuntime/7.32.3'
+  //     ]
+  //   },
+  //   urlParameters: {
+  //     action: 'changeClient'
+  //   },
+  //   body: {
+  //     mac: '000000000000000',
+  //     clientId: '649c88e94c067236c8081ad5',
+  //     name: 'XXX_LRDFT0010',
+  //     hardwareVersion: '1.0.0',
+  //     firmwareVersion: '370223360',
+  //     ProfileId: '',
+  //     manufacturerId: '',
+  //     userId: '649c88e94c067236c8081adc'
+  //   }
+  //   // urlParameters: {
+  //   //   action: 'getNewNumber'
+  //   // },
+  //   // body: {
+  //   //   mac: '000000000000000',
+  //   //   clientId: '6494b3cd9fdaaf633f672872',
+  //   //   deviceName: 'XXX_LRDFTFFFE967F3E'
+  //   // }
+  // }
 
   const action = processedRequestData.urlParameters.action
   const databaseQuery = processedRequestData.body
@@ -320,7 +320,7 @@ async function changeClient (requestData) {
     throw new Error('Cliente não encontrado!')
   }
 
-  await getDeviceTypeByName(requestData.name)
+  deviceType = await getDeviceTypeByName(requestData.name)
 
   const profileId = requestData.firmwareVersion.substring(0, 2)
   const manufacturerId = requestData.firmwareVersion.substring(3, 6)
@@ -374,27 +374,31 @@ async function changeClient (requestData) {
   } catch (error) {
     throw new Error(`Ocorreu um erro ao atualizar o dispositivo! ${error}`)
   }
+  
 
+  
   /**
    * UPDATE CLIENT
    */
   try {
+  
     const filter = { _id: new BSON.ObjectId(`${client._id}`) }
 
-    if (clientToInsert.deviceSummary !== undefined && client.deviceSummary != null && client.deviceSummary !== '') {
-      clientToInsert.deviceSummary[`${deviceType.initials}`] = deviceNumber
+    if (client.deviceSummary != null && client.deviceSummary !== '') {
+      client.deviceSummary[`${deviceType.initials}`] = deviceNumber
     } else {
-      clientToInsert.deviceSummary = {}
-      clientToInsert.deviceSummary[`${deviceType.initials}`] = deviceNumber
+      client.deviceSummary = {}
+      client.deviceSummary[`${deviceType.initials}`] = deviceNumber
     }
 
     await context.services.get('mongodb-atlas').db('configRadio').collection('clients').updateOne(
       filter,
-      { $set: clientToInsert }
+      { $set: client }
     )
   } catch (error) {
     throw new Error(`Ocorreu um erro ao atualizar o cliente! ${error}`)
   }
+  
 }
 
 /**
