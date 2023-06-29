@@ -211,6 +211,32 @@ exports = async function (data) {
       province: '',
       city: '',
       country: ''
+    },
+    {
+      oldDatabaseId: 357,
+      name: 'Túlio',
+      initials: '0BN',
+      panId: await context.functions.execute('encryptText', '9991'),
+      extendedPanId: await context.functions.execute('encryptText', '9991'),
+      linkKey: await context.functions.execute('encryptText', '0001'),
+      networkKey: await context.functions.execute('encryptText', '0001'),
+      creationDate: new Date(),
+      channel: 15,
+      deviceSummary: {},
+      clientType: {
+        type: 2,
+        name: 'Cliente Final'
+      },
+      documentIdentificationNumber: '009085',
+      taxId: '009085',
+      nationalIdentificationNumber: '009085',
+      address: '',
+      postalCode: '',
+      state: '',
+      stateInitials: '',
+      province: '',
+      city: '',
+      country: ''
     }]
   )
 
@@ -260,7 +286,7 @@ exports = async function (data) {
   context.services.get('mongodb-atlas').db('configRadio').collection('users').insertOne(userToInsert)
 
   userToInsert = {}
-  userToInsert.login = 'danilo'
+  userToInsert.login = 'danilodpires'
   userToInsert.password = 'EFDA0BD51E79959399756DD0FC4BA89653780EF8'
   userToInsert.email = 'danilo@firebee.com.br'
   userToInsert.fullName = 'Danilo Pires'

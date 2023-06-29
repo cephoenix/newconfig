@@ -275,7 +275,6 @@ async function getRadioNumber (requestData) {
  */
 async function changeClient (requestData) {
   let client
-  let deviceType
 
   /**
    * Campos obrigatórios:
@@ -320,7 +319,7 @@ async function changeClient (requestData) {
     throw new Error('Cliente não encontrado!')
   }
 
-  deviceType = await getDeviceTypeByName(requestData.name)
+  const deviceType = await getDeviceTypeByName(requestData.name)
 
   const profileId = requestData.firmwareVersion.substring(0, 2)
   const manufacturerId = requestData.firmwareVersion.substring(3, 6)
@@ -374,14 +373,11 @@ async function changeClient (requestData) {
   } catch (error) {
     throw new Error(`Ocorreu um erro ao atualizar o dispositivo! ${error}`)
   }
-  
 
-  
   /**
    * UPDATE CLIENT
    */
   try {
-  
     const filter = { _id: new BSON.ObjectId(`${client._id}`) }
 
     if (client.deviceSummary != null && client.deviceSummary !== '') {
@@ -398,7 +394,6 @@ async function changeClient (requestData) {
   } catch (error) {
     throw new Error(`Ocorreu um erro ao atualizar o cliente! ${error}`)
   }
-  
 }
 
 /**
