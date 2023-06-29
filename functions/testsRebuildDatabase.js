@@ -286,7 +286,7 @@ exports = async function (data) {
   context.services.get('mongodb-atlas').db('configRadio').collection('users').insertOne(userToInsert)
 
   userToInsert = {}
-  userToInsert.login = 'danilodpires'
+  userToInsert.login = 'danilofpires'
   userToInsert.password = 'EFDA0BD51E79959399756DD0FC4BA89653780EF8'
   userToInsert.email = 'danilo@firebee.com.br'
   userToInsert.fullName = 'Danilo Pires'
