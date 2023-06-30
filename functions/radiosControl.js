@@ -58,14 +58,14 @@ exports = async function (payload) {
   //     action: 'changeClient'
   //   },
   //   body: {
-  //     mac: '000000000000000',
-  //     clientId: '649c88e94c067236c8081ad5',
-  //     name: 'XXX_LRDFT0010',
-  //     hardwareVersion: '1.0.0',
-  //     firmwareVersion: '370223360',
+  //     mac: '84BA20FFFE969EE5',
+  //     clientId: '649d82176c2f09966d591bb9',
+  //     name: 'JJJ_LRPFH0001',
+  //     hardwareVersion: '2021-01-01 0',
+  //     firmwareVersion: '2023-06-02 1',
   //     ProfileId: '',
   //     manufacturerId: '',
-  //     userId: '649c88e94c067236c8081adc'
+  //     userId: '649d82176c2f09966d591bc2'
   //   }
   //   // urlParameters: {
   //   //   action: 'getNewNumber'
@@ -157,9 +157,6 @@ exports = async function (payload) {
         await changeClient(processedRequestData.body)
       } catch (error) {
         let e = error
-        if (typeof error === 'object') {
-          e = JSON.stringify(error)
-        }
         return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${e}` }
       }
       return { success: true, data: 'A rede do dispositivo foi alterada com sucesso!' }
@@ -318,15 +315,21 @@ async function changeClient (requestData) {
   if (client === undefined) {
     throw new Error('Cliente não encontrado!')
   }
-
-  const deviceType = await getDeviceTypeByName(requestData.name)
+  let deviceType
+  try {
+    
+    deviceType = await getDeviceTypeByName(requestData.name)
+  } catch (e) {
+    console.log(" >>>>> Erro ao buscar tipo de dispositivo!")
+    throw new Error('Error ao bucar o tipo do dispositivo!')
+  }
 
   const profileId = requestData.firmwareVersion.substring(0, 2)
   const manufacturerId = requestData.firmwareVersion.substring(3, 6)
 
   let deviceToInsert
   let deviceNumber
-
+  
   try {
     deviceNumber = +requestData.name.substring(9, 13)
     deviceToInsert = {
@@ -399,8 +402,10 @@ async function changeClient (requestData) {
 /**
  * @returns
  */
-async function getDeviceTypeByName (name) {
-  const initials = name.substring(4, 9)
+async function getDeviceTypeByName (n) {
+  
+  const initials = n.substring(4, 9)
+  
   let deviceTypes
   let typeToReturn
 
@@ -421,7 +426,10 @@ async function getDeviceTypeByName (name) {
     throw new Error(`Não foi possível buscar a lista de Tipos de Dispositivo. ${e}`)
   }
 
-  if (typeToReturn === undefined) {
+  console.log("TTR", JSON.stringify(typeToReturn))
+
+  if (typeToReturn == null) {
+    console.log('ASDFASDGAS')    
     /**
     * Quando não encontramos o dispositivo cadastrado, tentamos fazer uma busca na API do Buble
     */
@@ -436,14 +444,14 @@ async function getDeviceTypeByName (name) {
     })
 
     const rawData = await JSON.parse(response.body.text()).response.results
-
+    
     // Tentando buscar o tipo de dispositivo nos resultados encontrados
-    const resp = []
+    var resp = []
     rawData.forEach(element => {
-      if (element.SiglaConfRadio.includes('LR') && element.DeviceClass !== '6') {
+      if (element.SiglaConfRadio.includes('LR')) {
         let x = `${element.SiglaConfRadio}`
         const y = element.DescriptionPTBR
-
+        
         if (y !== undefined && y != null && y !== '') {
           x += ` - ${y.slice(0, 13)}`
         }
@@ -458,23 +466,24 @@ async function getDeviceTypeByName (name) {
           })
         }
       }
-      return resp
     })
-
+    
     // Se encontramos o tipo de dispositivo no Bubble inserimos ele no Banco de dados local e retornamos
-    if (type.length > 0) {
+    if (resp.length > 0) {
+      
       try {
-        await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').insertMany(type)
+        await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').insertMany(resp)
       } catch (e) {
         throw new Error(`Erro ao inserir Tipo de Dispositivo (${initials}) que não estava cadastrado! ${e}`)
       }
-      return type
+      return resp[0]
+    } else {
+      console.log('NOT FOUND')
+      throw new Error(`Tipo de dispositivo (${initials}) não encontrado! `)
     }
-
-    // Se não encontramos o tipo de dispositivo no Bubble informamos um erro
-    throw new Error(`Tipo de dispositivo (${initials}) não encontrado! `)
+  } else {
+    return typeToReturn
   }
-  return typeToReturn
 }
 
 if (typeof module === 'object') {
