@@ -108,15 +108,15 @@ exports = async function (payload) {
 
     case 'findMany':
       databaseAction = 'find'
-      if (payload.body == null) {
-        throw new Error('É necessário fornecer informações válidas para pesquisar no Banco de Dados!')
-      }
+      // if (payload.body == null) {
+      //   throw new Error('É necessário fornecer informações válidas para pesquisar no Banco de Dados!')
+      // }
 
-      try {
-        operationParameters = JSON.parse(payload.body.text())
-      } catch (e) {
-        throw new Error('É necessário fornecer informações válidas (array) para pesquisar no Banco de Dados!')
-      }
+      // try {
+      //   operationParameters = JSON.parse(payload.body.text())
+      // } catch (e) {
+      //   throw new Error('É necessário fornecer informações válidas (array) para pesquisar no Banco de Dados!')
+      // }
       break
 
     case 'updateOne':
