@@ -15,67 +15,67 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 
-  // processedRequestData = {
-  //   headers: {
-  //     Accept: [
-  //       '*/*'
-  //     ],
-  //     'Postman-Token': [
-  //       '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
-  //     ],
-  //     'Content-Length': [
-  //       '287'
-  //     ],
-  //     'X-Forwarded-For': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Forwarded-Proto': [
-  //       'https'
-  //     ],
-  //     'X-Envoy-External-Address': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Cluster-Client-Ip': [
-  //       '200.181.33.155'
-  //     ],
-  //     'Content-Type': [
-  //       'application/json'
-  //     ],
-  //     'Accept-Encoding': [
-  //       'gzip, deflate, br'
-  //     ],
-  //     'X-Request-Id': [
-  //       '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
-  //     ],
-  //     'X-Forwarded-Client-Cert': [
-  //       'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
-  //     ],
-  //     'User-Agent': [
-  //       'PostmanRuntime/7.32.3'
-  //     ]
-  //   },
-  //   urlParameters: {
-  //     action: 'changeClient'
-  //   },
-  //   body: {
-  //     mac: '84BA20FFFE969EE5',
-  //     clientId: '649d82176c2f09966d591bb9',
-  //     name: 'JJJ_LRPFH0001',
-  //     hardwareVersion: '2021-01-01 0',
-  //     firmwareVersion: '2023-06-02 1',
-  //     ProfileId: '',
-  //     manufacturerId: '',
-  //     userId: '649d82176c2f09966d591bc2'
-  //   }
-  //   // urlParameters: {
-  //   //   action: 'getNewNumber'
-  //   // },
-  //   // body: {
-  //   //   mac: '000000000000000',
-  //   //   clientId: '6494b3cd9fdaaf633f672872',
-  //   //   deviceName: 'XXX_LRDFTFFFE967F3E'
-  //   // }
-  // }
+  processedRequestData = {
+    headers: {
+      Accept: [
+        '*/*'
+      ],
+      'Postman-Token': [
+        '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
+      ],
+      'Content-Length': [
+        '287'
+      ],
+      'X-Forwarded-For': [
+        '200.181.33.155'
+      ],
+      'X-Forwarded-Proto': [
+        'https'
+      ],
+      'X-Envoy-External-Address': [
+        '200.181.33.155'
+      ],
+      'X-Cluster-Client-Ip': [
+        '200.181.33.155'
+      ],
+      'Content-Type': [
+        'application/json'
+      ],
+      'Accept-Encoding': [
+        'gzip, deflate, br'
+      ],
+      'X-Request-Id': [
+        '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
+      ],
+      'X-Forwarded-Client-Cert': [
+        'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
+      ],
+      'User-Agent': [
+        'PostmanRuntime/7.32.3'
+      ]
+    },
+    // urlParameters: {
+    //   action: 'changeClient'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '649f1af10c4f939e2adf14d9',
+    //   name: 'JJJ_LRPFH0001',
+    //   hardwareVersion: '2021-01-01 0',
+    //   firmwareVersion: '2023-06-02 1',
+    //   ProfileId: '',
+    //   manufacturerId: '',
+    //   userId: '649d82176c2f09966d591bc2'
+    // }
+    urlParameters: {
+      action: 'getNewNumber'
+    },
+    body: {
+      mac: '000000000000000',
+      clientId: '649f1af10c4f939e2adf14e0',
+      deviceName: 'JJJ_LRPFH0001'
+    }
+  }
 
   const action = processedRequestData.urlParameters.action
   const databaseQuery = processedRequestData.body
