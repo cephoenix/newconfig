@@ -72,7 +72,7 @@ exports = async function (payload) {
     },
     body: {
       mac: '000000000000000',
-      clientId: '649f1af10c4f939e2adf14e0',
+      clientId: '649f1af10c4f939e2adf14d9',
       deviceName: 'JJJ_LRPFH0001'
     }
   }
@@ -220,7 +220,8 @@ async function getRadioNumber (requestData) {
    * Proccessing information
    * We need to check if there is any device of this type on this client network and return next number
    */
-  if (device != null && device !== '' && !isNaN(device)) { // In this case, device network was never changed
+
+  if (device != null && device !== '') { // In this case, device network was never changed
     let definitiveNumber
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
