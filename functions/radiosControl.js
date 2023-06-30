@@ -156,8 +156,7 @@ exports = async function (payload) {
       try {
         await changeClient(processedRequestData.body)
       } catch (error) {
-        let e = error
-        return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${e}` }
+        return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${error}` }
       }
       return { success: true, data: 'A rede do dispositivo foi alterada com sucesso!' }
 
@@ -317,10 +316,8 @@ async function changeClient (requestData) {
   }
   let deviceType
   try {
-    
     deviceType = await getDeviceTypeByName(requestData.name)
   } catch (e) {
-    console.log(" >>>>> Erro ao buscar tipo de dispositivo!")
     throw new Error('Error ao bucar o tipo do dispositivo!')
   }
 
@@ -329,7 +326,7 @@ async function changeClient (requestData) {
 
   let deviceToInsert
   let deviceNumber
-  
+
   try {
     deviceNumber = +requestData.name.substring(9, 13)
     deviceToInsert = {
@@ -403,9 +400,7 @@ async function changeClient (requestData) {
  * @returns
  */
 async function getDeviceTypeByName (n) {
-  
   const initials = n.substring(4, 9)
-  
   let deviceTypes
   let typeToReturn
 
@@ -426,10 +421,7 @@ async function getDeviceTypeByName (n) {
     throw new Error(`Não foi possível buscar a lista de Tipos de Dispositivo. ${e}`)
   }
 
-  console.log("TTR", JSON.stringify(typeToReturn))
-
   if (typeToReturn == null) {
-    console.log('ASDFASDGAS')    
     /**
     * Quando não encontramos o dispositivo cadastrado, tentamos fazer uma busca na API do Buble
     */
@@ -444,14 +436,14 @@ async function getDeviceTypeByName (n) {
     })
 
     const rawData = await JSON.parse(response.body.text()).response.results
-    
+
     // Tentando buscar o tipo de dispositivo nos resultados encontrados
     var resp = []
     rawData.forEach(element => {
       if (element.SiglaConfRadio.includes('LR')) {
         let x = `${element.SiglaConfRadio}`
         const y = element.DescriptionPTBR
-        
+
         if (y !== undefined && y != null && y !== '') {
           x += ` - ${y.slice(0, 13)}`
         }
@@ -467,10 +459,9 @@ async function getDeviceTypeByName (n) {
         }
       }
     })
-    
+
     // Se encontramos o tipo de dispositivo no Bubble inserimos ele no Banco de dados local e retornamos
     if (resp.length > 0) {
-      
       try {
         await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').insertMany(resp)
       } catch (e) {
