@@ -200,7 +200,7 @@ async function getRadioNumber (requestData) {
   }
 
   const device = await context.functions.execute('databaseControl', databaseParameters)
-console.log("RData: ", JSON.stringify(requestData))
+
   /**
    * Retrieving Client information
    */
@@ -222,11 +222,10 @@ console.log("RData: ", JSON.stringify(requestData))
    */
 
   if (device != null && device !== '') { // In this case, device network was never changed
-  console.log("PONTO 1")
     let definitiveNumber
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
-    
+
     if (client.summary !== undefined && client.summary != null && client.summary !== '') {
       const lastDeviceNumber = client.summary[`${deviceType}`]
       if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
@@ -238,8 +237,7 @@ console.log("RData: ", JSON.stringify(requestData))
       definitiveNumber = 1
     }
     ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
-      
-    
+
     // if (ret.overwrite) {
     //   if (client.summary !== undefined && client.summary != null && client.summary !== '') {
     //     const lastDeviceNumber = client.summary[`${deviceType}`]
@@ -263,9 +261,6 @@ console.log("RData: ", JSON.stringify(requestData))
     //   }
     //   ret.name = `${device.name}`
     // }
-    
-    
-    
   } else { // In this case, device already exists
     ret.rewrite = false
     ret.overwrite = false
@@ -283,7 +278,6 @@ console.log("RData: ", JSON.stringify(requestData))
     }
 
     ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
-    console.log("NAME: ", ret)
   }
   return ret
 }
