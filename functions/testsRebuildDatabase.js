@@ -91,7 +91,7 @@ exports = async function (data) {
       linkKey: await context.functions.execute('encryptText', '0001'),
       networkKey: await context.functions.execute('encryptText', '0001'),
       creationDate: new Date(),
-      channel: 26,
+      channel: 15,
       deviceSummary: {},
       clientType: {
         type: 2,

@@ -460,7 +460,7 @@ async function getDeviceTypeByName (n) {
     const rawData = await JSON.parse(response.body.text()).response.results
 
     // Tentando buscar o tipo de dispositivo nos resultados encontrados
-    var resp = []
+    const resp = []
     rawData.forEach(element => {
       if (element.SiglaConfRadio.includes('LR')) {
         let x = `${element.SiglaConfRadio}`
