@@ -102,12 +102,12 @@ exports = async function (payload) {
       break
 
     case 'findAll':
-      operationName = 'findMany'
+      databaseAction = 'find'
       operationParameters = {}
       break
 
     case 'findMany':
-      operationName = 'findMany'
+      databaseAction = 'find'
       if (payload.body == null) {
         throw new Error('É necessário fornecer informações válidas para pesquisar no Banco de Dados!')
       }
