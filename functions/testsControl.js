@@ -75,6 +75,8 @@ exports = async function (payload) {
       operationParameters = null
       break
     case 'debug':
+      require('./constants.js')
+
       retAux = await query.find({})
       retAux = await retAux.toArray()
       return retAux
@@ -96,10 +98,6 @@ exports = async function (payload) {
   }
 
   return { success: true, data: 'Reconstrução do Banco de Dados realizada com sucesso!' }
-}
-
-if (typeof module === 'object') {
-  module.exports = exports
 }
 
 if (typeof module === 'object') {
