@@ -28,11 +28,10 @@ async function login () {
   let result
   try {
     result = await functions.encryptText('YTlhYWFiYWNhZGFlYWZhMA==')
+    console.log('Resultados: ', result)
   } catch (error) {
     console.error('Erro ao executar função:', error)
   }
-
-  console.log('Resultados: ', result)
 }
 
 async function init () {

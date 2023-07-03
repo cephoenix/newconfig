@@ -92,7 +92,7 @@ export default class BackEnd{
                 case "replace": {
                     const { fullDocument } = change;
                     var index=litsOfDocuments.findIndex(document=>document._id.equals(fullDocument._id));
-                    if(index>=0){
+                    if(index > =0){
                         Object.assign(litsOfDocuments[index], fullDocument);
                     }else{
                         console.log("Documento nÃ£o encontrado portanto sua atualiza foi ignorada ",fullDocument);

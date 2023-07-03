@@ -4,9 +4,11 @@
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.1",
-    "eslint-plugin-promise": "^6.1.1"
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.5.0"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "realm": "^11.10.1"
   }
 }
