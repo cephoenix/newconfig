@@ -156,7 +156,7 @@ exports = async function (payload) {
       try {
         await changeClient(processedRequestData.body)
       } catch (error) {
-        return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${JSON.stringify(error)}` }
+        return { success: false, data: `Erro ao confirmar alteração da rede do dispositivo: ${error}` }
       }
       return { success: true, data: 'A rede do dispositivo foi alterada com sucesso!' }
 
@@ -293,7 +293,7 @@ async function getRadioNumber (requestData) {
  */
 async function changeClient (requestData) {
   let client
-throw {debug: requestData}
+
   /**
    * Campos obrigatórios:
    * - mac
