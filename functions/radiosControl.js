@@ -359,9 +359,9 @@ async function changeClient (requestData) {
       profileId: `${profileId}`,
       manufacturerId: `${manufacturerId}`,
       group: `${(requestData.name).substring(4, 9)}`, // I'm using the same as the device Initials
-      deviceTypeId: `${deviceType.id}`,
+      deviceTypeId: `${deviceType._id}`,
       deviceTypeInitials: `${deviceType.initials}`,
-      deviceTypeName: `${deviceType.name}`,
+      deviceTypeName: `${deviceType.exhibitionName}`,
       deviceTypeDescription: `${deviceType.description}`,
       deviceClass: `${deviceType.class}`,
       productCode: `${deviceType.productCode}`,
