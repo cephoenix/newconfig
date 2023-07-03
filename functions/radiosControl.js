@@ -293,7 +293,7 @@ async function getRadioNumber (requestData) {
  */
 async function changeClient (requestData) {
   let client
-
+return {debug: requestData}
   /**
    * Campos obrigatórios:
    * - mac
