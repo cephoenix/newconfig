@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
-class utils {
+exports = class utils {
   static async asyncedCall () {
     console.log('Async')
   }
