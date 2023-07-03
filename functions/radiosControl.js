@@ -240,7 +240,7 @@ async function getRadioNumber (requestData) {
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
 
     if(device.clientOID == client._id) { // Device exists and its beeing changed to the same network we get the same number this device had when it was on this network
-      definitiveNumber= +requestData.name.substring(9, 13)
+      definitiveNumber= +requestData.deviceName.substring(9, 13)
     } else { // Device exists and its beeing changed to another network we get a new number accordingly to client's summary
       if (client.summary !== undefined && client.summary != null && client.summary !== '') {
         const lastDeviceNumber = client.summary[`${deviceType}`]
