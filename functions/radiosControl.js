@@ -290,19 +290,20 @@ async function getRadioNumber (requestData) {
  *  clientId: <ooid>
  *  deviceName: <String>
  * }
+ * Campos obrigatórios:
+ * - mac
+ * - name
+ * - firmwareVersion
+ * - hardwareVersion
  */
 async function changeClient (requestData) {
   let client
+  let deviceType
+  let deviceToInsert
+  let deviceNumber
+  const profileId = requestData.firmwareVersion.substring(0, 2)
+  const manufacturerId = requestData.firmwareVersion.substring(3, 6)
 
-  /**
-   * Campos obrigatórios:
-   * - mac
-   * - name
-   * - firmwareVersion
-   * - hardwareVersion
-   */
-
-  // Atualizar Rádio
   /**
    * Retrieving Device information
    */
@@ -336,18 +337,12 @@ async function changeClient (requestData) {
   if (client === undefined) {
     throw new Error('Cliente não encontrado!')
   }
-  let deviceType
+
   try {
     deviceType = await getDeviceTypeByName(requestData.name)
   } catch (e) {
     throw new Error('Error ao bucar o tipo do dispositivo!')
   }
-
-  const profileId = requestData.firmwareVersion.substring(0, 2)
-  const manufacturerId = requestData.firmwareVersion.substring(3, 6)
-
-  let deviceToInsert
-  let deviceNumber
 
   try {
     deviceNumber = +requestData.name.substring(9, 13)
@@ -381,8 +376,7 @@ async function changeClient (requestData) {
   /**
    * UPSERT DEVICE
    */
-console.log("DTYPE: ", JSON.stringify(deviceType))
-console.log("DEBUG: ", JSON.stringify(deviceToInsert))
+
   databaseParameters = {
     action: 'updateOne',
     collection: 'radios',
