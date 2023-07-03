@@ -54,28 +54,41 @@ exports = async function (payload) {
         'PostmanRuntime/7.32.3'
       ]
     },
+    // urlParameters: {
+    //   action: 'changeClient'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE968673',
+    //   clientId: '64a3147b6c2f09966dabb9d8',
+    //   name: 'CEP_LRRIF0001',
+    //   hardwareVersion: '2021-01-01 0',
+    //   firmwareVersion: '2023-06-02 1',
+    //   ProfileId: '',
+    //   manufacturerId: '',
+    //   userId: '649f1eeffab6fa31515bced5'
+    // }
     urlParameters: {
-      action: 'changeClient'
+      action: 'getNewNumber'
     },
     body: {
       mac: '84BA20FFFE968673',
-      clientId: '649f1eeffab6fa31515bcecf',
-      name: 'CEP_LRRIF0001',
-      hardwareVersion: '2021-01-01 0',
-      firmwareVersion: '2023-06-02 1',
-      ProfileId: '',
-      manufacturerId: '',
-      userId: '649f1eeffab6fa31515bced5'
+      clientId: '64a3147b6c2f09966dabb9d8',
+      deviceName: 'JJJ_LRRIF0001'
     }
-    // urlParameters: {
-    //   action: 'getNewNumber'
-    // },
-    // body: {
-    //   mac: '84BA20FFFE969EE5',
-    //   clientId: '649f1eeffab6fa31515bcecf',
-    //   deviceName: 'JJJ_LRPFH0001'
-    // }
   }
+  
+  /**
+   * mac: 84BA20FFFE968684
+   * clientId: 64a3147b6c2f09966dabb9d8
+   * deviceName: JJJ_LRRIF0001
+   * 
+   * mac: 84BA20FFFE968673
+   * clientId: 64a3147b6c2f09966dabb9d8
+   * deviceName: JJJ_LRRIF0001
+   */
+  
+  //84BA20FFFE968684
+  //84BA20FFFE968673
 
   const action = processedRequestData.urlParameters.action
   const databaseQuery = processedRequestData.body
@@ -221,21 +234,29 @@ async function getRadioNumber (requestData) {
    * We need to check if there is any device of this type on this client network and return next number
    */
 
-  if (device != null && device !== '') { // In this case, device network was never changed
+  if (device != null && device !== '') { // In this case, device already exists
     let definitiveNumber
-    ret.rewrite = true
+    ret.rewrite = true  
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
 
-    if (client.summary !== undefined && client.summary != null && client.summary !== '') {
-      const lastDeviceNumber = client.summary[`${deviceType}`]
-      if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
-        definitiveNumber = lastDeviceNumber + 1
+    if(device.clientOID == client._id) { // Device exists and its beeing changed to the same network we get the same number this device had when it was on this network
+      definitiveNumber= +requestData.name.substring(9, 13)
+    } else { // Device exists and its beeing changed to another network we get a new number accordingly to client's summary
+      if (client.summary !== undefined && client.summary != null && client.summary !== '') {
+        const lastDeviceNumber = client.summary[`${deviceType}`]
+        if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
+          definitiveNumber = lastDeviceNumber + 1
+        } else {
+          definitiveNumber = 1
+        }
       } else {
         definitiveNumber = 1
       }
-    } else {
-      definitiveNumber = 1
     }
+
+    console.log("Device: ", JSON.stringify(device))
+    console.log("Client: ", JSON.stringify(client))
+
     ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
 
     // if (ret.overwrite) {
@@ -261,7 +282,7 @@ async function getRadioNumber (requestData) {
     //   }
     //   ret.name = `${device.name}`
     // }
-  } else { // In this case, device already exists
+  } else { // In this case, device network was never changed
     ret.rewrite = false
     ret.overwrite = false
 
@@ -343,7 +364,7 @@ async function changeClient (requestData) {
   } catch (e) {
     throw new Error('Error ao bucar o tipo do dispositivo!')
   }
-
+console.log("DEBUG: ", JSON.stringify(client))
   try {
     deviceNumber = +requestData.name.substring(9, 13)
     deviceToInsert = {
