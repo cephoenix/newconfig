@@ -253,7 +253,7 @@ async function getRadioNumber (requestData) {
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
 
-    if (device.clientOID === client._id) { // Device exists and its beeing changed to the same network we get the same number this device has at thie moment
+    if (device.clientOID === client._id) { // Device exists and its beeing changed to the same network we get the same number this device has at this moment
       definitiveNumber = +requestData.deviceName.substring(9, 13)
       // At this point definitive number should be the same as the one inside radio.clientSummary['<clientName>'] @todo checktit?
       // In fact this device should not need a network change....
@@ -396,17 +396,22 @@ async function changeClient (requestData) {
       recordingDate: new Date()
     }
 
-    if (device != null && device !== '' && device.clientSummary != null && device.clientSummary !== '') {
-      // console.log('CLIENTE ', JSON.stringify(client))
-      if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') { // If device had been changed to this network once, we check if its number is the same as before
-        const number = +device.clientSummary[`${client.initials}`]
-        if (number !== deviceNumber) {
-          throw new Error(`Numeração inconsistente! Esse dispositivo já foi gravado para esse cliente com a seguinte numeração: ${number}`)
-        }
-      } else { // If device had never been on this Client we insert a new entry for this Client
-        if (deviceToInsert.clientSummary == null || deviceToInsert.clientSummary !== '') {
-          deviceToInsert.clientSummary = {}
-        }
+    if (device) {
+      if(device.clientSummary) {
+        deviceToInsert.clientSummary = device.clientSummary
+        if (device.clientSummary[`${client.initials}`]) { // If device had been changed to this network once, we check if its number is the same as before
+          const number = +device.clientSummary[`${client.initials}`]
+          if (number !== deviceNumber) {
+            throw new Error(`Numeração inconsistente! Esse dispositivo já foi gravado para esse cliente com a seguinte numeração: ${number}`)
+          }
+        } else { // If device had never been on this Client we insert a new entry for this Client
+          if (!deviceToInsert.clientSummary) {
+            deviceToInsert.clientSummary = {}
+          }
+          deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
+        }        
+      } else {
+        deviceToInsert.clientSummary = {}
         deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
       }
     } else { // deviceSummary doesn't exist, then we create it
@@ -438,7 +443,6 @@ async function changeClient (requestData) {
    * UPDATE CLIENT
    */
   try {
-    const filter = { _id: new BSON.ObjectId(`${client._id}`) }
     if (client.deviceTypeSummary) {
       // Check if this device is been rewritten
       // if (!requestData.rewrite) { // If device was rewritten we dont update client.deviceTypeSummary. In case device was not rewritten it got the following number on this client sequence, then we update it
@@ -450,7 +454,7 @@ async function changeClient (requestData) {
     }
 
     await context.services.get('mongodb-atlas').db('configRadio').collection('clients').updateOne(
-      filter,
+      { _id: new BSON.ObjectId(`${client._id}`) },
       { $set: client }
     )
   } catch (error) {
