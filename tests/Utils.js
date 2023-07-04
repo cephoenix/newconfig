@@ -1,10 +1,6 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
-exports = class utils {
-  // constructor() {
-
-  // }
-
+exports = class Utils {
   async asyncedCall () {
     console.log('OMG não sincronizado')
   }
@@ -13,6 +9,11 @@ exports = class utils {
     console.log('OMG sincronizado')
   }
 }
+
+// module.exports = {
+//   asyncedCall,
+//   syncedcall
+// }
 
 if (typeof module === 'object') {
   module.exports = exports

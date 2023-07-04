@@ -7,6 +7,7 @@ const credentials = Realm.Credentials.apiKey('VRxu9sw1XokC8QZxbeNPiQujBzPuW4BKmG
 
 async function login () {
   let app
+
   try {
     app = new Realm.App({ id: 'application-0-xrtcd' })
   } catch (error) {
