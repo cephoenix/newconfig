@@ -246,7 +246,7 @@ async function getRadioNumber (requestData) {
    * We need to check if there is any device of this type on this client network and return next number
    */
   let definitiveNumber
-  
+
   if (device != null && device !== '') { // In this case, device already exists
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)

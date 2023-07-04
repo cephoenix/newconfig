@@ -240,7 +240,7 @@ exports = async function (data) {
     }]
   )
 
-  let databaseParameters = {
+  const databaseParameters = {
     action: 'findMany',
     collection: 'clients',
     query: {}
@@ -300,59 +300,59 @@ exports = async function (data) {
 
   context.services.get('mongodb-atlas').db('configRadio').collection('users').insertOne(userToInsert)
 
-  databaseParameters = {
-    action: 'findOne',
-    collection: 'clients',
-    query: { initials: 'JJJ' }
-  }
+  // databaseParameters = {
+  //   action: 'findOne',
+  //   collection: 'clients',
+  //   query: { initials: 'JJJ' }
+  // }
 
-  const jardelsClient = await context.functions.execute('databaseControl', databaseParameters)
+  // const jardelsClient = await context.functions.execute('databaseControl', databaseParameters)
 
-  const parameters = []
-  for (let i = 0; i < 100; i++) {
-    parameters.push({
-      address64Bit: `00000000000000${i}`,
-      address16Bits: `000${i}`,
-      oldDatabaseId: `${i}`,
-      name: `DE1_LRDFT000${i}`,
-      number: `${i}`,
-      firmwareVersion: '18.11.14.01',
-      hardwareVersion: '23.05.23.01',
-      profileId: `${i}`,
-      manufacturerId: '1',
-      group: 'LRDFT',
-      connectionRouterAddress: '00:25:96:FF:FE:12:34:56',
-      deviceTypeId: '1',
-      deviceTypeInitials: 'LRDFT',
-      deviceTypeName: 'Long Range Smoke Detector',
-      deviceTypeDescription: 'Detector de Fumaça/Termo Long Range 2.0',
-      deviceClass: '1',
-      productCode: '1',
-      status: 'unused',
-      clientOID: `${jardelsClient._id}`,
-      clientName: `${jardelsClient.name}`,
-      clientInitials: `${jardelsClient.initials}`,
-      clientChannel: jardelsClient.channel,
-      clientType: jardelsClient.clientType,
-      recordingDate: new Date()
-    })
-  }
+  // const parameters = []
+  // for (let i = 0; i < 100; i++) {
+  //   parameters.push({
+  //     address64Bit: `00000000000000${i}`,
+  //     address16Bits: `000${i}`,
+  //     oldDatabaseId: `${i}`,
+  //     name: `DE1_LRDFT000${i}`,
+  //     number: `${i}`,
+  //     firmwareVersion: '18.11.14.01',
+  //     hardwareVersion: '23.05.23.01',
+  //     profileId: `${i}`,
+  //     manufacturerId: '1',
+  //     group: 'LRDFT',
+  //     connectionRouterAddress: '00:25:96:FF:FE:12:34:56',
+  //     deviceTypeId: '1',
+  //     deviceTypeInitials: 'LRDFT',
+  //     deviceTypeName: 'Long Range Smoke Detector',
+  //     deviceTypeDescription: 'Detector de Fumaça/Termo Long Range 2.0',
+  //     deviceClass: '1',
+  //     productCode: '1',
+  //     status: 'unused',
+  //     clientOID: `${jardelsClient._id}`,
+  //     clientName: `${jardelsClient.name}`,
+  //     clientInitials: `${jardelsClient.initials}`,
+  //     clientChannel: jardelsClient.channel,
+  //     clientType: jardelsClient.clientType,
+  //     recordingDate: new Date()
+  //   })
+  // }
 
-  databaseParameters = {
-    action: 'insertMany',
-    collection: 'radios',
-    query: parameters
-  }
+  // databaseParameters = {
+  //   action: 'insertMany',
+  //   collection: 'radios',
+  //   query: parameters
+  // }
 
-  await context.functions.execute('databaseControl', databaseParameters)
+  // await context.functions.execute('databaseControl', databaseParameters)
 
-  databaseParameters = {
-    action: 'insertMany',
-    collection: 'devices',
-    query: parameters
-  }
+  // databaseParameters = {
+  //   action: 'insertMany',
+  //   collection: 'devices',
+  //   query: parameters
+  // }
 
-  await context.functions.execute('databaseControl', databaseParameters)
+  // await context.functions.execute('databaseControl', databaseParameters)
 
   // try {
   //   dbResponse = await context.functions.execute('radiosInsertMany', parameters);
