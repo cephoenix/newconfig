@@ -441,9 +441,9 @@ async function changeClient (requestData) {
     const filter = { _id: new BSON.ObjectId(`${client._id}`) }
     if (client.deviceTypeSummary) {
       // Check if this device is been rewritten
-      if (!requestData.rewrite) { // If device was rewritten we dont update client.deviceTypeSummary. In case device was not rewritten it got the following number on this client sequence, then we update it
+      // if (!requestData.rewrite) { // If device was rewritten we dont update client.deviceTypeSummary. In case device was not rewritten it got the following number on this client sequence, then we update it
         client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber // this is the number we got from API
-      }
+      // }
     } else {
       client.deviceTypeSummary = {}
       client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber
