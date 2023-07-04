@@ -15,68 +15,68 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 
-  // processedRequestData = {
-  //   headers: {
-  //     Accept: [
-  //       '*/*'
-  //     ],
-  //     'Postman-Token': [
-  //       '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
-  //     ],
-  //     'Content-Length': [
-  //       '287'
-  //     ],
-  //     'X-Forwarded-For': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Forwarded-Proto': [
-  //       'https'
-  //     ],
-  //     'X-Envoy-External-Address': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Cluster-Client-Ip': [
-  //       '200.181.33.155'
-  //     ],
-  //     'Content-Type': [
-  //       'application/json'
-  //     ],
-  //     'Accept-Encoding': [
-  //       'gzip, deflate, br'
-  //     ],
-  //     'X-Request-Id': [
-  //       '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
-  //     ],
-  //     'X-Forwarded-Client-Cert': [
-  //       'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
-  //     ],
-  //     'User-Agent': [
-  //       'PostmanRuntime/7.32.3'
-  //     ]
-  //   },
-  //   urlParameters: {
-  //     action: 'changeClient'
-  //   },
-  //   body: {
-  //     mac: '70AC08FFFEB3C11F',
-  //     clientId: '64a42480fab6fa3151702a6e',
-  //     name: 'XXX_LRRIFFFFEB3C11F',
-  //     rewrite: true,
-  //     hardwareVersion: '2021-01-01 0',
-  //     firmwareVersion: '2023-06-02 1',
-  //     ProfileId: '',
-  //     manufacturerId: '',
-  //     userId: '64a42480fab6fa3151702a74'
-  //   }
-  //   // urlParameters: {
-  //   //   action: 'getNewNumber'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a32a076c2f09966db40bdb',
-  //   //   deviceName: 'JJJ_LRPFH0001'
-  //   // }
-  // }
+  processedRequestData = {
+    headers: {
+      Accept: [
+        '*/*'
+      ],
+      'Postman-Token': [
+        '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
+      ],
+      'Content-Length': [
+        '287'
+      ],
+      'X-Forwarded-For': [
+        '200.181.33.155'
+      ],
+      'X-Forwarded-Proto': [
+        'https'
+      ],
+      'X-Envoy-External-Address': [
+        '200.181.33.155'
+      ],
+      'X-Cluster-Client-Ip': [
+        '200.181.33.155'
+      ],
+      'Content-Type': [
+        'application/json'
+      ],
+      'Accept-Encoding': [
+        'gzip, deflate, br'
+      ],
+      'X-Request-Id': [
+        '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
+      ],
+      'X-Forwarded-Client-Cert': [
+        'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
+      ],
+      'User-Agent': [
+        'PostmanRuntime/7.32.3'
+      ]
+    },
+    urlParameters: {
+      action: 'changeClient'
+    },
+    body: {
+      mac: '84BA20FFFE969EE5',
+      clientId: '64a42480fab6fa3151702a6e',
+      name: 'JJJ_LRPFH0001',
+      rewrite: true,
+      hardwareVersion: '2021-01-01 0',
+      firmwareVersion: '2023-06-02 1',
+      ProfileId: '',
+      manufacturerId: '',
+      userId: '64a42480fab6fa3151702a74'
+    }
+    // urlParameters: {
+    //   action: 'getNewNumber'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '64a42480fab6fa3151702a6e',
+    //   deviceName: 'DEV_LRPFH0001'
+    // }
+  }
 
   /**
    * mac: 84BA20FFFE968684
@@ -226,6 +226,7 @@ async function getRadioNumber (requestData) {
    * We need to check if there is any device of this type on this client network and return next number
    */
   let definitiveNumber
+  
   if (device != null && device !== '') { // In this case, device already exists
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
@@ -372,7 +373,7 @@ async function changeClient (requestData) {
       },
       recordingDate: new Date()
     }
-    
+
     if (device != null && device !== '' && device.clientSummary != null && device.clientSummary !== '') {
       if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') { // If device had been changed to this network once, we check if its number is the same as before
         const number = +device.clientSummary[`${client.initials}`]
