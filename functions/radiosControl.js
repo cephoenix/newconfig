@@ -76,19 +76,19 @@ exports = async function (payload) {
   //     deviceName: 'DEV_LRRIF0001'
   //   }
   // }
-  
+
   /**
    * mac: 84BA20FFFE968684
    * clientId: 64a3147b6c2f09966dabb9d8
    * deviceName: JJJ_LRRIF0001
-   * 
+   *
    * mac: 84BA20FFFE968673
    * clientId: 64a3147b6c2f09966dabb9d8
    * deviceName: JJJ_LRRIF0001
    */
-  
-  //84BA20FFFE968684
-  //84BA20FFFE968673
+
+  // 84BA20FFFE968684
+  // 84BA20FFFE968673
 
   const action = processedRequestData.urlParameters.action
   const databaseQuery = processedRequestData.body
@@ -236,59 +236,31 @@ async function getRadioNumber (requestData) {
 
   if (device != null && device !== '') { // In this case, device already exists
     let definitiveNumber
-    ret.rewrite = true  
+    ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
 
-    if(device.clientOID == client._id) { // Device exists and its beeing changed to the same network we get the same number this device had when it was on this network
-      definitiveNumber= +requestData.deviceName.substring(9, 13)
-    } else { // Device exists and its beeing changed to another network we get a new number accordingly to client's summary
-    
-    
-     //@TODO Pegar o número do histórico do dispositivo
-    
-    
-      if (client.deviceSummary !== undefined && client.deviceSummary != null && client.deviceSummary !== '') { // if client summary is not null, use it to get device number (adding 1)
-        const lastDeviceNumber = client.deviceSummary[`${deviceType}`]
-        if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
-          
-          definitiveNumber = lastDeviceNumber + 1
-          
-          
-          
-          
-          
-        } else {
+    if (device.clientOID === client._id) { // Device exists and its beeing changed to the same network we get the same number this device has at thie moment
+      definitiveNumber = +requestData.deviceName.substring(9, 13)
+      // At this point definitive number should be the same as the one inside radio.clientSummary['<clientName>'] @todo checktit?
+      // In fact this device should not need a network change....
+    } else { // Device exists and its beeing changed to another network. We get a new number accordingly to client's summary (inside device object)
+      lastDeviceNumberForThisClient = device.clientSummary[`${client.initials}`]
+      if (lastDeviceNumberForThisClient != null && lastDeviceNumberForThisClient !== '') { // If we find a number for this device in clientSummary (Inside device object), we return it
+        definitiveNumber = lastDeviceNumberForThisClient
+      } else { // Otherwise this radio had never benn on this client network and we should get next number (based on last device of this network)
+        if (client.deviceSummary !== undefined && client.deviceSummary != null && client.deviceSummary !== '') { // if client summary is not null, use it to get device number (adding 1)
+          if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') { // If we find a log entry on deviceSmmary for this 'device type' we add 1 and return the new device number
+            const lastDeviceNumber = +client.deviceSummary[`${deviceType}`]
+            definitiveNumber = lastDeviceNumber + 1
+          } else { // If we dont find any log entry on deviceSummary for this 'device type' we start from the beginning
+            definitiveNumber = 1
+          }
+        } else { // If clientSummay is null we also start from the beggining
           definitiveNumber = 1
         }
-      } else {
-        definitiveNumber = 1
       }
     }
-    ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
-
-    // if (ret.overwrite) {
-    //   if (client.summary !== undefined && client.summary != null && client.summary !== '') {
-    //     const lastDeviceNumber = client.summary[`${deviceType}`]
-    //     if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
-    //       definitiveNumber = lastDeviceNumber + 1
-    //     } else {
-    //       definitiveNumber = 1
-    //     }
-    //   } else {
-    //     definitiveNumber = 1
-    //   }
-    //   ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
-    // } else {
-    //   console.log("CLIENT: ", JSON.stringify(client))
-    //   console.log("DEVICE: ", JSON.stringify(device))
-    //   const lastDeviceNumber = client.summary[`${deviceType}`]
-    //   if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
-    //     definitiveNumber = lastDeviceNumber + 1
-    //   } else {
-    //     definitiveNumber = 1
-    //   }
-    //   ret.name = `${device.name}`
-    // }
+    ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}` // Sets device name based on definitive number we got
   } else { // In this case, device network was never changed
     ret.rewrite = false
     ret.overwrite = false
