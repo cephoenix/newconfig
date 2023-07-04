@@ -397,7 +397,7 @@ async function changeClient (requestData) {
     }
 
     if (device) {
-      if(device.clientSummary) {
+      if (device.clientSummary) {
         deviceToInsert.clientSummary = device.clientSummary
         if (device.clientSummary[`${client.initials}`]) { // If device had been changed to this network once, we check if its number is the same as before
           const number = +device.clientSummary[`${client.initials}`]
@@ -409,7 +409,7 @@ async function changeClient (requestData) {
             deviceToInsert.clientSummary = {}
           }
           deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
-        }        
+        }
       } else {
         deviceToInsert.clientSummary = {}
         deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
@@ -446,7 +446,7 @@ async function changeClient (requestData) {
     if (client.deviceTypeSummary) {
       // Check if this device is been rewritten
       // if (!requestData.rewrite) { // If device was rewritten we dont update client.deviceTypeSummary. In case device was not rewritten it got the following number on this client sequence, then we update it
-        client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber // this is the number we got from API
+      client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber // this is the number we got from API
       // }
     } else {
       client.deviceTypeSummary = {}
@@ -535,7 +535,6 @@ async function getDeviceTypeByName (n) {
       }
       return resp[0]
     } else {
-      console.log('NOT FOUND')
       throw new Error(`Tipo de dispositivo (${initials}) não encontrado! `)
     }
   } else {
