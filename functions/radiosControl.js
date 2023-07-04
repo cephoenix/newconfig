@@ -343,7 +343,7 @@ async function changeClient (requestData) {
   } catch (e) {
     throw new Error('Error ao bucar o tipo do dispositivo!')
   }
-console.log("DEBUG: ", JSON.stringify(client))
+
   try {
     deviceNumber = +requestData.name.substring(9, 13)
     deviceToInsert = {
