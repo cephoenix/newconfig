@@ -54,18 +54,20 @@ exports = async function (payload) {
   //       'PostmanRuntime/7.32.3'
   //     ]
   //   },
-
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42480fab6fa3151702a6e',
-  //   //   name: 'JJJ_LRPFH0001',
-  //   //   rewrite: true,
-  //   //   hardwareVersion: '2021-01-01 0',
-  //   //   firmwareVersion: '2023-06-02 1',
-  //   //   ProfileId: '',
-  //   //   manufacturerId: '',
-  //   //   userId: '64a42480fab6fa3151702a74'
-  //   // }
+  //   urlParameters: {
+  //     action: 'changeClient'
+  //   },
+  //   body: {
+  //     mac: '84BA20FFFE969EE5',
+  //     clientId: '64a42edf21a75477c23a59c1',
+  //     name: 'JJJ_LRPFH0001',
+  //     rewrite: true,
+  //     hardwareVersion: '2021-01-01 0',
+  //     firmwareVersion: '2023-06-02 1',
+  //     ProfileId: '',
+  //     manufacturerId: '',
+  //     userId: '64a42ce86c2f09966df37b68'
+  //   }
   //   // urlParameters: {
   //   //   action: 'getNewNumber'
   //   // },
@@ -74,20 +76,20 @@ exports = async function (payload) {
   //   //   clientId: '64a42480fab6fa3151702a6e',
   //   //   deviceName: 'DEV_LRPFH0001'
   //   // }
-  //   urlParameters: {
-  //     action: 'changeClient'
-  //   },
-  //   body: {
-  //     mac: '84BA20FFFE969EE5',
-  //     clientId: '64a42edf21a75477c23a59c5',
-  //     name: 'DEV_LRPFH0001',
-  //     rewrite: true,
-  //     hardwareVersion: '2021-01-01 0',
-  //     firmwareVersion: '2023-06-02 1',
-  //     ProfileId: '',
-  //     manufacturerId: '',
-  //     userId: '64a42ce86c2f09966df37b68'
-  //   }
+  //   // urlParameters: {
+  //   //   action: 'changeClient'
+  //   // },
+  //   // body: {
+  //   //   mac: '84BA20FFFE969EE5',
+  //   //   clientId: '64a42edf21a75477c23a59c5',
+  //   //   name: 'DEV_LRPFH0001',
+  //   //   rewrite: true,
+  //   //   hardwareVersion: '2021-01-01 0',
+  //   //   firmwareVersion: '2023-06-02 1',
+  //   //   ProfileId: '',
+  //   //   manufacturerId: '',
+  //   //   userId: '64a42ce86c2f09966df37b68'
+  //   // }
   //   // urlParameters: {
   //   //   action: 'getNewNumber'
   //   // },
@@ -370,7 +372,6 @@ async function changeClient (requestData) {
 
   try {
     deviceNumber = +requestData.name.substring(9, 13)
-    console.log('Number: ', deviceNumber)
     deviceToInsert = {
       name: `${requestData.name}`,
       number: deviceNumber,
@@ -397,12 +398,17 @@ async function changeClient (requestData) {
     }
 
     if (device != null && device !== '' && device.clientSummary != null && device.clientSummary !== '') {
+      
+      // console.log('CLIENTE ', JSON.stringify(client))
       if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') { // If device had been changed to this network once, we check if its number is the same as before
         const number = +device.clientSummary[`${client.initials}`]
         if (number !== deviceNumber) {
           throw new Error(`Numeração inconsistente! Esse dispositivo já foi gravado para esse cliente com a seguinte numeração: ${number}`)
         }
       } else { // If device had never been on this Client we insert a new entry for this Client
+        if(deviceToInsert.clientSummary == null || deviceToInsert.clientSummary !== '') {
+          deviceToInsert.clientSummary = {}
+        }
         deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
       }
     } else { // deviceSummary doesn't exist, then we create it
