@@ -58,15 +58,15 @@ exports = async function (payload) {
   //     action: 'changeClient'
   //   },
   //   body: {
-  //     mac: '84BA20FFFE969EE5',
-  //     clientId: '64a32a076c2f09966db40bdb',
-  //     name: 'DEV_LRPFH0001',
+  //     mac: '70AC08FFFEB3C11F',
+  //     clientId: '64a42480fab6fa3151702a6e',
+  //     name: 'XXX_LRRIFFFFEB3C11F',
   //     rewrite: true,
   //     hardwareVersion: '2021-01-01 0',
   //     firmwareVersion: '2023-06-02 1',
   //     ProfileId: '',
   //     manufacturerId: '',
-  //     userId: '64a32a076c2f09966db40be7'
+  //     userId: '64a42480fab6fa3151702a74'
   //   }
   //   // urlParameters: {
   //   //   action: 'getNewNumber'
@@ -336,7 +336,7 @@ async function changeClient (requestData) {
     throw new Error(`Erro ao buscar cliente. ${error}`)
   }
 
-  if (client === undefined) {
+  if (client == null) {
     throw new Error('Cliente não encontrado!')
   }
 
@@ -372,8 +372,8 @@ async function changeClient (requestData) {
       },
       recordingDate: new Date()
     }
-
-    if (device.clientSummary != null && device.clientSummary !== '') {
+    
+    if (device != null && device !== '' && device.clientSummary != null && device.clientSummary !== '') {
       if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') { // If device had been changed to this network once, we check if its number is the same as before
         const number = +device.clientSummary[`${client.initials}`]
         if (number !== deviceNumber) {
