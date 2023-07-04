@@ -250,7 +250,6 @@ async function getRadioNumber (requestData) {
   let definitiveNumber
 
   if (device != null && device !== '') { // In this case, device already exists
-  
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
 
@@ -296,7 +295,6 @@ async function getRadioNumber (requestData) {
       const lastNumberForThisDeviceType = +client.deviceTypeSummary[`${deviceType}`]
       if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== '' && !isNaN(lastNumberForThisDeviceType)) {
         definitiveNumber = lastNumberForThisDeviceType + 1
-
       } else {
         definitiveNumber = 1
       }
@@ -304,7 +302,6 @@ async function getRadioNumber (requestData) {
       definitiveNumber = 1
     }
   }
-  
   ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}` // Sets device name based on definitive number we got
   return ret
 }
@@ -398,9 +395,8 @@ async function changeClient (requestData) {
       },
       recordingDate: new Date()
     }
-console.log("DEV TO INSERT: ", JSON.stringify(deviceToInsert))
+
     if (device != null && device !== '' && device.clientSummary != null && device.clientSummary !== '') {
-      
       // console.log('CLIENTE ', JSON.stringify(client))
       if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') { // If device had been changed to this network once, we check if its number is the same as before
         const number = +device.clientSummary[`${client.initials}`]
@@ -408,7 +404,7 @@ console.log("DEV TO INSERT: ", JSON.stringify(deviceToInsert))
           throw new Error(`Numeração inconsistente! Esse dispositivo já foi gravado para esse cliente com a seguinte numeração: ${number}`)
         }
       } else { // If device had never been on this Client we insert a new entry for this Client
-        if(deviceToInsert.clientSummary == null || deviceToInsert.clientSummary !== '') {
+        if (deviceToInsert.clientSummary == null || deviceToInsert.clientSummary !== '') {
           deviceToInsert.clientSummary = {}
         }
         deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
