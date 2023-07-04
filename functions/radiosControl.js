@@ -233,9 +233,8 @@ async function getRadioNumber (requestData) {
    * Proccessing information
    * We need to check if there is any device of this type on this client network and return next number
    */
-
+  let definitiveNumber
   if (device != null && device !== '') { // In this case, device already exists
-    let definitiveNumber
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
 
@@ -270,25 +269,23 @@ async function getRadioNumber (requestData) {
         definitiveNumber = 1
       }
     }
-    ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}` // Sets device name based on definitive number we got
   } else { // In this case, device network was never changed
     ret.rewrite = false
     ret.overwrite = false
 
-    let definitiveNumber
-    if (client.deviceTypeSummary === undefined) {
-      definitiveNumber = 1
-    } else {
-      const lastNumberForThisDeviceType = client.deviceTypeSummary[`${deviceType}`]
-      if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== undefined && lastNumberForThisDeviceType !== '') {
+    // Client is never null at this point, because we checked it before. Then we only check deviceTypeSummary
+    if (client.deviceTypeSummary != null && client.deviceTypeSummary !== '') {
+      const lastNumberForThisDeviceType = +client.deviceTypeSummary[`${deviceType}`]
+      if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== '') {
         definitiveNumber = lastNumberForThisDeviceType + 1
       } else {
         definitiveNumber = 1
       }
+    } else {
+      definitiveNumber = 1
     }
-
-    ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}`
   }
+  ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}` // Sets device name based on definitive number we got
   return ret
 }
 
