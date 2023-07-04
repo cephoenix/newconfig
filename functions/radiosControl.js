@@ -263,7 +263,7 @@ async function getRadioNumber (requestData) {
           definitiveNumber = 1
         }
       } else { // If client.deviceSummay is null we start from the beggining. But... even if device.clientSummary is empty? (this should never happen)
-        if(device.clientSummary != null && device.clientSummary !== '') { // If device.clientSummary is null everything is OK, but if it's NOT NULL we need to check if we have any entry for this client in deviceSummary
+        if (device.clientSummary != null && device.clientSummary !== '') { // If device.clientSummary is null everything is OK, but if it's NOT NULL we need to check if we have any entry for this client in deviceSummary
           if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') {
             throw new Error('Favor verificar a consistência dos dados entre a Collection de Dispositivos e a Collection do Cliente. Suspeita de numeração inconsistente!')
           }
