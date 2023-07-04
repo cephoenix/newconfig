@@ -6,8 +6,8 @@ const axios = require('axios')
 init()
 
 async function init () {
-  const loginResponse = await testLogin()
-  expect(loginResponse.data.success).toBe(true)
+  await testLogin()
+
   // await testEncryption()
   // await testAxios()
   // await utils.syncedcall()
@@ -26,27 +26,31 @@ async function testLogin () {
     }
   }
 
-  const resp = await axios.post(url, data, config)
-  console.log('RESP ', resp)
+  test('My first test', async () => {
+    const resp = await axios.post(url, data, config)
+    console.log('DEBUG: ', resp.data.success)
+    expect(resp.data.success).toBe(true)
+  })
+  // expect(resp.data.success).toBe(true)
 }
 
-async function testEncryption () {
-  const encryptText = require('../functions/encryptText.js')
-  const et = encryptText('12345678')
-  console.log('ET: ', et)
-}
+// async function testEncryption () {
+//   const encryptText = require('../functions/encryptText.js')
+//   const et = encryptText('12345678')
+//   console.log('ET: ', et)
+// }
 
-async function testAxios () {
-  const url = 'https://app.firebee.com.br/api/1.1/obj/Products/'
-  const data = {}
-  const config = {
-    headers: {
-      'Content-Type': ['application/json'],
-      Authorization: 'Bearer 0b6336226cbe51d8b47e2f04b70de602'
-    }
-  }
-  const resp = await axios.get(url, data, config)
-  const test = await resp.data.response.results
+// async function testAxios () {
+//   const url = 'https://app.firebee.com.br/api/1.1/obj/Products/'
+//   const data = {}
+//   const config = {
+//     headers: {
+//       'Content-Type': ['application/json'],
+//       Authorization: 'Bearer 0b6336226cbe51d8b47e2f04b70de602'
+//     }
+//   }
+//   const resp = await axios.get(url, data, config)
+//   const test = await resp.data.response.results
 
-  test.forEach(element => console.log(element))
-}
+//   test.forEach(element => console.log(element))
+// }
