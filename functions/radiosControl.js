@@ -74,28 +74,28 @@ exports = async function (payload) {
   //   //   clientId: '64a42480fab6fa3151702a6e',
   //   //   deviceName: 'DEV_LRPFH0001'
   //   // }
-  //   // urlParameters: {
-  //   //   action: 'changeClient'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42ce86c2f09966df37b66',
-  //   //   name: 'DEV_LRPFH0001',
-  //   //   rewrite: true,
-  //   //   hardwareVersion: '2021-01-01 0',
-  //   //   firmwareVersion: '2023-06-02 1',
-  //   //   ProfileId: '',
-  //   //   manufacturerId: '',
-  //   //   userId: '64a42ce86c2f09966df37b68'
-  //   // }
   //   urlParameters: {
-  //     action: 'getNewNumber'
+  //     action: 'changeClient'
   //   },
   //   body: {
   //     mac: '84BA20FFFE969EE5',
-  //     clientId: '64a42ce86c2f09966df37b62',
-  //     deviceName: 'DEV_LRPFH0001'
+  //     clientId: '64a42edf21a75477c23a59c5',
+  //     name: 'DEV_LRPFH0001',
+  //     rewrite: true,
+  //     hardwareVersion: '2021-01-01 0',
+  //     firmwareVersion: '2023-06-02 1',
+  //     ProfileId: '',
+  //     manufacturerId: '',
+  //     userId: '64a42ce86c2f09966df37b68'
   //   }
+  //   // urlParameters: {
+  //   //   action: 'getNewNumber'
+  //   // },
+  //   // body: {
+  //   //   mac: '84BA20FFFE969EE5',
+  //   //   clientId: '64a42edf21a75477c23a59c5',
+  //   //   deviceName: 'JJJ_LRPFH0NaN'
+  //   // }
   // }
 
   /**
@@ -291,8 +291,9 @@ async function getRadioNumber (requestData) {
     // Client is never null at this point, because we checked it before. Then we only check deviceTypeSummary
     if (client.deviceTypeSummary != null && client.deviceTypeSummary !== '') {
       const lastNumberForThisDeviceType = +client.deviceTypeSummary[`${deviceType}`]
-      if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== '') {
+      if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== '' && !isNaN(lastNumberForThisDeviceType)) {
         definitiveNumber = lastNumberForThisDeviceType + 1
+
       } else {
         definitiveNumber = 1
       }
@@ -369,6 +370,7 @@ async function changeClient (requestData) {
 
   try {
     deviceNumber = +requestData.name.substring(9, 13)
+    console.log('Number: ', deviceNumber)
     deviceToInsert = {
       name: `${requestData.name}`,
       number: deviceNumber,
