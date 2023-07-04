@@ -294,7 +294,7 @@ async function getRadioNumber (requestData) {
  * @param {*} requestData
  * {
  *  mac: <address64Bit>
- *  clientId: <ooid>
+ *  clientId: <oid>
  *  deviceName: <String>
  * }
  * Campos obrigatórios:
@@ -305,6 +305,7 @@ async function getRadioNumber (requestData) {
  */
 async function changeClient (requestData) {
   let client
+  let device
   let deviceType
   let deviceToInsert
   let deviceNumber
@@ -321,7 +322,7 @@ async function changeClient (requestData) {
   }
 
   try {
-    await context.functions.execute('databaseControl', databaseParameters)
+    device = await context.functions.execute('databaseControl', databaseParameters)
   } catch (error) {
     return { success: false, data: `Erro ao buscar dispositivo. ${error}` }
   }
@@ -377,6 +378,15 @@ async function changeClient (requestData) {
       },
       recordingDate: new Date()
     }
+
+    if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') { // If device had been changed to this network once, we check if its number is the same as before
+      const number = +device.clientSummary[`${client.initials}`]
+      if (number !== deviceNumber) {
+        throw new Error(`Numeração inconsistente! Esse dispositivo já foi gravado para esse cliente com a seguinte numeração: ${number}`)
+      }
+    } else { // If device had never been on this Client we insert a new entry for this Client
+      deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
+    }
   } catch (e) {
     throw new Error(`Houve um problema com os dados do dispositivo a ser atualizado! ${e}`)
   }
@@ -405,7 +415,10 @@ async function changeClient (requestData) {
     const filter = { _id: new BSON.ObjectId(`${client._id}`) }
 
     if (client.deviceTypeSummary != null && client.deviceTypeSummary !== '') {
-      client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber
+      // Check if this device is been rewritten
+      if (!requestData.rewrite) { // If device was rewritten we dont update client.deviceTypeSummary. In case device was not rewritten it got the following number on this client sequence, then we update it
+        client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber
+      }
     } else {
       client.deviceTypeSummary = {}
       client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber
