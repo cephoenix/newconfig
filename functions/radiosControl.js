@@ -382,7 +382,7 @@ async function changeClient (requestData) {
       recordingDate: new Date()
     }
 
-    if(device.clientSummary != null && device.clientSummary !== '') {
+    if (device.clientSummary != null && device.clientSummary !== '') {
       if (device.clientSummary[`${client.initials}`] != null && device.clientSummary[`${client.initials}`] !== '') { // If device had been changed to this network once, we check if its number is the same as before
         const number = +device.clientSummary[`${client.initials}`]
         if (number !== deviceNumber) {
@@ -390,12 +390,11 @@ async function changeClient (requestData) {
         }
       } else { // If device had never been on this Client we insert a new entry for this Client
         deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
-      }      
+      }
     } else { // deviceSummary doesn't exist, then we create it
       deviceToInsert.clientSummary = {}
       deviceToInsert.clientSummary[`${client.initials}`] = deviceNumber
     }
-
   } catch (e) {
     throw new Error(`Houve um problema com os dados do dispositivo a ser atualizado! ${e}`)
   }
