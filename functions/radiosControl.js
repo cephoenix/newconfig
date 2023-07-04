@@ -15,90 +15,90 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 
-  // processedRequestData = {
-  //   headers: {
-  //     Accept: [
-  //       '*/*'
-  //     ],
-  //     'Postman-Token': [
-  //       '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
-  //     ],
-  //     'Content-Length': [
-  //       '287'
-  //     ],
-  //     'X-Forwarded-For': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Forwarded-Proto': [
-  //       'https'
-  //     ],
-  //     'X-Envoy-External-Address': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Cluster-Client-Ip': [
-  //       '200.181.33.155'
-  //     ],
-  //     'Content-Type': [
-  //       'application/json'
-  //     ],
-  //     'Accept-Encoding': [
-  //       'gzip, deflate, br'
-  //     ],
-  //     'X-Request-Id': [
-  //       '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
-  //     ],
-  //     'X-Forwarded-Client-Cert': [
-  //       'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
-  //     ],
-  //     'User-Agent': [
-  //       'PostmanRuntime/7.32.3'
-  //     ]
-  //   },
-  //   urlParameters: {
-  //     action: 'changeClient'
-  //   },
-  //   body: {
-  //     mac: '84BA20FFFE969EE5',
-  //     clientId: '64a42edf21a75477c23a59c1',
-  //     name: 'JJJ_LRPFH0001',
-  //     rewrite: true,
-  //     hardwareVersion: '2021-01-01 0',
-  //     firmwareVersion: '2023-06-02 1',
-  //     ProfileId: '',
-  //     manufacturerId: '',
-  //     userId: '64a42ce86c2f09966df37b68'
-  //   }
-  //   // urlParameters: {
-  //   //   action: 'getNewNumber'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42480fab6fa3151702a6e',
-  //   //   deviceName: 'DEV_LRPFH0001'
-  //   // }
-  //   // urlParameters: {
-  //   //   action: 'changeClient'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42edf21a75477c23a59c5',
-  //   //   name: 'DEV_LRPFH0001',
-  //   //   rewrite: true,
-  //   //   hardwareVersion: '2021-01-01 0',
-  //   //   firmwareVersion: '2023-06-02 1',
-  //   //   ProfileId: '',
-  //   //   manufacturerId: '',
-  //   //   userId: '64a42ce86c2f09966df37b68'
-  //   // }
-  //   // urlParameters: {
-  //   //   action: 'getNewNumber'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42edf21a75477c23a59c5',
-  //   //   deviceName: 'JJJ_LRPFH0NaN'
-  //   // }
-  // }
+  processedRequestData = {
+    headers: {
+      Accept: [
+        '*/*'
+      ],
+      'Postman-Token': [
+        '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
+      ],
+      'Content-Length': [
+        '287'
+      ],
+      'X-Forwarded-For': [
+        '200.181.33.155'
+      ],
+      'X-Forwarded-Proto': [
+        'https'
+      ],
+      'X-Envoy-External-Address': [
+        '200.181.33.155'
+      ],
+      'X-Cluster-Client-Ip': [
+        '200.181.33.155'
+      ],
+      'Content-Type': [
+        'application/json'
+      ],
+      'Accept-Encoding': [
+        'gzip, deflate, br'
+      ],
+      'X-Request-Id': [
+        '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
+      ],
+      'X-Forwarded-Client-Cert': [
+        'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
+      ],
+      'User-Agent': [
+        'PostmanRuntime/7.32.3'
+      ]
+    },
+    // urlParameters: {
+    //   action: 'changeClient'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '64a42edf21a75477c23a59c1',
+    //   name: 'JJJ_LRPFH0001',
+    //   rewrite: true,
+    //   hardwareVersion: '2021-01-01 0',
+    //   firmwareVersion: '2023-06-02 1',
+    //   ProfileId: '',
+    //   manufacturerId: '',
+    //   userId: '64a42ce86c2f09966df37b68'
+    // }
+    // urlParameters: {
+    //   action: 'getNewNumber'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '64a42480fab6fa3151702a6e',
+    //   deviceName: 'DEV_LRPFH0001'
+    // }
+    // urlParameters: {
+    //   action: 'changeClient'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '64a42edf21a75477c23a59c5',
+    //   name: 'DEV_LRPFH0001',
+    //   rewrite: true,
+    //   hardwareVersion: '2021-01-01 0',
+    //   firmwareVersion: '2023-06-02 1',
+    //   ProfileId: '',
+    //   manufacturerId: '',
+    //   userId: '64a42ce86c2f09966df37b68'
+    // }
+    urlParameters: {
+      action: 'getNewNumber'
+    },
+    body: {
+      mac: '84BA20FFFE969EE5',
+      clientId: '64a42edf21a75477c23a59c5',
+      deviceName: 'JJJ_LRPFH0001'
+    }
+  }
 
   /**
    * mac: 84BA20FFFE968684
@@ -250,6 +250,7 @@ async function getRadioNumber (requestData) {
   let definitiveNumber
 
   if (device != null && device !== '') { // In this case, device already exists
+  
     ret.rewrite = true
     ret.overwrite = (device.deviceTypeInitials !== deviceType)
 
@@ -258,14 +259,14 @@ async function getRadioNumber (requestData) {
       // At this point definitive number should be the same as the one inside radio.clientSummary['<clientName>'] @todo checktit?
       // In fact this device should not need a network change....
     } else { // Device exists and its beeing changed to another network. We get a new number accordingly to client's summary (inside device object)
-      if (client.deviceTypeSummary != null && client.deviceTypeSummary !== '') { // if client summary is not null, we use it to get device number
-        if (device.clientSummary != null && device.clientSummary !== '') {
+      if (client.deviceTypeSummary) { // if client summary is not null, we use it to get device number
+        if (device.clientSummary) {
           lastDeviceNumberForThisClient = device.clientSummary[`${client.initials}`]
           if (lastDeviceNumberForThisClient != null && lastDeviceNumberForThisClient !== '') { // If we find a number for this device in clientSummary (Inside device object), we return it
             definitiveNumber = lastDeviceNumberForThisClient
           } else { // Otherwise this radio had never been on this client network and we should get next number (based on last device of this network)
             const lastNumberForThisDeviceType = +client.deviceTypeSummary[`${deviceType}`]
-            if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== undefined && lastNumberForThisDeviceType !== '') { // If we find a log entry on deviceSmmary for this 'device type' we add 1 and return the new device number
+            if (lastNumberForThisDeviceType) { // If we find a log entry on deviceSmmary for this 'device type' we add 1 and return the new device number
               definitiveNumber = lastNumberForThisDeviceType + 1
             } else { // If we dont find any log entry on deviceTypeSummary for this 'device type' we start from the beginning
               definitiveNumber = 1
@@ -303,6 +304,7 @@ async function getRadioNumber (requestData) {
       definitiveNumber = 1
     }
   }
+  
   ret.name = `${client.initials}_${deviceType}${String(definitiveNumber).padStart(4, '0')}` // Sets device name based on definitive number we got
   return ret
 }
@@ -396,7 +398,7 @@ async function changeClient (requestData) {
       },
       recordingDate: new Date()
     }
-
+console.log("DEV TO INSERT: ", JSON.stringify(deviceToInsert))
     if (device != null && device !== '' && device.clientSummary != null && device.clientSummary !== '') {
       
       // console.log('CLIENTE ', JSON.stringify(client))
