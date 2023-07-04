@@ -244,19 +244,29 @@ async function getRadioNumber (requestData) {
       // At this point definitive number should be the same as the one inside radio.clientSummary['<clientName>'] @todo checktit?
       // In fact this device should not need a network change....
     } else { // Device exists and its beeing changed to another network. We get a new number accordingly to client's summary (inside device object)
-      if (client.deviceSummary !== undefined && client.deviceSummary != null && client.deviceSummary !== '') { // if client summary is not null, we use it to get device number
-        lastDeviceNumberForThisClient = device.clientSummary[`${client.initials}`]
-        if (lastDeviceNumberForThisClient != null && lastDeviceNumberForThisClient !== '') { // If we find a number for this device in clientSummary (Inside device object), we return it
-          definitiveNumber = lastDeviceNumberForThisClient
-        } else { // Otherwise this radio had never been on this client network and we should get next number (based on last device of this network)
-          if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') { // If we find a log entry on deviceSmmary for this 'device type' we add 1 and return the new device number
-            const lastDeviceNumber = +client.deviceSummary[`${deviceType}`]
-            definitiveNumber = lastDeviceNumber + 1
-          } else { // If we dont find any log entry on deviceSummary for this 'device type' we start from the beginning
-            definitiveNumber = 1
+      if (client.deviceTypeSummary != null && client.deviceTypeSummary !== '') { // if client summary is not null, we use it to get device number
+        if (device.clientSummary != null && device.clientSummary !== '') {
+          lastDeviceNumberForThisClient = device.clientSummary[`${client.initials}`]
+          if (lastDeviceNumberForThisClient != null && lastDeviceNumberForThisClient !== '') { // If we find a number for this device in clientSummary (Inside device object), we return it
+            definitiveNumber = lastDeviceNumberForThisClient
+          } else { // Otherwise this radio had never been on this client network and we should get next number (based on last device of this network)
+            const lastNumberForThisDeviceType = +client.deviceTypeSummary[`${deviceType}`]
+            if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== undefined && lastNumberForThisDeviceType !== '') { // If we find a log entry on deviceSmmary for this 'device type' we add 1 and return the new device number
+              definitiveNumber = lastNumberForThisDeviceType + 1
+            } else { // If we dont find any log entry on deviceTypeSummary for this 'device type' we start from the beginning
+              definitiveNumber = 1
+            }
           }
+        } else { // client.deviceTypeSummary is empty. device.clientSummay should also be empty for this device
+          if (device.clientSummary[`${client.initials}`] != null) {
+            throw new Error('Favor verificar a consistência dos dados entre a Collection de Dispositivos e a Collection do Cliente. Suspeita de numeração inconsistente!')
+          }
+          definitiveNumber = 1
         }
-      } else { // If clientSummay is null we start from the beggining
+      } else { // If client.deviceSummay is null we start from the beggining. But... even if device.clientSummary is empty? (this should never happen)
+        if (client.deviceTypeSummary[`${deviceType}`]) {
+          throw new Error('Favor verificar a consistência dos dados entre a Collection de Dispositivos e a Collection do Cliente. Suspeita de numeração inconsistente!')
+        }
         definitiveNumber = 1
       }
     }
@@ -266,12 +276,12 @@ async function getRadioNumber (requestData) {
     ret.overwrite = false
 
     let definitiveNumber
-    if (client.deviceSummary === undefined) {
+    if (client.deviceTypeSummary === undefined) {
       definitiveNumber = 1
     } else {
-      const lastDeviceNumber = client.deviceSummary[`${deviceType}`]
-      if (lastDeviceNumber != null && lastDeviceNumber !== undefined && lastDeviceNumber !== '') {
-        definitiveNumber = lastDeviceNumber + 1
+      const lastNumberForThisDeviceType = client.deviceTypeSummary[`${deviceType}`]
+      if (lastNumberForThisDeviceType != null && lastNumberForThisDeviceType !== undefined && lastNumberForThisDeviceType !== '') {
+        definitiveNumber = lastNumberForThisDeviceType + 1
       } else {
         definitiveNumber = 1
       }
@@ -397,11 +407,11 @@ async function changeClient (requestData) {
   try {
     const filter = { _id: new BSON.ObjectId(`${client._id}`) }
 
-    if (client.deviceSummary != null && client.deviceSummary !== '') {
-      client.deviceSummary[`${deviceType.initials}`] = deviceNumber
+    if (client.deviceTypeSummary != null && client.deviceTypeSummary !== '') {
+      client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber
     } else {
-      client.deviceSummary = {}
-      client.deviceSummary[`${deviceType.initials}`] = deviceNumber
+      client.deviceTypeSummary = {}
+      client.deviceTypeSummary[`${deviceType.initials}`] = deviceNumber
     }
 
     await context.services.get('mongodb-atlas').db('configRadio').collection('clients').updateOne(
