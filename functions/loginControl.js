@@ -130,11 +130,37 @@ async function doLogin (parameters) {
     query: { login: data.login }
   }
 
-  const client = await context.functions.execute('databaseControl', databaseParameters)
+  const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
   
-  throw { 
+  if (!loggedUser) {
+    throw new Error('Senha ou usuário incorretos!')
+  }
+
+  const decryptedPassword = await context.functions.execute('decryptText', data.encryptedPassword) // Decriptografa a senha e depois aplica o hash nela
+  const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
+
+  if (loggedUser.password !== hashedPass) {
+    
+    await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
+    
+    databaseParameters = {
+      action: 'insertOne',
+      collection: 'usersLoginLog',
+      query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' }
+    }
+  
+    try {
+      await context.functions.execute('databaseControl', databaseParameters)
+    } catch (error) {
+      throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
+    }
+      
+    throw new Error('Senha ou usuário incorretos!')
+  }
+
+  throw {
     remoteIp: remoteIp,
-    client: client
+    user: loggedUser
   }
 
 
