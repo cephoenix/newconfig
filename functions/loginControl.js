@@ -2,12 +2,6 @@
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
   
-  try {
-    payload.body.text()
-  } catch (e) {
-    throw new Error({ Meh: e})
-  }
-
   let action
   let operationName
   let operationResponse
@@ -66,7 +60,8 @@ exports = async function (payload) {
       }
     }    
   }
-
+  
+  console.log('>>> ', payload.body.text())
 
   try {
     //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
