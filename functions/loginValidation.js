@@ -42,7 +42,7 @@ exports = async function (data) {
       break
 
     default:
-      if (action == null || action === undefined || action === '') {
+      if (!action) {
         throw new Error('Nenhuma ação informada!')
       } else {
         throw new Error(`Ação (${action}) inválida!`)
