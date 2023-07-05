@@ -47,17 +47,29 @@ exports = async function (payload) {
 
   await dbquery.insertOne({ login: parameters.login, success: true, clientIp: remoteIp, date: new Date() })
 
-  const databaseParameters = {
+  let databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
     query: {},
     filter: {}
   }
 
+  const deviceTypes = await context.functions.execute('databaseControl', databaseParameters)
+
+  databaseParameters = {
+    action: 'findOne',
+    collection: 'parameters',
+    query: { name: 'softwareVersion' },
+    filter: {}
+  }
+
+  const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
+
   return {
     sessionId: 'A52B7A89FE6A3BA58D8C',
     loggedUser,
-    deviceTypes: await context.functions.execute('databaseControl', databaseParameters)
+    deviceTypes,
+    softwareVersion
   } // @todo implementar mecanismo de sessão
 }
 
