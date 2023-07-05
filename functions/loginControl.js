@@ -95,7 +95,7 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: error }
       }
-return {debug: true}
+
       try {
         return {success: true, data: await doLogin(processedRequestData.body)}
       } catch (error) {
@@ -119,6 +119,7 @@ return {debug: true}
 
 async function doLogin (data) {
 
+  throw 'hahaha'
 
 
 }
