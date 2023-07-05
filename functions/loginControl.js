@@ -118,8 +118,23 @@ exports = async function (payload) {
 }
 
 async function doLogin (data) {
+  const remoteIp = payload.headers['X-Cluster-Client-Ip'][0]
 
-  throw 'hahaha'
+  /**
+   * Retrieving User information
+   */
+  databaseParameters = {
+    action: 'findOne',
+    collection: 'users',
+    query: { login: requestData.login }
+  }
+
+  const client = await context.functions.execute('databaseControl', databaseParameters)
+  
+  throw { 
+    remoteIp: remoteIp,
+    client: client
+  }
 
 
 }
