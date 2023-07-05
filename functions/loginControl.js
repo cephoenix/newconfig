@@ -402,6 +402,8 @@ async function loadDeviceTypesFromBubble () {
     }
   })
 
+  throw {debug: deviceTypesToInsert} 
+
   databaseParameters = {
     action: 'insertMany',
     collection: 'deviceTypes',
