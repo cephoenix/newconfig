@@ -5,12 +5,10 @@ exports = async function (payload) {
   // var query
   let body
 
-  if (!payload.body) {
+  if (payload.body == null || payload.body === '') {
     body = {}
   } else {
     try {
-      console.log('AFFFF', JSON.stringify(payload.body))
-
       body = JSON.parse(payload.body.text())
     } catch (error) {
       throw new Error(`Erro ao processar corpo da requisição. Verifique os dados fornecidos! Erro: ${error}`)
