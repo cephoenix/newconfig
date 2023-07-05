@@ -5,7 +5,7 @@ exports = async function (payload) {
   let operationName
   let operationResponse
   let operationParameters
-
+return {debug: payload}
   try {
     //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
