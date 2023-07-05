@@ -2,11 +2,11 @@
 // eslint-disable-next-line n/no-exports-assign
 exports = class Utils {
   async asyncedCall () {
-    console.log('OMG não sincronizado')
+    return 'OMG não sincronizado'
   }
 
-  syncedcall () {
-    console.log('OMG sincronizado')
+  syncedCall () {
+    return 'OMG sincronizado'
   }
 }
 

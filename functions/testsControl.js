@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
+  const Utils = require('./Utils')
   let action
   let operationName
   let operationParameters
@@ -68,18 +69,19 @@ exports = async function (payload) {
   * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
   * Verificações específicas são feitas dentro de cada uma das operações
   */
-  let retAux
+  const u = new Utils()
   switch (processedRequestData.urlParameters.action) {
     case 'rebuildDatabase':
       operationName = 'testsRebuildDatabase'
       operationParameters = null
       break
     case 'debug':
-      require('./constants.js')
-
-      retAux = await query.find({})
-      retAux = await retAux.toArray()
-      return retAux
+      return {
+        debug: {
+          synced: await u.syncedCall(),
+          asynced: await u.asyncedCall()
+        }
+      }
 
     default:
       if (action != null) {
@@ -101,5 +103,7 @@ exports = async function (payload) {
 }
 
 if (typeof module === 'object') {
-  module.exports = exports
+  module.exports = {
+    exports
+  }
 }

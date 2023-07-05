@@ -2,11 +2,11 @@
 // eslint-disable-next-line n/no-exports-assign
 exports = class utils {
   static async asyncedCall () {
-    console.log('Async')
+    return 'Async'
   }
 
-  static syncedcall () {
-    console.log('Sync')
+  static syncedCall () {
+    return 'Sync'
   }
 }
 

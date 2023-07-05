@@ -4,7 +4,8 @@ const Utils = require('./Utils')
 async function init () {
   // await asyncedCall()
   const u = new Utils()
-  console.log('DEBUG: ', u)
+  console.log('DEBUG Sync: ', await u.syncedCall())
+  console.log('DEBUG Async: ', await u.asyncedCall())
 }
 
 init()
