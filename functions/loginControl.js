@@ -157,6 +157,22 @@ async function doLogin (parameters) {
       
     throw new Error('Senha ou usuário incorretos!')
   }
+  
+  if (loggedUser.blocked) {
+    databaseParameters = {
+      action: 'insertOne',
+      collection: 'usersLoginLog',
+      query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Usuário bloqueado' }
+    }
+  
+    try {
+      await context.functions.execute('databaseControl', databaseParameters)
+    } catch (error) {
+      throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
+    }
+
+    throw new Error('Usuário bloqueado!')
+  }
 
   throw {
     remoteIp: remoteIp,
