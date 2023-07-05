@@ -394,20 +394,20 @@ async function loadDeviceTypesFromBubble () {
 
   // Tentando buscar o tipo de dispositivo nos resultados encontrados
   const deviceTypesToInsert = []
-  throw {debug: deviceTypes} 
+
   deviceTypes.forEach(element => {
-    let isToInsert = false
+    let isToInsert = true
     for (let index = 0; index < dbDeviceTypes.length; index++) {
       if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
-        isToInsert = true
+        isToInsert = false
       }
     }
     if (isToInsert) {
       deviceTypesToInsert.push(element)
     }
+    isToInsert = true
   })
-
-  
+  throw {debug: deviceTypesToInsert}
 
   databaseParameters = {
     action: 'insertMany',
