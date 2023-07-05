@@ -2,6 +2,32 @@
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
   
+
+  let action
+  let operationName
+  let operationResponse
+  let operationParameters
+
+  try {
+    //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
+    action = payload.query.action
+  } catch (err) {
+    action = payload.action
+  }
+
+  /**
+   * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
+   * Verificações específicas são feitas dentro de cada uma das operações
+   */
+
+  switch (action) {
+    case 'doLogin':
+      operationName = 'loginDoLogin'
+      operationParameters = payload
+      break
+
+    case 'testLogin':
+      
   payload = {
         "query": {
             "action": "testLogin"
@@ -52,31 +78,6 @@ exports = async function (payload) {
             "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
         }
     }
-    
-  let action
-  let operationName
-  let operationResponse
-  let operationParameters
-
-  try {
-    //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
-    action = payload.query.action
-  } catch (err) {
-    action = payload.action
-  }
-
-  /**
-   * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
-   * Verificações específicas são feitas dentro de cada uma das operações
-   */
-
-  switch (action) {
-    case 'doLogin':
-      operationName = 'loginDoLogin'
-      operationParameters = payload
-      break
-
-    case 'testLogin':
 
       /**
         * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
