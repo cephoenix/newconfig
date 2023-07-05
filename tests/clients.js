@@ -1,10 +1,21 @@
-// const { asyncedCall } = require('./utils')
-const Utils = require('./Utils')
+const axios = require('axios')
 
-async function init () {
-  // await asyncedCall()
-  const u = new Utils()
-  console.log('DEBUG: ', u)
+async function findOneSuccess () {
+  const url = 'https://sa-east-1.aws.data.mongodb-api.com/app/application-0-xrtcd/endpoint/clients?action=findOne'
+  const data = {
+    initials: 'CEP'
+  }
+  const config = {
+    headers: {
+      'Content-Type': ['application/json'],
+      authorizationKey: '0b6336226cbe51d8b47e2f04b70de602'
+    }
+  }
+
+  const resp = await axios.post(url, data, config)
+  return resp.data.success
 }
 
-init()
+module.exports = {
+  findOneSuccess
+}
