@@ -18,7 +18,8 @@ exports = async function (payload) {
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-
+  console.log("Payload: ", payload)
+  console.log("Action: ", action)
   switch (action) {
     case 'doLogin':
       operationName = 'loginDoLogin'
@@ -100,9 +101,9 @@ async function doLogin (requestData) {
             "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
         }
     }
-    console.log("PAYLOAD ", JSON.stringify(payload))
-    console.log("BODY ", JSON.stringify(payload.body))
-    console.log("TEXT ", JSON.stringify(payload.body))
+    console.log("PAYLOAD ", JSON.stringify(requestData))
+    console.log("BODY ", JSON.stringify(requestData.body))
+    console.log("TEXT ", JSON.stringify(requestData.body.text()))
     /**
       * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
       */
