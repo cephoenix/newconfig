@@ -6,8 +6,7 @@ exports = async function (payload) {
   let operationName
   let operationResponse
   let operationParameters
-  console.log(payload)
-  
+
   if(payload === 'Hello world!') {
 
     payload = {
@@ -82,7 +81,6 @@ exports = async function (payload) {
       break
 
     case 'testLogin':
-      
       try {
         return {success: true, data: await doLogin(payload)}
       } catch (error) {
@@ -106,67 +104,18 @@ exports = async function (payload) {
 
 async function doLogin (requestData) {
 
-  payload = {
-        "query": {
-            "action": "testLogin"
-        },
-        "headers": {
-            "Content-Length": [
-                "82"
-            ],
-            "Postman-Token": [
-                "d0658fc9-347e-4d05-9694-e646a23f9881"
-            ],
-            "X-Envoy-External-Address": [
-                "179.73.185.92"
-            ],
-            "X-Request-Id": [
-                "c44179fe-2d37-4138-973f-8fd389aa1fc0"
-            ],
-            "X-Forwarded-Client-Cert": [
-                "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-            ],
-            "X-Cluster-Client-Ip": [
-                "179.73.185.92"
-            ],
-            "Authorizationkey": [
-                "645e4f0a833b23298defbed9"
-            ],
-            "Accept-Encoding": [
-                "gzip, deflate, br"
-            ],
-            "X-Forwarded-Proto": [
-                "https"
-            ],
-            "Content-Type": [
-                "application/json"
-            ],
-            "User-Agent": [
-                "PostmanRuntime/7.32.3"
-            ],
-            "Accept": [
-                "*/*"
-            ],
-            "X-Forwarded-For": [
-                "179.73.185.92"
-            ]
-        },
-        "body": {
-            "Subtype": 0,
-            "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
-        }
-    }
-    console.log("PAYLOAD ", JSON.stringify(requestData))
-    console.log("BODY ", JSON.stringify(requestData.body))
-    console.log("TEXT ", JSON.stringify(requestData.body.text()))
+    // console.log("PAYLOAD ", JSON.stringify(requestData))
+    // console.log("BODY ", JSON.stringify(requestData.body))
+    // console.log("TEXT ", JSON.stringify(requestData.body.text()))
     /**
       * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
       */
+      console.log('RData: ', JSON.stringify(requestData))
     try {
-      processedRequestData = await context.functions.execute('proccessRequest', payload)
+      processedRequestData = await context.functions.execute('proccessRequest', requestData)
     } catch (error) {
       console.log("Deu erro: ", error)
-      return { success: false, data: error }
+      throw error
     }
     
     /**
