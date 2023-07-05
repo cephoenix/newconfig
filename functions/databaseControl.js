@@ -107,8 +107,8 @@ async function preproccess (parameters) {
         parameters.query._id = new BSON.ObjectId(`${parameters.query._id}`)
       }
 
-      if (parameters.projection == null || parameters.projection === '') {
-        parameters.projection = null
+      if (!parameters.projection) {
+        parameters.projection = {}
       }
       break
     case 'updateOne':
@@ -146,7 +146,6 @@ async function execute (parameters) {
         }
       case 'findMany':
         if (parameters.projection) {
-          return {debug1: true, params: parameters}
           return await dbquery.find(parameters.query, parameters.options)
         } else {
           return {debug2: true, params: parameters}
