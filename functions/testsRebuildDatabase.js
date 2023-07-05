@@ -240,7 +240,7 @@ exports = async function (data) {
     }]
   )
 
-  const databaseParameters = {
+  let databaseParameters = {
     action: 'findMany',
     collection: 'clients',
     query: {}
@@ -359,6 +359,17 @@ exports = async function (data) {
   // } catch (e) {
   //   throw 'Erro ao inserir dados no Banco (tests populate radios collection)!' + e
   // }
+
+  databaseParameters = {
+    action: 'insertOne',
+    collection: 'parameters',
+    query: {
+      name: 'softwareVersion',
+      value: '23.07.04-1'
+    }
+  }
+
+  await context.functions.execute('databaseControl', databaseParameters)
 
   const response = await context.http.get({
     url: 'https://app.firebee.com.br/api/1.1/obj/Products/',
