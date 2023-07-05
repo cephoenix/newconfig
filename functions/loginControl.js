@@ -186,13 +186,34 @@ async function doLogin (parameters) {
     throw new Error(`Falha ao registrar sucesso de login no banco de dados: ${error}`)
   }
 
-  
-  throw {
-    remoteIp: remoteIp,
-    user: loggedUser
+  let databaseParameters = {
+    action: 'findMany',
+    collection: 'deviceTypes',
+    query: {
+      class: {
+        $ne: '6'
+      }
+    },
+    filter: {}
   }
 
+  const deviceTypes = await context.functions.execute('databaseControl', databaseParameters)
 
+  databaseParameters = {
+    action: 'findOne',
+    collection: 'parameters',
+    query: { name: 'softwareVersion' },
+    filter: {}
+  }
+
+  const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
+  
+  return {
+    sessionId: 'A52B7A89FE6A3BA58D8C',
+    loggedUser,
+    deviceTypes,
+    softwareVersion: softwareVersion.value
+  } // @todo implementar mecanismo de sessão
 }
 
 if (typeof module === 'object') {
