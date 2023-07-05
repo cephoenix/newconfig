@@ -391,7 +391,13 @@ async function loadDeviceTypesFromBubble () {
   // Tentando buscar o tipo de dispositivo nos resultados encontrados
   const deviceTypesToInsert = []
   deviceTypes.forEach(element => {
-    if (dbDeviceTypes.some(type => type.hasOwnProperty(element.SiglaConfRadio))) {
+    let isToInsert = false
+    for (let index = 0; index < dbDeviceTypes.length; index++) {
+      if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
+        isToInsert = true
+      }
+    }
+    if (isToInsert) {
       deviceTypesToInsert.push(element)
     }
   })
