@@ -51,6 +51,7 @@ exports = async function (payload) {
 }
 
 async function doLogin (requestData) {
+  return {omg: true}
   payload = {
         "query": {
             "action": "testLogin"
