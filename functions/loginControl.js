@@ -5,7 +5,7 @@ exports = async function (payload) {
   try {
     payload.body.text()
   } catch (e) {
-    return { Meh: e}
+    throw new Error({ Meh: e})
   }
 
   let action
