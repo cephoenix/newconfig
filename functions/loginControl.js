@@ -27,6 +27,30 @@ exports = async function (payload) {
 
     case 'testLogin':
       
+
+
+
+
+      // await doLogin()
+      break
+
+    default:
+      // await doLogin(payload)
+      console.log("DEBUG")
+      return { success: true, data: {debug: true} }
+      return { success: false, data: 'Ação inválida!' }
+  }
+
+  try {
+    operationResponse = await context.functions.execute(operationName, operationParameters)
+  } catch (e) {
+    return { success: false, data: e }
+  }
+
+  return { success: true, data: operationResponse }
+}
+
+async function doLogin (requestData) {
   payload = {
         "query": {
             "action": "testLogin"
@@ -77,43 +101,25 @@ exports = async function (payload) {
             "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
         }
     }
-
-      /**
-        * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
-        */
-      try {
-        processedRequestData = await context.functions.execute('proccessRequest', payload)
-      } catch (error) {
-        return { success: false, data: error }
-      }
-console.log("action", action)
-      /**
-       * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
-       */
-      try {
-        await context.functions.execute('loginValidation', processedRequestData)
-      } catch (error) {
-        return { success: false, data: error }
-      }
-
-      await doLogin()
-      break
-
-    default:
-      return { success: false, data: 'Ação inválida!' }
-  }
-
-  try {
-    operationResponse = await context.functions.execute(operationName, operationParameters)
-  } catch (e) {
-    return { success: false, data: e }
-  }
-
-  return { success: true, data: operationResponse }
-}
-
-async function doLogin (requestData) {
-
+    
+    /**
+      * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
+      */
+    try {
+      processedRequestData = await context.functions.execute('proccessRequest', payload)
+    } catch (error) {
+      console.log("Deu erro: ", error)
+      return { success: false, data: error }
+    }
+console.log("Payload: ", JSON.stringify(processedRequestData))
+    /**
+     * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
+     */
+    try {
+      await context.functions.execute('loginValidation', processedRequestData)
+    } catch (error) {
+      return { success: false, data: error }
+    }
 }
 
 if (typeof module === 'object') {
