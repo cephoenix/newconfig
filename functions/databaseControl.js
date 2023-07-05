@@ -126,7 +126,6 @@ async function preproccess (parameters) {
   if (parameters.options == null || parameters.options == '') {
     parameters.options = {}
   }
-  // throw {debug2: true, data: parameters}
   return parameters
 }
 
