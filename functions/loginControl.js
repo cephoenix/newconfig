@@ -9,56 +9,57 @@ exports = async function (payload) {
 
   if(payload === 'Hello world!') {
 
-    payload = {
-      "query": {
-          "action": "testLogin"
-      },
-      "headers": {
-          "User-Agent": [
-              "PostmanRuntime/7.32.3"
-          ],
-          "X-Forwarded-For": [
-              "179.73.185.92"
-          ],
-          "X-Envoy-External-Address": [
-              "179.73.185.92"
-          ],
-          "Content-Type": [
-              "application/json"
-          ],
-          "Content-Length": [
-              "82"
-          ],
-          "X-Forwarded-Proto": [
-              "https"
-          ],
-          "X-Request-Id": [
-              "94bce265-bc36-44d4-b3d1-9575f43988a2"
-          ],
-          "X-Forwarded-Client-Cert": [
-              "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-          ],
-          "X-Cluster-Client-Ip": [
-              "179.73.185.92"
-          ],
-          "Accept": [
-              "*/*"
-          ],
-          "Postman-Token": [
-              "6899a606-b081-4876-9509-bbb341c2ac4b"
-          ],
-          "Accept-Encoding": [
-              "gzip, deflate, br"
-          ],
-          "Authorizationkey": [
-              "645e4f0a833b23298defbed9"
-          ]
-      },
-      "body": {
-          "Subtype": 0,
-          "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
-      }
-    }    
+  payload =  {
+        "query": {
+            "action": "testLogin"
+        },
+        "headers": {
+            "Accept": [
+                "*/*"
+            ],
+            "X-Forwarded-For": [
+                "179.73.185.92"
+            ],
+            "X-Envoy-External-Address": [
+                "179.73.185.92"
+            ],
+            "Content-Type": [
+                "application/json"
+            ],
+            "User-Agent": [
+                "PostmanRuntime/7.32.3"
+            ],
+            "Accept-Encoding": [
+                "gzip, deflate, br"
+            ],
+            "X-Cluster-Client-Ip": [
+                "179.73.185.92"
+            ],
+            "Authorizationkey": [
+                "645e4f0a833b23298defbed9"
+            ],
+            "Postman-Token": [
+                "35396fa1-2f1b-46e1-870a-c1f62a06a7c9"
+            ],
+            "Content-Length": [
+                "82"
+            ],
+            "X-Forwarded-Proto": [
+                "https"
+            ],
+            "X-Forwarded-Client-Cert": [
+                "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
+            ],
+            "X-Request-Id": [
+                "158a3127-51ed-4498-bbb9-99a878859cf1"
+            ]
+        },
+        "body": {
+            "Subtype": 0,
+            "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
+        }
+    }
+
   }
   
   try {
