@@ -36,7 +36,7 @@ exports = async function (data) {
     if (typeof error === 'object') {
       e = JSON.stringify(error)
     }
-    throw new Error(`Falha ao eXecutar operação (${data.action}) na collection ${data.collection}! Erro: ${e}`)
+    throw new Error(`Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${e}`)
   }
 }
 
@@ -146,6 +146,7 @@ async function execute (parameters) {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
         }
       case 'findMany':
+        return {deb: true}
         if (parameters.projection) {
           return await dbquery.find(parameters.query, parameters.options)
         } else {
