@@ -1,6 +1,12 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
+  
+  try {
+    payload.body.text()
+  } catch (e) {
+    return { Meh: e}
+  }
 
   let action
   let operationName
@@ -110,11 +116,12 @@ async function doLogin (requestData) {
     /**
       * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
       */
-      console.log('RData: ', JSON.stringify(requestData))
+
     try {
       processedRequestData = await context.functions.execute('proccessRequest', requestData)
     } catch (error) {
-      console.log("Deu erro: ", error)
+      
+      console.log("Deu erro: ", JSON.stringify(error))
       throw error
     }
     
