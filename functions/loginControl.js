@@ -206,7 +206,7 @@ async function doLogin (parameters) {
     throw new Error(`Falha ao registrar sucesso de login no banco de dados: ${error}`)
   }
 
-  await loadDeviceTypesFromBubble()
+  // await loadDeviceTypesFromBubble()
 
   let databaseParameters = {
     action: 'findMany',
