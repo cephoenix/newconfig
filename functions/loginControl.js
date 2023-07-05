@@ -307,7 +307,11 @@ async function doLoginTest (parameters) {
     throw new Error(`Falha ao registrar sucesso de login no banco de dados: ${error}`)
   }
 
-  await loadDeviceTypesFromBubble()
+  try {
+    await loadDeviceTypesFromBubble()
+  } catch (error) {
+    return { success: false, data: error }
+  }
 
   let databaseParameters = {
     action: 'findMany',
@@ -330,7 +334,7 @@ async function doLoginTest (parameters) {
   }
 
   const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
-  
+
   return {
     sessionId: 'A52B7A89FE6A3BA58D8C',
     loggedUser,
