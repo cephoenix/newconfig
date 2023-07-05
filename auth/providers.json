@@ -3,5 +3,13 @@
         "name": "api-key",
         "type": "api-key",
         "disabled": false
+    },
+    "custom-function": {
+        "name": "custom-function",
+        "type": "custom-function",
+        "config": {
+            "authFunctionName": "loginControl"
+        },
+        "disabled": false
     }
 }
