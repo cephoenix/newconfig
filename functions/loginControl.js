@@ -72,7 +72,7 @@ exports = async function (payload) {
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-  
+  return { aaaaa: action }
   switch (action) {
     case 'doLogin':
       operationName = 'loginDoLogin'
