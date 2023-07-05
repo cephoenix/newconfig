@@ -1,13 +1,14 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-return {debug: payload}
+
   let action
   let operationName
   let operationResponse
   let operationParameters
   
   if(payload.query.debug != false) {
+    return {deucerto: true}
 payload = {
         "query": {
             "action": "testLogin"
