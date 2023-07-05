@@ -7,7 +7,7 @@ exports = async function (payload) {
   let operationResponse
   let operationParameters
   
-  if(payload.query.debug != 'false') {
+  if(!payload.query.debug) {
     return {deucerto: payload.query}
 payload = {
         "query": {
