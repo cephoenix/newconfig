@@ -25,17 +25,30 @@ exports = async function (payload) {
       break
 
     case 'testLogin':
-      operationName = 'testLogin'
-      operationParameters = payload.body
+
+      /**
+        * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
+        */
+      try {
+        processedRequestData = await context.functions.execute('proccessRequest', payload)
+      } catch (error) {
+        return { success: false, data: error }
+      }
+
+      /**
+       * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
+       */
+      try {
+        await context.functions.execute('loginValidation', processedRequestData)
+      } catch (error) {
+        return { success: false, data: error }
+      }
+
+      await doLogin()
       break
 
     default:
-      if (action != null) {
-        msg = 'Ação inválida!'
-      } else {
-        msg = 'Nenhuma ação informada!'
-      }
-      return { success: false, data: msg }
+      return { success: false, data: 'Ação inválida!' }
   }
 
   try {
@@ -45,6 +58,10 @@ exports = async function (payload) {
   }
 
   return { success: true, data: operationResponse }
+}
+
+async function doLogin (requestData) {
+
 }
 
 if (typeof module === 'object') {
