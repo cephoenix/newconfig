@@ -50,7 +50,11 @@ exports = async function (payload) {
   let databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
-    query: {},
+    query: { 
+      'class': {
+        $ne: "6"
+      }
+    },
     filter: {}
   }
 
