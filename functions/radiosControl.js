@@ -177,6 +177,10 @@ exports = async function (payload) {
       operationName = 'radiosInsertMany'
       break
 
+    case 'getDevicesByClientId':
+      databaseAction = 'findMany'
+      break
+
     case 'getNewNumber':
       try {
         return { success: true, data: await getRadioNumber(processedRequestData.body) }

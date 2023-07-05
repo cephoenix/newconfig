@@ -33,6 +33,10 @@ exports = async function (data) {
       await validateDeleteOne(parameters)
       break
 
+    case 'getDevicesByClientId':
+      await validateGetDevicesByClientId(parameters)
+      break
+
     case 'getNewNumber':
       await validateGetNewNumber(parameters)
       break
@@ -115,6 +119,12 @@ async function validateGetNewNumber (parameters) {
     throw new Error('O campo "mac" é obrigatório!')
   }
 
+  if (parameters.clientId === '' || parameters.clientId === undefined || parameters.clientId == null) {
+    throw new Error('O campo "clientId" é obrigatório!')
+  }
+}
+
+async function validateGetDevicesByClientId (parameters) {
   if (parameters.clientId === '' || parameters.clientId === undefined || parameters.clientId == null) {
     throw new Error('O campo "clientId" é obrigatório!')
   }
