@@ -6,8 +6,6 @@ exports = async function (payload) {
   const data = payload.body
   const remoteIp = payload.headers['X-Cluster-Client-Ip'][0]
 
-
-
   if (data == null) {
     throw new Error('É necessário fornecer informações válidas para autenticação!')
   }

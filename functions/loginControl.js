@@ -24,8 +24,8 @@ exports = async function (payload) {
       operationParameters = payload
       break
 
-    case 'doLoginFull':
-      operationName = 'loginDoLoginFull'
+    case 'testLogin':
+      operationName = 'testLogin'
       operationParameters = payload.body
       break
 
