@@ -75,10 +75,7 @@ exports = async function (payload) {
       break
     case 'debug':
       return {
-        debug: {
-          synced: await u.syncedCall(),
-          asynced: await u.asyncedCall()
-        }
+        debug: context
       }
 
     default:
