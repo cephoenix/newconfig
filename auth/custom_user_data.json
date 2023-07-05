@@ -4,5 +4,5 @@
     "database_name": "configRadio",
     "collection_name": "users",
     "user_id_field": "_id",
-    "on_user_creation_function_name": "handdleAuthentication"
+    "on_user_creation_function_name": "loginControl"
 }
