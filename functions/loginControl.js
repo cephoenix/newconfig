@@ -399,6 +399,7 @@ async function loadDeviceTypesFromBubble () {
   deviceTypes.forEach(element => {
     let isToInsert = true
     for (let index = 0; index < dbDeviceTypes.length; index++) {
+      throw {deb2: {api: element, db: dbDeviceTypes[index]}}
       if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
         isToInsert = false
       }
