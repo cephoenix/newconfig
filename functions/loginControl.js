@@ -118,7 +118,7 @@ exports = async function (payload) {
 }
 
 async function doLogin (data) {
-  const remoteIp = payload.headers['X-Cluster-Client-Ip'][0]
+  const remoteIp = data.headers['X-Cluster-Client-Ip'][0]
 
   /**
    * Retrieving User information
