@@ -394,7 +394,7 @@ async function changeClient (requestData) {
       deviceTypeDescription: `${deviceType.description}`,
       deviceClass: `${deviceType.class}`,
       productCode: `${deviceType.productCode}`,
-      clientOID: `${client._id}`,
+      clientId: `${client._id}`,
       clientName: `${client.name}`,
       clientInitials: `${client.initials}`,
       clientChannel: client.channel,
