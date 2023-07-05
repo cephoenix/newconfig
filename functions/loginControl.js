@@ -394,6 +394,7 @@ async function loadDeviceTypesFromBubble () {
 
   // Tentando buscar o tipo de dispositivo nos resultados encontrados
   const deviceTypesToInsert = []
+  throw {debug: deviceTypes} 
   deviceTypes.forEach(element => {
     let isToInsert = false
     for (let index = 0; index < dbDeviceTypes.length; index++) {
@@ -406,7 +407,7 @@ async function loadDeviceTypesFromBubble () {
     }
   })
 
-  throw {debug: deviceTypesToInsert} 
+  
 
   databaseParameters = {
     action: 'insertMany',
