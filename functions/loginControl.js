@@ -1,12 +1,13 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-
+return {debug: payload}
   let action
   let operationName
   let operationResponse
   let operationParameters
-
+  
+  if(action === 'testLogin') {
 payload = {
         "query": {
             "action": "testLogin"
@@ -56,7 +57,9 @@ payload = {
             "Subtype": 0,
             "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
         }
-    }
+    }    
+  }
+
 
   try {
     //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
