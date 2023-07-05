@@ -73,7 +73,7 @@ exports = async function (payload) {
     sessionId: 'A52B7A89FE6A3BA58D8C',
     loggedUser,
     deviceTypes,
-    softwareVersion: softwareVersion.value
+    softwareVersion: '23.07.04-1' //softwareVersion.value
   } // @todo implementar mecanismo de sessão
 }
 
