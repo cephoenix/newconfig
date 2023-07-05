@@ -31,7 +31,7 @@ exports = async function (payload) {
 
 
 
-      await doLogin()
+      return await doLogin()
       break
 
     default:
