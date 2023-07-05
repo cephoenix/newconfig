@@ -1,18 +1,12 @@
 [
     {
-        "name": "encryptText",
-        "private": true,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "handdleAuthentication",
+        "name": "usersValidation",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "loginDoLoginFull",
+        "name": "radiosControl",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -23,7 +17,79 @@
         "disable_arg_logs": true
     },
     {
-        "name": "usersValidation",
+        "name": "databaseControl",
+        "private": true,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "loginDoLoginFull",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "devicesValidation",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "radiosValidation",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "usersControl",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "encryptText",
+        "private": true,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "loginValidation",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsValidation",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "encryptPassword",
+        "private": true,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "utils",
+        "private": true,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "clientsControl",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "handdleAuthentication",
+        "private": false,
+        "run_as_user_id": "6462810334b2e8e9f16d4f94",
+        "disable_arg_logs": true
+    },
+    {
+        "name": "loginControl",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -41,48 +107,7 @@
         "disable_arg_logs": true
     },
     {
-        "name": "encryptPassword",
-        "private": true,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "proccessRequest",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
         "name": "syncControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "databaseControl",
-        "private": true,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "constants",
-        "private": false,
-        "disable_arg_logs": true
-    },
-    {
-        "name": "loginDoLogin",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "clientsValidation",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -94,19 +119,7 @@
         "disable_arg_logs": true
     },
     {
-        "name": "devicesValidation",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "loginControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "radiosValidation",
+        "name": "proccessRequest",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
@@ -114,24 +127,12 @@
     {
         "name": "testsControl",
         "private": false,
-        "disable_arg_logs": true
-    },
-    {
-        "name": "utils",
-        "private": true,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
-        "name": "usersControl",
+        "name": "constants",
         "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
-    },
-    {
-        "name": "radiosControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
     },
     {
@@ -141,7 +142,7 @@
         "disable_arg_logs": true
     },
     {
-        "name": "loginValidation",
+        "name": "loginDoLogin",
         "private": false,
         "run_as_user_id": "6462810334b2e8e9f16d4f94",
         "disable_arg_logs": true
