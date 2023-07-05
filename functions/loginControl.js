@@ -55,7 +55,7 @@ exports = async function (payload) {
 }
 
 async function doLogin (requestData) {
-  return {omg: true}
+
   payload = {
         "query": {
             "action": "testLogin"
@@ -107,6 +107,7 @@ async function doLogin (requestData) {
         }
     }
     console.log("DEBUG ", payload.body.data)
+    return 'Ponto de debug 1'
     /**
       * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
       */
