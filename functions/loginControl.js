@@ -173,7 +173,20 @@ async function doLogin (parameters) {
 
     throw new Error('Usuário bloqueado!')
   }
+  
+  databaseParameters = {
+    action: 'insertOne',
+    collection: 'usersLoginLog',
+    query: { login: parameters.login, success: true, clientIp: remoteIp, date: new Date() }
+  }
 
+  try {
+    await context.functions.execute('databaseControl', databaseParameters)
+  } catch (error) {
+    throw new Error(`Falha ao registrar sucesso de login no banco de dados: ${error}`)
+  }
+
+  
   throw {
     remoteIp: remoteIp,
     user: loggedUser
