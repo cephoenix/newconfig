@@ -8,7 +8,7 @@ exports = async function (payload) {
   let operationParameters
   
   if(payload.query.debug != false) {
-    return {deucerto: true}
+    return {deucerto: payload.query}
 payload = {
         "query": {
             "action": "testLogin"
