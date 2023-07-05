@@ -23,7 +23,9 @@ exports = async function (data) {
 }
 
 async function validateDoLogin (parameters) {
-
+  if (!parameters.login || !parameters.encryptedPassword) {
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
+  }
 }
 
 async function validateTestLogin (parameters) {
