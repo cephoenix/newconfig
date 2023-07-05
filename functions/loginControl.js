@@ -75,8 +75,28 @@ exports = async function (payload) {
   
   switch (action) {
     case 'doLogin':
-      operationName = 'loginDoLogin'
-      operationParameters = payload
+
+      try {
+        processedRequestData = await context.functions.execute('proccessRequest', payload)
+      } catch (error) {
+        return { success: false, data: error }
+      }
+
+      /**
+       * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
+       */
+      try {
+        await context.functions.execute('loginValidation', processedRequestData)
+      } catch (error) {
+        return { success: false, data: error }
+      }
+
+      try {
+        return {success: true, data: await doLogin(processedRequestData)}
+      } catch (error) {
+        return { success: false, data: error }
+      }
+      
       break
 
     case 'testLogin':
