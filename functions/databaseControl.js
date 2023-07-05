@@ -146,8 +146,10 @@ async function execute (parameters) {
         }
       case 'findMany':
         if (parameters.projection) {
+          return {debug1: true, params: parameters}
           return await dbquery.find(parameters.query, parameters.options)
         } else {
+          return {debug2: true, params: parameters}
           return await dbquery.find(parameters.query, parameters.projection, parameters.options)
         }
       case 'insertOne':
