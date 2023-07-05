@@ -27,11 +27,8 @@ exports = async function (payload) {
 
     case 'testLogin':
       
-
-
-
       try {
-        return {success: true, data: await doLogin()}
+        return {success: true, data: await doLogin(payload)}
       } catch (error) {
         return { success: false, data: error }
       }
@@ -39,9 +36,6 @@ exports = async function (payload) {
       break
 
     default:
-      await doLogin(payload)
-      
-      return { success: true, data: {debug: true} }
       return { success: false, data: 'Ação inválida!' }
   }
 
@@ -107,6 +101,8 @@ async function doLogin (requestData) {
         }
     }
     console.log("PAYLOAD ", JSON.stringify(payload))
+    console.log("BODY ", JSON.stringify(payload.body))
+    console.log("TEXT ", JSON.stringify(payload.body))
     /**
       * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
       */
