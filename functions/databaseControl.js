@@ -7,7 +7,7 @@ exports = async function (data) {
   try {
     await validate(data)
   } catch (error) {
-    throw new Error(`Falha ao executar operação no banco de dados! ${error}`)
+    throw new Error(`Falha ao validar operação a ser executada no banco de dados! ${error}`)
     // throw `Falha ao executar operação no banco de dados! ${error}`
   }
 
@@ -146,7 +146,6 @@ async function execute (parameters) {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
         }
       case 'findMany':
-        throw new Error('ASDF', parameters)
         if (parameters.projection) {
           return await dbquery.find(parameters.query, parameters.options)
         } else {
