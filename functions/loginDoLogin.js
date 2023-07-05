@@ -57,9 +57,9 @@ exports = async function (payload) {
     },
     filter: {}
   }
-return {debug: true}
-  const deviceTypes = await context.functions.execute('databaseControl', databaseParameters)
 
+  const deviceTypes = await context.functions.execute('databaseControl', databaseParameters)
+return {debug: true}
   databaseParameters = {
     action: 'findOne',
     collection: 'parameters',
