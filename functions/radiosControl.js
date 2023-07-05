@@ -115,7 +115,6 @@ exports = async function (payload) {
    * clientId: 64a3147b6c2f09966dabb9d8
    * deviceName: JJJ_LRRIF0001
    */
-
   // 84BA20FFFE968684
   // 84BA20FFFE968673
 
