@@ -106,8 +106,7 @@ async function doLogin (requestData) {
             "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
         }
     }
-    console.log("DEBUG ", payload.body.data)
-    return 'Ponto de debug 1'
+    console.log("PAYLOAD ", JSON.stringify(payload))
     /**
       * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
       */
@@ -117,7 +116,7 @@ async function doLogin (requestData) {
       console.log("Deu erro: ", error)
       return { success: false, data: error }
     }
-console.log("Payload: ", JSON.stringify(processedRequestData))
+    
     /**
      * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
      */
