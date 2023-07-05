@@ -27,7 +27,9 @@ async function validateDoLogin (parameters) {
 }
 
 async function validateTestLogin (parameters) {
-
+  if (!parameters.login || !parameters.encryptedPassword) {
+    throw new Error('É necessário fornecer informações válidas para autenticação!')
+  }
 }
 
 if (typeof module === 'object') {

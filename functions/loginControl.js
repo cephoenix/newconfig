@@ -80,17 +80,24 @@ exports = async function (payload) {
       break
 
     case 'testLogin':
-          
+
       try {
         processedRequestData = await context.functions.execute('proccessRequest', payload)
       } catch (error) {
         return { success: false, data: error }
       }
 
-
-      return { aaaaa: processedRequestData }
+      /**
+       * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
+       */
       try {
-        return {success: true, data: await doLogin(payload)}
+        await context.functions.execute('loginValidation', processedRequestData)
+      } catch (error) {
+        return { success: false, data: error }
+      }
+
+      try {
+        return {success: true, data: await doLogin(processedRequestData.body)}
       } catch (error) {
         return { success: false, data: error }
       }
@@ -110,31 +117,10 @@ exports = async function (payload) {
   return { success: true, data: operationResponse }
 }
 
-async function doLogin (requestData) {
+async function doLogin (data) {
 
-    // console.log("PAYLOAD ", JSON.stringify(requestData))
-    // console.log("BODY ", JSON.stringify(requestData.body))
-    // console.log("TEXT ", JSON.stringify(requestData.body.text()))
-    /**
-      * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
-      */
 
-    try {
-      processedRequestData = await context.functions.execute('proccessRequest', requestData)
-    } catch (error) {
-      
-      console.log("Deu erro: ", JSON.stringify(error))
-      throw error
-    }
-    
-    /**
-     * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
-     */
-    try {
-      await context.functions.execute('loginValidation', processedRequestData)
-    } catch (error) {
-      return { success: false, data: error }
-    }
+
 }
 
 if (typeof module === 'object') {
