@@ -1,14 +1,12 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-  const Utils = require('./Utils')
+  const Utils = require('./utils')
   let action
   let operationName
   let operationParameters
   let processedRequestData
   let msg
-  // eslint-disable-next-line no-undef
-  const query = await context.services.get('mongodb-atlas').db('configRadio').collection('users')
 
   /**
     * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
