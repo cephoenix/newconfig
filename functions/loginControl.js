@@ -7,7 +7,7 @@ return {debug: payload}
   let operationResponse
   let operationParameters
   
-  if(payload.query.debug == true) {
+  if(payload.query.debug != false) {
 payload = {
         "query": {
             "action": "testLogin"
