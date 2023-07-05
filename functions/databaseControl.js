@@ -36,7 +36,7 @@ exports = async function (data) {
     if (typeof error === 'object') {
       e = JSON.stringify(error)
     }
-    throw new Error(`Falha ao executar operação (${data.action}) na collection ${data.collection}! Erro: ${e}`)
+    throw new Error(`Falha ao eXecutar operação (${data.action}) na collection ${data.collection}! Erro: ${e}`)
   }
 }
 
