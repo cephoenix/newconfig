@@ -15,90 +15,96 @@ exports = async function (payload) {
     return { success: false, data: error }
   }
 
-  // processedRequestData = {
-  //   headers: {
-  //     Accept: [
-  //       '*/*'
-  //     ],
-  //     'Postman-Token': [
-  //       '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
-  //     ],
-  //     'Content-Length': [
-  //       '287'
-  //     ],
-  //     'X-Forwarded-For': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Forwarded-Proto': [
-  //       'https'
-  //     ],
-  //     'X-Envoy-External-Address': [
-  //       '200.181.33.155'
-  //     ],
-  //     'X-Cluster-Client-Ip': [
-  //       '200.181.33.155'
-  //     ],
-  //     'Content-Type': [
-  //       'application/json'
-  //     ],
-  //     'Accept-Encoding': [
-  //       'gzip, deflate, br'
-  //     ],
-  //     'X-Request-Id': [
-  //       '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
-  //     ],
-  //     'X-Forwarded-Client-Cert': [
-  //       'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
-  //     ],
-  //     'User-Agent': [
-  //       'PostmanRuntime/7.32.3'
-  //     ]
-  //   },
-  //   urlParameters: {
-  //     action: 'changeClient'
-  //   },
-  //   body: {
-  //     mac: '70AC08FFFEB3C11F',
-  //     clientId: '64a42edf21a75477c23a59c3',
-  //     name: '0GQ_LRRIF0002',
-  //     rewrite: true,
-  //     hardwareVersion: '2021-01-01 0',
-  //     firmwareVersion: '2023-06-02 1',
-  //     ProfileId: '',
-  //     manufacturerId: '',
-  //     userId: '64a42edf21a75477c23a59c7'
-  //   }
-  //   // urlParameters: {
-  //   //   action: 'getNewNumber'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42480fab6fa3151702a6e',
-  //   //   deviceName: 'DEV_LRPFH0001'
-  //   // }
-  //   // urlParameters: {
-  //   //   action: 'changeClient'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42edf21a75477c23a59c5',
-  //   //   name: 'DEV_LRPFH0001',
-  //   //   rewrite: true,
-  //   //   hardwareVersion: '2021-01-01 0',
-  //   //   firmwareVersion: '2023-06-02 1',
-  //   //   ProfileId: '',
-  //   //   manufacturerId: '',
-  //   //   userId: '64a42ce86c2f09966df37b68'
-  //   // }
-  //   // urlParameters: {
-  //   //   action: 'getNewNumber'
-  //   // },
-  //   // body: {
-  //   //   mac: '84BA20FFFE969EE5',
-  //   //   clientId: '64a42edf21a75477c23a59c5',
-  //   //   deviceName: 'JJJ_LRPFH0001'
-  //   // }
-  // }
+  processedRequestData = {
+    headers: {
+      Accept: [
+        '*/*'
+      ],
+      'Postman-Token': [
+        '6a9b9513-8152-41d3-a0d4-b84227a09a4b'
+      ],
+      'Content-Length': [
+        '287'
+      ],
+      'X-Forwarded-For': [
+        '200.181.33.155'
+      ],
+      'X-Forwarded-Proto': [
+        'https'
+      ],
+      'X-Envoy-External-Address': [
+        '200.181.33.155'
+      ],
+      'X-Cluster-Client-Ip': [
+        '200.181.33.155'
+      ],
+      'Content-Type': [
+        'application/json'
+      ],
+      'Accept-Encoding': [
+        'gzip, deflate, br'
+      ],
+      'X-Request-Id': [
+        '98cb09e3-4085-44c3-bb03-cd87bbc4dab0'
+      ],
+      'X-Forwarded-Client-Cert': [
+        'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
+      ],
+      'User-Agent': [
+        'PostmanRuntime/7.32.3'
+      ]
+    },
+    urlParameters: {
+      action: 'findMany'
+    },
+    body: {
+      clientOID: '64a46ed2fab6fa3151894371'
+    }
+    // urlParameters: {
+    //   action: 'changeClient'
+    // },
+    // body: {
+    //   mac: '70AC08FFFEB3C11F',
+    //   clientId: '64a42edf21a75477c23a59c3',
+    //   name: '0GQ_LRRIF0002',
+    //   rewrite: true,
+    //   hardwareVersion: '2021-01-01 0',
+    //   firmwareVersion: '2023-06-02 1',
+    //   ProfileId: '',
+    //   manufacturerId: '',
+    //   userId: '64a42edf21a75477c23a59c7'
+    // }
+    // urlParameters: {
+    //   action: 'getNewNumber'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '64a42480fab6fa3151702a6e',
+    //   deviceName: 'DEV_LRPFH0001'
+    // }
+    // urlParameters: {
+    //   action: 'changeClient'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '64a42edf21a75477c23a59c5',
+    //   name: 'DEV_LRPFH0001',
+    //   rewrite: true,
+    //   hardwareVersion: '2021-01-01 0',
+    //   firmwareVersion: '2023-06-02 1',
+    //   ProfileId: '',
+    //   manufacturerId: '',
+    //   userId: '64a42ce86c2f09966df37b68'
+    // }
+    // urlParameters: {
+    //   action: 'getNewNumber'
+    // },
+    // body: {
+    //   mac: '84BA20FFFE969EE5',
+    //   clientId: '64a42edf21a75477c23a59c5',
+    //   deviceName: 'JJJ_LRPFH0001'
+    // }
+  }
 
   /**
    * mac: 84BA20FFFE968684
@@ -138,12 +144,12 @@ exports = async function (payload) {
       break
 
     case 'findAll':
-      databaseAction = 'find'
+      databaseAction = 'findMany'
       operationParameters = {}
       break
 
     case 'findMany':
-      databaseAction = 'find'
+      databaseAction = 'findMany'
       break
 
     case 'updateOne':
