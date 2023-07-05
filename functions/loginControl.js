@@ -30,8 +30,12 @@ exports = async function (payload) {
 
 
 
-
-      return await doLogin()
+      try {
+        return {success: true, data: await doLogin()}
+      } catch (error) {
+        return { success: false, data: error }
+      }
+      
       break
 
     default:
