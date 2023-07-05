@@ -95,7 +95,7 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: error }
       }
-return {omg: processedRequestData}
+
       try {
         return {success: true, data: await doLogin(processedRequestData.body)}
       } catch (error) {
@@ -117,8 +117,9 @@ return {omg: processedRequestData}
   return { success: true, data: operationResponse }
 }
 
-async function doLogin (data) {
-  const remoteIp = data.headers['X-Cluster-Client-Ip'][0]
+async function doLogin (parameters) {
+  throw parameters
+  const remoteIp = parameters.headers['X-Cluster-Client-Ip'][0]
 
   /**
    * Retrieving User information
