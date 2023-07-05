@@ -35,8 +35,8 @@ exports = async function (payload) {
       break
 
     default:
-      // await doLogin(payload)
-      console.log("DEBUG")
+      await doLogin(payload)
+      
       return { success: true, data: {debug: true} }
       return { success: false, data: 'Ação inválida!' }
   }
@@ -101,7 +101,7 @@ async function doLogin (requestData) {
             "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
         }
     }
-    
+    console.log("DEBUG ", payload.body.data)
     /**
       * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
       */
