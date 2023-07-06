@@ -7,61 +7,6 @@ exports = async function (payload) {
   let operationResponse
   let operationParameters
 
-  if(payload === 'Hello world!') {
-
-  payload =  {
-        "query": {
-            "action": "testLogin"
-        },
-        "headers": {
-            "Accept": [
-                "*/*"
-            ],
-            "X-Forwarded-For": [
-                "179.73.185.92"
-            ],
-            "X-Envoy-External-Address": [
-                "179.73.185.92"
-            ],
-            "Content-Type": [
-                "application/json"
-            ],
-            "User-Agent": [
-                "PostmanRuntime/7.32.3"
-            ],
-            "Accept-Encoding": [
-                "gzip, deflate, br"
-            ],
-            "X-Cluster-Client-Ip": [
-                "179.73.185.92"
-            ],
-            "Authorizationkey": [
-                "645e4f0a833b23298defbed9"
-            ],
-            "Postman-Token": [
-                "35396fa1-2f1b-46e1-870a-c1f62a06a7c9"
-            ],
-            "Content-Length": [
-                "82"
-            ],
-            "X-Forwarded-Proto": [
-                "https"
-            ],
-            "X-Forwarded-Client-Cert": [
-                "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-            ],
-            "X-Request-Id": [
-                "158a3127-51ed-4498-bbb9-99a878859cf1"
-            ]
-        },
-        "body": {
-            "Subtype": 0,
-            "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
-        }
-    }
-
-  }
-  
   try {
     //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
     action = payload.query.action
@@ -73,7 +18,10 @@ exports = async function (payload) {
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-  
+  if(payload === 'Hello world!') {
+    action = 'testLogin'
+  }
+
   switch (action) {
     case 'doLogin':
 
@@ -101,13 +49,20 @@ exports = async function (payload) {
       break
 
     case 'testLogin':
-
-      try {
-        processedRequestData = await context.functions.execute('proccessRequest', payload)
-      } catch (error) {
-        return { success: false, data: error }
+      
+      if(payload === 'Hello world!') {
+        processedRequestData = {}
+      } else {
+        try {
+          processedRequestData = await context.functions.execute('proccessRequest', payload)
+        } catch (error) {
+          return { success: false, data: error }
+        }        
       }
-
+      
+      return {debug: processedRequestData}
+      
+      
       /**
        * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
        */
@@ -230,7 +185,7 @@ async function doLogin (parameters) {
   }
 
   const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
-
+  
   return {
     sessionId: 'A52B7A89FE6A3BA58D8C',
     loggedUser,
@@ -246,7 +201,7 @@ async function doLoginTest (parameters) {
   /**
    * Retrieving User information
    */
-  let databaseParameters = {
+  databaseParameters = {
     action: 'findOne',
     collection: 'users',
     query: { login: data.login }
@@ -295,7 +250,7 @@ async function doLoginTest (parameters) {
 
     throw new Error('Usuário bloqueado!')
   }
-
+  
   databaseParameters = {
     action: 'insertOne',
     collection: 'usersLoginLog',
@@ -314,7 +269,7 @@ async function doLoginTest (parameters) {
     return { success: false, data: error }
   }
 
-  databaseParameters = {
+  let databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
     query: {
@@ -363,7 +318,7 @@ async function loadDeviceTypesFromBubble () {
   } catch (error) {
     throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
   }
-  throw {deb2: {db: dbDeviceTypes}}
+
   // try {
   //   dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({ initials: `${initials}` })
   //   dbDeviceTypes = await dbDeviceTypes.toArray()
@@ -399,7 +354,7 @@ async function loadDeviceTypesFromBubble () {
   deviceTypes.forEach(element => {
     let isToInsert = true
     for (let index = 0; index < dbDeviceTypes.length; index++) {
-      
+      throw {deb2: {api: element, db: dbDeviceTypes[index]}}
       if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
         isToInsert = false
       }
