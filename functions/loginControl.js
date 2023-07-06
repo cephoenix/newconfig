@@ -48,6 +48,8 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: error }
       }
+      
+      return {rdata: processedRequestData}
 
       if(payload === 'Hello world!') {
           processedRequestData = {
@@ -101,7 +103,7 @@ exports = async function (payload) {
             }
         }   
       }
-
+console.log("DEBUG", processedRequestData)
       /**
        * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
        */
