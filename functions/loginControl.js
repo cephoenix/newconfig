@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-  console.log("Payload: ", payload)
+
   let action
   let operationName
   let operationResponse
@@ -21,7 +21,7 @@ exports = async function (payload) {
   if(payload === 'Hello world!') {
     action = 'testLogin'
   }
-console.log("Afffffff")
+    
   switch (action) {
     case 'doLogin':
 
@@ -49,7 +49,6 @@ console.log("Afffffff")
       break
 
     case 'testLogin':
-      console.log(" <<<<<<<<<<<<<<<<<< ")
       if(payload === 'Hello world!') {
         processedRequestData = {
           "headers": {
@@ -119,7 +118,6 @@ console.log("Afffffff")
       }
 
       try {
-        console.log(" >>>>> doLoginTest")
         return {success: true, data: await doLoginTest(processedRequestData)}
       } catch (error) {
         return { success: false, data: error }
@@ -311,9 +309,10 @@ async function doLoginTest (parameters) {
   }
 
   try {
-    console.log('Loading Devices from Bubble')
+    await dd("Entrando na função loadDeviceTypesFromBubble")
     await loadDeviceTypesFromBubble()
   } catch (error) {
+    await dd("Deu pau no loadDeviceTypesFromBubble")
     return { success: false, data: error }
   }
 
@@ -347,44 +346,33 @@ async function doLoginTest (parameters) {
   } // @todo implementar mecanismo de sessão
 }
 
+async function dd(msg) {
+  await console.log(msg)
+}
+
 /**
  * Load device types from Bubble API
  */
 async function loadDeviceTypesFromBubble () {
-  let dbDeviceTypes
-console.log('PONTO 1')
+
+  await dd('Ponto1')
+
   databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
-    filter: { },
-    query: { },
-    options: { }
+    filter: {},
+    query: {},
+    options: {}
   }
-
+  await dd('Ponto2')
+  let dbDeviceTypes
   try {
     dbDeviceTypes = await context.functions.execute('databaseControl', databaseParameters)
   } catch (error) {
     throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
   }
-  console.log("MERDA: ", JSON.stringify(dbDeviceTypes))
-
-  // try {
-  //   dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({ initials: `${initials}` })
-  //   dbDeviceTypes = await dbDeviceTypes.toArray()
-  // } catch (e) {
-  //   throw new Error(`Ocorreu um problema ao buscar os tipos de dispositivo ${e}`)
-  // }
-
-  // try {
-  //   deviceTypes.forEach(type => {
-  //     if (type.initials === initials) {
-  //       typeToReturn = type
-  //     }
-  //   })
-  // } catch (e) {
-  //   throw new Error(`Não foi possível buscar a lista de Tipos de Dispositivo. ${e}`)
-  // }
-
+  await dd('Ponto3')
+console.log("Resp: ", await JSON.stringify(dbDeviceTypes))
   const requestResponse = await context.http.get({
     url: 'https://app.firebee.com.br/api/1.1/obj/Products/',
     requestHeaders: {
@@ -397,41 +385,41 @@ console.log('PONTO 1')
 
   const deviceTypes = await JSON.parse(requestResponse.body.text()).response.results
 
-  // Tentando buscar o tipo de dispositivo nos resultados encontrados
-  const deviceTypesToInsert = []
+//   // Tentando buscar o tipo de dispositivo nos resultados encontrados
+//   const deviceTypesToInsert = []
 
 
-  deviceTypes.forEach(element => {
-    console.log("Ponto 2. Sigla: ", element.SiglaConfRadio, "Código: ", element.Codigo)
-    console.log("DB DEvices: ", JSON.stringify(dbDeviceTypes))
-    let isToInsert = true
-    for (let index = 0; index < dbDeviceTypes.length; index++) {
+//   deviceTypes.forEach(element => {
+//     console.log("Ponto 2. Sigla: ", element.SiglaConfRadio, "Código: ", element.Codigo)
+//     console.log("DB DEvices: ", JSON.stringify(dbDeviceTypes))
+//     let isToInsert = true
+//     for (let index = 0; index < dbDeviceTypes.length; index++) {
       
-      console.log('Device do Bubble: ', element)
-      console.log('Device do Banco: ', dbDeviceTypes[index])
-      if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
-        isToInsert = false
-      }
-    }
-    if (isToInsert) {
-      deviceTypesToInsert.push(element)
-    }
-    isToInsert = true
-  })
+//       console.log('Device do Bubble: ', element)
+//       console.log('Device do Banco: ', dbDeviceTypes[index])
+//       if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
+//         isToInsert = false
+//       }
+//     }
+//     if (isToInsert) {
+//       deviceTypesToInsert.push(element)
+//     }
+//     isToInsert = true
+//   })
 
-  databaseParameters = {
-    action: 'insertMany',
-    collection: 'deviceTypes',
-    filter: { },
-    query: { deviceTypesToInsert },
-    options: { upsert: false }
-  }
+//   databaseParameters = {
+//     action: 'insertMany',
+//     collection: 'deviceTypes',
+//     filter: { },
+//     query: { deviceTypesToInsert },
+//     options: { upsert: false }
+//   }
 
-  try {
-    await context.functions.execute('databaseControl', databaseParameters)
-  } catch (error) {
-    throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
-  }
+//   try {
+//     await context.functions.execute('databaseControl', databaseParameters)
+//   } catch (error) {
+//     throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
+//   }
 }
 
 if (typeof module === 'object') {
