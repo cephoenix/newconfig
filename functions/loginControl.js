@@ -236,11 +236,11 @@ async function doLogin (parameters) {
     throw new Error(`Falha ao registrar sucesso de login no banco de dados: ${error}`)
   }
 
-  try {
-    await updateDeviceTypesList()
-  } catch (error) {
-    return { success: false, data: error }
-  }
+  // try {
+  //   await updateDeviceTypesList()
+  // } catch (error) {
+  //   return { success: false, data: error }
+  // }
 
   databaseParameters = {
     action: 'findMany',
