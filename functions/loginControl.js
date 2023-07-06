@@ -336,43 +336,74 @@ async function updateDeviceTypesList () {
   const deviceTypesFromDatabase = await getDeviceTypesListFromDatabase()
   const devicesFromAPI = await getDeviceTypesListFromAPI()
 
-  const deviceTypesToInsert = []
-  devicesFromAPI.forEach(async element => {
+  console.log("LEN1: ", deviceTypesFromDatabase.length, "LEN2 ", devicesFromAPI.length)
+  var deviceTypesToInsert = []
+  await devicesFromAPI.forEach(async element => {
     if (element.SiglaConfRadio.includes('LR')) {
-      let estah = await isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase)
-      console.log("IS IN ARRAY: ", estah)
-      if (!estah) {
-        const temp = element
-        delete temp._id
-        deviceTypesToInsert.push(temp)
+
+      let isToInsert = true
+      for (let index = 0; index < deviceTypesFromDatabase.length; index++) {
+        if (deviceTypesFromDatabase[index].initials === element.SiglaConfRadio) {
+          console.log(" 1: ", deviceTypesFromDatabase[index].initials, " 2: ", element.SiglaConfRadio)
+          isToInsert = false
+          
+        }
+      }
+      if (isToInsert) {
+        console.log(" EH PRA INSERIR >>> ", element.SiglaConfRadio)
+        
+        let x = `${element.SiglaConfRadio}`
+        const y = element.DescriptionPTBR
+  
+        // eslint-disable-next-line eqeqeq
+        if (y != null) {
+          x += ` - ${y.slice(0, 13)}`
+        }
+  
+        deviceTypesToInsert.push({
+          productCode: element.Codigo,
+          initials: element.SiglaConfRadio,
+          exhibitionName: x,
+          class: element.DeviceClass,
+          description: element.Nome
+        })
+        
+      } else {
+        isToInsert = true
       }
     }
   })
-  console.log("Tipos a serem inseridos no Banco de Dados: >> ", deviceTypesToInsert, "<<")
-  // databaseParameters = {
-  //   action: 'insertMany',
-  //   collection: 'deviceTypes',
-  //   filter: {},
-  //   query: deviceTypesToInsert,
-  //   options: { upsert: false }
-  // }
-
-  // try {
-  //   await context.functions.execute('databaseControl', databaseParameters)
-  // } catch (error) {
-  //   throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
-  // }
-}
-
-function isDeviceTypeInArray (initials, arrayToCheck) {
-  for (let index = 0; index < arrayToCheck.length; index++) {
-    if (arrayToCheck[index].initials === initials) {
-      return true
-    }
+  console.log("LEN: >> ", deviceTypesToInsert.length, "<<")
+  console.log("Tipos a serem inseridos no Banco de Dados: >> ", JSON.stringify(deviceTypesToInsert[0]), "<<")
+  console.log("Tipos a serem inseridos no Banco de Dados: >> ", JSON.stringify(deviceTypesToInsert[1]), "<<")
+  databaseParameters = {
+    action: 'insertMany',
+    collection: 'deviceTypes',
+    filter: {},
+    query: deviceTypesToInsert,
+    options: { upsert: false }
   }
-  console.log(initials, " Não está no array")
-  return false
+
+  try {
+    await context.functions.execute('databaseControl', databaseParameters)
+  } catch (error) {
+    throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
+  }
 }
+
+// function isDeviceTypeInArray (initials, arrayToCheck) {
+//   for (let index = 0; index < arrayToCheck.length; index++) {
+//     console.log('1: ', arrayToCheck[index].initials, '2: ', initials)
+//     if (arrayToCheck[index].initials === initials) {
+//       return true
+//     }
+//   }
+//   // console.log(initials, " Não está no array")
+//   // console.log("Array sigla: ", arrayToCheck.length, JSON.stringify(arrayToCheck[25]))
+//   // console.log("Initials: ", initials)
+//   // console.log("Condition: ", arrayToCheck[25].initials === initials)
+//   return false
+// }
 
 async function getDeviceTypesListFromDatabase () {
   databaseParameters = {
