@@ -10,7 +10,7 @@ exports = async function (payload) {
     action = payload.action
   }
   
-  if(payload.contains('Hello world!')) {
+  if(payload.includes('Hello world!')) {
     action = 'testLogin'
   }
   /**
@@ -42,6 +42,7 @@ exports = async function (payload) {
       }
 
     case 'testLogin':
+      console.log("DEBUG")
       try {
         processedRequestData = await context.functions.execute('proccessRequest', payload)
       } catch (error) {
