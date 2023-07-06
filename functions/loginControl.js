@@ -49,61 +49,59 @@ exports = async function (payload) {
         return { success: false, data: error }
       }
       
-      return {rdata: processedRequestData}
-
       if(payload === 'Hello world!') {
           processedRequestData = {
-            "query": {
-                "action": "testLogin"
-            },
-            "headers": {
-                "Content-Length": [
-                    "82"
-                ],
-                "X-Forwarded-Client-Cert": [
-                    "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-                ],
-                "User-Agent": [
-                    "PostmanRuntime/7.32.3"
-                ],
-                "Accept": [
-                    "*/*"
-                ],
-                "Postman-Token": [
-                    "0372fafa-47c5-49bb-a7fe-dcd3ec9232f8"
-                ],
-                "Accept-Encoding": [
-                    "gzip, deflate, br"
-                ],
-                "Content-Type": [
-                    "application/json"
-                ],
-                "X-Forwarded-Proto": [
-                    "https"
-                ],
-                "X-Envoy-External-Address": [
-                    "179.73.185.92"
-                ],
-                "X-Cluster-Client-Ip": [
-                    "179.73.185.92"
-                ],
-                "Authorizationkey": [
-                    "645e4f0a833b23298defbed9"
-                ],
-                "X-Request-Id": [
-                    "5137c00b-262f-486c-80fb-b96cfbd793c2"
-                ],
-                "X-Forwarded-For": [
-                    "179.73.185.92"
-                ]
-            },
-            "body": {
-                "Subtype": 0,
-                "Data": "ewogICAgImxvZ2luIjogImphcmRlbDAxMDEiLAogICAgImVuY3J5cHRlZFBhc3N3b3JkIjogIllUbGhZV0ZpWVdOaFpHRmxZV1poTUE9PSIKfQ=="
-            }
-        }   
+        "headers": {
+            "X-Envoy-External-Address": [
+                "179.73.185.92"
+            ],
+            "X-Request-Id": [
+                "4285d885-40e4-466f-96f0-61bf226fd7e2"
+            ],
+            "X-Forwarded-Proto": [
+                "https"
+            ],
+            "X-Forwarded-For": [
+                "179.73.185.92"
+            ],
+            "Authorizationkey": [
+                "645e4f0a833b23298defbed9"
+            ],
+            "Content-Type": [
+                "application/json"
+            ],
+            "User-Agent": [
+                "PostmanRuntime/7.32.3"
+            ],
+            "Postman-Token": [
+                "3b70b0ed-7f8d-40c9-95cf-e06f2381b106"
+            ],
+            "Accept-Encoding": [
+                "gzip, deflate, br"
+            ],
+            "Content-Length": [
+                "82"
+            ],
+            "Accept": [
+                "*/*"
+            ],
+            "X-Forwarded-Client-Cert": [
+                "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
+            ],
+            "X-Cluster-Client-Ip": [
+                "179.73.185.92"
+            ]
+        },
+        "urlParameters": {
+            "action": "testLogin"
+        },
+        "body": {
+            "login": "jardel0101",
+            "encryptedPassword": "YTlhYWFiYWNhZGFlYWZhMA=="
+        }
+    }
       }
-console.log("DEBUG", processedRequestData)
+
       /**
        * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
        */
