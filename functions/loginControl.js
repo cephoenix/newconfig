@@ -9,8 +9,8 @@ exports = async function (payload) {
   } catch (err) {
     action = payload.action
   }
-  
-  if(payload.includes('Hello world!')) {
+  console.log(payload)
+  if(payload === 'Hello world!') {
     action = 'testLogin'
   }
   /**
