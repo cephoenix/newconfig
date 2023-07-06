@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-  
+  console.log("Payload: ", payload)
   let action
   let operationName
   let operationResponse
@@ -21,7 +21,7 @@ exports = async function (payload) {
   if(payload === 'Hello world!') {
     action = 'testLogin'
   }
-
+console.log("Afffffff")
   switch (action) {
     case 'doLogin':
 
@@ -49,7 +49,7 @@ exports = async function (payload) {
       break
 
     case 'testLogin':
-      
+      console.log(" <<<<<<<<<<<<<<<<<< ")
       if(payload === 'Hello world!') {
         processedRequestData = {
           "headers": {
@@ -119,6 +119,7 @@ exports = async function (payload) {
       }
 
       try {
+        console.log(" >>>>> doLoginTest")
         return {success: true, data: await doLoginTest(processedRequestData)}
       } catch (error) {
         return { success: false, data: error }
@@ -310,6 +311,7 @@ async function doLoginTest (parameters) {
   }
 
   try {
+    console.log('Loading Devices from Bubble')
     await loadDeviceTypesFromBubble()
   } catch (error) {
     return { success: false, data: error }
