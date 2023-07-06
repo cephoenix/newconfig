@@ -9,7 +9,7 @@ exports = async function (payload) {
   } catch (err) {
     action = payload.action
   }
-  console.log(payload)
+
   if(payload === 'Hello world!') {
     action = 'testLogin'
   }
@@ -42,7 +42,7 @@ exports = async function (payload) {
       }
 
     case 'testLogin':
-return {debug: true}
+return {debug: payload}
       try {
         processedRequestData = await context.functions.execute('proccessRequest', payload)
       } catch (error) {
