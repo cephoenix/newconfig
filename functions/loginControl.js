@@ -122,7 +122,7 @@ exports = async function (payload) {
   }
 }
 
-async function doLoginTest () {
+async function doLoginTest (parameters) {
   
   const data = parameters.body
   const remoteIp = parameters.headers['X-Cluster-Client-Ip'][0]
@@ -337,30 +337,31 @@ async function updateDeviceTypesList () {
   const devicesFromAPI = await getDeviceTypesListFromAPI()
 
   const deviceTypesToInsert = []
-  devicesFromAPI.forEach(element => {
+  devicesFromAPI.forEach(async element => {
     if (element.SiglaConfRadio.includes('LR')) {
-      console.log("IS IN ARRAY: ", isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase))
-      if (!isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase)) {
+      let estah = await isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase)
+      console.log("IS IN ARRAY: ", estah)
+      if (!estah) {
         const temp = element
         delete temp._id
-        // deviceTypesToInsert.push(temp)
+        deviceTypesToInsert.push(temp)
       }
     }
   })
+  console.log("Tipos a serem inseridos no Banco de Dados: >> ", deviceTypesToInsert, "<<")
+  // databaseParameters = {
+  //   action: 'insertMany',
+  //   collection: 'deviceTypes',
+  //   filter: {},
+  //   query: deviceTypesToInsert,
+  //   options: { upsert: false }
+  // }
 
-  databaseParameters = {
-    action: 'insertMany',
-    collection: 'deviceTypes',
-    filter: {},
-    query: deviceTypesToInsert,
-    options: { upsert: false }
-  }
-
-  try {
-    await context.functions.execute('databaseControl', databaseParameters)
-  } catch (error) {
-    throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
-  }
+  // try {
+  //   await context.functions.execute('databaseControl', databaseParameters)
+  // } catch (error) {
+  //   throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
+  // }
 }
 
 function isDeviceTypeInArray (initials, arrayToCheck) {
@@ -369,6 +370,7 @@ function isDeviceTypeInArray (initials, arrayToCheck) {
       return true
     }
   }
+  console.log(initials, " Não está no array")
   return false
 }
 
