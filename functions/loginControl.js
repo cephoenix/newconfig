@@ -344,10 +344,6 @@ async function doLoginTest (parameters) {
   } // @todo implementar mecanismo de sessão
 }
 
-async function dd(msg) {
-  await console.log(msg)
-}
-
 async function updateDeviceTypesList () {
   let deviceTypesFromDatabase = await getDeviceTypesListFromDatabase()
   let devicesFromAPI = await getDeviceTypesListFromAPI()
@@ -356,7 +352,9 @@ async function updateDeviceTypesList () {
   devicesFromAPI.forEach(element => {
     if(element.SiglaConfRadio.includes('LR')) {
       if (!isDeviceTypeOnArray(element.SiglaConfRadio, deviceTypesFromDatabase)) {
-        deviceTypesToInsert.push(element)
+        let temp = element
+        delete temp._id
+        deviceTypesToInsert.push(temp)
       }
     }
   })
