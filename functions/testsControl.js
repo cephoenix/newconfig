@@ -6,8 +6,6 @@ exports = async function (payload) {
   let operationParameters
   let processedRequestData
   let msg
-  const Utils = require('./Utils')
-  const u = new Utils()
 
   /**
     * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
@@ -75,8 +73,7 @@ exports = async function (payload) {
       break
     case 'debug':
       return {
-        userContext: context.user,
-        utilsTest: await u.syncedCall()
+        userContext: context.user
       }
 
     default:
