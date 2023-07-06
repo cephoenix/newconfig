@@ -1,11 +1,7 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-
   let action
-  let operationName
-  let operationResponse
-  let operationParameters
 
   try {
     //  id, action, page etc should be on url parameters. These parameters are contained inside payload.query
@@ -18,10 +14,6 @@ exports = async function (payload) {
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
    */
-  if(payload === 'Hello world!') {
-    action = 'testLogin'
-  }
-    
   switch (action) {
     case 'doLogin':
 
@@ -41,73 +33,18 @@ exports = async function (payload) {
       }
 
       try {
-        return {success: true, data: await doLogin(processedRequestData)}
+        return { success: true, data: await doLogin(processedRequestData) }
       } catch (error) {
         return { success: false, data: error }
       }
-      
-      break
 
     case 'testLogin':
-      if(payload === 'Hello world!') {
-        processedRequestData = {
-          "headers": {
-              "User-Agent": [
-                  "PostmanRuntime/7.32.3"
-              ],
-              "Accept": [
-                  "*/*"
-              ],
-              "Accept-Encoding": [
-                  "gzip, deflate, br"
-              ],
-              "X-Forwarded-Proto": [
-                  "https"
-              ],
-              "Authorizationkey": [
-                  "645e4f0a833b23298defbed9"
-              ],
-              "Postman-Token": [
-                  "09bef8dc-26ba-4d29-9a62-a01e9033fd5c"
-              ],
-              "Content-Length": [
-                  "82"
-              ],
-              "X-Request-Id": [
-                  "079051cd-4615-4ad8-80ee-ec6e28453b2b"
-              ],
-              "X-Envoy-External-Address": [
-                  "179.73.185.92"
-              ],
-              "X-Cluster-Client-Ip": [
-                  "179.73.185.92"
-              ],
-              "Content-Type": [
-                  "application/json"
-              ],
-              "X-Forwarded-For": [
-                  "179.73.185.92"
-              ],
-              "X-Forwarded-Client-Cert": [
-                  "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
-              ]
-          },
-          "urlParameters": {
-              "action": "testLogin"
-          },
-          "body": {
-              "login": "jardel0101",
-              "encryptedPassword": "YTlhYWFiYWNhZGFlYWZhMA=="
-          }
-        }
-      } else {
-        try {
-          processedRequestData = await context.functions.execute('proccessRequest', payload)
-        } catch (error) {
-          return { success: false, data: error }
-        }        
+      try {
+        processedRequestData = await context.functions.execute('proccessRequest', payload)
+      } catch (error) {
+        return { success: false, data: error }
       }
-      
+
       /**
        * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
        */
@@ -118,24 +55,14 @@ exports = async function (payload) {
       }
 
       try {
-        return {success: true, data: await doLoginTest(processedRequestData)}
+        return { success: true, data: await doLoginTest(processedRequestData) }
       } catch (error) {
         return { success: false, data: error }
       }
-      
-      break
 
     default:
       return { success: false, data: 'Ação inválida!' }
   }
-
-  try {
-    operationResponse = await context.functions.execute(operationName, operationParameters)
-  } catch (e) {
-    return { success: false, data: e }
-  }
-
-  return { success: true, data: operationResponse }
 }
 
 async function doLogin (parameters) {
@@ -145,14 +72,14 @@ async function doLogin (parameters) {
   /**
    * Retrieving User information
    */
-  databaseParameters = {
+  let databaseParameters = {
     action: 'findOne',
     collection: 'users',
     query: { login: data.login }
   }
 
   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
-  
+
   if (!loggedUser) {
     throw new Error('Senha ou usuário incorretos!')
   }
@@ -161,31 +88,30 @@ async function doLogin (parameters) {
   const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
 
   if (loggedUser.password !== hashedPass) {
-    
     await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
-    
+
     databaseParameters = {
       action: 'insertOne',
       collection: 'usersLoginLog',
       query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' }
     }
-  
+
     try {
       await context.functions.execute('databaseControl', databaseParameters)
     } catch (error) {
       throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
     }
-      
+
     throw new Error('Senha ou usuário incorretos!')
   }
-  
+
   if (loggedUser.blocked) {
     databaseParameters = {
       action: 'insertOne',
       collection: 'usersLoginLog',
       query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Usuário bloqueado' }
     }
-  
+
     try {
       await context.functions.execute('databaseControl', databaseParameters)
     } catch (error) {
@@ -194,7 +120,7 @@ async function doLogin (parameters) {
 
     throw new Error('Usuário bloqueado!')
   }
-  
+
   databaseParameters = {
     action: 'insertOne',
     collection: 'usersLoginLog',
@@ -209,7 +135,7 @@ async function doLogin (parameters) {
 
   // await loadDeviceTypesFromBubble()
 
-  let databaseParameters = {
+  databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
     query: {
@@ -230,7 +156,7 @@ async function doLogin (parameters) {
   }
 
   const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
-  
+
   return {
     sessionId: 'A52B7A89FE6A3BA58D8C',
     loggedUser,
@@ -246,14 +172,14 @@ async function doLoginTest (parameters) {
   /**
    * Retrieving User information
    */
-  databaseParameters = {
+  let databaseParameters = {
     action: 'findOne',
     collection: 'users',
     query: { login: data.login }
   }
 
   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
-  
+
   if (!loggedUser) {
     throw new Error('Senha ou usuário incorretos!')
   }
@@ -262,31 +188,30 @@ async function doLoginTest (parameters) {
   const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
 
   if (loggedUser.password !== hashedPass) {
-    
     await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
-    
+
     databaseParameters = {
       action: 'insertOne',
       collection: 'usersLoginLog',
       query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' }
     }
-  
+
     try {
       await context.functions.execute('databaseControl', databaseParameters)
     } catch (error) {
       throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
     }
-      
+
     throw new Error('Senha ou usuário incorretos!')
   }
-  
+
   if (loggedUser.blocked) {
     databaseParameters = {
       action: 'insertOne',
       collection: 'usersLoginLog',
       query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Usuário bloqueado' }
     }
-  
+
     try {
       await context.functions.execute('databaseControl', databaseParameters)
     } catch (error) {
@@ -295,7 +220,7 @@ async function doLoginTest (parameters) {
 
     throw new Error('Usuário bloqueado!')
   }
-  
+
   databaseParameters = {
     action: 'insertOne',
     collection: 'usersLoginLog',
@@ -314,7 +239,7 @@ async function doLoginTest (parameters) {
     return { success: false, data: error }
   }
 
-  let databaseParameters = {
+  databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
     query: {
@@ -345,14 +270,14 @@ async function doLoginTest (parameters) {
 }
 
 async function updateDeviceTypesList () {
-  let deviceTypesFromDatabase = await getDeviceTypesListFromDatabase()
-  let devicesFromAPI = await getDeviceTypesListFromAPI()
+  const deviceTypesFromDatabase = await getDeviceTypesListFromDatabase()
+  const devicesFromAPI = await getDeviceTypesListFromAPI()
 
   const deviceTypesToInsert = []
   devicesFromAPI.forEach(element => {
-    if(element.SiglaConfRadio.includes('LR')) {
-      if (!isDeviceTypeOnArray(element.SiglaConfRadio, deviceTypesFromDatabase)) {
-        let temp = element
+    if (element.SiglaConfRadio.includes('LR')) {
+      if (!isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase)) {
+        const temp = element
         delete temp._id
         deviceTypesToInsert.push(temp)
       }
@@ -374,16 +299,16 @@ async function updateDeviceTypesList () {
   }
 }
 
-function isDeviceTypeOnArray(initials, arrayToCheck) {
+function isDeviceTypeInArray (initials, arrayToCheck) {
   for (let index = 0; index < arrayToCheck.length; index++) {
-    if (arrayToCheck[index].initials == initials) {
+    if (arrayToCheck[index].initials === initials) {
       return true
     }
   }
   return false
 }
 
-async function getDeviceTypesListFromDatabase() {
+async function getDeviceTypesListFromDatabase () {
   databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
@@ -398,7 +323,7 @@ async function getDeviceTypesListFromDatabase() {
   }
 }
 
-async function getDeviceTypesListFromAPI() {
+async function getDeviceTypesListFromAPI () {
   const requestResponse = await context.http.get({
     url: 'https://app.firebee.com.br/api/1.1/obj/Products/',
     requestHeaders: {
@@ -409,81 +334,6 @@ async function getDeviceTypesListFromAPI() {
     encodeBodyAsJSON: true
   })
   return await JSON.parse(requestResponse.body.text()).response.results
-}
-
-/**
- * Load device types from Bubble API
- */
-async function loadDeviceTypesFromBubble () {
-
-  await dd('Ponto1')
-
-  databaseParameters = {
-    action: 'findMany',
-    collection: 'deviceTypes',
-    filter: {},
-    query: {},
-    options: {}
-  }
-  await dd('Ponto2')
-  let dbDeviceTypes
-  try {
-    dbDeviceTypes = await context.functions.execute('databaseControl', databaseParameters)
-    // dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({}, {})
-    dbDeviceTypes = await dbDeviceTypes.toArray()
-    console.log('Types no DB: ', JSON.stringify(dbDeviceTypes))
-  } catch (error) {
-    throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
-  }
-  await dd('Ponto3')
-console.log("Resp: ", await JSON.stringify(dbDeviceTypes))
-  const requestResponse = await context.http.get({
-    url: 'https://app.firebee.com.br/api/1.1/obj/Products/',
-    requestHeaders: {
-      'Content-Type': ['application/json'],
-      Authorization: 'Bearer 0b6336226cbe51d8b47e2f04b70de602'
-    },
-    body: {},
-    encodeBodyAsJSON: true
-  })
-
-  const deviceTypes = await JSON.parse(requestResponse.body.text()).response.results
-
-//   // Tentando buscar o tipo de dispositivo nos resultados encontrados
-//   const deviceTypesToInsert = []
-
-
-//   deviceTypes.forEach(element => {
-//     console.log("Ponto 2. Sigla: ", element.SiglaConfRadio, "Código: ", element.Codigo)
-//     console.log("DB DEvices: ", JSON.stringify(dbDeviceTypes))
-//     let isToInsert = true
-//     for (let index = 0; index < dbDeviceTypes.length; index++) {
-      
-//       console.log('Device do Bubble: ', element)
-//       console.log('Device do Banco: ', dbDeviceTypes[index])
-//       if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
-//         isToInsert = false
-//       }
-//     }
-//     if (isToInsert) {
-//       deviceTypesToInsert.push(element)
-//     }
-//     isToInsert = true
-//   })
-
-//   databaseParameters = {
-//     action: 'insertMany',
-//     collection: 'deviceTypes',
-//     filter: { },
-//     query: { deviceTypesToInsert },
-//     options: { upsert: false }
-//   }
-
-//   try {
-//     await context.functions.execute('databaseControl', databaseParameters)
-//   } catch (error) {
-//     throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
-//   }
 }
 
 if (typeof module === 'object') {

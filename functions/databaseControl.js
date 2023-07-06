@@ -60,10 +60,11 @@ async function validate (parameters) {
     throw new Error('É necessário informar os parâmetros corretamente para realizar a operação!')
   }
 
-  if(parameters.query._id) {
+  if (parameters.query._id) {
     try {
+      // eslint-disable-next-line no-new
       new BSON.ObjectId(`${parameters.query._id}`)
-    } catch(error) {
+    } catch (error) {
       throw new Error(`Erro ao executar operação no Banco de Dados. O valor informado para o parâmetro _id é inválido! ${error}`)
     }
   }
@@ -82,7 +83,7 @@ async function validate (parameters) {
 
       break
     case 'insertMany':
-      if(!Array.isArray(parameters.query)) {
+      if (!Array.isArray(parameters.query)) {
         throw new Error('É necessário fornecer um array como parâmetro para a operação insertMany')
       }
       break
@@ -157,13 +158,13 @@ async function execute (parameters) {
       case 'findMany':
         try {
           if (parameters.projection) {
-            let resp = await dbquery.find(parameters.query, parameters.projection, parameters.options)
+            const resp = await dbquery.find(parameters.query, parameters.projection, parameters.options)
             return await resp.toArray()
           } else {
             return await dbquery.find(parameters.query, parameters.options)
-          }          
+          }
         } catch (e) {
-          throw new Error ("Falha ao executar a operação findMany no Banco de Dados! ", e)
+          throw new Error(`Falha ao executar a operação findMany no Banco de Dados! ${e}`)
         }
 
       case 'insertOne':
@@ -172,7 +173,7 @@ async function execute (parameters) {
         try {
           resp = await dbquery.insertMany(parameters.query, parameters.options)
         } catch (e) {
-          throw new Error (`Falha ao executar a operação insertMany no Banco de Dados! ${e}`)
+          throw new Error(`Falha ao executar a operação insertMany no Banco de Dados! ${e}`)
         }
         return resp
       case 'updateOne':
