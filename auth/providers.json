@@ -8,7 +8,7 @@
         "name": "custom-function",
         "type": "custom-function",
         "config": {
-            "authFunctionName": "loginControl"
+            "authFunctionName": "handdleAuthentication"
         },
         "disabled": false
     }
