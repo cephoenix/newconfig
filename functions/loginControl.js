@@ -376,18 +376,20 @@ async function updateDeviceTypesList () {
   console.log("LEN: >> ", deviceTypesToInsert.length, "<<")
   console.log("Tipos a serem inseridos no Banco de Dados: >> ", JSON.stringify(deviceTypesToInsert[0]), "<<")
   console.log("Tipos a serem inseridos no Banco de Dados: >> ", JSON.stringify(deviceTypesToInsert[1]), "<<")
-  databaseParameters = {
-    action: 'insertMany',
-    collection: 'deviceTypes',
-    filter: {},
-    query: deviceTypesToInsert,
-    options: { upsert: false }
-  }
-
-  try {
-    await context.functions.execute('databaseControl', databaseParameters)
-  } catch (error) {
-    throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
+  if(deviceTypesToInsert.length > 0) {
+    databaseParameters = {
+      action: 'insertMany',
+      collection: 'deviceTypes',
+      filter: {},
+      query: deviceTypesToInsert,
+      options: { upsert: false }
+    }
+  
+    try {
+      await context.functions.execute('databaseControl', databaseParameters)
+    } catch (error) {
+      throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
+    }
   }
 }
 
