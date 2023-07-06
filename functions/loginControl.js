@@ -230,7 +230,7 @@ async function doLogin (parameters) {
   }
 
   const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
-  
+
   return {
     sessionId: 'A52B7A89FE6A3BA58D8C',
     loggedUser,
@@ -246,7 +246,7 @@ async function doLoginTest (parameters) {
   /**
    * Retrieving User information
    */
-  databaseParameters = {
+  let databaseParameters = {
     action: 'findOne',
     collection: 'users',
     query: { login: data.login }
@@ -363,7 +363,7 @@ async function loadDeviceTypesFromBubble () {
   } catch (error) {
     throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
   }
-
+  throw {deb2: {db: dbDeviceTypes}}
   // try {
   //   dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({ initials: `${initials}` })
   //   dbDeviceTypes = await dbDeviceTypes.toArray()
@@ -399,7 +399,7 @@ async function loadDeviceTypesFromBubble () {
   deviceTypes.forEach(element => {
     let isToInsert = true
     for (let index = 0; index < dbDeviceTypes.length; index++) {
-      throw {deb2: {api: element, db: dbDeviceTypes[index]}}
+      
       if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
         isToInsert = false
       }
