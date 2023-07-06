@@ -350,7 +350,7 @@ async function doLoginTest (parameters) {
  */
 async function loadDeviceTypesFromBubble () {
   let dbDeviceTypes
-
+console.log('PONTO 1')
   databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
@@ -364,6 +364,7 @@ async function loadDeviceTypesFromBubble () {
   } catch (error) {
     throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
   }
+  console.log("MERDA: ", JSON.stringify(dbDeviceTypes))
 
   // try {
   //   dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({ initials: `${initials}` })
@@ -397,10 +398,15 @@ async function loadDeviceTypesFromBubble () {
   // Tentando buscar o tipo de dispositivo nos resultados encontrados
   const deviceTypesToInsert = []
 
+
   deviceTypes.forEach(element => {
+    console.log("Ponto 2. Sigla: ", element.SiglaConfRadio, "Código: ", element.Codigo)
+    console.log("DB DEvices: ", JSON.stringify(dbDeviceTypes))
     let isToInsert = true
     for (let index = 0; index < dbDeviceTypes.length; index++) {
-      throw {deb2: {api: element, db: dbDeviceTypes[index]}}
+      
+      console.log('Device do Bubble: ', element)
+      console.log('Device do Banco: ', dbDeviceTypes[index])
       if (dbDeviceTypes[index].SiglaConfRadio === element.SiglaConfRadio) {
         isToInsert = false
       }
@@ -410,7 +416,6 @@ async function loadDeviceTypesFromBubble () {
     }
     isToInsert = true
   })
-  throw {debug: deviceTypesToInsert}
 
   databaseParameters = {
     action: 'insertMany',
