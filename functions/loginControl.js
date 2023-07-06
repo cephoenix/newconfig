@@ -51,7 +51,56 @@ exports = async function (payload) {
     case 'testLogin':
       
       if(payload === 'Hello world!') {
-        processedRequestData = {}
+        processedRequestData = {
+          "headers": {
+              "User-Agent": [
+                  "PostmanRuntime/7.32.3"
+              ],
+              "Accept": [
+                  "*/*"
+              ],
+              "Accept-Encoding": [
+                  "gzip, deflate, br"
+              ],
+              "X-Forwarded-Proto": [
+                  "https"
+              ],
+              "Authorizationkey": [
+                  "645e4f0a833b23298defbed9"
+              ],
+              "Postman-Token": [
+                  "09bef8dc-26ba-4d29-9a62-a01e9033fd5c"
+              ],
+              "Content-Length": [
+                  "82"
+              ],
+              "X-Request-Id": [
+                  "079051cd-4615-4ad8-80ee-ec6e28453b2b"
+              ],
+              "X-Envoy-External-Address": [
+                  "179.73.185.92"
+              ],
+              "X-Cluster-Client-Ip": [
+                  "179.73.185.92"
+              ],
+              "Content-Type": [
+                  "application/json"
+              ],
+              "X-Forwarded-For": [
+                  "179.73.185.92"
+              ],
+              "X-Forwarded-Client-Cert": [
+                  "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
+              ]
+          },
+          "urlParameters": {
+              "action": "testLogin"
+          },
+          "body": {
+              "login": "jardel0101",
+              "encryptedPassword": "YTlhYWFiYWNhZGFlYWZhMA=="
+          }
+        }
       } else {
         try {
           processedRequestData = await context.functions.execute('proccessRequest', payload)
@@ -59,9 +108,6 @@ exports = async function (payload) {
           return { success: false, data: error }
         }        
       }
-      
-      return {debug: processedRequestData}
-      
       
       /**
        * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
