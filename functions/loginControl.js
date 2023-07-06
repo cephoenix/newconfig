@@ -42,7 +42,7 @@ exports = async function (payload) {
       }
 
     case 'testLogin':
-      console.log("DEBUG")
+return {debug: true}
       try {
         processedRequestData = await context.functions.execute('proccessRequest', payload)
       } catch (error) {
