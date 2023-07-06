@@ -295,7 +295,7 @@ async function doLoginTest (parameters) {
 
     throw new Error('Usuário bloqueado!')
   }
-  
+
   databaseParameters = {
     action: 'insertOne',
     collection: 'usersLoginLog',
@@ -314,7 +314,7 @@ async function doLoginTest (parameters) {
     return { success: false, data: error }
   }
 
-  let databaseParameters = {
+  databaseParameters = {
     action: 'findMany',
     collection: 'deviceTypes',
     query: {
