@@ -3,6 +3,5 @@
     "mongo_service_name": "mongodb-atlas",
     "database_name": "configRadio",
     "collection_name": "users",
-    "user_id_field": "_id",
-    "on_user_creation_function_name": "usersControl"
+    "user_id_field": "_id"
 }
