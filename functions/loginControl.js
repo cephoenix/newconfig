@@ -287,7 +287,7 @@ async function updateDeviceTypesList () {
       if (!isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase)) {
         const temp = element
         delete temp._id
-        deviceTypesToInsert.push(temp)
+        // deviceTypesToInsert.push(temp)
       }
     }
   })
