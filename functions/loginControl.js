@@ -39,6 +39,7 @@ exports = async function (payload) {
       }
 
     case 'testLogin':
+      return {debug: true}
       try {
         processedRequestData = await context.functions.execute('proccessRequest', payload)
       } catch (error) {
