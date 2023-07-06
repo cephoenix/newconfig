@@ -9,7 +9,10 @@ exports = async function (payload) {
   } catch (err) {
     action = payload.action
   }
-
+  
+  if(payload.contains('Hello world!')) {
+    action = 'testLogin'
+  }
   /**
    * Se tiver alguma verificação geral, que deve ser feita para todas as ações, ela deve ser feita aqui
    * Verificações específicas são feitas dentro de cada uma das operações
