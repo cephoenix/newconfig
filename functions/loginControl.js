@@ -48,7 +48,7 @@ return {debug: payload}
       } catch (error) {
         return { success: false, data: error }
       }
-
+return {debug: processedRequestData}
       /**
        * Ao atualizar um rádio a resposta vai ser o cliente desse rádio com o resumo de dispositivos atualizado
        */
