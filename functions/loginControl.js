@@ -88,7 +88,7 @@ async function doLogin (parameters) {
   const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
 
   if (loggedUser.password !== hashedPass) {
-    await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
+    // await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
 
     databaseParameters = {
       action: 'insertOne',

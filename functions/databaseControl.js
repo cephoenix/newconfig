@@ -60,15 +60,6 @@ async function validate (parameters) {
     throw new Error('É necessário informar os parâmetros corretamente para realizar a operação!')
   }
 
-  if (parameters.query._id) {
-    try {
-      // eslint-disable-next-line no-new
-      new BSON.ObjectId(`${parameters.query._id}`)
-    } catch (error) {
-      throw new Error(`Erro ao executar operação no Banco de Dados. O valor informado para o parâmetro _id é inválido! ${error}`)
-    }
-  }
-
   /**
    * As verificações abaixo são específicas para cada operação
    */
