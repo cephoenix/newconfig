@@ -73,77 +73,77 @@ exports = async function (payload) {
   } // @todo implementar mecanismo de sessão
 }
 
-/**
- * Load device types from Bubble API
- */
-async function loadDeviceTypes () {
-  let dbDeviceTypes
+// /**
+//  * Load device types from Bubble API
+//  */
+// async function loadDeviceTypes () {
+//   let dbDeviceTypes
 
-  databaseParameters = {
-    action: 'findMany',
-    collection: 'deviceTypes',
-    filter: { },
-    query: { },
-    options: { }
-  }
+//   databaseParameters = {
+//     action: 'findMany',
+//     collection: 'deviceTypes',
+//     filter: { },
+//     query: { },
+//     options: { }
+//   }
 
-  try {
-    dbDeviceTypes = await context.functions.execute('databaseControl', databaseParameters)
-  } catch (error) {
-    throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
-  }
+//   try {
+//     dbDeviceTypes = await context.functions.execute('databaseControl', databaseParameters)
+//   } catch (error) {
+//     throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
+//   }
 
-  // try {
-  //   dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({ initials: `${initials}` })
-  //   dbDeviceTypes = await dbDeviceTypes.toArray()
-  // } catch (e) {
-  //   throw new Error(`Ocorreu um problema ao buscar os tipos de dispositivo ${e}`)
-  // }
+//   // try {
+//   //   dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({ initials: `${initials}` })
+//   //   dbDeviceTypes = await dbDeviceTypes.toArray()
+//   // } catch (e) {
+//   //   throw new Error(`Ocorreu um problema ao buscar os tipos de dispositivo ${e}`)
+//   // }
 
-  // try {
-  //   deviceTypes.forEach(type => {
-  //     if (type.initials === initials) {
-  //       typeToReturn = type
-  //     }
-  //   })
-  // } catch (e) {
-  //   throw new Error(`Não foi possível buscar a lista de Tipos de Dispositivo. ${e}`)
-  // }
+//   // try {
+//   //   deviceTypes.forEach(type => {
+//   //     if (type.initials === initials) {
+//   //       typeToReturn = type
+//   //     }
+//   //   })
+//   // } catch (e) {
+//   //   throw new Error(`Não foi possível buscar a lista de Tipos de Dispositivo. ${e}`)
+//   // }
 
-  const requestResponse = await context.http.get({
-    url: 'https://app.firebee.com.br/api/1.1/obj/Products/',
-    requestHeaders: {
-      'Content-Type': ['application/json'],
-      Authorization: 'Bearer 0b6336226cbe51d8b47e2f04b70de602'
-    },
-    body: {},
-    encodeBodyAsJSON: true
-  })
+//   const requestResponse = await context.http.get({
+//     url: 'https://app.firebee.com.br/api/1.1/obj/Products/',
+//     requestHeaders: {
+//       'Content-Type': ['application/json'],
+//       Authorization: 'Bearer 0b6336226cbe51d8b47e2f04b70de602'
+//     },
+//     body: {},
+//     encodeBodyAsJSON: true
+//   })
 
-  const deviceTypes = await JSON.parse(requestResponse.body.text()).response.results
+//   const deviceTypes = await JSON.parse(requestResponse.body.text()).response.results
 
-  // Tentando buscar o tipo de dispositivo nos resultados encontrados
-  const deviceTypesToInsert = []
-  deviceTypes.forEach(element => {
-    if (dbDeviceTypes.some(type => type.hasOwnProperty(element.SiglaConfRadio))) {
-      deviceTypesToInsert.push(element)
-    }
-  })
+//   // Tentando buscar o tipo de dispositivo nos resultados encontrados
+//   const deviceTypesToInsert = []
+//   deviceTypes.forEach(element => {
+//     if (dbDeviceTypes.some(type => type.hasOwnProperty(element.SiglaConfRadio))) {
+//       deviceTypesToInsert.push(element)
+//     }
+//   })
 
-  databaseParameters = {
-    action: 'insertMany',
-    collection: 'deviceTypes',
-    filter: { },
-    query: { deviceTypesToInsert },
-    options: { upsert: false }
-  }
+//   databaseParameters = {
+//     action: 'insertMany',
+//     collection: 'deviceTypes',
+//     filter: { },
+//     query: { deviceTypesToInsert },
+//     options: { upsert: false }
+//   }
 
-  try {
-    await context.functions.execute('databaseControl', databaseParameters)
-  } catch (error) {
-    throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
-  }
-}
+//   try {
+//     await context.functions.execute('databaseControl', databaseParameters)
+//   } catch (error) {
+//     throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
+//   }
+// }
 
 if (typeof module === 'object') {
   module.exports = exports
