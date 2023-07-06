@@ -60,6 +60,14 @@ async function validate (parameters) {
     throw new Error('É necessário informar os parâmetros corretamente para realizar a operação!')
   }
 
+  if(parameters.query._id) {
+    try {
+      new BSON.ObjectId(`${parameters.query._id}`)
+    } catch(error) {
+      throw new Error(`Erro ao executar operação no Banco de Dados. O valor informado para o parâmetro _id é inválido! ${error}`)
+    }
+  }
+
   /**
    * As verificações abaixo são específicas para cada operação
    */
@@ -161,26 +169,6 @@ async function execute (parameters) {
       case 'insertOne':
         return await dbquery.insertOne(parameters.query, parameters.options)
       case 'insertMany':
-        let resp 
-        // parameters.query = [{
-        //         "Nome": "Central CLE 7\" até 150 pontos",
-        //         "SiglaConfRadio": "WBMOD",
-        //         "Created Date": "2021-03-22T14:06:00.456Z",
-        //         "Created By": "admin_user_firebeemapp_live",
-        //         "Modified Date": "2022-11-08T16:53:41.744Z",
-        //         "Codigo": "20007",
-        //         "SubCategoria": [
-        //             "1616086728712x833675765087504100"
-        //         ],
-        //         "isAtivoVenda": false,
-        //         "RadioTypeOLD": "1644656239066x757728565090018600",
-        //         "isLiberadoConfig": true,
-        //         "DeviceClass": "1",
-        //         "RadioType": "Coordenador 1.0",
-        //         "_id": "1616421960454x280852625994198370"
-        //     }]
-        // console.log(" >>>> Query: ", JSON.stringify(parameters.query))
-        // console.log(" >>>> Options: ", JSON.stringify(parameters.options))
         try {
           resp = await dbquery.insertMany(parameters.query, parameters.options)
         } catch (e) {

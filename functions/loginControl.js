@@ -361,7 +361,6 @@ async function updateDeviceTypesList () {
     }
   })
 
-  throw deviceTypesToInsert
   databaseParameters = {
     action: 'insertMany',
     collection: 'deviceTypes',
