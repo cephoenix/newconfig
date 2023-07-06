@@ -74,7 +74,9 @@ async function validate (parameters) {
 
       break
     case 'insertMany':
-
+      if(!Array.isArray(parameters.query)) {
+        throw new Error('É necessário fornecer um array como parâmetro para a operação insertMany')
+      }
       break
     case 'updateOne':
     case 'findOneAndUpdate':
@@ -140,20 +142,51 @@ async function execute (parameters) {
     switch (parameters.action) {
       case 'findOne':
         if (parameters.projection) {
-          return await dbquery.findOne(parameters.query, parameters.options)
-        } else {
           return await dbquery.findOne(parameters.query, parameters.projection, parameters.options)
+        } else {
+          return await dbquery.findOne(parameters.query, parameters.options)
         }
       case 'findMany':
-        if (parameters.projection) {
-          return await dbquery.find(parameters.query, parameters.options)
-        } else {
-          return await dbquery.find(parameters.query, parameters.projection, parameters.options)
+        try {
+          if (parameters.projection) {
+            let resp = await dbquery.find(parameters.query, parameters.projection, parameters.options)
+            return await resp.toArray()
+          } else {
+            return await dbquery.find(parameters.query, parameters.options)
+          }          
+        } catch (e) {
+          throw new Error ("Falha ao executar a operação findMany no Banco de Dados! ", e)
         }
+
       case 'insertOne':
         return await dbquery.insertOne(parameters.query, parameters.options)
       case 'insertMany':
-        return await dbquery.insertMany(parameters.query, parameters.options)
+        let resp 
+        parameters.query = [{
+                "Nome": "Central CLE 7\" até 150 pontos",
+                "SiglaConfRadio": "WBMOD",
+                "Created Date": "2021-03-22T14:06:00.456Z",
+                "Created By": "admin_user_firebeemapp_live",
+                "Modified Date": "2022-11-08T16:53:41.744Z",
+                "Codigo": "20007",
+                "SubCategoria": [
+                    "1616086728712x833675765087504100"
+                ],
+                "isAtivoVenda": false,
+                "RadioTypeOLD": "1644656239066x757728565090018600",
+                "isLiberadoConfig": true,
+                "DeviceClass": "1",
+                "RadioType": "Coordenador 1.0",
+                "_id": "1616421960454x280852625994198370"
+            }]
+        console.log(" >>>> Query: ", JSON.stringify(parameters.query))
+        console.log(" >>>> Options: ", JSON.stringify(parameters.options))
+        try {
+          resp = await dbquery.insertMany(parameters.query, parameters.options)
+        } catch (e) {
+          throw new Error (`Falha ao executar a operação insertMany no Banco de Dados! ${e}`)
+        }
+        return resp
       case 'updateOne':
         return await dbquery.updateOne(parameters.filter, parameters.query, parameters.options)
       case 'findOneAndUpdate':

@@ -309,10 +309,8 @@ async function doLoginTest (parameters) {
   }
 
   try {
-    await dd("Entrando na função loadDeviceTypesFromBubble")
-    await loadDeviceTypesFromBubble()
+    await updateDeviceTypesList()
   } catch (error) {
-    await dd("Deu pau no loadDeviceTypesFromBubble")
     return { success: false, data: error }
   }
 
@@ -350,6 +348,72 @@ async function dd(msg) {
   await console.log(msg)
 }
 
+async function updateDeviceTypesList () {
+  let deviceTypesFromDatabase = await getDeviceTypesListFromDatabase()
+  let devicesFromAPI = await getDeviceTypesListFromAPI()
+
+  const deviceTypesToInsert = []
+  devicesFromAPI.forEach(element => {
+    if(element.SiglaConfRadio.includes('LR')) {
+      if (!isDeviceTypeOnArray(element.SiglaConfRadio, deviceTypesFromDatabase)) {
+        deviceTypesToInsert.push(element)
+      }
+    }
+  })
+
+  throw deviceTypesToInsert
+  databaseParameters = {
+    action: 'insertMany',
+    collection: 'deviceTypes',
+    filter: {},
+    query: deviceTypesToInsert,
+    options: { upsert: false }
+  }
+
+  try {
+    await context.functions.execute('databaseControl', databaseParameters)
+  } catch (error) {
+    throw new Error(`Ocorreu um erro ao inserir os Tipos de Dispositivo! ${error}`)
+  }
+}
+
+function isDeviceTypeOnArray(initials, arrayToCheck) {
+  for (let index = 0; index < arrayToCheck.length; index++) {
+    if (arrayToCheck[index].initials == initials) {
+      return true
+    }
+  }
+  return false
+}
+
+async function getDeviceTypesListFromDatabase() {
+  databaseParameters = {
+    action: 'findMany',
+    collection: 'deviceTypes',
+    filter: {},
+    query: {},
+    options: {}
+  }
+  try {
+    return await context.functions.execute('databaseControl', databaseParameters)
+  } catch (error) {
+    throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
+  }
+}
+
+async function getDeviceTypesListFromAPI() {
+  const requestResponse = await context.http.get({
+    url: 'https://app.firebee.com.br/api/1.1/obj/Products/',
+    requestHeaders: {
+      'Content-Type': ['application/json'],
+      Authorization: 'Bearer 0b6336226cbe51d8b47e2f04b70de602'
+    },
+    body: {},
+    encodeBodyAsJSON: true
+  })
+  return await JSON.parse(requestResponse.body.text()).response.results
+}
+
 /**
  * Load device types from Bubble API
  */
@@ -368,6 +432,9 @@ async function loadDeviceTypesFromBubble () {
   let dbDeviceTypes
   try {
     dbDeviceTypes = await context.functions.execute('databaseControl', databaseParameters)
+    // dbDeviceTypes = await context.services.get('mongodb-atlas').db('configRadio').collection('deviceTypes').find({}, {})
+    dbDeviceTypes = await dbDeviceTypes.toArray()
+    console.log('Types no DB: ', JSON.stringify(dbDeviceTypes))
   } catch (error) {
     throw new Error(`Ocorreu um erro ao buscar os Tipos de Dispositivo! ${error}`)
   }
