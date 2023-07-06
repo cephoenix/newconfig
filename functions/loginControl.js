@@ -66,107 +66,110 @@ exports = async function (payload) {
 }
 
 async function doLoginTest () {
-  return { doLogin: 'test' }
+  
+  const data = parameters.body
+  const remoteIp = parameters.headers['X-Cluster-Client-Ip'][0]
+
+  /**
+   * Retrieving User information
+   */
+  let databaseParameters = {
+    action: 'findOne',
+    collection: 'users',
+    query: { login: data.login }
+  }
+
+  const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
+
+  if (!loggedUser) {
+    throw new Error('Senha ou usuário incorretos!')
+  }
+
+  const decryptedPassword = await context.functions.execute('decryptText', data.encryptedPassword) // Decriptografa a senha e depois aplica o hash nela
+  const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
+
+  if (loggedUser.password !== hashedPass) {
+    // await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
+
+    databaseParameters = {
+      action: 'insertOne',
+      collection: 'usersLoginLog',
+      query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' }
+    }
+
+    try {
+      await context.functions.execute('databaseControl', databaseParameters)
+    } catch (error) {
+      throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
+    }
+
+    throw new Error('Senha ou usuário incorretos!')
+  }
+
+  if (loggedUser.blocked) {
+    databaseParameters = {
+      action: 'insertOne',
+      collection: 'usersLoginLog',
+      query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Usuário bloqueado' }
+    }
+
+    try {
+      await context.functions.execute('databaseControl', databaseParameters)
+    } catch (error) {
+      throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
+    }
+
+    throw new Error('Usuário bloqueado!')
+  }
+
+  databaseParameters = {
+    action: 'insertOne',
+    collection: 'usersLoginLog',
+    query: { login: parameters.login, success: true, clientIp: remoteIp, date: new Date() }
+  }
+
+  try {
+    await context.functions.execute('databaseControl', databaseParameters)
+  } catch (error) {
+    throw new Error(`Falha ao registrar sucesso de login no banco de dados: ${error}`)
+  }
+
+  try {
+    await updateDeviceTypesList()
+  } catch (error) {
+    return { success: false, data: error }
+  }
+
+  databaseParameters = {
+    action: 'findMany',
+    collection: 'deviceTypes',
+    query: {
+      class: {
+        $ne: '6'
+      }
+    },
+    filter: {}
+  }
+
+  const deviceTypes = await context.functions.execute('databaseControl', databaseParameters)
+
+  databaseParameters = {
+    action: 'findOne',
+    collection: 'parameters',
+    query: { name: 'softwareVersion' },
+    filter: {}
+  }
+
+  const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
+
+  return {
+    sessionId: 'A52B7A89FE6A3BA58D8C',
+    loggedUser,
+    deviceTypes,
+    softwareVersion: softwareVersion.value
+  } // @todo implementar mecanismo de sessão
+  
 }
-// async function doLogin (parameters) {
-//   const data = parameters.body
-//   const remoteIp = parameters.headers['X-Cluster-Client-Ip'][0]
-
-//   /**
-//    * Retrieving User information
-//    */
-//   let databaseParameters = {
-//     action: 'findOne',
-//     collection: 'users',
-//     query: { login: data.login }
-//   }
-
-//   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
-
-//   if (!loggedUser) {
-//     throw new Error('Senha ou usuário incorretos!')
-//   }
-
-//   const decryptedPassword = await context.functions.execute('decryptText', data.encryptedPassword) // Decriptografa a senha e depois aplica o hash nela
-//   const hashedPass = await context.functions.execute('encryptPassword', decryptedPassword)
-
-//   if (loggedUser.password !== hashedPass) {
-//     // await dbquery.insertOne({ login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' })
-
-//     databaseParameters = {
-//       action: 'insertOne',
-//       collection: 'usersLoginLog',
-//       query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Senha incorreta' }
-//     }
-
-//     try {
-//       await context.functions.execute('databaseControl', databaseParameters)
-//     } catch (error) {
-//       throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
-//     }
-
-//     throw new Error('Senha ou usuário incorretos!')
-//   }
-
-//   if (loggedUser.blocked) {
-//     databaseParameters = {
-//       action: 'insertOne',
-//       collection: 'usersLoginLog',
-//       query: { login: parameters.login, success: false, clientIp: remoteIp, date: new Date(), reason: 'Usuário bloqueado' }
-//     }
-
-//     try {
-//       await context.functions.execute('databaseControl', databaseParameters)
-//     } catch (error) {
-//       throw new Error(`Falha ao registrar falha de login no banco de dados: ${error}`)
-//     }
-
-//     throw new Error('Usuário bloqueado!')
-//   }
-
-//   databaseParameters = {
-//     action: 'insertOne',
-//     collection: 'usersLoginLog',
-//     query: { login: parameters.login, success: true, clientIp: remoteIp, date: new Date() }
-//   }
-
-//   try {
-//     await context.functions.execute('databaseControl', databaseParameters)
-//   } catch (error) {
-//     throw new Error(`Falha ao registrar sucesso de login no banco de dados: ${error}`)
-//   }
-
-//   // await loadDeviceTypesFromBubble()
-
-//   databaseParameters = {
-//     action: 'findMany',
-//     collection: 'deviceTypes',
-//     query: {
-//       class: {
-//         $ne: '6'
-//       }
-//     },
-//     filter: {}
-//   }
-
-//   const deviceTypes = await context.functions.execute('databaseControl', databaseParameters)
-
-//   databaseParameters = {
-//     action: 'findOne',
-//     collection: 'parameters',
-//     query: { name: 'softwareVersion' },
-//     filter: {}
-//   }
-
-//   const softwareVersion = await context.functions.execute('databaseControl', databaseParameters)
-
-//   return {
-//     sessionId: 'A52B7A89FE6A3BA58D8C',
-//     loggedUser,
-//     deviceTypes,
-//     softwareVersion: softwareVersion.value
-//   } // @todo implementar mecanismo de sessão
-// }
 
 async function doLogin (parameters) {
   const data = parameters.body
@@ -279,6 +282,7 @@ async function updateDeviceTypesList () {
   const deviceTypesToInsert = []
   devicesFromAPI.forEach(element => {
     if (element.SiglaConfRadio.includes('LR')) {
+      console.log("IS IN ARRAY: ", isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase))
       if (!isDeviceTypeInArray(element.SiglaConfRadio, deviceTypesFromDatabase)) {
         const temp = element
         delete temp._id
