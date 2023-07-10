@@ -2,8 +2,9 @@ exports = async function (payload) {
 
   const users = context.services
     .get("mongodb-atlas")
-    .db("app")
+    .db("configRadio")
     .collection("users");
+
   let login
   let encryptedPassword
 
@@ -11,17 +12,15 @@ exports = async function (payload) {
     login = 'carlosemilio'
     encryptedPassword = '21345647684'
     console.log("Payload: ", payload)
-    
-      
   } else {
     const { login, encryptedPassword } = payload;
-
     return {debug: {login: login, pass: encryptedPassword} }
   }
-   
-  const user = await users.findOne({ login });
+
+  const resp = await users.findOne({'login': login});
   
-  return user._id.toString();
+  return resp._id.toString();
+  
   
   // 2. Create a new user or log in an existing user in the external
   //    authentication service.
