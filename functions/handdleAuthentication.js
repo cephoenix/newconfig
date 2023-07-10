@@ -22,7 +22,7 @@ exports = async function (payload) {
 
   }
   
-  const resp = await users.findOne({'login': login});
+  // const resp = await users.findOne({'login': login});
   
   return { "id": "221435435874384" }
   // return resp._id.toString()
