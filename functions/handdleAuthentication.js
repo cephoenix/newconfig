@@ -27,6 +27,9 @@ exports = async function (payload) {
   //    stored MongoDB document that describes them.
   //
   //    !!! This is NOT the user's internal account ID for your app !!!
-  return user[0]._id
+  let ret = user[0]._id
+  
+  return ret
+  
   // return user._id;
 };
