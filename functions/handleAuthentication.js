@@ -16,7 +16,7 @@ exports = async function (payload) {
   } else {
     
     let data 
-    return {debug: payload.body.text() }
+    return {debug: JSON.parse(payload.body.text()) }
     try {
       data = payload.body.text()
     } catch (error) {
