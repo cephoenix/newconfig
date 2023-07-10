@@ -1,16 +1,25 @@
 exports = async function (payload) {
-  // 1. Parse the `payload` object, which holds data from the
-  //    FunctionCredential sent by the SDK.
-  
+
+  const users = context.services
+    .get("mongodb-atlas")
+    .db("app")
+    .collection("users");
+      
   if(payload === "Hello world!") {
     let login = 'carlosemilio'
     let encryptedPassword = '21345647684'
     console.log("Payload: ", payload)
+    
+      
   } else {
     const { login, encryptedPassword } = payload;
+
     return {debug: {login: login, pass: encryptedPassword} }
   }
+   
+  const user = await users.findOne({ login });
   
+  return user._id.toString();
   
   // 2. Create a new user or log in an existing user in the external
   //    authentication service.
