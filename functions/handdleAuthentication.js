@@ -4,10 +4,12 @@ exports = async function (payload) {
     .get("mongodb-atlas")
     .db("app")
     .collection("users");
-      
+  let login
+  let encryptedPassword
+
   if(payload === "Hello world!") {
-    let login = 'carlosemilio'
-    let encryptedPassword = '21345647684'
+    login = 'carlosemilio'
+    encryptedPassword = '21345647684'
     console.log("Payload: ", payload)
     
       
