@@ -11,7 +11,7 @@ exports = async function (payload) {
     login = 'carlosemilio'
     encryptedPassword = '21345647684'
     console.log("Payload: ", payload)
-    return { id: 1 }    
+    return { _id: 1 }
   } else {
     
     try{
@@ -22,7 +22,7 @@ exports = async function (payload) {
 
   }
   // const resp = await users.findOne({'login': login});
-  return { id: 2 }
+  return { _id: 2 }
   // return resp._id.toString()
   
 }
