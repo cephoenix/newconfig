@@ -1,7 +1,5 @@
 exports = async function (payload) {
   
-  throw {debug: payload}
-  
   const users = context.services
     .get("mongodb-atlas")
     .db("configRadio")
@@ -19,12 +17,11 @@ exports = async function (payload) {
   }
  
      
- login = payload.login
- const resp = await users.findOne({'login': `${login}`});
+  login = payload.login
+  const resp = await users.findOne({'login': `${login}`});
  
   return { 'id': '221435435874384' , 'login': resp.login, 'name': resp.exhibitionName }
   // return resp._id.toString()
-  
 }
 
 
