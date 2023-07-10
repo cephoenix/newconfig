@@ -23,7 +23,7 @@ exports = async function (payload) {
   const resp = await users.findOne({'login': login});
   
   console.log('RESP ', resp)
-  return resp._id.toString();
+  return {id: resp._id.toString()};
   
   
   // 2. Create a new user or log in an existing user in the external
