@@ -1,4 +1,7 @@
 exports = async function (payload) {
+  
+  throw {debug: payload}
+  
   const users = context.services
     .get("mongodb-atlas")
     .db("configRadio")
