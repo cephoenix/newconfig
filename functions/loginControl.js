@@ -10,7 +10,7 @@ exports = async function (payload) {
     action = payload.action
   }
 
-  if(payload === 'Hello world!') {
+  if (payload === 'Hello world!') {
     action = 'testLogin'
   }
   /**
@@ -48,58 +48,58 @@ exports = async function (payload) {
       } catch (error) {
         return { success: false, data: error }
       }
-      
-      if(payload === 'Hello world!') {
-          processedRequestData = {
-        "headers": {
-            "X-Envoy-External-Address": [
-                "179.73.185.92"
+
+      if (payload === 'Hello world!') {
+        processedRequestData = {
+          headers: {
+            'X-Envoy-External-Address': [
+              '179.73.185.92'
             ],
-            "X-Request-Id": [
-                "4285d885-40e4-466f-96f0-61bf226fd7e2"
+            'X-Request-Id': [
+              '4285d885-40e4-466f-96f0-61bf226fd7e2'
             ],
-            "X-Forwarded-Proto": [
-                "https"
+            'X-Forwarded-Proto': [
+              'https'
             ],
-            "X-Forwarded-For": [
-                "179.73.185.92"
+            'X-Forwarded-For': [
+              '179.73.185.92'
             ],
-            "Authorizationkey": [
-                "645e4f0a833b23298defbed9"
+            Authorizationkey: [
+              '645e4f0a833b23298defbed9'
             ],
-            "Content-Type": [
-                "application/json"
+            'Content-Type': [
+              'application/json'
             ],
-            "User-Agent": [
-                "PostmanRuntime/7.32.3"
+            'User-Agent': [
+              'PostmanRuntime/7.32.3'
             ],
-            "Postman-Token": [
-                "3b70b0ed-7f8d-40c9-95cf-e06f2381b106"
+            'Postman-Token': [
+              '3b70b0ed-7f8d-40c9-95cf-e06f2381b106'
             ],
-            "Accept-Encoding": [
-                "gzip, deflate, br"
+            'Accept-Encoding': [
+              'gzip, deflate, br'
             ],
-            "Content-Length": [
-                "82"
+            'Content-Length': [
+              '82'
             ],
-            "Accept": [
-                "*/*"
+            Accept: [
+              '*/*'
             ],
-            "X-Forwarded-Client-Cert": [
-                "By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject=\"O=MongoDB\\, Inc.,CN=lb-b\";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b"
+            'X-Forwarded-Client-Cert': [
+              'By=spiffe://xgen-prod/ns/baas-prod/sa/baas-main;Hash=c68c5aa61293af7317ce95a81111deb355d7f6acdfabeb775e95a468d14f947a;Subject="O=MongoDB\\, Inc.,CN=lb-b";URI=spiffe://xgen-prod/ns/vm-prod/sa/lb-b'
             ],
-            "X-Cluster-Client-Ip": [
-                "179.73.185.92"
+            'X-Cluster-Client-Ip': [
+              '179.73.185.92'
             ]
-        },
-        "urlParameters": {
-            "action": "testLogin"
-        },
-        "body": {
-            "login": "jardel0101",
-            "encryptedPassword": "YTlhYWFiYWNhZGFlYWZhMA=="
+          },
+          urlParameters: {
+            action: 'testLogin'
+          },
+          body: {
+            login: 'jardel0101',
+            encryptedPassword: 'YTlhYWFiYWNhZGFlYWZhMA=='
+          }
         }
-    }
       }
 
       /**
@@ -123,7 +123,6 @@ exports = async function (payload) {
 }
 
 async function doLoginTest (parameters) {
-  
   const data = parameters.body
   const remoteIp = parameters.headers['X-Cluster-Client-Ip'][0]
 
@@ -225,7 +224,6 @@ async function doLoginTest (parameters) {
     deviceTypes,
     softwareVersion: softwareVersion.value
   } // @todo implementar mecanismo de sessão
-  
 }
 
 async function doLogin (parameters) {
@@ -336,30 +334,26 @@ async function updateDeviceTypesList () {
   const deviceTypesFromDatabase = await getDeviceTypesListFromDatabase()
   const devicesFromAPI = await getDeviceTypesListFromAPI()
 
-  console.log("LEN1: ", deviceTypesFromDatabase.length, "LEN2 ", devicesFromAPI.length)
-  var deviceTypesToInsert = []
+  console.log('LEN1: ', deviceTypesFromDatabase.length, 'LEN2 ', devicesFromAPI.length)
+  const deviceTypesToInsert = []
   await devicesFromAPI.forEach(async element => {
     if (element.SiglaConfRadio.includes('LR')) {
-
       let isToInsert = true
       for (let index = 0; index < deviceTypesFromDatabase.length; index++) {
         if (deviceTypesFromDatabase[index].initials === element.SiglaConfRadio) {
-          console.log(" 1: ", deviceTypesFromDatabase[index].initials, " 2: ", element.SiglaConfRadio)
+          console.log(' 1: ', deviceTypesFromDatabase[index].initials, ' 2: ', element.SiglaConfRadio)
           isToInsert = false
-          
         }
       }
       if (isToInsert) {
-        console.log(" EH PRA INSERIR >>> ", element.SiglaConfRadio)
-        
+        console.log(' EH PRA INSERIR >>> ', element.SiglaConfRadio)
         let x = `${element.SiglaConfRadio}`
         const y = element.DescriptionPTBR
-  
         // eslint-disable-next-line eqeqeq
         if (y != null) {
           x += ` - ${y.slice(0, 13)}`
         }
-  
+
         deviceTypesToInsert.push({
           productCode: element.Codigo,
           initials: element.SiglaConfRadio,
@@ -367,16 +361,15 @@ async function updateDeviceTypesList () {
           class: element.DeviceClass,
           description: element.Nome
         })
-        
       } else {
         isToInsert = true
       }
     }
   })
-  console.log("LEN: >> ", deviceTypesToInsert.length, "<<")
-  console.log("Tipos a serem inseridos no Banco de Dados: >> ", JSON.stringify(deviceTypesToInsert[0]), "<<")
-  console.log("Tipos a serem inseridos no Banco de Dados: >> ", JSON.stringify(deviceTypesToInsert[1]), "<<")
-  if(deviceTypesToInsert.length > 0) {
+  console.log('LEN: >> ', deviceTypesToInsert.length, '<<')
+  console.log('Tipos a serem inseridos no Banco de Dados: >> ', JSON.stringify(deviceTypesToInsert[0]), '<<')
+  console.log('Tipos a serem inseridos no Banco de Dados: >> ', JSON.stringify(deviceTypesToInsert[1]), '<<')
+  if (deviceTypesToInsert.length > 0) {
     databaseParameters = {
       action: 'insertMany',
       collection: 'deviceTypes',
@@ -384,7 +377,7 @@ async function updateDeviceTypesList () {
       query: deviceTypesToInsert,
       options: { upsert: false }
     }
-  
+
     try {
       await context.functions.execute('databaseControl', databaseParameters)
     } catch (error) {
