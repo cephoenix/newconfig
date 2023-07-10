@@ -12,14 +12,18 @@ exports = async function (payload) {
     login = 'carlosemilio'
     encryptedPassword = '21345647684'
     console.log("Payload: ", payload)
+    
+      
   } else {
     const { login, encryptedPassword } = payload;
+
     return {debug: {login: login, pass: encryptedPassword} }
   }
-
+   console.log("login: ", login)
   const resp = await users.findOne({'login': login});
   
-  return {id: resp._id.toString()};
+  console.log('RESP ', resp)
+  return resp._id.toString();
   
   
   // 2. Create a new user or log in an existing user in the external
