@@ -14,8 +14,8 @@ exports = async function (payload) {
     console.log("RESP ", JSON.stringify(resp))
     return { 'id': '221435435874384' }
   } else {
-     requestData = JSON.parse(payload)
-     login = requestData.login
+     
+     login = payload.login
   }
   
   const resp = await users.findOne({'login': `${login}`});
