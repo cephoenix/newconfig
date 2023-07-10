@@ -12,7 +12,14 @@ exports = async function (payload) {
     encryptedPassword = '21345647684'
     console.log("Payload: ", payload)
   } else {
-    const { login, encryptedPassword } = payload;
+    
+    try{
+      const { login, encryptedPassword } = payload;
+    } catch (error) {
+      throw new Error('forneça login e senha!')
+    }
+    
+    
     return {debug: {login: login, pass: encryptedPassword} }
   }
   const resp = await users.findOne({'login': login});
