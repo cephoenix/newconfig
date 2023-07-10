@@ -22,7 +22,7 @@ exports = async function (payload) {
    console.log("login: ", login)
   const resp = await users.findOne({'login': login});
   
-  console.log('RESP ', resp)
+  console.log('RESP ', JSON.stringify(resp._id.toString()))
   return {
     "_id": resp._id.toString(),
     "id": resp._id.toString(),
