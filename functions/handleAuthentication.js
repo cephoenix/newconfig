@@ -12,6 +12,7 @@ exports = async function (payload) {
     encryptedPassword = '21345647684'
     const resp = await users.findOne({'login': `${login}`});
     console.log("RESP ", JSON.stringify(resp))
+    return { 'id': '221435435874384' }
   } else {
     const { login, encryptedPassword } = payload;
   }
