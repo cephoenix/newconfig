@@ -8,8 +8,8 @@
         "name": "custom-function",
         "type": "custom-function",
         "config": {
-            "authFunctionName": "handdleAuthentication"
+            "authFunctionName": "handleAuthentication"
         },
-        "disabled": true
+        "disabled": false
     }
 }
