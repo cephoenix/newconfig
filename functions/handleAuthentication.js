@@ -14,6 +14,7 @@ exports = async function (payload) {
     console.log("RESP ", JSON.stringify(resp))
     return { 'id': '221435435874384' }
   } else {
+    throw { debug: payload }
      requestData = JSON.parse(payload.body.text())
      login = requestData.login
   }
