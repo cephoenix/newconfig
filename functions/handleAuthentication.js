@@ -12,20 +12,11 @@ exports = async function (payload) {
     encryptedPassword = '21345647684'
     const resp = await users.findOne({'login': `${login}`});
     console.log("RESP ", JSON.stringify(resp))
-    return { "id": "1" }
   } else {
-    
-    try{
-      const { login, encryptedPassword } = payload;
-    } catch (error) {
-      throw new Error('forneça login e senha!')
-    }
-
+    const { login, encryptedPassword } = payload;
   }
   
   const resp = await users.findOne({'login': `${login}`});
-  
-  console.log("debug: ", JSON.stringify(resp))
   
   return { 'id': '221435435874384', 'name': resp.login, 'exhibitionName': resp.exhibitionName}
   // return resp._id.toString()
