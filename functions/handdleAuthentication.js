@@ -1,5 +1,4 @@
 exports = async function (payload) {
-
   const users = context.services
     .get("mongodb-atlas")
     .db("configRadio")
@@ -7,7 +6,7 @@ exports = async function (payload) {
 
   let login
   let encryptedPassword
-
+  
   if(payload === "Hello world!") {
     login = 'carlosemilio'
     encryptedPassword = '21345647684'
@@ -16,10 +15,19 @@ exports = async function (payload) {
     const { login, encryptedPassword } = payload;
     return {debug: {login: login, pass: encryptedPassword} }
   }
-
   const resp = await users.findOne({'login': login});
+  
+  return { 'id':'5f650356a8631da45dd4784c' }
+  
+}
 
-  return '5f650356a8631da45dd4784c'
+
+
+
+
+  
+  
+
   // return resp._id.toString()
   
   // return {
@@ -55,4 +63,3 @@ exports = async function (payload) {
   //    !!! This is NOT the user's internal account ID for your app !!!
   // return user._id
   // return user._id;
-};
