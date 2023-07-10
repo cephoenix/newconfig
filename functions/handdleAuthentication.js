@@ -12,7 +12,7 @@ exports = async function (payload) {
   // const auth = require("fake-auth-service");
   // const user = await auth.login({ username, password });
   // // Or you can communicate directly over HTTP
-  // const userFromHttp = await context.http.post({
+  // const userFromHttp = await context.http.post({;  
   //   url: "https://example.com/auth/login",
   //   headers: {
   //     Authorization: ["Basic bmlja0BleGFtcGxlLmNvbTpQYTU1dzByZA=="],
