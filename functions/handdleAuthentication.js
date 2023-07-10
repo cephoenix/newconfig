@@ -5,8 +5,8 @@ exports = async function (payload) {
   // 2. Create a new user or log in an existing user in the external
   //    authentication service.
   // You can use a client library from npm
-  login = 'carlosemilio'
-  const user = context.services.get('mongodb-atlas').db('configRadio').collection('users').find({login: login})
+  
+  const user = context.services.get('mongodb-atlas').db('configRadio').collection('users').findOne({'login': 'carlosemilio'})
   
   // const auth = require("fake-auth-service");
   // const user = await auth.login({ username, password });
@@ -18,7 +18,7 @@ exports = async function (payload) {
   //   },
   //   body: JSON.stringify({ username, password }),
   // });
-  
+  console.log("USER: ", JSON.stringify(user))
   
   
   // 3. Return a unique identifier for the user. Typically this is the
