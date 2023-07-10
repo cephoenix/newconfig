@@ -112,7 +112,11 @@ exports = async function (payload) {
       }
 
       try {
-        return { success: true, data: await doLoginTest(processedRequestData) }
+        
+        let resp = await doLoginTest(processedRequestData)
+        console.log("AUTH: ", JSON.stringify(context.authorization))
+        console.log("USER: ", JSON.stringify(context.user))
+        return { success: true, data: resp }
       } catch (error) {
         return { success: false, data: error }
       }
@@ -334,19 +338,16 @@ async function updateDeviceTypesList () {
   const deviceTypesFromDatabase = await getDeviceTypesListFromDatabase()
   const devicesFromAPI = await getDeviceTypesListFromAPI()
 
-  console.log('LEN1: ', deviceTypesFromDatabase.length, 'LEN2 ', devicesFromAPI.length)
   const deviceTypesToInsert = []
   await devicesFromAPI.forEach(async element => {
     if (element.SiglaConfRadio.includes('LR')) {
       let isToInsert = true
       for (let index = 0; index < deviceTypesFromDatabase.length; index++) {
         if (deviceTypesFromDatabase[index].initials === element.SiglaConfRadio) {
-          console.log(' 1: ', deviceTypesFromDatabase[index].initials, ' 2: ', element.SiglaConfRadio)
           isToInsert = false
         }
       }
       if (isToInsert) {
-        console.log(' EH PRA INSERIR >>> ', element.SiglaConfRadio)
         let x = `${element.SiglaConfRadio}`
         const y = element.DescriptionPTBR
         // eslint-disable-next-line eqeqeq
@@ -366,9 +367,7 @@ async function updateDeviceTypesList () {
       }
     }
   })
-  console.log('LEN: >> ', deviceTypesToInsert.length, '<<')
-  console.log('Tipos a serem inseridos no Banco de Dados: >> ', JSON.stringify(deviceTypesToInsert[0]), '<<')
-  console.log('Tipos a serem inseridos no Banco de Dados: >> ', JSON.stringify(deviceTypesToInsert[1]), '<<')
+
   if (deviceTypesToInsert.length > 0) {
     databaseParameters = {
       action: 'insertMany',
