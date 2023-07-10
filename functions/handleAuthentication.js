@@ -14,6 +14,15 @@ exports = async function (payload) {
     console.log("RESP ", JSON.stringify(resp))
     return { 'id': '221435435874384' }
   } else {
+    
+    let data 
+    
+    try {
+      data = payload.body.text()
+    } catch (error) {
+      login = data.login
+
+    }
     const { login, encryptedPassword } = payload;
   }
   
