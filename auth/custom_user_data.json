@@ -2,6 +2,6 @@
     "enabled": true,
     "mongo_service_name": "mongodb-atlas",
     "database_name": "configRadio",
-    "collection_name": "users",
-    "user_id_field": "alternativeId"
+    "collection_name": "customUserData",
+    "user_id_field": "userId"
 }
