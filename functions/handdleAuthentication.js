@@ -1,12 +1,22 @@
 exports = async function (payload) {
   // 1. Parse the `payload` object, which holds data from the
   //    FunctionCredential sent by the SDK.
-  const { login, encryptedPassword } = payload;
+  
+  if(payload === "Hello world!") {
+    let login = 'carlosemilio'
+    let encryptedPassword = '21345647684'
+    console.log("Payload: ", payload)
+  } else {
+    const { login, encryptedPassword } = payload;
+    return {debug: {login: login, pass: encryptedPassword} }
+  }
+  
+  
   // 2. Create a new user or log in an existing user in the external
   //    authentication service.
   // You can use a client library from npm
   
-  const user = context.services.get('mongodb-atlas').db('configRadio').collection('users').findOne({'login': login})
+  // const user = await context.services.get('mongodb-atlas').db('configRadio').collection('users').findOne({'login': login})
   
   // const auth = require("fake-auth-service");
   // const user = await auth.login({ username, password });
@@ -18,7 +28,7 @@ exports = async function (payload) {
   //   },
   //   body: JSON.stringify({ username, password }),
   // });
-  console.log("USER: ", JSON.stringify(user))
+  // console.log("USER: ", JSON.stringify(user))
   
   
   // 3. Return a unique identifier for the user. Typically this is the
@@ -26,6 +36,6 @@ exports = async function (payload) {
   //    stored MongoDB document that describes them.
   //
   //    !!! This is NOT the user's internal account ID for your app !!!
-  return user._id
+  // return user._id
   // return user._id;
 };
