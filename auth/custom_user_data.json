@@ -3,5 +3,5 @@
     "mongo_service_name": "mongodb-atlas",
     "database_name": "configRadio",
     "collection_name": "users",
-    "user_id_field": "_id"
+    "user_id_field": "alternativeId"
 }
