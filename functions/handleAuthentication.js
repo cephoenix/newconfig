@@ -16,14 +16,12 @@ exports = async function (payload) {
   } else {
     
     let data 
-    
+    return {debug: payload }
     try {
       data = payload.body.text()
     } catch (error) {
       login = data.login
-
     }
-    const { login, encryptedPassword } = payload;
   }
   
   const resp = await users.findOne({'login': `${login}`});
