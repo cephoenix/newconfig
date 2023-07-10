@@ -3,6 +3,6 @@ exports = function({ query, headers, body}, response) {
 
   console.log("USER: ", JSON.stringify(context.user))
 
-  return { debugAuthentication: true}
+  return context
 
 };
