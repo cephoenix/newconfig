@@ -6,7 +6,7 @@ exports = async function (payload) {
 
   let login
   let encryptedPassword
-  
+  let requestData
   if(payload === "Hello world!") {
     login = 'carlosemilio'
     encryptedPassword = '21345647684'
@@ -14,14 +14,8 @@ exports = async function (payload) {
     console.log("RESP ", JSON.stringify(resp))
     return { 'id': '221435435874384' }
   } else {
-    
-    let data 
-    return {debug: JSON.parse(payload.body.text()) }
-    try {
-      data = payload.body.text()
-    } catch (error) {
-      login = data.login
-    }
+     requestData = JSON.parse(payload.body.text())
+     login = requestData.login
   }
   
   const resp = await users.findOne({'login': `${login}`});
