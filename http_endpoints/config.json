@@ -2,7 +2,7 @@
     {
         "route": "/debug",
         "http_method": "POST",
-        "function_name": "debug",
+        "function_name": "handleAuthentication",
         "validation_method": "NO_VALIDATION",
         "respond_result": true,
         "fetch_custom_user_data": true,
