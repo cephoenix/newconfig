@@ -17,7 +17,7 @@ exports = async function (payload) {
   }
   const resp = await users.findOne({'login': login});
   
-  return { 'id':'5f650356a8631da45dd4784c' }
+  return resp._id.toString()
   
 }
 
