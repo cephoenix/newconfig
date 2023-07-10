@@ -6,8 +6,9 @@ exports = async function (payload) {
   //    authentication service.
   // You can use a client library from npm
   
-  const user = context.services.get('mongodb-atlas').db('configRadio').collection('users').findOne({'login': 'carlosemilio'})
-  
+  let user = context.services.get('mongodb-atlas').db('configRadio').collection('users').find({'login': 'carlosemilio'})
+  user = await user.toArray()
+  console.log("DEBUG: ", JSON.stringify(user[0]))
   // const auth = require("fake-auth-service");
   // const user = await auth.login({ username, password });
   // // Or you can communicate directly over HTTP
@@ -18,7 +19,7 @@ exports = async function (payload) {
   //   },
   //   body: JSON.stringify({ username, password }),
   // });
-  console.log("USER: ", JSON.stringify(user))
+  
   
   
   // 3. Return a unique identifier for the user. Typically this is the
@@ -26,6 +27,6 @@ exports = async function (payload) {
   //    stored MongoDB document that describes them.
   //
   //    !!! This is NOT the user's internal account ID for your app !!!
-  return user._id
+  return user[0]._id
   // return user._id;
 };
