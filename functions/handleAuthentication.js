@@ -19,7 +19,7 @@ exports = async function (payload) {
   
   const resp = await users.findOne({'login': `${login}`});
   
-  return { 'id': '221435435874384' /*, 'name': resp.login, 'exhibitionName': resp.exhibitionName*/ }
+  return { 'id': '221435435874384' , 'debug': resp }
   // return resp._id.toString()
   
 }
