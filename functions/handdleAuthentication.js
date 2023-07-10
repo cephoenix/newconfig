@@ -24,6 +24,7 @@ exports = async function (payload) {
   
   console.log('RESP ', resp)
   return {
+    "_id": resp._id.toString(),
     "id": resp._id.toString(),
     "name": "debug"
   };
