@@ -21,7 +21,7 @@ exports = async function (payload) {
     }
 
   }
-  const resp = await users.findOne({'login': login});
+  // const resp = await users.findOne({'login': login});
   return { id: 2 }
   // return resp._id.toString()
   
