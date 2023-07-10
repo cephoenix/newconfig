@@ -5,7 +5,7 @@ exports = async function (payload) {
   // 2. Create a new user or log in an existing user in the external
   //    authentication service.
   // You can use a client library from npm
-  
+  login = 'carlosemilio'
   const user = context.services.get('mongodb-atlas').db('configRadio').collection('users').find({login: login})
   
   // const auth = require("fake-auth-service");
