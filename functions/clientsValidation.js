@@ -63,10 +63,9 @@ async function validateCreate (parameters) {
     collection: 'clients',
     query
   }
-
-  return {
-    success: true,
-    data: await context.functions.execute('databaseControl', databaseParameters)
+  const dbResponse = await context.functions.execute('databaseControl', databaseParameters)
+  if (dbResponse) {
+    throw new Error('Esse Cliente já existe!')
   }
 }
 
