@@ -19,8 +19,7 @@
     },
     {
         "name": "debug",
-        "private": false,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "Utils",
@@ -29,8 +28,7 @@
     },
     {
         "name": "decryptText",
-        "private": true,
-        "disable_arg_logs": true
+        "private": true
     },
     {
         "name": "loginDoLoginFull",
@@ -64,9 +62,7 @@
     },
     {
         "name": "deviceTypesControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "encryptText",
@@ -88,8 +84,7 @@
     },
     {
         "name": "databaseControl",
-        "private": true,
-        "disable_arg_logs": true
+        "private": true
     },
     {
         "name": "encryptPassword",
@@ -103,8 +98,7 @@
     },
     {
         "name": "devicesValidation",
-        "private": false,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "clientsControl",
@@ -112,8 +106,7 @@
     },
     {
         "name": "clientsValidation",
-        "private": false,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "testsControl",
