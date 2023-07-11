@@ -1,5 +1,6 @@
 exports = function(authEvent) {
   console.log("DEBUG: ", authEvent)
+  return {debug: true}
   /*
     An Authentication Trigger will always call a function with an authEvent.
     Documentation on Triggers: https://www.mongodb.com/docs/atlas/app-services/triggers/
@@ -29,5 +30,15 @@ exports = function(authEvent) {
     const response = context.http.get({ url: <URL> })
 
     Learn more about http client here: https://www.mongodb.com/docs/atlas/app-services/functions/context/#context-http
+    
+exports({
+  operationType: 'LOGIN',
+  providers: [{'local-userpass'}],
+  user: {
+    id: '625487ace31863f7609c55a8',
+    type: 'normal',
+  },
+  time: new Date('2022-04-11T03:00:00'),
+})
   */
 };
