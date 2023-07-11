@@ -1,21 +1,15 @@
 [
     {
         "name": "usersControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "handleAuthentication",
-        "private": false,
-        "run_as_system": true,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "proccessRequest",
-        "private": false,
-        "run_as_system": true,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "debug",
@@ -23,8 +17,7 @@
     },
     {
         "name": "Utils",
-        "private": false,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "decryptText",
@@ -32,33 +25,23 @@
     },
     {
         "name": "loginDoLoginFull",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "radiosControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "syncControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "loginDoLogin",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "loginValidation",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "deviceTypesControl",
@@ -66,21 +49,15 @@
     },
     {
         "name": "encryptText",
-        "private": true,
-        "run_as_system": true,
-        "disable_arg_logs": true
+        "private": true
     },
     {
         "name": "radiosValidation",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "testsPopulateRadiosCollection",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "databaseControl",
@@ -108,25 +85,18 @@
     },
     {
         "name": "testsControl",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "loginControl",
-        "private": false,
-        "run_as_system": true,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "testsRebuildDatabase",
-        "private": false,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "usersValidation",
-        "private": false,
-        "run_as_user_id": "6462810334b2e8e9f16d4f94",
-        "disable_arg_logs": true
+        "private": false
     }
 ]
