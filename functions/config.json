@@ -110,8 +110,7 @@
     },
     {
         "name": "clientsControl",
-        "private": false,
-        "disable_arg_logs": true
+        "private": false
     },
     {
         "name": "clientsValidation",
