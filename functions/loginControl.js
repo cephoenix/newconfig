@@ -112,10 +112,9 @@ exports = async function (payload) {
       }
 
       try {
-        
-        let resp = await doLoginTest(processedRequestData)
-        console.log("AUTH: ", JSON.stringify(context.authorization))
-        console.log("USER: ", JSON.stringify(context.user))
+        const resp = await doLoginTest(processedRequestData)
+        console.log('AUTH: ', JSON.stringify(context.authorization))
+        console.log('USER: ', JSON.stringify(context.user))
         return { success: true, data: resp }
       } catch (error) {
         return { success: false, data: error }
