@@ -1,5 +1,5 @@
  exports = async function(authEvent) {
-// async function createCustomUserDataOnSignUp(authEvent) {
+
   const {
     user: { id },
   } = authEvent;
@@ -17,6 +17,3 @@
   const options = { upsert: true };
   await customUserData.updateOne(query, update, options);
 }
-
-// exports = createCustomUserDataOnSignUp;
-// };
