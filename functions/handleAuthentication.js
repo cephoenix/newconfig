@@ -6,21 +6,26 @@ exports = async function (payload) {
     .collection("users");
 
   let login
-  let encryptedPassword
+  let password
   let requestData
   if(payload === "Hello world!") {
     login = 'carlosemilio'
-    encryptedPassword = '21345647684'
-    const resp = await users.findOne({'login': `${login}`});
-    console.log("RESP ", JSON.stringify(resp))
-    return { 'id': '221435435874384' }
+    password = 'YTlhYWFiYWNhZGFlYWZhMA=='
+  } else {
+    login = payload.login
+    password = payload.encryptedPassword    
   }
+
+  const loggedUser = await users.findOne({'login': `${login}`});
+  let rawPassword = await context.functions.execute('decryptText', password)
+  let encryptedPassword = await context.functions.execute('encryptPassword', rawPassword)
+  if(loggedUser.password === encryptedPassword) {
+    return { id: loggedUser._id.toString(), login: loggedUser.login, name: loggedUser.exhibitionName, customData: 'This is a custom data'}
+  } else {
+    throw new Error('Usuário/Senha incorreto(s)')
+  }  
  
-     
-  login = payload.login
-  const resp = await users.findOne({'login': `${login}`});
- 
-  return { 'id': '221435435874384' , 'login': resp.login, 'name': resp.exhibitionName, 'customData': 'asdfasdgçljasdg' }
+  // return { 'id': '221435435874384' , 'login': resp.login, 'name': resp.exhibitionName, 'customData': 'asdfasdgçljasdg' }
   // return resp._id.toString()
 }
 
