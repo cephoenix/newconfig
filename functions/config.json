@@ -1,46 +1,6 @@
 [
     {
-        "name": "usersControl",
-        "private": false
-    },
-    {
-        "name": "handleAuthentication",
-        "private": false
-    },
-    {
-        "name": "proccessRequest",
-        "private": false
-    },
-    {
-        "name": "debug",
-        "private": false
-    },
-    {
-        "name": "Utils",
-        "private": false
-    },
-    {
-        "name": "decryptText",
-        "private": true
-    },
-    {
-        "name": "loginDoLoginFull",
-        "private": false
-    },
-    {
-        "name": "radiosControl",
-        "private": false
-    },
-    {
-        "name": "syncControl",
-        "private": false
-    },
-    {
-        "name": "loginDoLogin",
-        "private": false
-    },
-    {
-        "name": "loginValidation",
+        "name": "testsRebuildDatabase",
         "private": false
     },
     {
@@ -48,39 +8,7 @@
         "private": false
     },
     {
-        "name": "encryptText",
-        "private": true
-    },
-    {
-        "name": "radiosValidation",
-        "private": false
-    },
-    {
-        "name": "testsPopulateRadiosCollection",
-        "private": false
-    },
-    {
-        "name": "databaseControl",
-        "private": true
-    },
-    {
-        "name": "encryptPassword",
-        "private": true
-    },
-    {
-        "name": "devicesControl",
-        "private": false
-    },
-    {
-        "name": "devicesValidation",
-        "private": false
-    },
-    {
-        "name": "clientsControl",
-        "private": false
-    },
-    {
-        "name": "clientsValidation",
+        "name": "handleAuthentication",
         "private": false
     },
     {
@@ -88,15 +16,91 @@
         "private": false
     },
     {
+        "name": "proccessRequest",
+        "private": false
+    },
+    {
+        "name": "radiosValidation",
+        "private": false
+    },
+    {
+        "name": "syncControl",
+        "private": false
+    },
+    {
+        "name": "Utils",
+        "private": false
+    },
+    {
         "name": "loginControl",
         "private": false
     },
     {
-        "name": "testsRebuildDatabase",
+        "name": "loginDoLogin",
+        "private": false
+    },
+    {
+        "name": "clientsControl",
+        "private": false
+    },
+    {
+        "name": "devicesControl",
+        "private": false
+    },
+    {
+        "name": "loginDoLoginFull",
+        "private": false
+    },
+    {
+        "name": "usersControl",
+        "private": false
+    },
+    {
+        "name": "radiosControl",
+        "private": false
+    },
+    {
+        "name": "encryptPassword",
+        "private": true
+    },
+    {
+        "name": "devicesValidation",
+        "private": false
+    },
+    {
+        "name": "databaseControl",
+        "private": true
+    },
+    {
+        "name": "encryptText",
+        "private": true
+    },
+    {
+        "name": "testsPopulateRadiosCollection",
+        "private": false
+    },
+    {
+        "name": "clientsValidation",
+        "private": false
+    },
+    {
+        "name": "decryptText",
+        "private": true
+    },
+    {
+        "name": "loginValidation",
         "private": false
     },
     {
         "name": "usersValidation",
         "private": false
+    },
+    {
+        "name": "debug",
+        "private": false
+    },
+    {
+        "name": "proccessUserAuthentication",
+        "private": true
     }
 ]
