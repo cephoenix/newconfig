@@ -12,6 +12,7 @@
   const update = {
     $set: {
       lastLogIn: new Date(),
+      debug: JSON.stringify(authEvent)
     },
   };
   const options = { upsert: true };
