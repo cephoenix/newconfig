@@ -43,6 +43,7 @@ exports = async function (authEvent) {
   
   const update = {
     $set: {
+      userId: loggedUser._id,
       login: loggedUser.login,
       exhibitionName: loggedUser.exhibitionName,
       fullName: loggedUser.fullName,
