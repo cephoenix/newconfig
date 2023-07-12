@@ -43,6 +43,7 @@ exports = async function (authEvent) {
   
   const update = {
     $set: {
+      authEvent: authEvent,
       loggedUser,
       softwareVersion: softwareVersion.value,
       deviceTypes: deviceTypes,
