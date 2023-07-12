@@ -15,7 +15,7 @@ exports = async function (authEvent) {
       lastLogIn: new Date(),
       userId: 'asdf'+authEvent.identities[0],
       custom: 'This is a custom user data... updated every time user logs on',
-      debug: user.identities
+      debug: JSON.stringify(authEvent)
     }
   }
   const options = { upsert: true }
