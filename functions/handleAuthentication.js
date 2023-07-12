@@ -8,29 +8,20 @@ exports = async function (payload) {
 
   let login
   let password
-  let internalCall
 
   if (payload === 'Hello world!') {
     login = 'carlosemilio'
     password = 'YTlhYWFiYWNhZGFlYWZhMA=='
-    internalCall = false
   } else {
     login = payload.login
     password = payload.encryptedPassword
-    internalCall = payload.internal
   }
   
-  if(internalCall) {
-    throw new Error( {internalCall: true} )
-  }
-
   const loggedUser = await users.findOne({ login: `${login}` })
   const rawPassword = await context.functions.execute('decryptText', password)
   const encryptedPassword = await context.functions.execute('encryptPassword', rawPassword)
   if (loggedUser.password === encryptedPassword) {
-  // return { 'id': '221435435874384' , 'login': resp.login, 'name': resp.exhibitionName, 'customData': 'asdfasdgçljasdg' }
-  // return loggedUser._id.toString()
-    return { id: loggedUser._id.toString(), name: loggedUser.exhibitionName, data: context.user }
+    return { id: loggedUser._id.toString(), name: loggedUser.exhibitionName }
   } else {
     throw new Error('Usuário/Senha incorreto(s)')
   }
