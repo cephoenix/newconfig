@@ -101,6 +101,7 @@
     },
     {
         "name": "handleAuthentication",
-        "private": true
+        "private": true,
+        "run_as_system": true
     }
 ]
