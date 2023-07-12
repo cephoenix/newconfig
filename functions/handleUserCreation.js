@@ -23,9 +23,8 @@ exports = async(user) => {
     query: { _id: user.identities[0].id }
   }
 
-throw new Error(databaseParameters);
   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
-  
+  throw new Error(loggedUser);
   const credentials = { login: loggedUser.login, password: loggedUser.password, internal: true}
   const ret = await context.auth.login(credentials)
   // throw new Error( JSON.stringify({usuario: user}) )
