@@ -21,13 +21,12 @@ exports = async function (payload) {
   const rawPassword = await context.functions.execute('decryptText', password)
   const encryptedPassword = await context.functions.execute('encryptPassword', rawPassword)
   if (loggedUser.password === encryptedPassword) {
-    return { id: loggedUser._id.toString(), name: loggedUser.exhibitionName }
+  // return { 'id': '221435435874384' , 'login': resp.login, 'name': resp.exhibitionName, 'customData': 'asdfasdgçljasdg' }
+  // return loggedUser._id.toString()
+    return { id: loggedUser._id.toString(), name: loggedUser.exhibitionName, data: context.user }
   } else {
     throw new Error('Usuário/Senha incorreto(s)')
   }
-
-  // return { 'id': '221435435874384' , 'login': resp.login, 'name': resp.exhibitionName, 'customData': 'asdfasdgçljasdg' }
-  return loggedUser._id.toString()
 }
 
 // return resp._id.toString()
