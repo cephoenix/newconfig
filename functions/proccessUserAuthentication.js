@@ -50,6 +50,6 @@ exports = async function (authEvent) {
   }
   const options = { upsert: true }
   await customUserData.updateOne(query, update, options)
-  context.user.custom_data.lastLogIn = new Date()
-  return {debug: true}
+  // context.user.custom_data.lastLogIn = new Date()
+  // return {debug: true}
 }
