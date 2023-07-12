@@ -13,6 +13,7 @@ exports = async function (authEvent) {
   const update = {
     $set: {
       lastLogIn: new Date(),
+      userId: id,
       custom: 'This is a custom user data... updated every time user logs on',
       debug: JSON.stringify(authEvent)
     }
