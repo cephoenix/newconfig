@@ -49,7 +49,7 @@ exports = async function (authEvent) {
       permissionLevel: loggedUser.permissionLevel,
       clients: loggedUser.clients,
       permissions: loggedUser.permissions,
-      loggedUser,
+      // loggedUser,
       softwareVersion: softwareVersion.value,
       lastLogIn: new Date()
     }
