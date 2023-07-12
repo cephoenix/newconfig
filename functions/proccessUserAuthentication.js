@@ -8,7 +8,7 @@ exports = async function (authEvent) {
   let databaseParameters = {
     action: 'findOne',
     collection: 'users',
-    query: { login: data.login }
+    query: { _id: id/*login: data.login*/ }
   }
 
   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
