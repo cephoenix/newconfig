@@ -1,34 +1,18 @@
 [
     {
+        "name": "encryptText",
+        "private": true
+    },
+    {
+        "name": "usersValidation",
+        "private": false
+    },
+    {
+        "name": "decryptText",
+        "private": true
+    },
+    {
         "name": "testsRebuildDatabase",
-        "private": false
-    },
-    {
-        "name": "deviceTypesControl",
-        "private": false
-    },
-    {
-        "name": "handleAuthentication",
-        "private": false
-    },
-    {
-        "name": "testsControl",
-        "private": false
-    },
-    {
-        "name": "proccessRequest",
-        "private": false
-    },
-    {
-        "name": "radiosValidation",
-        "private": false
-    },
-    {
-        "name": "syncControl",
-        "private": false
-    },
-    {
-        "name": "Utils",
         "private": false
     },
     {
@@ -36,7 +20,43 @@
         "private": false
     },
     {
+        "name": "encryptPassword",
+        "private": true
+    },
+    {
+        "name": "deviceTypesControl",
+        "private": false
+    },
+    {
+        "name": "proccessRequest",
+        "private": false
+    },
+    {
+        "name": "syncControl",
+        "private": false
+    },
+    {
+        "name": "databaseControl",
+        "private": true
+    },
+    {
+        "name": "testsPopulateRadiosCollection",
+        "private": false
+    },
+    {
+        "name": "devicesValidation",
+        "private": false
+    },
+    {
         "name": "loginDoLogin",
+        "private": false
+    },
+    {
+        "name": "loginDoLoginFull",
+        "private": false
+    },
+    {
+        "name": "testsControl",
         "private": false
     },
     {
@@ -48,7 +68,7 @@
         "private": false
     },
     {
-        "name": "loginDoLoginFull",
+        "name": "loginValidation",
         "private": false
     },
     {
@@ -56,27 +76,19 @@
         "private": false
     },
     {
+        "name": "proccessUserAuthentication",
+        "private": true
+    },
+    {
+        "name": "Utils",
+        "private": false
+    },
+    {
         "name": "radiosControl",
         "private": false
     },
     {
-        "name": "encryptPassword",
-        "private": true
-    },
-    {
-        "name": "devicesValidation",
-        "private": false
-    },
-    {
-        "name": "databaseControl",
-        "private": true
-    },
-    {
-        "name": "encryptText",
-        "private": true
-    },
-    {
-        "name": "testsPopulateRadiosCollection",
+        "name": "radiosValidation",
         "private": false
     },
     {
@@ -84,23 +96,11 @@
         "private": false
     },
     {
-        "name": "decryptText",
-        "private": true
-    },
-    {
-        "name": "loginValidation",
-        "private": false
-    },
-    {
-        "name": "usersValidation",
-        "private": false
-    },
-    {
         "name": "debug",
         "private": false
     },
     {
-        "name": "proccessUserAuthentication",
+        "name": "handleAuthentication",
         "private": true
     }
 ]
