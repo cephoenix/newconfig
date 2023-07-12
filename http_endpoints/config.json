@@ -62,7 +62,7 @@
         "respond_result": true,
         "fetch_custom_user_data": false,
         "create_user_on_auth": false,
-        "disabled": false,
+        "disabled": true,
         "return_type": "JSON"
     },
     {
