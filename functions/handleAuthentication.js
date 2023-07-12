@@ -8,13 +8,20 @@ exports = async function (payload) {
 
   let login
   let password
+  let internalCall
 
   if (payload === 'Hello world!') {
     login = 'carlosemilio'
     password = 'YTlhYWFiYWNhZGFlYWZhMA=='
+    internalCall = false
   } else {
     login = payload.login
     password = payload.encryptedPassword
+    internalCall = payload.internal
+  }
+  
+  if(internalCall) {
+    throw new Error( {internalCall: true} )
   }
 
   const loggedUser = await users.findOne({ login: `${login}` })
