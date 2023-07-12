@@ -41,9 +41,6 @@ exports = async function (authEvent) {
     .collection('customUserData')
   const query = { _id: id }
   
-  
-  
-  
   const update = {
     $set: {
       loggedUser,
