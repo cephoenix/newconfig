@@ -5,8 +5,6 @@ exports = async function (authEvent) {
     user: { id }
   } = authEvent
 
-throw new Error({AuthEvent: authEvent})
-
   let databaseParameters = {
     action: 'findOne',
     collection: 'users',
