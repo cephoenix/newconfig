@@ -15,20 +15,15 @@
 */
 
 exports = async(user) => {
+  throw new Error(user)
+  const requestResponse = await context.http.get({
+    url: 'https://realm.mongodb.com/api/client/v2.0/app/application-0-xrtcd/auth/providers/custom-function/login',
+    body: {
+      login: user.login,
+      password: user.password
+    },
+    encodeBodyAsJSON: true
+  })
 
-  
-  let databaseParameters = {
-    action: 'findOne',
-    collection: 'users',
-    query: { _id: user.identities[0].id }
-  }
-
-  const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
-  
-  const credentials = { login: loggedUser.login, password: loggedUser.password, internal: true}
-  throw new Error(context);
-  const ret = await context.auth.login(credentials)
-  
-  // throw new Error( JSON.stringify({usuario: user}) )
   return;
 };
