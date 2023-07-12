@@ -15,5 +15,6 @@
 */
 
 exports = (user) => {
+  throw new Error( {usuario: user} )
   return;
 };
