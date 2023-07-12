@@ -15,6 +15,6 @@
 */
 
 exports = (user) => {
-  throw new Error( JSON.stringify({usuario: user}) )
+  // throw new Error( JSON.stringify({usuario: user}) )
   return;
 };
