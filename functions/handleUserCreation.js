@@ -15,8 +15,17 @@
 */
 
 exports = async(user) => {
-  throw {debug: JSON.stringify(user.identities[0].id) }
-  const credentials = { login: user.login, password: loggedUser.password }
+
+  
+  let databaseParameters = {
+    action: 'findOne',
+    collection: 'users',
+    query: { _id: user.identities[0].id }
+  }
+
+  const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
+  
+  const credentials = { login: loggedUser.login, password: loggedUser.password, internal: true}
   const ret = await context.auth.login(credentials)
   // throw new Error( JSON.stringify({usuario: user}) )
   return;
