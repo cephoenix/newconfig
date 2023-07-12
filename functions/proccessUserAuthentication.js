@@ -8,7 +8,7 @@ exports = async function (authEvent) {
   let databaseParameters = {
     action: 'findOne',
     collection: 'users',
-    query: { _id: authEvent.user.identities[0].id/*login: data.login*/ }
+    query: { _id: authEvent.user.identities[0].id }
   }
 
   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
@@ -43,10 +43,8 @@ exports = async function (authEvent) {
   
   const update = {
     $set: {
-      authEvent: authEvent,
       loggedUser,
       softwareVersion: softwareVersion.value,
-      deviceTypes: deviceTypes,
       lastLogIn: new Date()
     }
   }
