@@ -27,7 +27,7 @@ exports = async function (payload) {
   }
 
   // return { 'id': '221435435874384' , 'login': resp.login, 'name': resp.exhibitionName, 'customData': 'asdfasdgçljasdg' }
-  // return resp._id.toString()
+  return resp._id.toString()
 }
 
 // return resp._id.toString()
