@@ -21,7 +21,7 @@ exports = async function (payload) {
   const rawPassword = await context.functions.execute('decryptText', password)
   const encryptedPassword = await context.functions.execute('encryptPassword', rawPassword)
   if (loggedUser.password === encryptedPassword) {
-    return { id: loggedUser._id.toString(), login: loggedUser.login, name: loggedUser.exhibitionName, customData: 'This is a custom data' }
+    return { id: loggedUser._id.toString(), name: loggedUser.exhibitionName }
   } else {
     throw new Error('Usuário/Senha incorreto(s)')
   }
