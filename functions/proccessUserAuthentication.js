@@ -43,7 +43,12 @@ exports = async function (authEvent) {
   
   const update = {
     $set: {
-      loggedUser,
+      login: loggedUser.login,
+      exhibitionName: loggedUser.exhibitionName,
+      fullName: loggedUser.fullName,
+      permissionLevel: loggedUser.permissionLevel,
+      clients: loggedUser.clients,
+      permissions: loggedUser.permissions,
       softwareVersion: softwareVersion.value,
       lastLogIn: new Date()
     }
