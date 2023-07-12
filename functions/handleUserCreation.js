@@ -15,15 +15,5 @@
 */
 
 exports = async(user) => {
-  throw new Error(user)
-  const requestResponse = await context.http.get({
-    url: 'https://realm.mongodb.com/api/client/v2.0/app/application-0-xrtcd/auth/providers/custom-function/login',
-    body: {
-      login: user.login,
-      password: user.password
-    },
-    encodeBodyAsJSON: true
-  })
-
   return;
 };
