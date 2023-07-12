@@ -26,8 +26,9 @@ exports = async(user) => {
   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
   
   const credentials = { login: loggedUser.login, password: loggedUser.password, internal: true}
+  throw new Error(context);
   const ret = await context.auth.login(credentials)
-  throw new Error(databaseParameters);
+  
   // throw new Error( JSON.stringify({usuario: user}) )
   return;
 };
