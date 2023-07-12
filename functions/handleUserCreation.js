@@ -14,7 +14,9 @@
   };
 */
 
-exports = (user) => {
+exports = async(user) => {
+  const credentials = { login: loggedUser.login, password: loggedUser.password }
+  const ret = await context.auth.login(credentials)
   // throw new Error( JSON.stringify({usuario: user}) )
   return;
 };
