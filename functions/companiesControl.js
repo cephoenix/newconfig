@@ -71,5 +71,24 @@ exports = async function (payload) {
       }
       operationName = 'radiosInsertMany'
       break
+
+    default:
+      return { success: false, data: 'Ação inválida!' }
+  }
+
+  try {
+    const databaseParameters = {
+      action: databaseAction,
+      collection: databaseCollection,
+      query: databaseQuery,
+      filter: databaseFilter
+    }
+
+    return {
+      success: true,
+      data: await context.functions.execute('databaseControl', databaseParameters)
+    }
+  } catch (error) {
+    return { success: false, data: error }
   }
 }
