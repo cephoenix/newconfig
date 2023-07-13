@@ -73,7 +73,8 @@ exports = async function (payload) {
       break
     case 'debug':
       return {
-        userContext: context.user
+        userContext: context.user,
+        encryptedPassword: await context.functions.execute('encryptText', '12345678')
       }
 
     default:
