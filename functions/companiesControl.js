@@ -18,7 +18,7 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error }
   }
-
+return {debug: true}
   switch (action) {
     case 'create':
       databaseAction = 'insertOne'
