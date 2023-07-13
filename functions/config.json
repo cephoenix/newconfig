@@ -1,46 +1,6 @@
 [
     {
-        "name": "encryptText",
-        "private": true
-    },
-    {
-        "name": "usersValidation",
-        "private": false
-    },
-    {
-        "name": "decryptText",
-        "private": true
-    },
-    {
-        "name": "testsRebuildDatabase",
-        "private": false
-    },
-    {
-        "name": "loginControl",
-        "private": false
-    },
-    {
-        "name": "encryptPassword",
-        "private": true
-    },
-    {
-        "name": "deviceTypesControl",
-        "private": false
-    },
-    {
         "name": "proccessRequest",
-        "private": false
-    },
-    {
-        "name": "syncControl",
-        "private": false
-    },
-    {
-        "name": "databaseControl",
-        "private": true
-    },
-    {
-        "name": "testsPopulateRadiosCollection",
         "private": false
     },
     {
@@ -48,20 +8,13 @@
         "private": false
     },
     {
-        "name": "loginDoLogin",
-        "private": false
+        "name": "encryptPassword",
+        "private": true
     },
     {
-        "name": "loginDoLoginFull",
-        "private": false
-    },
-    {
-        "name": "testsControl",
-        "private": false
-    },
-    {
-        "name": "clientsControl",
-        "private": false
+        "name": "handleUserCreation",
+        "private": false,
+        "run_as_system": true
     },
     {
         "name": "devicesControl",
@@ -72,7 +25,11 @@
         "private": false
     },
     {
-        "name": "usersControl",
+        "name": "loginDoLoginFull",
+        "private": false
+    },
+    {
+        "name": "usersValidation",
         "private": false
     },
     {
@@ -80,23 +37,52 @@
         "private": true
     },
     {
+        "name": "clientsValidation",
+        "private": false
+    },
+    {
+        "name": "loginDoLogin",
+        "private": false
+    },
+    {
         "name": "Utils",
         "private": false
     },
     {
-        "name": "radiosControl",
-        "private": false
+        "name": "databaseControl",
+        "private": true
+    },
+    {
+        "name": "companiesControl",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "encryptText",
+        "private": true
     },
     {
         "name": "radiosValidation",
         "private": false
     },
     {
-        "name": "clientsValidation",
+        "name": "clientsControl",
+        "private": false
+    },
+    {
+        "name": "loginControl",
         "private": false
     },
     {
         "name": "debug",
+        "private": false
+    },
+    {
+        "name": "testsControl",
+        "private": false
+    },
+    {
+        "name": "testsRebuildDatabase",
         "private": false
     },
     {
@@ -105,13 +91,23 @@
         "run_as_system": true
     },
     {
-        "name": "handleUserCreation",
-        "private": false,
-        "run_as_system": true
+        "name": "usersControl",
+        "private": false
     },
     {
-        "name": "companiesControl",
-        "private": false,
-        "disable_arg_logs": true
+        "name": "syncControl",
+        "private": false
+    },
+    {
+        "name": "radiosControl",
+        "private": false
+    },
+    {
+        "name": "deviceTypesControl",
+        "private": false
+    },
+    {
+        "name": "decryptText",
+        "private": true
     }
 ]
