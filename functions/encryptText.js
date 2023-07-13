@@ -12,8 +12,10 @@ exports = async function (text) {
     .map(applySaltToChar)
     .map(byteHex)
     .join('')
-  ret = Buffer.from(ret).toString('base64')
-  return ret
+
+  return btoa(ret)
+  // ret = Buffer.from(ret).toString('base64')
+  // return ret
 }
 
 if (typeof module === 'object') {
