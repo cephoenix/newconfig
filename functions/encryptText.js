@@ -13,9 +13,8 @@ exports = async function (text) {
     .map(byteHex)
     .join('')
 
-  return btoa(ret)
-  // ret = Buffer.from(ret).toString('base64')
-  // return ret
+  // return btoa(ret)
+  return Buffer.from(ret).toString('base64')
 }
 
 if (typeof module === 'object') {
