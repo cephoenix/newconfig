@@ -6,7 +6,7 @@ exports = async function (text) {
   const byteHex = (n) => ('0' + Number(n).toString(16)).substr(-2)
   const applySaltToChar = (code) => textToChars(key).reduce((a, b) => a ^ b, code)
 
-  let ret = text
+  const ret = text
     .split('')
     .map(textToChars)
     .map(applySaltToChar)
