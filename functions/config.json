@@ -4,28 +4,20 @@
         "private": false
     },
     {
-        "name": "devicesValidation",
-        "private": false
-    },
-    {
-        "name": "encryptPassword",
-        "private": true
-    },
-    {
         "name": "handleUserCreation",
         "private": false,
         "run_as_system": true
     },
     {
-        "name": "devicesControl",
-        "private": false
+        "name": "databaseControl",
+        "private": true
     },
     {
         "name": "loginValidation",
         "private": false
     },
     {
-        "name": "loginDoLoginFull",
+        "name": "radiosControl",
         "private": false
     },
     {
@@ -41,48 +33,23 @@
         "private": false
     },
     {
-        "name": "loginDoLogin",
+        "name": "devicesControl",
         "private": false
     },
     {
-        "name": "Utils",
+        "name": "devicesValidation",
         "private": false
     },
     {
-        "name": "databaseControl",
+        "name": "decryptText",
         "private": true
-    },
-    {
-        "name": "companiesControl",
-        "private": false,
-        "disable_arg_logs": true
     },
     {
         "name": "encryptText",
         "private": true
     },
     {
-        "name": "radiosValidation",
-        "private": false
-    },
-    {
-        "name": "clientsControl",
-        "private": false
-    },
-    {
-        "name": "loginControl",
-        "private": false
-    },
-    {
-        "name": "debug",
-        "private": false
-    },
-    {
-        "name": "testsControl",
-        "private": false
-    },
-    {
-        "name": "testsRebuildDatabase",
+        "name": "syncControl",
         "private": false
     },
     {
@@ -91,15 +58,11 @@
         "run_as_system": true
     },
     {
-        "name": "usersControl",
+        "name": "Utils",
         "private": false
     },
     {
-        "name": "syncControl",
-        "private": false
-    },
-    {
-        "name": "radiosControl",
+        "name": "testsControl",
         "private": false
     },
     {
@@ -107,7 +70,40 @@
         "private": false
     },
     {
-        "name": "decryptText",
+        "name": "companiesControl",
+        "private": false,
+        "disable_arg_logs": true
+    },
+    {
+        "name": "usersControl",
+        "private": false
+    },
+    {
+        "name": "loginControl",
+        "private": false
+    },
+    {
+        "name": "loginDoLogin",
+        "private": false
+    },
+    {
+        "name": "radiosValidation",
+        "private": false
+    },
+    {
+        "name": "testsRebuildDatabase",
+        "private": false
+    },
+    {
+        "name": "clientsControl",
+        "private": false
+    },
+    {
+        "name": "debug",
+        "private": false
+    },
+    {
+        "name": "encryptPassword",
         "private": true
     }
 ]
