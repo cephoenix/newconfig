@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
-exports = async function(payload) {
+exports = async function (payload) {
   /**
     * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
     */
