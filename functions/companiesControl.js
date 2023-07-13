@@ -18,4 +18,10 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error }
   }
+
+  switch (action) {
+    case 'create':
+      databaseAction = 'insertOne'
+      break
+  }
 }
