@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line n/no-exports-assign
 exports = async function (payload) {
-  return {debug: payload}
   /**
     * Processa a requisição: Decodifica os dados e depois tranforma em formato JSON
     */
@@ -10,7 +9,7 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error }
   }
-
+  return { debug: processedRequestData }
   /**
    * Valida os dados de acordo com a ação requisitada
    */
