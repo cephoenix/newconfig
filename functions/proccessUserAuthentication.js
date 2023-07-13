@@ -14,19 +14,6 @@ exports = async function (authEvent) {
   const loggedUser = await context.functions.execute('databaseControl', databaseParameters)
 
   databaseParameters = {
-    action: 'findMany',
-    collection: 'deviceTypes',
-    query: {
-      class: {
-        $ne: '6'
-      }
-    },
-    filter: {}
-  }
-
-  const deviceTypes = await context.functions.execute('databaseControl', databaseParameters)
-
-  databaseParameters = {
     action: 'findOne',
     collection: 'parameters',
     query: { name: 'softwareVersion' },
@@ -40,7 +27,7 @@ exports = async function (authEvent) {
     .db('configRadio')
     .collection('customUserData')
   const query = { _id: id }
-  
+
   const update = {
     $set: {
       userId: loggedUser._id,
@@ -57,7 +44,7 @@ exports = async function (authEvent) {
   }
   const options = { upsert: true }
   await customUserData.updateOne(query, update, options)
-  
+
   // context.user.custom_data.lastLogIn = new Date()
   // return {debug: true}
 }

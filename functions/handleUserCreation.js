@@ -13,7 +13,8 @@
     const doc = collection.insertOne({ <USER_ID_FIELD>: user.id, name: user.data.name });
   };
 */
+/* eslint-disable no-undef */
+// eslint-disable-next-line n/no-exports-assign
+exports = async (user) => {
 
-exports = async(user) => {
-  return;
-};
+}

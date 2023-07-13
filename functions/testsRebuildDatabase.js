@@ -246,8 +246,7 @@ exports = async function (data) {
     query: {}
   }
 
-  let clients = await context.functions.execute('databaseControl', databaseParameters)
-  
+  const clients = await context.functions.execute('databaseControl', databaseParameters)
   const allClients = []
 
   clients.forEach((c) => {

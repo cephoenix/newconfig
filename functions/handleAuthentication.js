@@ -16,7 +16,7 @@ exports = async function (payload) {
     login = payload.login
     password = payload.encryptedPassword
   }
-  
+
   const loggedUser = await users.findOne({ login: `${login}` })
   const rawPassword = await context.functions.execute('decryptText', password)
   const encryptedPassword = await context.functions.execute('encryptPassword', rawPassword)
