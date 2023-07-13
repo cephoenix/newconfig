@@ -9,7 +9,7 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error }
   }
-  return { debug: processedRequestData }
+
   /**
    * Valida os dados de acordo com a ação requisitada
    */
@@ -18,7 +18,7 @@ exports = async function (payload) {
   } catch (error) {
     return { success: false, data: error }
   }
-
+  return { debug: processedRequestData }
   switch (action) {
     case 'create':
       databaseAction = 'insertOne'
